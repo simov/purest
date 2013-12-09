@@ -1,6 +1,6 @@
 {
     "name": "tinyrest",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Tiny flexible RESTful HTTP client library",
     "keywords": [
         "rest", "restful", "api", "http", "https"
