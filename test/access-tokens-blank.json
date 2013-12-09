@@ -1,0 +1,14 @@
+{
+    "bitly": "",
+    "stocktwits": "",
+    "linkedin": {
+        "consumer": {
+            "key": "",
+            "secret": ""
+        },
+        "user": {
+            "token": "",
+            "secret": ""
+        }
+    }
+}

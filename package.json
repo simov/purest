@@ -1,0 +1,28 @@
+{
+    "name": "tinyrest",
+    "version": "0.0.1",
+    "description": "Tiny flexible RESTful HTTP client library",
+    "keywords": [
+        "rest", "restful", "api", "http", "https"
+    ],
+    "license"   : "MIT",
+    "author": {
+        "name"  : "simo",
+        "email" : "simeonvelichkov@gmail.com"
+    },
+    "repository": {
+        "type"  : "git",
+        "url"   : "git://github.com/simov/tinyrest.git"
+    },
+    "dependencies": {
+        "oauth" : "0.9.10"
+    },
+    "devDependencies": {
+        "mocha" : "*",
+        "should": "*"
+    },
+    "main": "./lib/tinyrest",
+    "scripts": {
+        "test": "node_modules/bin/mocha --require should --reporter spec --timeout 5000 test/index"
+    }
+}
