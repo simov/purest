@@ -39,6 +39,12 @@ describe('tinyrest', function () {
         tr.provider.endpoint.should.equal('http://api.linkedin.com');
         done();
     });
+    it('should create twitter instance', function (done) {
+        var tr = new TinyRest({provider:'twitter'});
+        tr.provider.version.should.equal('1.1');
+        tr.provider.endpoint.should.equal('https://api.twitter.com');
+        done();
+    });
     it('should create bitly path', function (done) {
         var tr = new TinyRest({provider:'bitly'});
         tr.provider.createPath('link/clicks')
@@ -55,6 +61,12 @@ describe('tinyrest', function () {
         var tr = new TinyRest({provider:'linkedin'});
         tr.provider.createPath('people')
             .should.equal('/v1/people');
+        done();
+    });
+    it('should create twitter path', function (done) {
+        var tr = new TinyRest({provider:'twitter'});
+        tr.provider.createPath('users/show')
+            .should.equal('/1.1/users/show.json');
         done();
     });
     it('should create a querystring', function (done) {
@@ -79,6 +91,12 @@ describe('tinyrest', function () {
         var tr = new TinyRest({provider:'linkedin'});
         tr.getPath('companies',{'email-domain':'apple.com'})
             .should.equal('/v1/companies?email-domain=apple.com');
+        done();
+    });
+    it('should get twitter path', function (done) {
+        var tr = new TinyRest({provider:'twitter'});
+        tr.getPath('users/show',{'screen_name':'mightymob'})
+            .should.equal('/1.1/users/show.json?screen_name=mightymob');
         done();
     });
     it('should get bitly resource', function (done) {
@@ -111,6 +129,21 @@ describe('tinyrest', function () {
             if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
             data.values[0].id.should.equal(162479);
             data.values[0].name.should.equal('Apple');
+            done();
+        });
+    });
+    it('should get twitter resource', function (done) {
+        var tr = new TinyRest({provider:'twitter',
+            consumerKey:cred.twitter.consumer.key,
+            consumerSecret:cred.twitter.consumer.secret});
+        tr.get('users/show', {
+            oauth_token:cred.twitter.user.token,
+            oauth_token_secret:cred.twitter.user.secret,
+            'screen_name':'mightymob'
+        }, function (err, data, res) {
+            if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+            data.id.should.equal(1504092505);
+            data.screen_name.should.equal('mightymob');
             done();
         });
     });
