@@ -1,6 +1,7 @@
 
+var fs = require('fs');
 var should = require('should');
-// var TinyRest = require('../lib/tinyrest');
+
 var TinyRest = require('../lib/tinyrest');
 try {
     var cred = require('./credentials');
@@ -146,8 +147,8 @@ describe('tinyrest', function () {
                 consumerKey:cred.app.linkedin.key,
                 consumerSecret:cred.app.linkedin.secret});
             t.get('companies', {
-                oauth_token:cred.user.linkedin.token,
-                oauth_token_secret:cred.user.linkedin.secret,
+                t_token:cred.user.linkedin.token,
+                t_secret:cred.user.linkedin.secret,
                 'email-domain':'apple.com'
             }, function (err, res, body) {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
@@ -161,8 +162,8 @@ describe('tinyrest', function () {
                 consumerKey:cred.app.twitter.key,
                 consumerSecret:cred.app.twitter.secret});
             t.get('users/show', {
-                oauth_token:cred.user.twitter.token,
-                oauth_token_secret:cred.user.twitter.secret,
+                t_token:cred.user.twitter.token,
+                t_secret:cred.user.twitter.secret,
                 screen_name:'mightymob'
             }, function (err, res, body) {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
@@ -191,8 +192,8 @@ describe('tinyrest', function () {
                 consumerKey:cred.app.linkedin.key,
                 consumerSecret:cred.app.linkedin.secret});
             t.post('people/~/shares', {
-                oauth_token:cred.user.linkedin.token,
-                oauth_token_secret:cred.user.linkedin.secret
+                t_token:cred.user.linkedin.token,
+                t_secret:cred.user.linkedin.secret
             }, {
                 comment:'Message on '+new Date(),
                 visibility:{code:'anyone'}
@@ -209,8 +210,8 @@ describe('tinyrest', function () {
                 consumerKey:cred.app.twitter.key,
                 consumerSecret:cred.app.twitter.secret});
             t.post('statuses/update', {
-                oauth_token:cred.user.twitter.token,
-                oauth_token_secret:cred.user.twitter.secret
+                t_token:cred.user.twitter.token,
+                t_secret:cred.user.twitter.secret
             }, {
                 status:'Message on '+new Date()
             },
@@ -220,5 +221,27 @@ describe('tinyrest', function () {
                 done();
             });
         });
-    })
+    });
+    // upload
+    describe.skip('upload', function () {
+        it('should upload image to twitter', function (done) {
+            var t = new TinyRest({provider:'twitter',
+                consumerKey:cred.app.twitter.key,
+                consumerSecret:cred.app.twitter.secret});
+            t.post('statuses/update_with_media', {
+                t_token:cred.user.twitter.token,
+                t_secret:cred.user.twitter.secret,
+                t_mime:'image/jpeg'
+            }, {
+                status:'Message on '+new Date(),
+                'media[]':fs.readFileSync('/home/mighty/hdd/images/cat4.jpg')
+            },
+            function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                console.log(body);
+                body.source.should.equal('<a href="http://outofindex.com" rel="nofollow">TinyRest</a>');
+                done();
+            });
+        });
+    });
 });
