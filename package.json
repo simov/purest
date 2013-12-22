@@ -15,7 +15,7 @@
         "url"   : "git://github.com/simov/tinyrest.git"
     },
     "dependencies": {
-        "oauth" : "0.9.10"
+        "request" : "2.27.0"
     },
     "devDependencies": {
         "mocha" : "*",
