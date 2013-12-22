@@ -240,6 +240,7 @@ describe('tinyrest', function () {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
                 console.log(body);
                 body.source.should.equal('<a href="http://outofindex.com" rel="nofollow">TinyRest</a>');
+                body.entities.media[0].should.be.an.instanceOf(Object);
                 done();
             });
         });
