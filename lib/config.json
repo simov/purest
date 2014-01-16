@@ -1,0 +1,18 @@
+{
+    "bitly": {
+        "version": "v3",
+        "endpoint": "https://api-ssl.bitly.com"
+    },
+    "stocktwits": {
+        "version": "2",
+        "endpoint": "https://api.stocktwits.com"
+    },
+    "linkedin": {
+        "version": "v1",
+        "endpoint": "http://api.linkedin.com"
+    },
+    "twitter": {
+        "version": "1.1",
+        "endpoint": "https://api.twitter.com"
+    }	
+}
