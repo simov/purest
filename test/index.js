@@ -61,6 +61,13 @@ describe('tinyrest', function () {
             t.provider.endpoint.should.equal('https://graph.facebook.com');
             done();
         });
+        it('should create rubygems instance', function (done) {
+            var t = new TinyRest({provider:'rubygems'});
+            t.provider.rubygems.should.equal(true);
+            t.provider.version.should.equal('v1');
+            t.provider.endpoint.should.equal('https://rubygems.org');
+            done();
+        });
         // path
         it('should create bitly path', function (done) {
             var t = new TinyRest({provider:'bitly'});
@@ -90,6 +97,12 @@ describe('tinyrest', function () {
             var t = new TinyRest({provider:'facebook'});
             t.provider.createPath('me')
                 .should.equal('/me');
+            done();
+        });
+        it('should create rubygems path', function (done) {
+            var t = new TinyRest({provider:'rubygems'});
+            t.provider.createPath('gems/rails')
+                .should.equal('/api/v1/gems/rails.json');
             done();
         });
         // querystring
@@ -128,6 +141,12 @@ describe('tinyrest', function () {
             var t = new TinyRest({provider:'facebook'});
             t.getPath('me/groups',{fields:'id,name'})
                 .should.equal('/me/groups?fields=id%2Cname');
+            done();
+        });
+        it('should get rubygems path', function (done) {
+            var t = new TinyRest({provider:'rubygems'});
+            t.getPath('search',{query:'rails'})
+                .should.equal('/api/v1/search.json?query=rails');
             done();
         });
     });
@@ -169,6 +188,15 @@ describe('tinyrest', function () {
                 Object.keys(body.data[0]).length.should.equal(2);
                 body.data[0].id.should.equal('313807222041302');
                 body.data[0].name.should.equal('Facebook Developers');
+                done();
+            });
+        });
+        it('should get rubygems resource', function (done) {
+            var t = new TinyRest({provider:'rubygems'});
+            t.get('gems/rails', function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                body.name.should.equal('rails');
+                body.platform.should.equal('ruby');
                 done();
             });
         });

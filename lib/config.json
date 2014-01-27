@@ -17,5 +17,9 @@
     },
     "facebook": {
         "endpoint": "https://graph.facebook.com"
+    },
+    "rubygems": {
+        "version": "v1",
+        "endpoint": "https://rubygems.org"
     }	
 }
