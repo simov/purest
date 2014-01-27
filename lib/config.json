@@ -14,5 +14,8 @@
     "twitter": {
         "version": "1.1",
         "endpoint": "https://api.twitter.com"
+    },
+    "facebook": {
+        "endpoint": "https://graph.facebook.com"
     }	
 }

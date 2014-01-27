@@ -54,6 +54,13 @@ describe('tinyrest', function () {
             t.provider.endpoint.should.equal('https://api.twitter.com');
             done();
         });
+        it('should create facebook instance', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.provider.facebook.should.equal(true);
+            t.provider.version.should.equal('');
+            t.provider.endpoint.should.equal('https://graph.facebook.com');
+            done();
+        });
         // path
         it('should create bitly path', function (done) {
             var t = new TinyRest({provider:'bitly'});
@@ -77,6 +84,12 @@ describe('tinyrest', function () {
             var t = new TinyRest({provider:'twitter'});
             t.provider.createPath('users/show')
                 .should.equal('/1.1/users/show.json');
+            done();
+        });
+        it('should create facebook path', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.provider.createPath('me')
+                .should.equal('/me');
             done();
         });
         // querystring
@@ -111,6 +124,12 @@ describe('tinyrest', function () {
                 .should.equal('/1.1/users/show.json?screen_name=mightymob');
             done();
         });
+        it('should get facebook path', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.getPath('me/groups',{fields:'id,name'})
+                .should.equal('/me/groups?fields=id%2Cname');
+            done();
+        });
     });
     describe.skip('api error', function () {
         it('should return stocktwits api error', function (done) {
@@ -139,6 +158,17 @@ describe('tinyrest', function () {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
                 body.response.status.should.equal(200);
                 body.messages.length.should.equal(30);
+                done();
+            });
+        });
+        it('should get facebook resource', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.get('me/groups', {access_token:cred.user.facebook.token, fields:'id,name'}, function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                body.data.length.should.equal(2);
+                Object.keys(body.data[0]).length.should.equal(2);
+                body.data[0].id.should.equal('313807222041302');
+                body.data[0].name.should.equal('Facebook Developers');
                 done();
             });
         });
@@ -184,6 +214,17 @@ describe('tinyrest', function () {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
                 body.message.source.id.should.equal(1348);
                 body.message.source.title.should.equal('TinyRest');
+                done();
+            });
+        });
+        it('should post facebook resource', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.post('me/feed',
+                {access_token: cred.user.facebook.token},
+                {message: 'Message on '+new Date()},
+            function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                body.id.should.be.instanceOf(String);
                 done();
             });
         });
