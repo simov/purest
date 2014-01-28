@@ -191,6 +191,15 @@ describe('tinyrest', function () {
                 done();
             });
         });
+        it('should get facebook fql resource', function (done) {
+            var t = new TinyRest({provider:'facebook'});
+            t.get('fql', {access_token:cred.user.facebook.token,
+                q:'SELECT friend_count FROM user WHERE uid = 100006399333306'}, function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                body.data[0].friend_count.should.equal(1);
+                done();
+            });
+        });
         it('should get rubygems resource', function (done) {
             var t = new TinyRest({provider:'rubygems'});
             t.get('gems/rails', function (err, res, body) {
