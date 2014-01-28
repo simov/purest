@@ -68,6 +68,13 @@ describe('tinyrest', function () {
             t.provider.endpoint.should.equal('https://rubygems.org');
             done();
         });
+        it('should create soundcloud instance', function (done) {
+            var t = new TinyRest({provider:'soundcloud'});
+            t.provider.soundcloud.should.equal(true);
+            t.provider.version.should.equal('');
+            t.provider.endpoint.should.equal('https://api.soundcloud.com');
+            done();
+        });
         // path
         it('should create bitly path', function (done) {
             var t = new TinyRest({provider:'bitly'});
@@ -103,6 +110,12 @@ describe('tinyrest', function () {
             var t = new TinyRest({provider:'rubygems'});
             t.provider.createPath('gems/rails')
                 .should.equal('/api/v1/gems/rails.json');
+            done();
+        });
+        it('should create soundcloud path', function (done) {
+            var t = new TinyRest({provider:'soundcloud'});
+            t.provider.createPath('tracks')
+                .should.equal('/tracks.json');
             done();
         });
         // querystring
@@ -147,6 +160,12 @@ describe('tinyrest', function () {
             var t = new TinyRest({provider:'rubygems'});
             t.getPath('search',{query:'rails'})
                 .should.equal('/api/v1/search.json?query=rails');
+            done();
+        });
+        it('should get soundcloud path', function (done) {
+            var t = new TinyRest({provider:'soundcloud'});
+            t.getPath('tracks',{genres:'dnb'})
+                .should.equal('/tracks.json?genres=dnb');
             done();
         });
     });
@@ -236,6 +255,14 @@ describe('tinyrest', function () {
                 if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
                 body.id.should.equal(1504092505);
                 body.screen_name.should.equal('mightymob');
+                done();
+            });
+        });
+        it('should get soundcloud resource', function (done) {
+            var t = new TinyRest({provider:'soundcloud'});
+            t.get('users', {oauth_token:cred.user.soundcloud.token, q:'thriftworks'}, function (err, res, body) {
+                if (err) return (err instanceof Error) ? done(err) : (console.log(err)||done(new Error('Network error!')));
+                body[0].username.should.equal('Thriftworks');
                 done();
             });
         });

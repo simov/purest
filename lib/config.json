@@ -21,5 +21,8 @@
     "rubygems": {
         "version": "v1",
         "endpoint": "https://rubygems.org"
+    },
+    "soundcloud": {
+        "endpoint": "https://api.soundcloud.com"
     }	
 }
