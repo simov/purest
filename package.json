@@ -1,9 +1,11 @@
 {
     "name": "tinyrest",
     "version": "0.0.3",
-    "description": "Tiny flexible RESTful HTTP client library",
+    "description": "Tiny RESTful HTTP client library",
     "keywords": [
-        "rest", "restful", "api", "http", "https"
+        "rest", "restful", "api", "http", "https",
+        "twitter", "facebook", "linkedin", "soundcloud",
+        "stocktwits", "bitly", "rubygems"
     ],
     "license"   : "MIT",
     "author": {
