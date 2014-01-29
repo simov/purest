@@ -3,41 +3,26 @@ var TinyRest = require('../lib/tinyrest'),
     cred = require('../test/credentials');
 
 
-var linkedin = new TinyRest({
-    provider:'linkedin',
-    consumerKey:cred.app.linkedin.key,
-    consumerSecret:cred.app.linkedin.secret
+if (!process.argv[2]) {
+    return console.log('Pass in a social network!');
+}
+if (!process.argv[3]) {
+    return console.log('Specify an example index to execute!');
+}
+
+var network = process.argv[2],
+    index = parseInt(process.argv[3]);
+
+var t = new TinyRest({
+    provider:network,
+    consumerKey:cred.app[network].key,
+    consumerSecret:cred.app[network].secret
 });
 
-(function () {
-    linkedin.get('people/id=4cmQvrxtRR', {
-        t_token:cred.user.linkedin.token,
-        t_secret:cred.user.linkedin.secret
-    }, function (err, res, body) {
-        console.log(body);
-    });
+var example = require('./'+network)(t);
 
-    linkedin.get('people/id=pxHPwSchVu', {
-        t_token:cred.user.linkedin.token,
-        t_secret:cred.user.linkedin.secret
-    }, function (err, res, body) {
-        console.log(body);
-    });
-});
+if (example[index] == undefined) {
+    return console.log('Specified example index does not exist!');
+}
 
-
-var twitter = new TinyRest({
-    provider:'twitter',
-    consumerKey:cred.app.twitter.key,
-    consumerSecret:cred.app.twitter.secret
-});
-
-(function () {
-    twitter.get('statuses/user_timeline', {
-        t_token:cred.user.twitter.token,
-        t_secret:cred.user.twitter.secret
-    }, function (err, res, body) {
-        debugger;
-        console.log(body);
-    });
-}());
+example[index]();
