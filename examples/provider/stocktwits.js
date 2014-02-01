@@ -1,0 +1,44 @@
+
+var cred = require('../../test/credentials');
+
+
+exports = module.exports = function (t) {
+    return {
+        0: function () {
+            t.get('account/verify', {
+                access_token:cred.user.stocktwits.token
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        1: function (id) {
+            t.get('streams/user/'+id, {
+                access_token:cred.user.stocktwits.token//,
+                // since: '', max: '', limit: '', callback: '', filter: ''
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        2: function () {
+            t.get('streams/home', {
+                access_token:cred.user.stocktwits.token//,
+                // since: '', max: '', limit: '', callback: '', filter: ''
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        3: function () {
+            t.get('messages/create', {
+                access_token:cred.user.stocktwits.token,
+                body: 'Publisher message on ' + new Date()//,
+                // in_reply_to_message_id: '', chart: '', sentiment: ''
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        }
+    };
+}

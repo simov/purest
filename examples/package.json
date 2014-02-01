@@ -1,0 +1,31 @@
+{
+    "name": "tinyrest-examples",
+    "version": "0.0.0",
+    "description": "TinyRest Examples",
+    "private": true,
+    "keywords": [],
+    "license"   : "MIT",
+    "author": {
+        "name"  : "simo",
+        "email" : "simeonvelichkov@gmail.com"
+    },
+    "repository": {
+        "type"  : "git",
+        "url"   : "git://github.com/simov/tinyrest.git"
+    },
+    "dependencies": {
+        "commander": "2.1.0",
+        "tinyrest": "*",
+        "passport": "0.1.16",
+        "passport-twitter": "0.1.5",
+        "passport-linkedin": "0.1.3",
+        "passport-facebook": "0.1.5",
+        "passport-stocktwits": "0.0.1",
+        "passport-soundcloud": "*",
+        "passport-bitly": "git://github.com/simov/passport-bitly.git",
+    },
+    "main": "./index",
+    "bin": {
+        "t": "./bin/tinyrest"
+    }
+}
