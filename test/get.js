@@ -1,5 +1,6 @@
 
-var TinyRest = require('../lib/tinyrest');
+var TinyRest = require('../lib/tinyrest'),
+    cred = require('./credentials');
 
 
 describe.skip('get', function () {

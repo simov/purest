@@ -1,12 +1,5 @@
 
-// var should = require('should');
-
 var TinyRest = require('../lib/tinyrest');
-try {
-    var cred = require('./credentials');
-} catch (e) {
-    var cred = null;
-}
 
 
 describe('tinyrest', function () {

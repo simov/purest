@@ -1,4 +1,8 @@
 
+var TinyRest = require('../lib/tinyrest'),
+    cred = require('./credentials');
+
+
 describe.skip('post', function () {
     it('should post stocktwits resource', function (done) {
         var t = new TinyRest({provider:'stocktwits'});
