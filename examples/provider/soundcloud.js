@@ -6,7 +6,7 @@ exports = module.exports = function (t) {
     return {
         0: function () {
             t.get('me', {
-                oauth_token:cred.user.soundcloud.token
+                params:{oauth_token:cred.user.soundcloud.token}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -14,8 +14,10 @@ exports = module.exports = function (t) {
         },
         1: function () {
             t.get('tracks', {
-                oauth_token:cred.user.soundcloud.token,
-                q:'dnb'
+                params:{
+                    oauth_token:cred.user.soundcloud.token,
+                    q:'dnb'
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);

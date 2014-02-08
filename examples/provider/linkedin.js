@@ -8,8 +8,10 @@ exports = module.exports = function (t) {
         0: function () {
             var fields = ':(id,first-name,last-name,formatted-name,headline,picture-url,auth-token,distance,num-connections)';
             t.get('people/~'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -19,8 +21,10 @@ exports = module.exports = function (t) {
         1: function (id) {
             var fields = ':(id,name,universal-name,logo-url,square-logo-url,num-followers)';
             t.get('companies/'+id+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -30,8 +34,10 @@ exports = module.exports = function (t) {
         2: function (id) {
             var fields = ':(id,name,num-members,small-logo-url,large-logo-url)';
             t.get('groups/'+id+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
+                option:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -41,9 +47,13 @@ exports = module.exports = function (t) {
         3: function () {
             var fields = ':(id,name,universal-name,logo-url,square-logo-url)';
             t.get('companies'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                'is-company-admin':true
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params:{
+                    'is-company-admin':true
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -53,12 +63,16 @@ exports = module.exports = function (t) {
         4: function () {
             var fields = ':(group:(id,name,num-members,small-logo-url,large-logo-url))';
             t.get('people/~/group-memberships'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                // 'membership-state':'owner',
-                // 'membership-state':'manager',
-                // 'membership-state':'member',
-                count:25
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params: {
+                    // 'membership-state':'owner',
+                    // 'membership-state':'manager',
+                    // 'membership-state':'member',
+                    count:25
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -68,11 +82,15 @@ exports = module.exports = function (t) {
         5: function (id) {
             var fields = ':(timestamp,update-key,update-type,update-content:(person:(id,first-name,last-name,formatted-name,headline,picture-url,auth-token,distance,connections,current-share,main-address,twitter-accounts,im-accounts,phone-numbers,date-of-birth,member-groups)),updated-fields,is-commentable,update-comments,is-likable,is-liked,num-likes)';
             t.get('people/'+(id||'~')+'/network/updates'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                type:'SHAR',
-                scope:'self',
-                count:25
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params: {
+                    type:'SHAR',
+                    scope:'self',
+                    count:25
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -82,10 +100,14 @@ exports = module.exports = function (t) {
         6: function (id) {
             var fields = ':(timestamp,update-key,update-type,update-content:(person:(id,first-name,last-name,formatted-name,headline,picture-url,auth-token,distance,connections,current-share,main-address,twitter-accounts,im-accounts,phone-numbers,date-of-birth,member-groups)),updated-fields,is-commentable,update-comments,is-likable,is-liked,num-likes)';
             t.get('people/'+(id||'~')+'/network/updates'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                type:'SHAR',
-                count:25
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params:{
+                    type:'SHAR',
+                    count:25
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -95,11 +117,15 @@ exports = module.exports = function (t) {
         7: function (id) {
             var fields = ':(timestamp,updateType,updateContent,updateKey,isCommentable,likes,updateComments)';
             t.get('companies/'+id+'/updates'+fields, {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                'event-type':'status-update',
-                start:0,
-                count:5
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params:{
+                    'event-type':'status-update',
+                    start:0,
+                    count:5
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -108,9 +134,11 @@ exports = module.exports = function (t) {
         // get group updates
         8: function (id) {
             t.get('groups/'+id+'/posts', {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret,
-                count:5
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                params:{count:5}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -119,11 +147,14 @@ exports = module.exports = function (t) {
         // post user share
         9: function () {
             t.post('people/~/shares', {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
-            }, {
-                comment:'Publish message on '+new Date(),
-                visibility:{code:'anyone'}
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                data:{
+                    comment:'Publish message on '+new Date(),
+                    visibility:{code:'anyone'}
+                }
             },
             function (err, res, body) {
                 debugger;
@@ -133,11 +164,14 @@ exports = module.exports = function (t) {
         // post company page share
         10: function (id) {
             t.post('companies/'+id+'/shares', {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
-            }, {
-                comment:'Publish message on '+new Date(),
-                visibility:{code:'anyone'}
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                data:{
+                    comment:'Publish message on '+new Date(),
+                    visibility:{code:'anyone'}
+                }
             },
             function (err, res, body) {
                 debugger;
@@ -147,11 +181,14 @@ exports = module.exports = function (t) {
         // post group share
         11: function (id) {
             t.post('groups/'+id+'/posts', {
-                t_token:cred.user.linkedin.token,
-                t_secret:cred.user.linkedin.secret
-            }, {
-                title:'Publish message on '+new Date(),
-                summary:' '
+                options:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                data:{
+                    title:'Publish message on '+new Date(),
+                    summary:' '
+                }
             },
             function (err, res, body) {
                 debugger;

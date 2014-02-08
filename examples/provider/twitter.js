@@ -2,13 +2,15 @@
 var cred = require('../../test/credentials');
 
 
-exports = module.exports = function () {
+exports = module.exports = function (t) {
     return {
         0: function (id) {
             t.get('users/show', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret,
-                user_id:id
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                params:{user_id:id}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -16,10 +18,14 @@ exports = module.exports = function () {
         },
         1: function () {
             t.get('statuses/user_timeline', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret,
-                count: 3000
-                // trim_user: true
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                params:{
+                    count: 3000
+                    // trim_user: true
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -27,9 +33,11 @@ exports = module.exports = function () {
         },
         2: function () {
             t.get('statuses/home_timeline', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret,
-                count: 200
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                params:{count: 200}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -37,9 +45,11 @@ exports = module.exports = function () {
         },
         3: function () {
             t.get('statuses/mentions_timeline', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret
-                // since_id: 'id'
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                }
+                // params:{since_id: 'id'}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -47,8 +57,10 @@ exports = module.exports = function () {
         },
         4: function () {
             t.get('statuses/retweets_of_me', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -56,10 +68,14 @@ exports = module.exports = function () {
         },
         5: function () {
             t.get('statuses/retweets', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret,
-                id:'tweet id must be passed as a parameter',
-                count:100
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                params:{
+                    id:'tweet id must be passed as a parameter',
+                    count:100
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -67,21 +83,40 @@ exports = module.exports = function () {
         },
         6: function () {
             t.get('help/configuration', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
             });
         },
         7: function () {
+            t.post('statuses/update', {
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                data:{status:'Message on '+new Date()}
+            },
+            function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        8: function () {
             t.post('statuses/update_with_media', {
-                t_token:cred.user.twitter.token,
-                t_secret:cred.user.twitter.secret,
-                t_mime:'image/jpeg'
-            }, {
-                status:'Message on '+new Date(),
-                'media[]':fs.readFileSync('/absolute/path/to/cat.jpg')
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret,
+                    mime:'image/jpeg',
+                    upload:true
+                },
+                data:{
+                    status:'Message on '+new Date(),
+                    'media[]':fs.readFileSync('/absolute/path/to/cat.jpg')
+                }
             }, function (err, res, body) {
                 debugger;
                 console.log(body);

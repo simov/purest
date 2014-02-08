@@ -3,7 +3,6 @@ var TinyRest = require('../lib/tinyrest');
 
 
 describe('tinyrest', function () {
-    
     describe('common', function () {
         it('should throw an error on non specified provider', function (done) {
             (function () {
@@ -17,17 +16,11 @@ describe('tinyrest', function () {
             }).should.throw('TinyRest: non existing provider!');
             done();
         });
-        it('should create a querystring', function (done) {
-            var t = new TinyRest({provider:'bitly'});
-            t.toQueryString({one:'1',two:2})
-                .should.equal('one=1&two=2');
-            done();
-        });
     });
 
     require('./instance');
     require('./path');
-    require('./querystring');
+    require('./utils');
 
     // network
     require('./error');

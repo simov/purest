@@ -65,7 +65,7 @@ app.get('/connect/linkedin/callback', passport.authorize('linkedin', { failureRe
 app.get('/connect/stocktwits', passport.authorize('stocktwits', { scope: ['read','watch_lists','publish_messages','publish_watch_lists','follow_users','follow_stocks'], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/stocktwits/callback', passport.authorize('stocktwits', { failureRedirect:'/', successRedirect:'/' }));
 
-app.get('/connect/soundcloud', passport.authenticate('soundcloud', { failureRedirect:'/', successRedirect:'/' }));
+app.get('/connect/soundcloud', passport.authenticate('soundcloud', { scope: ['non-expiring'], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/soundcloud/callback', passport.authenticate('soundcloud', { failureRedirect:'/', successRedirect:'/' }));
 
 app.get('/connect/bitly', passport.authenticate('bitly', { failureRedirect:'/', successRedirect:'/' }));
