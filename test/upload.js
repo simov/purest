@@ -66,6 +66,28 @@ describe.skip('upload', function () {
             done();
         });
     });
+    it('should upload image to stocktwits', function (done) {
+        t.stocktwits.post('messages/create', {
+            options:{
+                file:'cat2.jpg',
+                mime:'image/gif',
+                upload:true
+            },
+            params:{
+                access_token:cred.user.stocktwits.token
+            },
+            data:{
+                body:'Message on '+new Date(),
+                chart:fs.readFileSync('/home/mighty/hdd/images/cat2.gif')
+            }
+        },
+        function (err, res, body) {
+            if (err) return error(err, done);
+            body.response.status.should.equal(200);
+            body.message.entities.chart.should.be.an.instanceOf(Object);
+            done();
+        });
+    });
 });
 
 function error (err, done) {
