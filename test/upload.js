@@ -29,12 +29,11 @@ describe.skip('upload', function () {
             options:{
                 token:cred.user.twitter.token,
                 secret:cred.user.twitter.secret,
-                mime:'image/gif',
-                upload:true
+                upload:'cat1.png'
             },
             data:{
                 status:'Message on '+new Date(),
-                'media[]':fs.readFileSync('/home/mighty/hdd/images/cat2.gif')
+                'media[]':fs.readFileSync('/home/mighty/hdd/images/cat1.png')
             }
         },
         function (err, res, body) {
@@ -47,9 +46,7 @@ describe.skip('upload', function () {
     it('should upload image to facebook', function (done) {
         t.facebook.post('me/photos', {
             options:{
-                mime:'image/png',
-                file:'cat1.png',
-                upload:true
+                upload:'cat1.png'
             },
             params:{
                 access_token:cred.user.facebook.token,
@@ -69,16 +66,14 @@ describe.skip('upload', function () {
     it('should upload image to stocktwits', function (done) {
         t.stocktwits.post('messages/create', {
             options:{
-                file:'cat2.jpg',
-                mime:'image/gif',
-                upload:true
+                upload:'cat1.png'
             },
             params:{
                 access_token:cred.user.stocktwits.token
             },
             data:{
                 body:'Message on '+new Date(),
-                chart:fs.readFileSync('/home/mighty/hdd/images/cat2.gif')
+                chart:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
             }
         },
         function (err, res, body) {
