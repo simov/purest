@@ -110,12 +110,47 @@ exports = module.exports = function (t) {
                 options:{
                     token:cred.user.twitter.token,
                     secret:cred.user.twitter.secret,
-                    mime:'image/jpeg',
-                    upload:true
+                    upload:'cat.jpg'
                 },
                 data:{
                     status:'Message on '+new Date(),
                     'media[]':fs.readFileSync('/absolute/path/to/cat.jpg')
+                }
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        9: function () {
+            t.get('users/search', {
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                },
+                params:{
+                    q:'twitter'
+                }
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        10: function () {
+            t.get('direct_messages', {
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
+                }
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
+        10: function () {
+            t.get('direct_messages/sent', {
+                options:{
+                    token:cred.user.twitter.token,
+                    secret:cred.user.twitter.secret
                 }
             }, function (err, res, body) {
                 debugger;
