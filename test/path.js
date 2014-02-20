@@ -39,6 +39,12 @@ describe('path', function () {
             .should.equal('/tracks.json');
         done();
     });
+    it('should create github path', function (done) {
+        var t = new TinyRest({provider:'github'});
+        t.createPath('users/simov')
+            .should.equal('/users/simov');
+        done();
+    });
     it('should create rubygems path', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.createPath('gems/rails')

@@ -24,5 +24,8 @@
     },
     "soundcloud": {
         "endpoint": "https://api.soundcloud.com"
+    },
+    "github": {
+        "endpoint": "https://api.github.com"
     }	
 }

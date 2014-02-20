@@ -19,6 +19,7 @@ describe.skip('post', function () {
             bitly: new TinyRest({provider:'bitly'}),
             stocktwits: new TinyRest({provider:'stocktwits'}),
             soundcloud: new TinyRest({provider:'soundcloud'}),
+            github: new TinyRest({provider:'github'}),
             rubygems: new TinyRest({provider:'rubygems'})
         };
         done();

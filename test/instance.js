@@ -58,6 +58,13 @@ describe('instance', function () {
         t.endpoint.should.equal('https://api.soundcloud.com');
         done();
     });
+    it('should create github instance', function (done) {
+        var t = new TinyRest({provider:'github'});
+        t.github.should.equal(true);
+        t.version.should.equal('');
+        t.endpoint.should.equal('https://api.github.com');
+        done();
+    });
     it('should create rubygems instance', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.rubygems.should.equal(true);

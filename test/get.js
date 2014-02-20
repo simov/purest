@@ -19,6 +19,7 @@ describe.skip('get', function () {
             bitly: new TinyRest({provider:'bitly'}),
             stocktwits: new TinyRest({provider:'stocktwits'}),
             soundcloud: new TinyRest({provider:'soundcloud'}),
+            github: new TinyRest({provider:'github'}),
             rubygems: new TinyRest({provider:'rubygems'})
         };
         done();
@@ -91,6 +92,16 @@ describe.skip('get', function () {
         }, function (err, res, body) {
             if (err) return error(err, done);
             body[0].username.should.equal('Thriftworks');
+            done();
+        });
+    });
+    it('should get github resource', function (done) {
+        t.github.get('users/simov', {
+            params:{access_token:cred.user.github.token}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.login.should.equal('simov');
+            body.name.should.equal('simo');
             done();
         });
     });

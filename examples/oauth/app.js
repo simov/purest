@@ -31,7 +31,7 @@ app.configure('development', function() {
 var passport = require('passport'),
     cred = require('../../test/credentials');
 
-['twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits', 'bitly']
+['twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits', 'bitly', 'github']
 .forEach(function (provider) {
     
     var options = {};
@@ -71,6 +71,8 @@ app.get('/connect/soundcloud/callback', passport.authenticate('soundcloud', { fa
 app.get('/connect/bitly', passport.authenticate('bitly', { failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/bitly/callback', passport.authenticate('bitly', { failureRedirect:'/', successRedirect:'/' }));
 
+app.get('/connect/github', passport.authorize('github', { scope: [], failureRedirect:'/', successRedirect:'/' }));
+app.get('/connect/github/callback', passport.authorize('github', { failureRedirect:'/', successRedirect:'/' }));
 
 app.get('/', function (req, res) {
     res.render('app');
