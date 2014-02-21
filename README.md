@@ -7,7 +7,9 @@
 - [SoundCloud][4]
 - [StockTwits][5]
 - [Bitly][6]
-- [RubyGems][7]
+- [GitHub][7]
+- [StackExchange][8]
+- [RubyGems][9]
 
 and counting ..
 
@@ -17,4 +19,6 @@ and counting ..
   [4]: http://developers.soundcloud.com/
   [5]: http://stocktwits.com/developers
   [6]: http://dev.bitly.com/
-  [7]: http://guides.rubygems.org/rubygems-org-api/
+  [7]: http://developer.github.com/
+  [8]: https://api.stackexchange.com/
+  [9]: http://guides.rubygems.org/rubygems-org-api/

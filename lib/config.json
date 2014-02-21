@@ -27,5 +27,9 @@
     },
     "github": {
         "endpoint": "https://api.github.com"
+    },
+    "stackexchange": {
+        "version": "2.2",
+        "endpoint": "https://api.stackexchange.com"
     }	
 }

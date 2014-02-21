@@ -20,6 +20,7 @@ describe.skip('get', function () {
             stocktwits: new TinyRest({provider:'stocktwits'}),
             soundcloud: new TinyRest({provider:'soundcloud'}),
             github: new TinyRest({provider:'github'}),
+            stackexchange: new TinyRest({provider:'stackexchange'}),
             rubygems: new TinyRest({provider:'rubygems'})
         };
         done();
@@ -102,6 +103,21 @@ describe.skip('get', function () {
             if (err) return error(err, done);
             body.login.should.equal('simov');
             body.name.should.equal('simo');
+            done();
+        });
+    });
+    it('should get stackexchange resource', function (done) {
+        t.stackexchange.get('users', {
+            params:{
+                key:cred.app.stackexchange.req_key,
+                access_token:cred.user.stackexchange.token,
+                site:'stackoverflow',
+                sort:'reputation',
+                order:'desc'
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.items.length.should.equal(30);
             done();
         });
     });

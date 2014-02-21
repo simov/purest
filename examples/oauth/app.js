@@ -31,7 +31,9 @@ app.configure('development', function() {
 var passport = require('passport'),
     cred = require('../../test/credentials');
 
-['twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits', 'bitly', 'github']
+[
+    'twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits',
+    'bitly', 'github', 'stackexchange']
 .forEach(function (provider) {
     
     var options = {};
@@ -42,6 +44,7 @@ var passport = require('passport'),
     options[secret] = cred.app[provider].secret;
     options.callbackURL = ['http://','localhost:',app.get('port'),'/connect/',provider,'/callback'].join('');
     options.passReqToCallback = true;
+    if (provider == 'stackexchange') options.key = cred.app[provider].req_key;
 
     var strategy = new (require('passport-'+provider).Strategy)(options, function (req, token, secret, profile, done) {
         console.log('account', '->', profile.username);
@@ -73,6 +76,9 @@ app.get('/connect/bitly/callback', passport.authenticate('bitly', { failureRedir
 
 app.get('/connect/github', passport.authorize('github', { scope: [], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/github/callback', passport.authorize('github', { failureRedirect:'/', successRedirect:'/' }));
+
+app.get('/connect/stackexchange', passport.authorize('stackexchange', { scope: [], failureRedirect:'/', successRedirect:'/' }));
+app.get('/connect/stackexchange/callback', passport.authorize('stackexchange', { failureRedirect:'/', successRedirect:'/' }));
 
 app.get('/', function (req, res) {
     res.render('app');

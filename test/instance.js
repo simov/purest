@@ -65,6 +65,13 @@ describe('instance', function () {
         t.endpoint.should.equal('https://api.github.com');
         done();
     });
+    it('should create stackexchange instance', function (done) {
+        var t = new TinyRest({provider:'stackexchange'});
+        t.stackexchange.should.equal(true);
+        t.version.should.equal('2.2');
+        t.endpoint.should.equal('https://api.stackexchange.com');
+        done();
+    });
     it('should create rubygems instance', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.rubygems.should.equal(true);

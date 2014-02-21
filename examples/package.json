@@ -22,6 +22,8 @@
         "passport-facebook": "0.1.5",
         "passport-stocktwits": "0.0.1",
         "passport-soundcloud": "*",
+        "passport-github": "0.1.5",
+        "passport-stackexchange": "0.1.0",
         "passport-bitly": "git://github.com/simov/passport-bitly.git",
     },
     "main": "./index",

@@ -45,6 +45,12 @@ describe('path', function () {
             .should.equal('/users/simov');
         done();
     });
+    it('should create stackexchange path', function (done) {
+        var t = new TinyRest({provider:'stackexchange'});
+        t.createPath('users')
+            .should.equal('/2.2/users');
+        done();
+    });
     it('should create rubygems path', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.createPath('gems/rails')
