@@ -75,6 +75,12 @@ describe('path', function () {
             .should.equal('/freebase/v1/search');
         done();
     });
+    it('should create pagespeed path', function (done) {
+        var t = new TinyRest({provider:'google'});
+        t.createPath('runPagespeed', {options:{api:'pagespeedonline'}})
+            .should.equal('/pagespeedonline/v1/runPagespeed');
+        done();
+    });
     it('should create rubygems path', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.createPath('gems/rails')

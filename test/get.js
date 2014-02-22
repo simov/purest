@@ -174,6 +174,19 @@ describe.skip('get', function () {
             done();
         });
     });
+    it('should get pagespeed resource', function (done) {
+        t.google.get('runPagespeed', {
+            options:{api:'pagespeedonline'},
+            params:{
+                key:cred.app.google.req_key,
+                url:'http://www.amazon.com/'
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.responseCode.should.equal(200);
+            done();
+        });
+    });
     it('should get rubygems resource', function (done) {
         t.rubygems.get('gems/rails', function (err, res, body) {
             if (err) return error(err, done);
