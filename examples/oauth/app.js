@@ -83,7 +83,7 @@ app.get('/connect/github/callback', passport.authorize('github', { failureRedire
 app.get('/connect/stackexchange', passport.authorize('stackexchange', { scope: [], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/stackexchange/callback', passport.authorize('stackexchange', { failureRedirect:'/', successRedirect:'/' }));
 
-app.get('/connect/google', passport.authenticate('google', { scope:['https://www.googleapis.com/auth/userinfo.profile'], failureRedirect:'/', successRedirect:'/' }));
+app.get('/connect/google', passport.authenticate('google', { scope:['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/youtube.readonly'], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/google/callback', passport.authenticate('google', { failureRedirect:'/', successRedirect:'/' }));
 
 app.get('/', function (req, res) {

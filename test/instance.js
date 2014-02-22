@@ -75,7 +75,7 @@ describe('instance', function () {
     it('should create google instance', function (done) {
         var t = new TinyRest({provider:'google'});
         t.google.should.equal(true);
-        t.version.should.equal('plus/v1');
+        t.version.should.equal('');
         t.endpoint.should.equal('https://www.googleapis.com');
         done();
     });

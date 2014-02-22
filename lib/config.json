@@ -36,7 +36,8 @@
         "endpoint": "https://coderbits.com"
     },
     "google": {
-        "version": "plus/v1",
+        "plus": "plus/v1",
+        "youtube": "youtube/v3",
         "endpoint": "https://www.googleapis.com"
     }	
 }

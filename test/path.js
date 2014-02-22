@@ -51,10 +51,16 @@ describe('path', function () {
             .should.equal('/2.2/users');
         done();
     });
-    it('should create google path', function (done) {
+    it('should create google+ path', function (done) {
         var t = new TinyRest({provider:'google'});
-        t.createPath('people/1234')
+        t.createPath('people/1234', {options:{api:'plus'}})
             .should.equal('/plus/v1/people/1234');
+        done();
+    });
+    it('should create youtube path', function (done) {
+        var t = new TinyRest({provider:'google'});
+        t.createPath('channels', {options:{api:'youtube'}})
+            .should.equal('/youtube/v3/channels');
         done();
     });
     it('should create rubygems path', function (done) {

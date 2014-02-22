@@ -123,14 +123,33 @@ describe.skip('get', function () {
             done();
         });
     });
-    it('should get google resource', function (done) {
+    it('should get google+ resource', function (done) {
         t.google.get('people/101800879428372142716', {
+            options:{
+                api:'plus'
+            },
             params:{
                 access_token:cred.user.google.token
             }
         }, function (err, res, body) {
             if (err) return error(err, done);
             body.displayName.should.equal('Simeon Velichkov');
+            done();
+        });
+    });
+    it('should get youtube resource', function (done) {
+        t.google.get('channels', {
+            options:{
+                api:'youtube'
+            },
+            params:{
+                access_token:cred.user.google.token,
+                part:'id,statistics',
+                id:'UCar6nMFGfuv254zn5vDyVaA'
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.items[0].id.should.equal('UCar6nMFGfuv254zn5vDyVaA');
             done();
         });
     });
