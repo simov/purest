@@ -16,6 +16,7 @@
   - [Drive][12]
   - [YouTube][13]
   - [Freebase][14]
+  - [PageSpeed][15]
 
 and counting ..
 
@@ -33,3 +34,4 @@ and counting ..
   [12]: https://developers.google.com/drive/v2/reference/
   [13]: https://developers.google.com/youtube/v3/
   [14]: https://developers.google.com/freebase/v1/
+  [15]: https://developers.google.com/speed/docs/insights/v1/getting_started
