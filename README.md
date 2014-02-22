@@ -11,6 +11,10 @@
 - [StackExchange][8]
 - [RubyGems][9]
 - [CoderBits][10]
+- Google
+  - [Plus][11]
+  - [Drive][12]
+  - [YouTube][13]
 
 and counting ..
 
@@ -24,3 +28,6 @@ and counting ..
   [8]: https://api.stackexchange.com/
   [9]: http://guides.rubygems.org/rubygems-org-api/
   [10]: https://coderbits.com/api
+  [11]: https://developers.google.com/+/api/
+  [12]: https://developers.google.com/drive/v2/reference/
+  [13]: https://developers.google.com/youtube/v3/
