@@ -63,6 +63,12 @@ describe('path', function () {
             .should.equal('/youtube/v3/channels');
         done();
     });
+    it('should create drive path', function (done) {
+        var t = new TinyRest({provider:'google'});
+        t.createPath('about', {options:{api:'drive'}})
+            .should.equal('/drive/v2/about');
+        done();
+    });
     it('should create rubygems path', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.createPath('gems/rails')

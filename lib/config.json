@@ -38,6 +38,7 @@
     "google": {
         "plus": "plus/v1",
         "youtube": "youtube/v3",
+        "drive": "drive/v2",
         "endpoint": "https://www.googleapis.com"
     }	
 }

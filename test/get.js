@@ -125,9 +125,7 @@ describe.skip('get', function () {
     });
     it('should get google+ resource', function (done) {
         t.google.get('people/101800879428372142716', {
-            options:{
-                api:'plus'
-            },
+            options:{api:'plus'},
             params:{
                 access_token:cred.user.google.token
             }
@@ -139,9 +137,7 @@ describe.skip('get', function () {
     });
     it('should get youtube resource', function (done) {
         t.google.get('channels', {
-            options:{
-                api:'youtube'
-            },
+            options:{api:'youtube'},
             params:{
                 access_token:cred.user.google.token,
                 part:'id,statistics',
@@ -150,6 +146,18 @@ describe.skip('get', function () {
         }, function (err, res, body) {
             if (err) return error(err, done);
             body.items[0].id.should.equal('UCar6nMFGfuv254zn5vDyVaA');
+            done();
+        });
+    });
+    it('should get drive resource', function (done) {
+        t.google.get('about', {
+            options:{api:'drive'},
+            params:{
+                access_token:cred.user.google.token
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.user.isAuthenticatedUser.should.equal(true);
             done();
         });
     });
