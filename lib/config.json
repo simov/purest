@@ -1,45 +1,45 @@
 {
     "bitly": {
         "version": "v3",
-        "endpoint": "https://api-ssl.bitly.com"
+        "domain": "https://api-ssl.bitly.com"
     },
     "stocktwits": {
         "version": "2",
-        "endpoint": "https://api.stocktwits.com"
+        "domain": "https://api.stocktwits.com"
     },
     "linkedin": {
         "version": "v1",
-        "endpoint": "http://api.linkedin.com"
+        "domain": "http://api.linkedin.com"
     },
     "twitter": {
         "version": "1.1",
-        "endpoint": "https://api.twitter.com"
+        "domain": "https://api.twitter.com"
     },
     "facebook": {
-        "endpoint": "https://graph.facebook.com"
+        "domain": "https://graph.facebook.com"
     },
     "rubygems": {
         "version": "v1",
-        "endpoint": "https://rubygems.org"
+        "domain": "https://rubygems.org"
     },
     "soundcloud": {
-        "endpoint": "https://api.soundcloud.com"
+        "domain": "https://api.soundcloud.com"
     },
     "github": {
-        "endpoint": "https://api.github.com"
+        "domain": "https://api.github.com"
     },
     "stackexchange": {
         "version": "2.2",
-        "endpoint": "https://api.stackexchange.com"
+        "domain": "https://api.stackexchange.com"
     },
     "coderbits": {
-        "endpoint": "https://coderbits.com"
+        "domain": "https://coderbits.com"
     },
     "google": {
         "plus": "plus/v1",
         "youtube": "youtube/v3",
         "drive": "drive/v2",
         "freebase": "freebase/v1",
-        "endpoint": "https://www.googleapis.com"
+        "domain": "https://www.googleapis.com"
     }	
 }

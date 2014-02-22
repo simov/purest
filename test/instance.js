@@ -11,7 +11,7 @@ describe('instance', function () {
         });
         t.twitter.should.equal(true);
         t.version.should.equal('1.1');
-        t.endpoint.should.equal('https://api.twitter.com');
+        t.domain.should.equal('https://api.twitter.com');
         t.oauth.should.equal(true);
         t.consumerKey.should.equal('app-key');
         t.consumerSecret.should.equal('app-secret');
@@ -24,7 +24,7 @@ describe('instance', function () {
         });
         t.linkedin.should.equal(true);
         t.version.should.equal('v1');
-        t.endpoint.should.equal('http://api.linkedin.com');
+        t.domain.should.equal('http://api.linkedin.com');
         t.oauth.should.equal(true);
         t.consumerKey.should.equal('app-key');
         t.consumerSecret.should.equal('app-secret');
@@ -34,63 +34,63 @@ describe('instance', function () {
         var t = new TinyRest({provider:'facebook'});
         t.facebook.should.equal(true);
         t.version.should.equal('');
-        t.endpoint.should.equal('https://graph.facebook.com');
+        t.domain.should.equal('https://graph.facebook.com');
         done();
     });
     it('should create stocktwits instance', function (done) {
         var t = new TinyRest({provider:'stocktwits'});
         t.stocktwits.should.equal(true);
         t.version.should.equal('2');
-        t.endpoint.should.equal('https://api.stocktwits.com');
+        t.domain.should.equal('https://api.stocktwits.com');
         done();
     });
     it('should create bily instance', function (done) {
         var t = new TinyRest({provider:'bitly'});
         t.bitly.should.equal(true);
         t.version.should.equal('v3');
-        t.endpoint.should.equal('https://api-ssl.bitly.com');
+        t.domain.should.equal('https://api-ssl.bitly.com');
         done();
     });
     it('should create soundcloud instance', function (done) {
         var t = new TinyRest({provider:'soundcloud'});
         t.soundcloud.should.equal(true);
         t.version.should.equal('');
-        t.endpoint.should.equal('https://api.soundcloud.com');
+        t.domain.should.equal('https://api.soundcloud.com');
         done();
     });
     it('should create github instance', function (done) {
         var t = new TinyRest({provider:'github'});
         t.github.should.equal(true);
         t.version.should.equal('');
-        t.endpoint.should.equal('https://api.github.com');
+        t.domain.should.equal('https://api.github.com');
         done();
     });
     it('should create stackexchange instance', function (done) {
         var t = new TinyRest({provider:'stackexchange'});
         t.stackexchange.should.equal(true);
         t.version.should.equal('2.2');
-        t.endpoint.should.equal('https://api.stackexchange.com');
+        t.domain.should.equal('https://api.stackexchange.com');
         done();
     });
     it('should create google instance', function (done) {
         var t = new TinyRest({provider:'google'});
         t.google.should.equal(true);
         t.version.should.equal('');
-        t.endpoint.should.equal('https://www.googleapis.com');
+        t.domain.should.equal('https://www.googleapis.com');
         done();
     });
     it('should create rubygems instance', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.rubygems.should.equal(true);
         t.version.should.equal('v1');
-        t.endpoint.should.equal('https://rubygems.org');
+        t.domain.should.equal('https://rubygems.org');
         done();
     });
     it('should create coderbits instance', function (done) {
         var t = new TinyRest({provider:'coderbits'});
         t.coderbits.should.equal(true);
         t.version.should.equal('');
-        t.endpoint.should.equal('https://coderbits.com');
+        t.domain.should.equal('https://coderbits.com');
         done();
     });
 
