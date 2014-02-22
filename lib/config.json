@@ -36,10 +36,10 @@
         "domain": "https://coderbits.com"
     },
     "google": {
-        "plus": "plus/v1",
-        "youtube": "youtube/v3",
-        "drive": "drive/v2",
-        "freebase": "freebase/v1",
+        "plus": "v1",
+        "youtube": "v3",
+        "drive": "v2",
+        "freebase": "v1",
         "domain": "https://www.googleapis.com"
     }	
 }

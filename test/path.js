@@ -87,4 +87,11 @@ describe('path', function () {
             .should.equal('/simov.json');
         done();
     });
+
+    it('should be able to predefine an API version', function (done) {
+        var t = new TinyRest({provider:'google'});
+        t.createPath('channels', {options:{api:'youtube', version:'v2'}})
+            .should.equal('/youtube/v2/channels');
+        done();
+    });
 });
