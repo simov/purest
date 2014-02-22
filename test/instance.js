@@ -101,6 +101,14 @@ describe('instance', function () {
         t.domain.should.equal('https://api.stackexchange.com');
         done();
     });
+    it('should be able to predefine provider\'s domain', function (done) {
+        var t = new TinyRest({provider:'coderbits',
+                                domain:'https://api.coderbits.com'});
+        t.coderbits.should.equal(true);
+        t.version.should.equal('');
+        t.domain.should.equal('https://api.coderbits.com');
+        done();
+    });
     it('should support multiple instances at once', function (done) {
         var t = new TinyRest({provider:'twitter'});
         var l = new TinyRest({provider:'linkedin'});
