@@ -21,6 +21,7 @@ describe.skip('post', function () {
             soundcloud: new TinyRest({provider:'soundcloud'}),
             github: new TinyRest({provider:'github'}),
             stackexchange: new TinyRest({provider:'stackexchange'}),
+            google: new TinyRest({provider:'google'}),
             rubygems: new TinyRest({provider:'rubygems'}),
             coderbits: new TinyRest({provider:'coderbits'})
         };

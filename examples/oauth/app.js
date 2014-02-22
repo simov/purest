@@ -33,7 +33,7 @@ var passport = require('passport'),
 
 [
     'twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits',
-    'bitly', 'github', 'stackexchange']
+    'bitly', 'github', 'stackexchange', 'google']
 .forEach(function (provider) {
     
     var options = {};
@@ -46,7 +46,10 @@ var passport = require('passport'),
     options.passReqToCallback = true;
     if (provider == 'stackexchange') options.key = cred.app[provider].req_key;
 
-    var strategy = new (require('passport-'+provider).Strategy)(options, function (req, token, secret, profile, done) {
+    var Strategy = provider == 'google'
+        ? require('passport-'+provider+'-oauth').OAuth2Strategy
+        : require('passport-'+provider).Strategy;
+    var strategy = new Strategy(options, function (req, token, secret, profile, done) {
         console.log('account', '->', profile.username);
         console.log('token', '->', token);
         console.log('secret', '->', secret);
@@ -79,6 +82,9 @@ app.get('/connect/github/callback', passport.authorize('github', { failureRedire
 
 app.get('/connect/stackexchange', passport.authorize('stackexchange', { scope: [], failureRedirect:'/', successRedirect:'/' }));
 app.get('/connect/stackexchange/callback', passport.authorize('stackexchange', { failureRedirect:'/', successRedirect:'/' }));
+
+app.get('/connect/google', passport.authenticate('google', { scope:['https://www.googleapis.com/auth/userinfo.profile'], failureRedirect:'/', successRedirect:'/' }));
+app.get('/connect/google/callback', passport.authenticate('google', { failureRedirect:'/', successRedirect:'/' }));
 
 app.get('/', function (req, res) {
     res.render('app');

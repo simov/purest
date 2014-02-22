@@ -34,5 +34,9 @@
     },
     "coderbits": {
         "endpoint": "https://coderbits.com"
+    },
+    "google": {
+        "version": "plus/v1",
+        "endpoint": "https://www.googleapis.com"
     }	
 }

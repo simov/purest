@@ -72,6 +72,13 @@ describe('instance', function () {
         t.endpoint.should.equal('https://api.stackexchange.com');
         done();
     });
+    it('should create google instance', function (done) {
+        var t = new TinyRest({provider:'google'});
+        t.google.should.equal(true);
+        t.version.should.equal('plus/v1');
+        t.endpoint.should.equal('https://www.googleapis.com');
+        done();
+    });
     it('should create rubygems instance', function (done) {
         var t = new TinyRest({provider:'rubygems'});
         t.rubygems.should.equal(true);
@@ -82,6 +89,7 @@ describe('instance', function () {
     it('should create coderbits instance', function (done) {
         var t = new TinyRest({provider:'coderbits'});
         t.coderbits.should.equal(true);
+        t.version.should.equal('');
         t.endpoint.should.equal('https://coderbits.com');
         done();
     });

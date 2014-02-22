@@ -24,6 +24,7 @@
         "passport-soundcloud": "*",
         "passport-github": "0.1.5",
         "passport-stackexchange": "0.1.0",
+        "passport-google-oauth": "0.1.5",
         "passport-bitly": "git://github.com/simov/passport-bitly.git",
     },
     "main": "./index",

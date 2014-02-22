@@ -21,6 +21,7 @@ describe.skip('get', function () {
             soundcloud: new TinyRest({provider:'soundcloud'}),
             github: new TinyRest({provider:'github'}),
             stackexchange: new TinyRest({provider:'stackexchange'}),
+            google: new TinyRest({provider:'google'}),
             rubygems: new TinyRest({provider:'rubygems'}),
             coderbits: new TinyRest({provider:'coderbits'})
         };
@@ -119,6 +120,17 @@ describe.skip('get', function () {
         }, function (err, res, body) {
             if (err) return error(err, done);
             body.items.length.should.equal(30);
+            done();
+        });
+    });
+    it('should get google resource', function (done) {
+        t.google.get('people/101800879428372142716', {
+            params:{
+                access_token:cred.user.google.token
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.displayName.should.equal('Simeon Velichkov');
             done();
         });
     });
