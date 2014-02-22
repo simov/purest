@@ -94,6 +94,13 @@ describe('instance', function () {
         done();
     });
 
+    it('should be able to predefine an API version', function (done) {
+        var t = new TinyRest({provider:'stackexchange', version:'2.1'});
+        t.stackexchange.should.equal(true);
+        t.version.should.equal('2.1');
+        t.domain.should.equal('https://api.stackexchange.com');
+        done();
+    });
     it('should support multiple instances at once', function (done) {
         var t = new TinyRest({provider:'twitter'});
         var l = new TinyRest({provider:'linkedin'});
