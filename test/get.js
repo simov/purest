@@ -161,6 +161,19 @@ describe.skip('get', function () {
             done();
         });
     });
+    it('should get freebase resource', function (done) {
+        t.google.get('search', {
+            options:{api:'freebase'},
+            params:{
+                access_token:cred.user.google.token,
+                query:'Thriftworks'
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.result[0].name.should.equal('Thriftworks');
+            done();
+        });
+    });
     it('should get rubygems resource', function (done) {
         t.rubygems.get('gems/rails', function (err, res, body) {
             if (err) return error(err, done);

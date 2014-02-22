@@ -15,6 +15,7 @@
   - [Plus][11]
   - [Drive][12]
   - [YouTube][13]
+  - [Freebase][14]
 
 and counting ..
 
@@ -31,3 +32,4 @@ and counting ..
   [11]: https://developers.google.com/+/api/
   [12]: https://developers.google.com/drive/v2/reference/
   [13]: https://developers.google.com/youtube/v3/
+  [14]: https://developers.google.com/freebase/v1/

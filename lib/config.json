@@ -39,6 +39,7 @@
         "plus": "plus/v1",
         "youtube": "youtube/v3",
         "drive": "drive/v2",
+        "freebase": "freebase/v1",
         "endpoint": "https://www.googleapis.com"
     }	
 }
