@@ -5,7 +5,10 @@
     "keywords": [
         "rest", "restful", "api", "http", "https",
         "twitter", "facebook", "linkedin", "soundcloud",
-        "stocktwits", "bitly", "rubygems"
+        "stocktwits", "bitly", "github", "stackexchange",
+        "rubygems", "coderbits",
+        "google", "gplus", "google+", "g+", "gdrive", "youtube",
+        "freebase", "pagespeed"
     ],
     "license"   : "MIT",
     "author": {
