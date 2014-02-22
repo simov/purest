@@ -31,5 +31,8 @@
     "stackexchange": {
         "version": "2.2",
         "endpoint": "https://api.stackexchange.com"
+    },
+    "coderbits": {
+        "endpoint": "https://coderbits.com"
     }	
 }

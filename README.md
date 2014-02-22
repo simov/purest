@@ -10,6 +10,7 @@
 - [GitHub][7]
 - [StackExchange][8]
 - [RubyGems][9]
+- [CoderBits][10]
 
 and counting ..
 
@@ -22,3 +23,4 @@ and counting ..
   [7]: http://developer.github.com/
   [8]: https://api.stackexchange.com/
   [9]: http://guides.rubygems.org/rubygems-org-api/
+  [10]: https://coderbits.com/api

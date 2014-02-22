@@ -21,7 +21,8 @@ describe.skip('get', function () {
             soundcloud: new TinyRest({provider:'soundcloud'}),
             github: new TinyRest({provider:'github'}),
             stackexchange: new TinyRest({provider:'stackexchange'}),
-            rubygems: new TinyRest({provider:'rubygems'})
+            rubygems: new TinyRest({provider:'rubygems'}),
+            coderbits: new TinyRest({provider:'coderbits'})
         };
         done();
     });
@@ -126,6 +127,13 @@ describe.skip('get', function () {
             if (err) return error(err, done);
             body.name.should.equal('rails');
             body.platform.should.equal('ruby');
+            done();
+        });
+    });
+    it('should get coderbits resource', function (done) {
+        t.coderbits.get('simov', function (err, res, body) {
+            if (err) return error(err, done);
+            body.username.should.equal('simov');
             done();
         });
     });

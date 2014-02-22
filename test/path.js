@@ -57,4 +57,10 @@ describe('path', function () {
             .should.equal('/api/v1/gems/rails.json');
         done();
     });
+    it('should create coderbits path', function (done) {
+        var t = new TinyRest({provider:'coderbits'});
+        t.createPath('simov')
+            .should.equal('/simov.json');
+        done();
+    });
 });

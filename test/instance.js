@@ -79,6 +79,12 @@ describe('instance', function () {
         t.endpoint.should.equal('https://rubygems.org');
         done();
     });
+    it('should create coderbits instance', function (done) {
+        var t = new TinyRest({provider:'coderbits'});
+        t.coderbits.should.equal(true);
+        t.endpoint.should.equal('https://coderbits.com');
+        done();
+    });
 
     it('should support multiple instances at once', function (done) {
         var t = new TinyRest({provider:'twitter'});
