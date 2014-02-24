@@ -73,7 +73,9 @@ var permissions = {
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/youtube.readonly',
         'https://www.googleapis.com/auth/drive.readonly',
-        'https://www.googleapis.com/auth/freebase'
+        'https://www.googleapis.com/auth/freebase',
+        'https://www.googleapis.com/auth/tasks',
+        'https://www.googleapis.com/auth/yt-analytics.readonly'
     ]
 };
 

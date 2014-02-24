@@ -22,6 +22,7 @@ describe.skip('get', function () {
             github: new TinyRest({provider:'github'}),
             stackexchange: new TinyRest({provider:'stackexchange'}),
             google: new TinyRest({provider:'google'}),
+            gmaps: new TinyRest({provider:'gmaps'}),
             rubygems: new TinyRest({provider:'rubygems'}),
             coderbits: new TinyRest({provider:'coderbits'})
         };
@@ -123,70 +124,6 @@ describe.skip('get', function () {
             done();
         });
     });
-    it('should get google+ resource', function (done) {
-        t.google.get('people/101800879428372142716', {
-            options:{api:'plus'},
-            params:{
-                access_token:cred.user.google.token
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.displayName.should.equal('Simeon Velichkov');
-            done();
-        });
-    });
-    it('should get youtube resource', function (done) {
-        t.google.get('channels', {
-            options:{api:'youtube'},
-            params:{
-                access_token:cred.user.google.token,
-                part:'id,statistics',
-                id:'UCar6nMFGfuv254zn5vDyVaA'
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.items[0].id.should.equal('UCar6nMFGfuv254zn5vDyVaA');
-            done();
-        });
-    });
-    it('should get drive resource', function (done) {
-        t.google.get('about', {
-            options:{api:'drive'},
-            params:{
-                access_token:cred.user.google.token
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.user.isAuthenticatedUser.should.equal(true);
-            done();
-        });
-    });
-    it('should get freebase resource', function (done) {
-        t.google.get('search', {
-            options:{api:'freebase'},
-            params:{
-                access_token:cred.user.google.token,
-                query:'Thriftworks'
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.result[0].name.should.equal('Thriftworks');
-            done();
-        });
-    });
-    it('should get pagespeed resource', function (done) {
-        t.google.get('runPagespeed', {
-            options:{api:'pagespeedonline'},
-            params:{
-                key:cred.app.google.req_key,
-                url:'http://www.amazon.com/'
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.responseCode.should.equal(200);
-            done();
-        });
-    });
     it('should get rubygems resource', function (done) {
         t.rubygems.get('gems/rails', function (err, res, body) {
             if (err) return error(err, done);
@@ -200,6 +137,220 @@ describe.skip('get', function () {
             if (err) return error(err, done);
             body.username.should.equal('simov');
             done();
+        });
+    });
+
+    describe('google APIs', function () {
+        it('should get google+ resource', function (done) {
+            t.google.get('people/106189723444098348646', {
+                options:{api:'plus'},
+                params:{
+                    access_token:cred.user.google.token
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.displayName.should.equal('Larry Page');
+                done();
+            });
+        });
+        it('should get youtube resource', function (done) {
+            t.google.get('channels', {
+                options:{api:'youtube'},
+                params:{
+                    access_token:cred.user.google.token,
+                    part:'id, snippet, contentDetails, statistics, status, topicDetails',
+                    forUsername:'RayWilliamJohnson'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.items[0].snippet.title.should.equal('RayWilliamJohnson');
+                done();
+            });
+        });
+        it('should get youtube analytics resource', function (done) {
+            t.google.get('reports', {
+                options:{api:'youtube/analytics'},
+                params:{
+                    access_token:cred.user.google.token,
+                    ids:'channel==UCar6nMFGfuv254zn5vDyVaA',
+                    metrics:'views',
+                    'start-date':'2014-01-15',
+                    'end-date':'2014-02-15'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.rows.should.be.an.instanceOf(Array);
+                done();
+            });
+        });
+        it('should get drive resource', function (done) {
+            t.google.get('about', {
+                options:{api:'drive'},
+                params:{
+                    access_token:cred.user.google.token
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.user.isAuthenticatedUser.should.equal(true);
+                done();
+            });
+        });
+        it('should get freebase resource', function (done) {
+            t.google.get('search', {
+                options:{api:'freebase'},
+                params:{
+                    access_token:cred.user.google.token,
+                    query:'Thriftworks'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.result[0].name.should.equal('Thriftworks');
+                done();
+            });
+        });
+        it('should get tasks resource', function (done) {
+            t.google.get('users/@me/lists', {
+                options:{api:'tasks'},
+                params:{
+                    access_token:cred.user.google.token
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.items[0].title.should.equal('Default List');
+                done();
+            });
+        });
+        it('should get urlshortener resource', function (done) {
+            t.google.get('url', {
+                options:{api:'urlshortener'},
+                params:{
+                    key:cred.app.google.req_key,
+                    shortUrl:'http://goo.gl/0wkZ4V'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.longUrl.should.equal('http://nodejs.org/');
+                done();
+            });
+        });
+        it('should get pagespeed resource', function (done) {
+            t.google.get('runPagespeed', {
+                options:{api:'pagespeedonline'},
+                params:{
+                    key:cred.app.google.req_key,
+                    url:'http://www.amazon.com/'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.responseCode.should.equal(200);
+                done();
+            });
+        });
+    });
+    
+    describe('google maps', function () {
+        it('should get streetview resource', function (done) {
+            t.gmaps.get('streetview', {
+                options:{binary:true},
+                params:{
+                    key:cred.app.google.req_key,
+                    location:'40.7828647,-73.9653551',
+                    size:'400x400',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                (require('fs')).writeFileSync('streetview.jpg', body, 'binary');
+                done();
+            });
+        });
+        it('should get staticmap resource', function (done) {
+            t.gmaps.get('staticmap', {
+                options:{binary:true},
+                params:{
+                    key:cred.app.google.req_key,
+                    center:'40.7828647,-73.9653551',
+                    size:'640x640',
+                    zoom:15,
+                    format:'jpg',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                (require('fs')).writeFileSync('staticmap.jpg', body, 'binary');
+                done();
+            });
+        });
+        it('should get geocode resource', function (done) {
+            t.gmaps.get('geocode/json', {
+                params:{
+                    key:cred.app.google.req_key,
+                    address:'Central Park, New York, NY',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.results[0].formatted_address
+                    .should.equal('Central Park, New York, NY, USA');
+                done();
+            });
+        });
+        it('should get directions resource', function (done) {
+            t.gmaps.get('directions/json', {
+                params:{
+                    key:cred.app.google.req_key,
+                    origin:'Central Park, New York, NY',
+                    destination:'New York, New Jersey',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.routes[0].summary
+                    .should.equal('79th Street Transverse and Central Park West');
+                done();
+            });
+        });
+        it('should get timezone resource', function (done) {
+            t.gmaps.get('timezone/json', {
+                params:{
+                    key:cred.app.google.req_key,
+                    location:'40.7828647,-73.9653551',
+                    timestamp:'1331161200',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.timeZoneName.should.equal('Eastern Standard Time');
+                done();
+            });
+        });
+        it('should get elevation resource', function (done) {
+            t.gmaps.get('elevation/json', {
+                params:{
+                    key:cred.app.google.req_key,
+                    locations:'40.7828647,-73.9653551',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.results[0].elevation.should.equal(34.39545059204102);
+                done();
+            });
+        });
+        it('should get distancematrix resource', function (done) {
+            t.gmaps.get('distancematrix/json', {
+                params:{
+                    key:cred.app.google.req_key,
+                    origins:'40.7828647,-73.9653551',
+                    destinations:'40.7873463,-74.0108939',
+                    sensor:false
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.rows[0].elements[0].distance.text.should.equal('11.3 km');
+                body.rows[0].elements[0].duration.text.should.equal('18 mins');
+                done();
+            });
         });
     });
 });

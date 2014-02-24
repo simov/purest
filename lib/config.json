@@ -40,7 +40,14 @@
         "youtube": "v3",
         "drive": "v2",
         "freebase": "v1",
+        "tasks": "v1",
+        "urlshortener": "v1",
         "pagespeedonline": "v1",
+        "youtube/analytics": "v1",
         "domain": "https://www.googleapis.com"
+    },
+    "gmaps": {
+        "version": "maps/api",
+        "domain": "https://maps.googleapis.com"
     }	
 }
