@@ -12,13 +12,37 @@
 - [RubyGems][9]
 - [CoderBits][10]
 - Google
-  - [Plus][11]
-  - [Drive][12]
-  - [YouTube][13]
-  - [Freebase][14]
-  - [PageSpeed][15]
+    - [Plus][11]
+    - [Drive][12]
+    - [YouTube][13]
+    - [Freebase][14]
+    - [Tasks][]
+    - [YouTube Analytics][]
+    - [UrlShortener][]
+    - [PageSpeed][15]
+    - Maps: streetview, staticmap, geocode, directions, timezone, elevation, distancematrix
 
 and counting ..
+
+```
+{
+    options: {
+        token:'oauth 1 only',
+        secret:'oauth 1 only',
+        upload:'file.jpg',
+        api:'google APIs only', version:'google APIs only'
+        binary:true // only when you are expecting a binary response
+    },
+    params: {
+        query:'string',
+        params:'here ..'
+    },
+    data: {
+        post:'params',
+        only:'here'
+    }
+}
+```
 
   [1]: https://dev.twitter.com/
   [2]: https://developers.facebook.com/
