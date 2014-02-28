@@ -24,7 +24,8 @@ describe.skip('get', function () {
             google: new TinyRest({provider:'google'}),
             gmaps: new TinyRest({provider:'gmaps'}),
             rubygems: new TinyRest({provider:'rubygems'}),
-            coderbits: new TinyRest({provider:'coderbits'})
+            coderbits: new TinyRest({provider:'coderbits'}),
+            wikimapia: new TinyRest({provider:'wikimapia'})
         };
         done();
     });
@@ -136,6 +137,22 @@ describe.skip('get', function () {
         t.coderbits.get('simov', function (err, res, body) {
             if (err) return error(err, done);
             body.username.should.equal('simov');
+            done();
+        });
+    });
+    it('should get wikimapia resource', function (done) {
+        t.wikimapia.get('', {
+            params: {
+                key:cred.app.wikimapia.req_key,
+                function:'place.search',
+                q:'Central Park, New York, NY',
+                lat:'40.7629025',
+                lon:'-73.9826439',
+                format:'json'
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.count.should.equal(5);
             done();
         });
     });

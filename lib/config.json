@@ -49,5 +49,8 @@
     "gmaps": {
         "version": "maps/api",
         "domain": "https://maps.googleapis.com"
+    },
+    "wikimapia": {
+        "domain": "http://api.wikimapia.org"
     }	
 }

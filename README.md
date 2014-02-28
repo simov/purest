@@ -21,6 +21,7 @@
     - [UrlShortener][]
     - [PageSpeed][15]
     - Maps: streetview, staticmap, geocode, directions, timezone, elevation, distancematrix
+- [Wikimapia][30]
 
 and counting ..
 
@@ -59,3 +60,5 @@ and counting ..
   [13]: https://developers.google.com/youtube/v3/
   [14]: https://developers.google.com/freebase/v1/
   [15]: https://developers.google.com/speed/docs/insights/v1/getting_started
+
+  [30]: http://wikimapia.org/api

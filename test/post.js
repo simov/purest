@@ -22,8 +22,10 @@ describe.skip('post', function () {
             github: new TinyRest({provider:'github'}),
             stackexchange: new TinyRest({provider:'stackexchange'}),
             google: new TinyRest({provider:'google'}),
+            gmaps: new TinyRest({provider:'gmaps'}),
             rubygems: new TinyRest({provider:'rubygems'}),
-            coderbits: new TinyRest({provider:'coderbits'})
+            coderbits: new TinyRest({provider:'coderbits'}),
+            wikimapia: new TinyRest({provider:'wikimapia'})
         };
         done();
     });
