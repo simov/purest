@@ -33,22 +33,28 @@ var passport = require('passport'),
 
 [
     'twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits',
-    'bitly', 'github', 'stackexchange', 'google']
+    'bitly', 'github', 'stackexchange', 'google', 'yahoo']
 .forEach(function (provider) {
     
     var options = {};
-    var key    = /(twitter|linkedin)/.test(provider) ? 'consumerKey'    : 'clientID';
-    var secret = /(twitter|linkedin)/.test(provider) ? 'consumerSecret' : 'clientSecret';
+    var key    = /(twitter|linkedin|yahoo)/.test(provider) ? 'consumerKey'    : 'clientID';
+    var secret = /(twitter|linkedin|yahoo)/.test(provider) ? 'consumerSecret' : 'clientSecret';
+    var host = process.argv[2] ? process.argv[2] : 'localhost:'+app.get('port');
 
     options[key] = cred.app[provider].key;
     options[secret] = cred.app[provider].secret;
-    options.callbackURL = ['http://','localhost:',app.get('port'),'/connect/',provider,'/callback'].join('');
+    options.callbackURL = ['http://',host,'/connect/',provider,'/callback'].join('');
     options.passReqToCallback = true;
     if (provider == 'stackexchange') options.key = cred.app[provider].req_key;
 
-    var Strategy = provider == 'google'
-        ? require('passport-'+provider+'-oauth').OAuth2Strategy
-        : require('passport-'+provider).Strategy;
+    var Strategy = (function () {
+        var postfix = '', classname = 'Strategy';
+        switch (provider) {
+            case 'google': postfix = '-oauth'; classname = 'OAuth2Strategy'; break;
+            case 'yahoo': postfix = '-oauth'; break;
+        }
+        return require('passport-'+provider+postfix)[classname];
+    }());
     var strategy = new Strategy(options, function (req, token, secret, profile, done) {
         console.log('account', '->', profile.username);
         console.log('token', '->', token);
@@ -76,11 +82,12 @@ var permissions = {
         'https://www.googleapis.com/auth/freebase',
         'https://www.googleapis.com/auth/tasks',
         'https://www.googleapis.com/auth/yt-analytics.readonly'
-    ]
+    ],
+    yahoo:[]
 };
 
 for (var provider in permissions) {
-    var method = /(soundcloud|bitly)/.test(provider) ? 'authenticate' : 'authorize';
+    var method = /(soundcloud|bitly|yahoo)/.test(provider) ? 'authenticate' : 'authorize';
 
     app.get('/connect/'+provider, passport[method](provider, {scope:permissions[provider], failureRedirect:'/', successRedirect:'/'}));
     app.get('/connect/'+provider+'/callback', passport[method](provider, {failureRedirect:'/', successRedirect:'/'}));

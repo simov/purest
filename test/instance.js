@@ -93,6 +93,13 @@ describe('instance', function () {
         t.domain.should.equal('https://coderbits.com');
         done();
     });
+    it('should create yahoo instance', function (done) {
+        var t = new TinyRest({provider:'yahoo'});
+        t.yahoo.should.equal(true);
+        t.version.should.equal('v1');
+        t.domain.should.equal('http://service.yahooapis.com');
+        done();
+    });
 
     it('should be able to predefine an API version', function (done) {
         var t = new TinyRest({provider:'stackexchange', version:'2.1'});

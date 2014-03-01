@@ -146,7 +146,7 @@ exports = module.exports = function (t) {
                 console.log(body);
             });
         },
-        10: function () {
+        11: function () {
             t.get('direct_messages/sent', {
                 options:{
                     token:cred.user.twitter.token,

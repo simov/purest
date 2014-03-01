@@ -52,5 +52,9 @@
     },
     "wikimapia": {
         "domain": "http://api.wikimapia.org"
-    }	
+    },
+    "yahoo": {
+        "version": "v1",
+        "domain": "http://service.yahooapis.com"
+    }
 }

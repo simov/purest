@@ -93,6 +93,12 @@ describe('path', function () {
             .should.equal('/simov.json');
         done();
     });
+    it('should create yahoo path', function (done) {
+        var t = new TinyRest({provider:'yahoo'});
+        t.createPath('me/guid')
+            .should.equal('/v1/me/guid');
+        done();
+    });
 
     it('should be able to predefine an API version', function (done) {
         var t = new TinyRest({provider:'google'});

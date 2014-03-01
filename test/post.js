@@ -15,6 +15,10 @@ describe.skip('post', function () {
                 consumerKey:cred.app.linkedin.key,
                 consumerSecret:cred.app.linkedin.secret
             }),
+            yahoo: new TinyRest({provider:'yahoo',
+                consumerKey:cred.app.yahoo.key,
+                consumerSecret:cred.app.yahoo.secret
+            }),
             facebook: new TinyRest({provider:'facebook'}),
             bitly: new TinyRest({provider:'bitly'}),
             stocktwits: new TinyRest({provider:'stocktwits'}),

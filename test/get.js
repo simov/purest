@@ -15,6 +15,10 @@ describe.skip('get', function () {
                 consumerKey:cred.app.linkedin.key,
                 consumerSecret:cred.app.linkedin.secret
             }),
+            yahoo: new TinyRest({provider:'yahoo',
+                consumerKey:cred.app.yahoo.key,
+                consumerSecret:cred.app.yahoo.secret
+            }),
             facebook: new TinyRest({provider:'facebook'}),
             bitly: new TinyRest({provider:'bitly'}),
             stocktwits: new TinyRest({provider:'stocktwits'}),
@@ -51,6 +55,51 @@ describe.skip('get', function () {
             done();
         });
     });
+
+
+    describe('yahoo', function () {
+        it('should get social resource', function (done) {
+            t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
+                options:{
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret,
+                    api:'social'
+                }
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.profile.nickname.should.equal('Simeon')
+                done();
+            });
+        });
+        it('should get yql resource', function (done) {
+            t.yahoo.get('yql', {
+                options:{
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret,
+                    api:'query'
+                },
+                params:{q:'SELECT * FROM social.profile WHERE guid=me'}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.query.results.profile.nickname.should.equal('Simeon');
+                done();
+            });
+        });
+        it('should get geo resource', function (done) {
+            t.yahoo.get("places.q('Central Park, New York')", {
+                options:{
+                    // TODO: credentials are not needed
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret,
+                    api:'where'
+                },
+                params:{appid:cred.app.yahoo.req_key}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.places.place[0].admin1.should.equal('New York');
+                done();
+            });
+        });
+    });
+
+
     it('should get facebook resource', function (done) {
         t.facebook.get('me/groups', {
             params:{access_token:cred.user.facebook.token, fields:'id,name'}
