@@ -1,0 +1,20 @@
+{
+    "twitter": {
+        "statuses/update_with_media": {
+            "key": "media[]",
+            "types": ["image/gif", "image/jpeg", "image/png"]
+        }
+    },
+    "stocktwits": {
+        "messages/create": {
+            "key": "chart",
+            "types": ["image/gif", "image/jpeg", "image/png"]
+        }
+    },
+    "facebook": {
+        "me/photos": {
+            "key": "source",
+            "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
+        }
+    }	
+}

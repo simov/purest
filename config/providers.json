@@ -1,0 +1,77 @@
+{
+    "twitter": {
+        "oauth": true,
+        "version": "1.1",
+        "domain": "https://api.twitter.com"
+    },
+    "linkedin": {
+        "oauth": true,
+        "version": "v1",
+        "domain": "http://api.linkedin.com"
+    },
+    "yahoo": {
+        "oauth": true,
+        "api": {
+            "social": {
+                "version": "v1",
+                "domain": "http://social.yahooapis.com"
+            },
+            "yql": {
+                "version": "v1",
+                "domain": "http://yql.yahooapis.com"
+            },
+            "where": {
+                "version": "v1",
+                "domain": "http://where.yahooapis.com"
+            }	
+        }
+    },
+    "bitly": {
+        "version": "v3",
+        "domain": "https://api-ssl.bitly.com"
+    },
+    "stocktwits": {
+        "version": "2",
+        "domain": "https://api.stocktwits.com"
+    },
+    "facebook": {
+        "domain": "https://graph.facebook.com"
+    },
+    "rubygems": {
+        "version": "v1",
+        "domain": "https://rubygems.org"
+    },
+    "soundcloud": {
+        "domain": "https://api.soundcloud.com"
+    },
+    "github": {
+        "domain": "https://api.github.com"
+    },
+    "stackexchange": {
+        "version": "2.2",
+        "domain": "https://api.stackexchange.com"
+    },
+    "coderbits": {
+        "domain": "https://coderbits.com"
+    },
+    "wikimapia": {
+        "domain": "http://api.wikimapia.org"
+    },
+    "google": {
+        "api": {
+            "plus": "v1",
+            "youtube": "v3",
+            "drive": "v2",
+            "freebase": "v1",
+            "tasks": "v1",
+            "urlshortener": "v1",
+            "pagespeedonline": "v1",
+            "youtube/analytics": "v1"
+        },
+        "domain": "https://www.googleapis.com"
+    },
+    "gmaps": {
+        "version": "maps/api",
+        "domain": "https://maps.googleapis.com"
+    }	
+}

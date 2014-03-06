@@ -1,0 +1,18 @@
+{
+    "defaults": {
+        "json": true
+    },
+    "github": {
+        "headers": {
+            "User-Agent": "TinyRest"
+        }
+    },
+    "linkedin": {
+        "headers": {
+            "x-li-format": "json"
+        }
+    },
+    "stackexchange": {
+        "encoding": null
+    }	
+}

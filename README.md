@@ -26,22 +26,19 @@
 and counting ..
 
 ```
+// ctor
 {
-    options: {
-        token:'oauth 1 only',
-        secret:'oauth 1 only',
-        upload:'file.jpg',
-        api:'google APIs only', version:'google APIs only'
-        binary:true // only when you are expecting a binary response
-    },
-    params: {
-        query:'string',
-        params:'here ..'
-    },
-    data: {
-        post:'params',
-        only:'here'
-    }
+  consumerKey
+  consumerSecret
+  version
+  api
+}
+```
+
+```
+{
+    api: 'youtube', // when multiple apis under same domain/path
+    upload: 'cat.jpg' // the name of the file that's being uploaded
 }
 ```
 

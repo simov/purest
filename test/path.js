@@ -3,107 +3,73 @@ var TinyRest = require('../lib/tinyrest');
 
 
 describe('path', function () {
-    it('should create twitter path', function (done) {
-        var t = new TinyRest({provider:'twitter'});
-        t.createPath('users/show')
-            .should.equal('/1.1/users/show.json');
+    it('should create /version/api path', function (done) {
+        var providers = ['bitly', 'linkedin', 'stackexchange', 'gmaps', 'yahoo'];
+        for (var i=0; i < providers.length; i++) {
+            var t = new TinyRest({provider:providers[i]});
+            t.createPath('api/method').should.equal('/'+t.version+'/api/method');
+        }
         done();
     });
-    it('should create linkedin path', function (done) {
-        var t = new TinyRest({provider:'linkedin'});
-        t.createPath('people')
-            .should.equal('/v1/people');
+    it('should create /api path', function (done) {
+        var providers = ['facebook', 'github', 'wikimapia'];
+        for (var i=0; i < providers.length; i++) {
+            var t = new TinyRest({provider:providers[i]});
+            t.createPath('api/method').should.equal('/api/method');
+        }
         done();
     });
-    it('should create facebook path', function (done) {
-        var t = new TinyRest({provider:'facebook'});
-        t.createPath('me')
-            .should.equal('/me');
+    it('should create /api/version/method.json path', function (done) {
+        var providers = ['stocktwits', 'rubygems'];
+        for (var i=0; i < providers.length; i++) {
+            var t = new TinyRest({provider:providers[i]});
+            t.createPath('api/method').should.equal('/api/'+t.version+'/api/method.json');
+        }
         done();
     });
-    it('should create bitly path', function (done) {
-        var t = new TinyRest({provider:'bitly'});
-        t.createPath('link/clicks')
-            .should.equal('/v3/link/clicks');
+    it('should create /version/api.json path', function (done) {
+        var providers = ['twitter'];
+        for (var i=0; i < providers.length; i++) {
+            var t = new TinyRest({provider:providers[i]});
+            t.createPath('api/method').should.equal('/'+t.version+'/api/method.json');
+        }
         done();
     });
-    it('should create stocktwits path', function (done) {
-        var t = new TinyRest({provider:'stocktwits'});
-        t.createPath('account/verify')
-            .should.equal('/api/2/account/verify.json');
-        done();
-    });
-    it('should create soundcloud path', function (done) {
-        var t = new TinyRest({provider:'soundcloud'});
-        t.createPath('tracks')
-            .should.equal('/tracks.json');
-        done();
-    });
-    it('should create github path', function (done) {
-        var t = new TinyRest({provider:'github'});
-        t.createPath('users/simov')
-            .should.equal('/users/simov');
-        done();
-    });
-    it('should create stackexchange path', function (done) {
-        var t = new TinyRest({provider:'stackexchange'});
-        t.createPath('users')
-            .should.equal('/2.2/users');
-        done();
-    });
-    it('should create google+ path', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('people/1234', {options:{api:'plus'}})
-            .should.equal('/plus/v1/people/1234');
-        done();
-    });
-    it('should create youtube path', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('channels', {options:{api:'youtube'}})
-            .should.equal('/youtube/v3/channels');
-        done();
-    });
-    it('should create drive path', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('about', {options:{api:'drive'}})
-            .should.equal('/drive/v2/about');
-        done();
-    });
-    it('should create freebase path', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('search', {options:{api:'freebase'}})
-            .should.equal('/freebase/v1/search');
-        done();
-    });
-    it('should create pagespeed path', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('runPagespeed', {options:{api:'pagespeedonline'}})
-            .should.equal('/pagespeedonline/v1/runPagespeed');
-        done();
-    });
-    it('should create rubygems path', function (done) {
-        var t = new TinyRest({provider:'rubygems'});
-        t.createPath('gems/rails')
-            .should.equal('/api/v1/gems/rails.json');
-        done();
-    });
-    it('should create coderbits path', function (done) {
-        var t = new TinyRest({provider:'coderbits'});
-        t.createPath('simov')
-            .should.equal('/simov.json');
-        done();
-    });
-    it('should create yahoo path', function (done) {
-        var t = new TinyRest({provider:'yahoo'});
-        t.createPath('me/guid')
-            .should.equal('/v1/me/guid');
+    it('should create /api.json path', function (done) {
+        var providers = ['soundcloud', 'coderbits'];
+        for (var i=0; i < providers.length; i++) {
+            var t = new TinyRest({provider:providers[i]});
+            t.createPath('api/method').should.equal('/api/method.json');
+        }
         done();
     });
 
-    it('should be able to predefine an API version', function (done) {
-        var t = new TinyRest({provider:'google'});
-        t.createPath('channels', {options:{api:'youtube', version:'v2'}})
-            .should.equal('/youtube/v2/channels');
-        done();
+    describe('same domain', function () {
+        it('should create /api/version/method path - api set in the ctor', function (done) {
+            var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
+                google = require('../config/providers').google;
+            for (var i=0; i < apis.length; i++) {
+                var t = new TinyRest({provider:'google', api:apis[i]});
+                t.createPath('api/method',{})
+                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]]+'/api/method');
+            }
+            done();
+        });
+        it('should create /api/version/method path - api set in the params', function (done) {
+            var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
+                google = require('../config/providers').google;
+            for (var i=0; i < apis.length; i++) {
+                var t = new TinyRest({provider:'google'});
+                t.createPath('api/method',{api:apis[i]})
+                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]]+'/api/method');
+            }
+            done();
+        });
+        it('should predefine an api version', function (done) {
+            var t = new TinyRest({provider:'google'});
+            t.createPath('api/method',{api:'freebase', version:'4.4'})
+                .should.equal('/freebase/4.4/api/method');
+            done();
+        });
     });
 });

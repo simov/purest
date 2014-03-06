@@ -4,34 +4,27 @@ var TinyRest = require('../lib/tinyrest'),
     cred = require('./credentials');
 
 
-describe.skip('upload', function () {
+describe('upload', function () {
     var t = null;
     before(function (done) {
-        t = {
-            twitter: new TinyRest({provider:'twitter',
-                consumerKey:cred.app.twitter.key,
-                consumerSecret:cred.app.twitter.secret
-            }),
-            linkedin: new TinyRest({provider:'linkedin',
-                consumerKey:cred.app.linkedin.key,
-                consumerSecret:cred.app.linkedin.secret
-            }),
-            facebook: new TinyRest({provider:'facebook'}),
-            bitly: new TinyRest({provider:'bitly'}),
-            stocktwits: new TinyRest({provider:'stocktwits'}),
-            soundcloud: new TinyRest({provider:'soundcloud'}),
-            rubygems: new TinyRest({provider:'rubygems'})
-        };
+        for (var name in providers) {
+            var provider = providers[name];
+            if (provider.oauth) {
+                t[name] = new TinyRest({provider:name,
+                    consumerKey:cred.app[name].key,
+                    consumerSecret:cred.app[name].secret
+                });
+            } else {
+                t[name] = new TinyRest({provider:name});
+            }
+        }
         done();
     });
     it('should upload image to twitter', function (done) {
         t.twitter.post('statuses/update_with_media', {
-            options:{
-                token:cred.user.twitter.token,
-                secret:cred.user.twitter.secret,
-                upload:'cat1.png'
-            },
-            data:{
+            oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+            upload:'cat1.png',
+            form:{
                 status:'Message on '+new Date(),
                 'media[]':fs.readFileSync('/home/mighty/hdd/images/cat1.png')
             }
@@ -45,14 +38,12 @@ describe.skip('upload', function () {
     });
     it('should upload image to facebook', function (done) {
         t.facebook.post('me/photos', {
-            options:{
-                upload:'cat1.png'
-            },
-            params:{
+            upload:'cat1.png',
+            qs:{
                 access_token:cred.user.facebook.token,
                 message:'Message on '+new Date()
             },
-            data:{
+            form:{
                 source:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
             }
         },
@@ -65,13 +56,11 @@ describe.skip('upload', function () {
     });
     it('should upload image to stocktwits', function (done) {
         t.stocktwits.post('messages/create', {
-            options:{
-                upload:'cat1.png'
-            },
-            params:{
+            upload:'cat1.png',
+            qs:{
                 access_token:cred.user.stocktwits.token
             },
-            data:{
+            form:{
                 body:'Message on '+new Date(),
                 chart:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
             }

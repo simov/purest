@@ -3,40 +3,26 @@ var TinyRest = require('../lib/tinyrest'),
     cred = require('./credentials');
 
 
-describe.skip('post', function () {
+describe('post', function () {
     var t = null;
     before(function (done) {
-        t = {
-            twitter: new TinyRest({provider:'twitter',
-                consumerKey:cred.app.twitter.key,
-                consumerSecret:cred.app.twitter.secret
-            }),
-            linkedin: new TinyRest({provider:'linkedin',
-                consumerKey:cred.app.linkedin.key,
-                consumerSecret:cred.app.linkedin.secret
-            }),
-            yahoo: new TinyRest({provider:'yahoo',
-                consumerKey:cred.app.yahoo.key,
-                consumerSecret:cred.app.yahoo.secret
-            }),
-            facebook: new TinyRest({provider:'facebook'}),
-            bitly: new TinyRest({provider:'bitly'}),
-            stocktwits: new TinyRest({provider:'stocktwits'}),
-            soundcloud: new TinyRest({provider:'soundcloud'}),
-            github: new TinyRest({provider:'github'}),
-            stackexchange: new TinyRest({provider:'stackexchange'}),
-            google: new TinyRest({provider:'google'}),
-            gmaps: new TinyRest({provider:'gmaps'}),
-            rubygems: new TinyRest({provider:'rubygems'}),
-            coderbits: new TinyRest({provider:'coderbits'}),
-            wikimapia: new TinyRest({provider:'wikimapia'})
-        };
+        for (var name in providers) {
+            var provider = providers[name];
+            if (provider.oauth) {
+                t[name] = new TinyRest({provider:name,
+                    consumerKey:cred.app[name].key,
+                    consumerSecret:cred.app[name].secret
+                });
+            } else {
+                t[name] = new TinyRest({provider:name});
+            }
+        }
         done();
     });
     it('should post twitter resource', function (done) {
         t.twitter.post('statuses/update', {
-            options:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            data:{status:'Message on '+new Date()}
+            oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+            form:{status:'Message on '+new Date()}
         },
         function (err, res, body) {
             if (err) return error(err, done);
@@ -46,8 +32,8 @@ describe.skip('post', function () {
     });
     it('should post linkedin resource', function (done) {
         t.linkedin.post('people/~/shares', {
-            options:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
-            data:{
+            oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
+            form:{
                 comment:'Message on '+new Date(),
                 visibility:{code:'anyone'}
             }
@@ -61,8 +47,8 @@ describe.skip('post', function () {
     });
     it('should post facebook resource', function (done) {
         t.facebook.post('me/feed', {
-            params:{access_token: cred.user.facebook.token},
-            data:{message: 'Message on '+new Date()}
+            qs:{access_token: cred.user.facebook.token},
+            form:{message: 'Message on '+new Date()}
         },
         function (err, res, body) {
             if (err) return error(err, done);
@@ -72,8 +58,8 @@ describe.skip('post', function () {
     });
     it('should post stocktwits resource', function (done) {
         t.stocktwits.post('messages/create', {
-            params:{access_token: cred.user.stocktwits.token},
-            data:{body: 'Message on '+new Date()}
+            qs:{access_token: cred.user.stocktwits.token},
+            form:{body: 'Message on '+new Date()}
         },
         function (err, res, body) {
             if (err) return error(err, done);
