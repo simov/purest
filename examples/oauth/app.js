@@ -30,11 +30,12 @@ app.configure('development', function() {
 
 var passport = require('passport'),
     cred = require('../../test/credentials');
-
-[
+var providers = [
     'twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits',
-    'bitly', 'github', 'stackexchange', 'google', 'yahoo']
-.forEach(function (provider) {
+    'bitly', 'github', 'stackexchange', 'google', 'yahoo'];
+
+
+providers.forEach(function (provider) {
     
     var options = {};
     var key    = /(twitter|linkedin|yahoo)/.test(provider) ? 'consumerKey'    : 'clientID';
@@ -59,6 +60,10 @@ var passport = require('passport'),
         console.log('account', '->', profile.username);
         console.log('token', '->', token);
         console.log('secret', '->', secret);
+        req.session.oauth = {
+            provider:req.url.replace(/\/connect\/(.*)\/callback.*/,'$1'),
+            token:token, secret:secret, profile:JSON.stringify(profile, null, 4)
+        };
         done();
     });
 
@@ -95,7 +100,15 @@ for (var provider in permissions) {
 
 
 app.get('/', function (req, res) {
-    res.render('app');
+    var params = [],
+        oauth = req.session.oauth||{};
+    delete req.session.oauth;
+    providers.forEach(function (provider) {
+        params.push({url:'/connect/'+provider, text:provider,
+            credentials: (oauth && oauth.provider == provider) ? oauth : null
+        });
+    });
+    res.render('template', {providers:params});
 });
 
 app.listen(app.get('port'), function() {
