@@ -15,17 +15,7 @@
     },
     "dependencies": {
         "commander": "2.1.0",
-        "tinyrest": "*",
-        "passport": "0.1.16",
-        "passport-twitter": "0.1.5",
-        "passport-linkedin": "0.1.3",
-        "passport-facebook": "0.1.5",
-        "passport-stocktwits": "0.0.1",
-        "passport-soundcloud": "*",
-        "passport-github": "0.1.5",
-        "passport-stackexchange": "0.1.0",
-        "passport-google-oauth": "0.1.5",
-        "passport-bitly": "git://github.com/simov/passport-bitly.git",
+        "tinyrest": "*"
     },
     "main": "./index",
     "bin": {

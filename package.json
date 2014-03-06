@@ -3,12 +3,7 @@
     "version": "0.0.3",
     "description": "Tiny RESTful HTTP client library",
     "keywords": [
-        "rest", "restful", "api", "http", "https",
-        "twitter", "facebook", "linkedin", "soundcloud",
-        "stocktwits", "bitly", "github", "stackexchange",
-        "rubygems", "coderbits",
-        "google", "gplus", "google+", "g+", "gdrive", "youtube",
-        "freebase", "pagespeed"
+        "rest", "restful", "api", "http", "https"
     ],
     "license"   : "MIT",
     "author": {
