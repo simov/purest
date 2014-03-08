@@ -168,7 +168,7 @@ describe('get', function () {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
-                api:'yql',
+                api:'query',
                 qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
             }, function (err, res, body) {
                 if (err) return error(err, done);
