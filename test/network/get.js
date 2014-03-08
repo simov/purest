@@ -1,7 +1,7 @@
 
-var TinyRest = require('../lib/tinyrest'),
-    providers = require('../config/providers'),
-    cred = require('./credentials');
+var TinyRest = require('../../lib/tinyrest'),
+    providers = require('../../config/providers'),
+    cred = require('../credentials');
 
 
 describe('get', function () {
@@ -43,51 +43,6 @@ describe('get', function () {
             done();
         });
     });
-
-
-    describe('yahoo', function () {
-        it.skip('should get social resource', function (done) {
-            t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
-                oauth:{
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                },
-                api:'social'
-            }, function (err, res, body) {
-                if (err) return error(err, done);
-                body.profile.nickname.should.equal('Simeon')
-                done();
-            });
-        });
-        it.skip('should get yql resource', function (done) {
-            t.yahoo.get('yql', {
-                oauth:{
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                },
-                api:'query',
-                qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
-            }, function (err, res, body) {
-                if (err) return error(err, done);
-                body.query.results.profile.nickname.should.equal('Simeon');
-                done();
-            });
-        });
-        it.skip('should get geo resource', function (done) {
-            t.yahoo.get("places.q('Central Park, New York')", {
-                oauth:{
-                    // TODO: credentials are not needed
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                },
-                api:'where',
-                qs:{appid:cred.app.yahoo.req_key}
-            }, function (err, res, body) {
-                if (err) return error(err, done);
-                body.places.place[0].admin1.should.equal('New York');
-                done();
-            });
-        });
-    });
-
-
     it.skip('should get facebook resource', function (done) {
         t.facebook.get('me/groups', {
             qs:{access_token:cred.user.facebook.token, fields:'id,name'}
@@ -195,7 +150,45 @@ describe('get', function () {
         });
     });
 
-    describe('google APIs', function () {
+    describe('yahoo', function () {
+        it.skip('should get social resource', function (done) {
+            t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
+                oauth:{
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
+                },
+                api:'social'
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.profile.nickname.should.equal('Simeon')
+                done();
+            });
+        });
+        it.skip('should get yql resource', function (done) {
+            t.yahoo.get('yql', {
+                oauth:{
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
+                },
+                api:'yql',
+                qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.query.results.profile.nickname.should.equal('Simeon');
+                done();
+            });
+        });
+        it.skip('should get geo resource', function (done) {
+            t.yahoo.get("places.q('Central Park, New York')", {
+                api:'where',
+                qs:{appid:cred.app.yahoo.req_key}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                body.places.place[0].admin1.should.equal('New York');
+                done();
+            });
+        });
+    });
+
+    describe('google', function () {
         it.skip('should get google+ resource', function (done) {
             t.google.get('people/106189723444098348646', {
                 api:'plus',
