@@ -16,9 +16,9 @@
                 "version": "v1",
                 "domain": "http://social.yahooapis.com"
             },
-            "yql": {
+            "query": {
                 "version": "v1",
-                "domain": "http://yql.yahooapis.com"
+                "domain": "http://query.yahooapis.com"
             },
             "where": {
                 "version": "v1",
