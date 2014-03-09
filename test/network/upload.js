@@ -1,11 +1,12 @@
 
 var fs = require('fs');
-var TinyRest = require('../lib/tinyrest'),
-    cred = require('./credentials');
+var TinyRest = require('../../lib/tinyrest'),
+    providers = require('../../config/providers'),
+    cred = require('../credentials');
 
 
 describe('upload', function () {
-    var t = null;
+    var t = {};
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
@@ -20,7 +21,7 @@ describe('upload', function () {
         }
         done();
     });
-    it('should upload image to twitter', function (done) {
+    it.skip('should upload image to twitter', function (done) {
         t.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             upload:'cat1.png',
@@ -36,7 +37,7 @@ describe('upload', function () {
             done();
         });
     });
-    it('should upload image to facebook', function (done) {
+    it.skip('should upload image to facebook', function (done) {
         t.facebook.post('me/photos', {
             upload:'cat1.png',
             qs:{
@@ -54,7 +55,7 @@ describe('upload', function () {
             done();
         });
     });
-    it('should upload image to stocktwits', function (done) {
+    it.skip('should upload image to stocktwits', function (done) {
         t.stocktwits.post('messages/create', {
             upload:'cat1.png',
             qs:{
