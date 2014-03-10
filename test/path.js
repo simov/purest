@@ -4,7 +4,7 @@ var TinyRest = require('../lib/provider');
 
 describe('path', function () {
     it('should create /version/api path', function (done) {
-        var providers = ['bitly', 'linkedin', 'stackexchange', 'gmaps', 'yahoo'];
+        var providers = ['bitly', 'linkedin', 'stackexchange', 'gmaps'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
             t.createPath('api/method').should.equal('/'+t.version+'/api/method');
