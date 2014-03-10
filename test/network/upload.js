@@ -1,8 +1,8 @@
 
 var fs = require('fs');
-var TinyRest = require('../../lib/tinyrest'),
+var TinyRest = require('../../lib/provider'),
     providers = require('../../config/providers'),
-    cred = require('../credentials');
+    cred = require('../../config/credentials');
 
 
 describe('upload', function () {

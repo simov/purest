@@ -1,5 +1,5 @@
 
-var TinyRest = require('../lib/tinyrest');
+var TinyRest = require('../lib/provider');
 
 
 describe('tinyrest', function () {

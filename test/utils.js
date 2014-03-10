@@ -1,7 +1,7 @@
 
 var should = require('should'),
     zlib = require('zlib');
-var TinyRest = require('../lib/tinyrest'),
+var TinyRest = require('../lib/provider'),
     utils = require('../lib/utils');
 
 
