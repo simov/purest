@@ -4,10 +4,10 @@ var TinyRest = require('../lib/tinyrest'),
 
 var cmd = require('commander')
     .version('0.0.0')
-    .option('p, --provider <name>', 'REST API provider')
-    .option('e, --example <index>', 'Example index')
-    .option('i, --id [index]', 'ID index')
-    .option('t, --token [index]', 'Token index')
+    .option('-p, --provider <name>', 'REST API provider')
+    .option('-e, --example <index>', 'Example index')
+    .option('-i, --id [index]', 'ID index')
+    .option('-t, --token [index]', 'Token index')
 .parse(process.argv);
 
 if (!cmd.provider) {
