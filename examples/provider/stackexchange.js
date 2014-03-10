@@ -1,12 +1,12 @@
 
-var cred = require('../../test/credentials');
+var cred = require('../../config/credentials');
 
 
 exports = module.exports = function (t) {
     return {
         0: function () {
-            t.stackexchange.get('users', {
-                params:{
+            t.get('users', {
+                qs:{
                     // anonymous
                     site:'stackoverflow',
                     sort:'reputation',
@@ -18,8 +18,8 @@ exports = module.exports = function (t) {
             });
         },
         1: function () {
-            t.stackexchange.get('users', {
-                params:{
+            t.get('users', {
+                qs:{
                     // app limited
                     key:cred.app.stackexchange.req_key,
                     site:'stackoverflow',
@@ -32,8 +32,8 @@ exports = module.exports = function (t) {
             });
         },
         2: function () {
-            t.stackexchange.get('users', {
-                params:{
+            t.get('users', {
+                qs:{
                     // app/user pair limited
                     key:cred.app.stackexchange.req_key,
                     access_token:cred.user.stackexchange.token,

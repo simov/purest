@@ -1,12 +1,12 @@
 
-var cred = require('../../test/credentials');
+var cred = require('../../config/credentials');
 
 
 exports = module.exports = function (t) {
     return {
         0: function (id) {
             t.get(id||'me', {
-                params:{access_token:cred.user.facebook.token}
+                qs:{access_token:cred.user.facebook.token}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -14,7 +14,7 @@ exports = module.exports = function (t) {
         },
         1: function (id) {
             t.get((id||'me')+'/feed', {
-                params:{access_token:cred.user.facebook.token}
+                qs:{access_token:cred.user.facebook.token}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -22,7 +22,7 @@ exports = module.exports = function (t) {
         },
         2: function () {
             t.get('me/accounts', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token,
                     fields:'id,name,picture,access_token'
                 }
@@ -33,7 +33,7 @@ exports = module.exports = function (t) {
         },
         3: function () {
             t.get('me/groups', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token,
                     fields:'id,name,picture,administrator,cover,icon'
                 }
@@ -44,7 +44,7 @@ exports = module.exports = function (t) {
         },
         4: function (id) {
             t.get('fql', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token,
                     q:'SELECT icon34 FROM group WHERE gid IN ('+id+')'
                 }
@@ -55,7 +55,7 @@ exports = module.exports = function (t) {
         },
         5: function (id) {
             t.get('fql', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token,
                     q:'SELECT friend_count FROM user WHERE uid = ' + id
                 }
@@ -66,7 +66,7 @@ exports = module.exports = function (t) {
         },
         6: function (id) {
             t.get('fql', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token,
                     q:'SELECT uid FROM group_member WHERE gid = ' + id
                 }
@@ -77,10 +77,10 @@ exports = module.exports = function (t) {
         },
         7: function (id) {
             t.post((id||'me')+'/feed', {
-                params:{
+                qs:{
                     access_token:cred.user.facebook.token
                 },
-                data: {
+                form: {
                     message:'Publish message on ' + new Date()
                 }
             }, function (err, res, body) {

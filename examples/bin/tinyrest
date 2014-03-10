@@ -2,7 +2,7 @@
 
 var path = require('path'),
 	spawn = require('child_process').spawn;
-var args = [path.resolve(__dirname, '../index')];
+var args = [path.resolve(__dirname, '../app')];
 
 
 /**

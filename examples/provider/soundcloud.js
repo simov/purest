@@ -1,12 +1,12 @@
 
-var cred = require('../../test/credentials');
+var cred = require('../../config/credentials');
 
 
 exports = module.exports = function (t) {
     return {
         0: function () {
             t.get('me', {
-                params:{oauth_token:cred.user.soundcloud.token}
+                qs:{oauth_token:cred.user.soundcloud.token}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -14,7 +14,7 @@ exports = module.exports = function (t) {
         },
         1: function () {
             t.get('tracks', {
-                params:{
+                qs:{
                     oauth_token:cred.user.soundcloud.token,
                     q:'dnb'
                 }

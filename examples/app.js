@@ -1,6 +1,6 @@
 
-var TinyRest = require('../lib/tinyrest'),
-    cred = require('../test/credentials');
+var TinyRest = require('../lib/provider'),
+    cred = require('../config/credentials');
 
 var cmd = require('commander')
     .version('0.0.0')
@@ -34,7 +34,7 @@ if (example[cmd.example] == undefined) {
     return console.log('Specified example index does not exist!');
 }
 
-var config = require('./config');
+var config = require('../config/examples');
 
 if (cmd.token) {
     cred.user[provider].token = config[provider].token[cmd.token];

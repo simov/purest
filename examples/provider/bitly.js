@@ -1,12 +1,12 @@
 
-var cred = require('../../test/credentials');
+var cred = require('../../config/credentials');
 
 
 exports = module.exports = function (t) {
     return {
         0: function () {
             t.get('user/info', {
-                params:{access_token:cred.user.bitly.token}
+                qs:{access_token:cred.user.bitly.token}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -14,7 +14,7 @@ exports = module.exports = function (t) {
         },
         1: function () {
             t.get('shorten', {
-                params:{
+                qs:{
                     access_token:cred.user.bitly.token,
                     longUrl:'http://simov.github.io'
                 }
@@ -25,7 +25,7 @@ exports = module.exports = function (t) {
         },
         2: function () {
             t.get('bitly_pro_domain', {
-                params:{
+                qs:{
                     access_token:cred.user.bitly.token,
                     domain:'buswk.co'
                 }
@@ -36,7 +36,7 @@ exports = module.exports = function (t) {
         },
         3: function () {
             t.get('link/clicks', {
-                params:{
+                qs:{
                     access_token:cred.user.bitly.token,
                     link:'http://nyti.ms/ItXWMo'
                 }
@@ -47,7 +47,7 @@ exports = module.exports = function (t) {
         },
         4: function () {
             t.get('info', {
-                params:{
+                qs:{
                     access_token:cred.user.bitly.token,
                     shortUrl:'http://nyti.ms/ItXWMo'
                 }

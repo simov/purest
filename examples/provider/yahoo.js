@@ -1,16 +1,16 @@
 
-var cred = require('../../test/credentials');
+var cred = require('../../config/credentials');
 
 
 exports = module.exports = function (t) {
     return {
         0: function () {
             t.get('me/guid', {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'social'
-                }
+                    secret:cred.user.yahoo.secret
+                },
+                api:'social'
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -18,11 +18,11 @@ exports = module.exports = function (t) {
         },
         1: function (id) {
             t.get('user/'+id+'/profile', {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'social'
-                }
+                    secret:cred.user.yahoo.secret
+                },
+                api:'social'
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -30,11 +30,11 @@ exports = module.exports = function (t) {
         },
         2: function (id) {
             t.get('yql', {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'query'
+                    secret:cred.user.yahoo.secret
                 },
+                api:'query',
                 params:{q: 'SELECT * FROM social.profile WHERE guid='+
                                             (id ? "'"+id+"'" : 'me')}
             }, function (err, res, body) {
@@ -45,11 +45,11 @@ exports = module.exports = function (t) {
         // accepts multiple ids
         3: function (id) {
             t.get('users.guid('+id+')/profile', {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'social'
-                }
+                    secret:cred.user.yahoo.secret
+                },
+                api:'social'
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -57,11 +57,11 @@ exports = module.exports = function (t) {
         },
         4: function (id) {
             t.get('user/'+(id||'me')+'/connections', {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'social'
-                }
+                    secret:cred.user.yahoo.secret
+                },
+                api:'social'
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -69,11 +69,11 @@ exports = module.exports = function (t) {
         },
         5: function () {
             t.get("places.q('Central Park, New York')", {
-                options:{
+                oauth:{
                     token:cred.user.yahoo.token,
-                    secret:cred.user.yahoo.secret,
-                    api:'where'
+                    secret:cred.user.yahoo.secret
                 },
+                api:'where',
                 params:{
                     appid:cred.app.yahoo.req_key
                 }
