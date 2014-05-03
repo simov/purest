@@ -103,7 +103,7 @@ describe('get', function () {
             done();
         });
     });
-    it('get foursquare resource', function (done) {
+    it.skip('get foursquare resource', function (done) {
         t.foursquare.get('users/81257627', {
             qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
         }, function (err, res, body) {

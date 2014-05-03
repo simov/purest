@@ -51,7 +51,7 @@ describe('path', function () {
             for (var i=0; i < apis.length; i++) {
                 var t = new TinyRest({provider:'google', api:apis[i]});
                 t.createPath('api/method',{})
-                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]]+'/api/method');
+                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]].version+'/api/method');
             }
             done();
         });
@@ -61,7 +61,7 @@ describe('path', function () {
             for (var i=0; i < apis.length; i++) {
                 var t = new TinyRest({provider:'google'});
                 t.createPath('api/method',{api:apis[i]})
-                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]]+'/api/method');
+                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]].version+'/api/method');
             }
             done();
         });
