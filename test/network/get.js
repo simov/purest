@@ -103,6 +103,15 @@ describe('get', function () {
             done();
         });
     });
+    it('get foursquare resource', function (done) {
+        t.foursquare.get('users/81257627', {
+            qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.response.user.firstName.should.equal('Simo');
+            done();
+        });
+    });
     it.skip('get stackexchange resource', function (done) {
         t.stackexchange.get('users', {
             qs:{

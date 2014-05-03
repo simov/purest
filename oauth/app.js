@@ -29,10 +29,11 @@ app.configure('development', function() {
 
 
 var passport = require('passport'),
-    cred = require('../../test/credentials');
+    cred = require('../config/credentials');
 var providers = [
     'twitter', 'facebook', 'linkedin', 'soundcloud', 'stocktwits',
-    'bitly', 'github', 'stackexchange', 'google', 'yahoo'];
+    'bitly', 'github', 'stackexchange', 'google', 'yahoo',
+    'foursquare'];
 
 
 providers.forEach(function (provider) {
@@ -88,11 +89,12 @@ var permissions = {
         'https://www.googleapis.com/auth/tasks',
         'https://www.googleapis.com/auth/yt-analytics.readonly'
     ],
-    yahoo:[]
+    yahoo:[],
+    foursquare:[]
 };
 
 for (var provider in permissions) {
-    var method = /(soundcloud|bitly|yahoo)/.test(provider) ? 'authenticate' : 'authorize';
+    var method = /(soundcloud|bitly|yahoo|foursquare)/.test(provider) ? 'authenticate' : 'authorize';
 
     app.get('/connect/'+provider, passport[method](provider, {scope:permissions[provider], failureRedirect:'/', successRedirect:'/'}));
     app.get('/connect/'+provider+'/callback', passport[method](provider, {failureRedirect:'/', successRedirect:'/'}));
