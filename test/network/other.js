@@ -22,7 +22,7 @@ describe('other http operations', function () {
     });
 
     describe('options', function () {
-        it.skip('should get yql resource', function (done) {
+        it.skip('get yql resource', function (done) {
             t.yahoo.get('yql', {
                 method:'OPTIONS',
                 oauth:{
@@ -36,7 +36,7 @@ describe('other http operations', function () {
                 done();
             });
         });
-        it.skip('should get geo resource', function (done) {
+        it.skip('get geo resource', function (done) {
             t.yahoo.get("places.q('Central Park, New York')", {
                 method:'OPTIONS',
                 api:'where'
@@ -49,7 +49,7 @@ describe('other http operations', function () {
     });
 
     describe('head', function () {
-        it.skip('should get social resource', function (done) {
+        it.skip('get social resource', function (done) {
             t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 method:'HEAD',
                 oauth:{

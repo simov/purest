@@ -3,7 +3,7 @@ var TinyRest = require('../lib/provider');
 
 
 describe('path', function () {
-    it('should create /version/api path', function (done) {
+    it('create /version/api path', function (done) {
         var providers = ['bitly', 'linkedin', 'stackexchange', 'gmaps'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
@@ -11,7 +11,7 @@ describe('path', function () {
         }
         done();
     });
-    it('should create /api path', function (done) {
+    it('create /api path', function (done) {
         var providers = ['facebook', 'github', 'wikimapia'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
@@ -19,7 +19,7 @@ describe('path', function () {
         }
         done();
     });
-    it('should create /api/version/method.json path', function (done) {
+    it('create /api/version/method.json path', function (done) {
         var providers = ['stocktwits', 'rubygems'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
@@ -27,7 +27,7 @@ describe('path', function () {
         }
         done();
     });
-    it('should create /version/api.json path', function (done) {
+    it('create /version/api.json path', function (done) {
         var providers = ['twitter'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
@@ -35,7 +35,7 @@ describe('path', function () {
         }
         done();
     });
-    it('should create /api.json path', function (done) {
+    it('create /api.json path', function (done) {
         var providers = ['soundcloud', 'coderbits'];
         for (var i=0; i < providers.length; i++) {
             var t = new TinyRest({provider:providers[i]});
@@ -45,7 +45,7 @@ describe('path', function () {
     });
 
     describe('same domain', function () {
-        it('should create /api/version/method path - api set in the ctor', function (done) {
+        it('create /api/version/method path - api set in the ctor', function (done) {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
                 google = require('../config/providers').google;
             for (var i=0; i < apis.length; i++) {
@@ -55,7 +55,7 @@ describe('path', function () {
             }
             done();
         });
-        it('should create /api/version/method path - api set in the params', function (done) {
+        it('create /api/version/method path - api set in the params', function (done) {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
                 google = require('../config/providers').google;
             for (var i=0; i < apis.length; i++) {
@@ -65,7 +65,7 @@ describe('path', function () {
             }
             done();
         });
-        it('should predefine an api version', function (done) {
+        it('predefine an api version', function (done) {
             var t = new TinyRest({provider:'google'});
             t.createPath('api/method',{api:'freebase', version:'4.4'})
                 .should.equal('/freebase/4.4/api/method');

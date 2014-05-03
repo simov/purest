@@ -7,35 +7,35 @@ var TinyRest = require('../lib/provider'),
 describe('options', function () {
     
     describe('upload', function () {
-        it('should pass on missing upload option', function (done) {
+        it('pass on missing upload option', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {};
             t.options.upload(t, 'api', options);
             should.deepEqual(options, {});
             done();
         });
-        it('should pass on missing upload provider', function (done) {
+        it('pass on missing upload provider', function (done) {
             var t = new TinyRest({provider:'coderbits'});
             var options = {upload:'cat.jpg'};
             t.options.upload(t, 'api', options);
             should.deepEqual(options, {upload:'cat.jpg'});
             done();
         });
-        it('should pass on missing upload api', function (done) {
+        it('pass on missing upload api', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.jpg'};
             t.options.upload(t, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
             done();
         });
-        it('should set the content-type to multipart/form-data', function (done) {
+        it('set the content-type to multipart/form-data', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             t.options.upload(t, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
             done();
         });
-        it('should remove the form and json options', function (done) {
+        it('remove the form and json options', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             t.options.upload(t, 'statuses/update_with_media', options);
@@ -46,7 +46,7 @@ describe('options', function () {
     });
     
     describe('multipart', function () {
-        it('should throw an error on unsupported media type', function (done) {
+        it('throw an error on unsupported media type', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.tiff', headers:{}, form:{'media[]':'...'}};
             (function () {
@@ -54,7 +54,7 @@ describe('options', function () {
             }).should.throw('Unsupported media type.');
             done();
         });
-        it('should generate image multipart/form-data', function (done) {
+        it('generate image multipart/form-data', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':'...'}};
             t.options.upload(t, 'statuses/update_with_media', options);
@@ -65,7 +65,7 @@ describe('options', function () {
                 body: '...'} ]);
             done();
         });
-        it('should generate images and text multipart/form-data', function (done) {
+        it('generate images and text multipart/form-data', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
             t.options.upload(t, 'statuses/update_with_media', options);
@@ -82,28 +82,28 @@ describe('options', function () {
     });
 
     describe('get', function () {
-        it('should set stackexchange get options', function (done) {
+        it('set stackexchange get options', function (done) {
             var t = new TinyRest({provider:'stackexchange'});
             var options = {};
             t.options.get.call(t, 'api', options);
             should.deepEqual(options, {encoding:null});
             done();
         });
-        it('should set github get options', function (done) {
+        it('set github get options', function (done) {
             var t = new TinyRest({provider:'github'});
             var options = {headers:{}};
             t.options.get.call(t, 'api', options);
             should.deepEqual(options, {headers:{'User-Agent':'TinyRest'}});
             done();
         });
-        it('should set linkedin get options', function (done) {
+        it('set linkedin get options', function (done) {
             var t = new TinyRest({provider:'linkedin'});
             var options = {headers:{}};
             t.options.get.call(t, 'api', options);
             options.headers['x-li-format'].should.equal('json');
             done();
         });
-        it('should set encoding to binary on certain gmaps APIs', function (done) {
+        it('set encoding to binary on certain gmaps APIs', function (done) {
             var t = new TinyRest({provider:'gmaps'});
             var options = {};
             t.options.get.call(t, 'api', options);
@@ -118,7 +118,7 @@ describe('options', function () {
     });
 
     describe('oauth', function () {
-        it('should throw an error on missing credentials', function (done) {
+        it('throw an error on missing credentials', function (done) {
             (function () {
                 var options = new Options();
                 options.oauth.call({consumerSecret:'.'}, {token:'.', secret:'.'});
@@ -137,7 +137,7 @@ describe('options', function () {
             }).should.throw('Missing OAuth credentials!');
             done();
         });
-        it('should use consumer key/secret provided from the ctor', function (done) {
+        it('use consumer key/secret provided from the ctor', function (done) {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
@@ -145,7 +145,7 @@ describe('options', function () {
             args.oauth.consumer_secret.should.equal('.');
             done();
         });
-        it('should use consumer key/secret provided as parameters', function (done) {
+        it('use consumer key/secret provided as parameters', function (done) {
             var options = new Options();
             var args = {oauth:{consumer_key:'-', consumer_secret:'-', token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
@@ -153,7 +153,7 @@ describe('options', function () {
             args.oauth.consumer_secret.should.equal('-');
             done();
         });
-        it('should accept user token/secret', function (done) {
+        it('accept user token/secret', function (done) {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
@@ -170,14 +170,14 @@ describe('options', function () {
 
     describe('url', function () {
         // escape  OAuth's  RFC3986's symbols
-        it('should escape !*()\' for twitter on POST request', function (done) {
+        it('escape !*()\' for twitter on POST request', function (done) {
             var t = new TinyRest({provider:'twitter'});
             var options = {form:{one:"!*()'",two:2}};
             t.url('api', options).should
                 .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
             done();
         });
-        it('should append json on missing gmaps format', function (done) {
+        it('append json on missing gmaps format', function (done) {
             var t = new TinyRest({provider:'gmaps'});
             t.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
             t.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
