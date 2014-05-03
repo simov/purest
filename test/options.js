@@ -97,8 +97,9 @@ describe('options', function () {
             done();
         });
         it('set linkedin get options', function (done) {
-            var t = new TinyRest({provider:'linkedin'});
-            var options = {headers:{}};
+            var t = new TinyRest({provider:'linkedin',
+                consumerKey:'a', consumerSecret:'b'});
+            var options = {headers:{}, oauth:{token:'a', secret:'b'}};
             t.options.get.call(t, 'api', options);
             options.headers['x-li-format'].should.equal('json');
             done();
