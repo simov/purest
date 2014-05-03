@@ -2,12 +2,14 @@
     "twitter": {
         "oauth": true,
         "version": "1.1",
-        "domain": "https://api.twitter.com"
+        "domain": "https://api.twitter.com",
+        "docs": "https://dev.twitter.com"
     },
     "linkedin": {
         "oauth": true,
         "version": "v1",
-        "domain": "http://api.linkedin.com"
+        "domain": "http://api.linkedin.com",
+        "docs": "http://developer.linkedin.com"
     },
     "yahoo": {
         "oauth": true,
@@ -28,45 +30,80 @@
     },
     "bitly": {
         "version": "v3",
-        "domain": "https://api-ssl.bitly.com"
+        "domain": "https://api-ssl.bitly.com",
+        "docs": "http://dev.bitly.com"
     },
     "stocktwits": {
         "version": "2",
-        "domain": "https://api.stocktwits.com"
+        "domain": "https://api.stocktwits.com",
+        "docs": "http://stocktwits.com/developers"
     },
     "facebook": {
-        "domain": "https://graph.facebook.com"
+        "domain": "https://graph.facebook.com",
+        "docs": "https://developers.facebook.com"
     },
     "rubygems": {
         "version": "v1",
-        "domain": "https://rubygems.org"
+        "domain": "https://rubygems.org",
+        "docs": "http://guides.rubygems.org/rubygems-org-api"
     },
     "soundcloud": {
-        "domain": "https://api.soundcloud.com"
+        "domain": "https://api.soundcloud.com",
+        "docs": "http://developers.soundcloud.com"
     },
     "github": {
-        "domain": "https://api.github.com"
+        "domain": "https://api.github.com",
+        "docs": "http://developer.github.com"
     },
     "stackexchange": {
         "version": "2.2",
-        "domain": "https://api.stackexchange.com"
+        "domain": "https://api.stackexchange.com",
+        "docs": "https://api.stackexchange.com"
+    },
+    "foursquare": {
+        "version": "v2",
+        "domain": "https://api.foursquare.com",
+        "docs": "https://developer.foursquare.com/"
     },
     "coderbits": {
-        "domain": "https://coderbits.com"
+        "domain": "https://coderbits.com",
+        "docs": "https://coderbits.com/api"
     },
     "wikimapia": {
-        "domain": "http://api.wikimapia.org"
+        "domain": "http://api.wikimapia.org",
+        "docs": "http://wikimapia.org/api"
     },
     "google": {
         "api": {
-            "plus": "v1",
-            "youtube": "v3",
-            "drive": "v2",
-            "freebase": "v1",
-            "tasks": "v1",
-            "urlshortener": "v1",
-            "pagespeedonline": "v1",
-            "youtube/analytics": "v1"
+            "plus": {
+                "version": "v1",
+                "docs": "https://developers.google.com/+/api"
+            },
+            "youtube": {
+                "version": "v3",
+                "docs": "https://developers.google.com/youtube/v3"
+            },
+            "drive": {
+                "version": "v2",
+                "docs": "https://developers.google.com/drive/v2/reference"
+            },
+            "freebase": {
+                "version": "v1",
+                "docs": "https://developers.google.com/freebase/v1"
+            },
+            "tasks": {
+                "version": "v1"
+            },
+            "urlshortener": {
+                "version": "v1"
+            },
+            "pagespeedonline": {
+                "version": "v1",
+                "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
+            },
+            "youtube/analytics": {
+                "version": "v1"
+            }
         },
         "domain": "https://www.googleapis.com"
     },
