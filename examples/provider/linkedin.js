@@ -144,8 +144,21 @@ exports = module.exports = function (t) {
                 console.log(body);
             });
         },
+        // get group updates that the token user created
+        9: function (id) {
+            t.get('people/~/group-memberships/'+id+'/posts', {
+                oauth:{
+                    token:cred.user.linkedin.token,
+                    secret:cred.user.linkedin.secret
+                },
+                qs:{role:'creator', count:5, order:'recency'}
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
+        },
         // post user share
-        9: function () {
+        10: function () {
             t.post('people/~/shares', {
                 oauth:{
                     token:cred.user.linkedin.token,
@@ -162,7 +175,7 @@ exports = module.exports = function (t) {
             });
         },
         // post company page share
-        10: function (id) {
+        11: function (id) {
             t.post('companies/'+id+'/shares', {
                 oauth:{
                     token:cred.user.linkedin.token,
@@ -179,7 +192,7 @@ exports = module.exports = function (t) {
             });
         },
         // post group share
-        11: function (id) {
+        12: function (id) {
             t.post('groups/'+id+'/posts', {
                 oauth:{
                     token:cred.user.linkedin.token,
