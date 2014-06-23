@@ -1,7 +1,7 @@
 {
-    "name": "tinyrest",
-    "version": "0.0.3",
-    "description": "Tiny RESTful HTTP client library",
+    "name": "purest",
+    "version": "0.0.0",
+    "description": "REST client library",
     "keywords": [
         "rest", "restful", "api", "http", "https"
     ],
@@ -12,7 +12,7 @@
     },
     "repository": {
         "type"  : "git",
-        "url"   : "git://github.com/simov/tinyrest.git"
+        "url"   : "git://github.com/simov/purest.git"
     },
     "dependencies": {
         "request" : "2.27.0"

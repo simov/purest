@@ -1,30 +1,30 @@
 
 var should = require('should');
-var TinyRest = require('../lib/provider');
+var purest = require('../lib/provider');
 
 
 describe('instance', function () {
     it('throw an error on non specified provider', function (done) {
         (function () {
-            var t = new TinyRest();
-        }).should.throw('TinyRest: provider option is required!');
+            var t = new purest();
+        }).should.throw('purest: provider option is required!');
         done();
     });
     it('throw an error on non existing provider', function (done) {
         (function () {
-            var t = new TinyRest({provider:'dood'});
-        }).should.throw('TinyRest: non existing provider!');
+            var t = new purest({provider:'dood'});
+        }).should.throw('purest: non existing provider!');
         done();
     });
     it('receive provider name', function (done) {
-        var t = new TinyRest({provider:'facebook'});
+        var t = new purest({provider:'facebook'});
         t.facebook.should.equal(true);
         t.name.should.equal('facebook');
         t.domain.should.equal('https://graph.facebook.com');
         done();
     });
     it('receive oauth app credentials', function (done) {
-        var t = new TinyRest({provider:'twitter',
+        var t = new purest({provider:'twitter',
             consumerKey:'app-key',
             consumerSecret:'app-secret'
         });
@@ -33,30 +33,30 @@ describe('instance', function () {
         done();
     });
     it('set an API version', function (done) {
-        var t = new TinyRest({provider:'stackexchange', version:'2.1'});
+        var t = new purest({provider:'stackexchange', version:'2.1'});
         t.version.should.equal('2.1');
         done();
     });
     it('set an API domain name', function (done) {
-        var t = new TinyRest({provider:'coderbits', domain:'https://api.coderbits.com'});
+        var t = new purest({provider:'coderbits', domain:'https://api.coderbits.com'});
         t.domain.should.equal('https://api.coderbits.com');
         done();
     });
     it('set an API name', function (done) {
-        var t = new TinyRest({provider:'google', api:'youtube'});
+        var t = new purest({provider:'google', api:'youtube'});
         t.api.should.equal('youtube');
         done();
     });
     it('support multiple instances at once', function (done) {
-        var github = new TinyRest({provider:'github'});
-        var stackexchange = new TinyRest({provider:'stackexchange'});
+        var github = new purest({provider:'github'});
+        var stackexchange = new purest({provider:'stackexchange'});
         
         github.name.should.equal('github');
         stackexchange.name.should.equal('stackexchange');
         
         var options = {headers:{}};
         github.options.get('api', options);
-        should.deepEqual(options, {headers:{'User-Agent':'TinyRest'}});
+        should.deepEqual(options, {headers:{'User-Agent':'purest'}});
 
         var options = {headers:{}};
         stackexchange.options.get('api', options);
@@ -65,7 +65,7 @@ describe('instance', function () {
         done();
     });
     it('expose the default request method', function (done) {
-        TinyRest.request.should.be.type('function');
+        purest.request.should.be.type('function');
         done();
     });
 });

@@ -1,14 +1,14 @@
 
 var should = require('should'),
     zlib = require('zlib');
-var TinyRest = require('../lib/provider'),
+var purest = require('../lib/provider'),
     utils = require('../lib/utils');
 
 
 describe('utils', function () {
     describe('querystring', function () {
         it('create a querystring with special characters escaped', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             utils.qs.call(t, 'api', {one:"!*()'",two:2})
                 .should.equal('/1.1/api.json?one=%21%2a%28%29%27&two=2');
             done();

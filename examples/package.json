@@ -1,7 +1,7 @@
 {
-    "name": "tinyrest-examples",
+    "name": "purest-examples",
     "version": "0.0.0",
-    "description": "TinyRest Examples",
+    "description": "purest examples",
     "private": true,
     "keywords": [],
     "license"   : "MIT",
@@ -11,14 +11,14 @@
     },
     "repository": {
         "type"  : "git",
-        "url"   : "git://github.com/simov/tinyrest.git"
+        "url"   : "git://github.com/simov/purest.git"
     },
     "dependencies": {
         "commander": "2.1.0",
-        "tinyrest": "*"
+        "purest": "*"
     },
     "main": "./index",
     "bin": {
-        "t": "./bin/tinyrest"
+        "t": "./bin/purest"
     }
 }

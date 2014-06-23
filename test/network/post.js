@@ -1,5 +1,5 @@
 
-var TinyRest = require('../../lib/provider'),
+var purest = require('../../lib/provider'),
     providers = require('../../config/providers'),
     cred = require('../../config/credentials');
 
@@ -10,12 +10,12 @@ describe('post', function () {
         for (var name in providers) {
             var provider = providers[name];
             if (provider.oauth) {
-                t[name] = new TinyRest({provider:name,
+                t[name] = new purest({provider:name,
                     consumerKey:cred.app[name].key,
                     consumerSecret:cred.app[name].secret
                 });
             } else {
-                t[name] = new TinyRest({provider:name});
+                t[name] = new purest({provider:name});
             }
         }
         done();
@@ -27,7 +27,7 @@ describe('post', function () {
         },
         function (err, res, body) {
             if (err) return error(err, done);
-            body.source.should.equal('<a href="http://outofindex.com" rel="nofollow">TinyRest</a>');
+            body.source.should.equal('<a href="http://outofindex.com" rel="nofollow">purest</a>');
             done();
         });
     });
@@ -65,7 +65,7 @@ describe('post', function () {
         function (err, res, body) {
             if (err) return error(err, done);
             body.message.source.id.should.equal(1348);
-            body.message.source.title.should.equal('TinyRest');
+            body.message.source.title.should.equal('purest');
             done();
         });
     });

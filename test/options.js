@@ -1,6 +1,6 @@
 
 var should = require('should');
-var TinyRest = require('../lib/provider'),
+var purest = require('../lib/provider'),
     Options = require('../lib/options');
 
 
@@ -8,35 +8,35 @@ describe('options', function () {
     
     describe('upload', function () {
         it('pass on missing upload option', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {};
             t.options.upload(t, 'api', options);
             should.deepEqual(options, {});
             done();
         });
         it('pass on missing upload provider', function (done) {
-            var t = new TinyRest({provider:'coderbits'});
+            var t = new purest({provider:'coderbits'});
             var options = {upload:'cat.jpg'};
             t.options.upload(t, 'api', options);
             should.deepEqual(options, {upload:'cat.jpg'});
             done();
         });
         it('pass on missing upload api', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg'};
             t.options.upload(t, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
             done();
         });
         it('set the content-type to multipart/form-data', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             t.options.upload(t, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
             done();
         });
         it('remove the form and json options', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             t.options.upload(t, 'statuses/update_with_media', options);
             should.equal(options.form, undefined);
@@ -47,7 +47,7 @@ describe('options', function () {
     
     describe('multipart', function () {
         it('throw an error on unsupported media type', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.tiff', headers:{}, form:{'media[]':'...'}};
             (function () {
                 t.options.upload(t, 'statuses/update_with_media', options);
@@ -55,7 +55,7 @@ describe('options', function () {
             done();
         });
         it('generate image multipart/form-data', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':'...'}};
             t.options.upload(t, 'statuses/update_with_media', options);
             should.deepEqual(options.multipart,
@@ -66,7 +66,7 @@ describe('options', function () {
             done();
         });
         it('generate images and text multipart/form-data', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
             t.options.upload(t, 'statuses/update_with_media', options);
             should.deepEqual(options.multipart,
@@ -83,21 +83,21 @@ describe('options', function () {
 
     describe('get', function () {
         it('set stackexchange get options', function (done) {
-            var t = new TinyRest({provider:'stackexchange'});
+            var t = new purest({provider:'stackexchange'});
             var options = {};
             t.options.get.call(t, 'api', options);
             should.deepEqual(options, {encoding:null});
             done();
         });
         it('set github get options', function (done) {
-            var t = new TinyRest({provider:'github'});
+            var t = new purest({provider:'github'});
             var options = {headers:{}};
             t.options.get.call(t, 'api', options);
-            should.deepEqual(options, {headers:{'User-Agent':'TinyRest'}});
+            should.deepEqual(options, {headers:{'User-Agent':'purest'}});
             done();
         });
         it('set linkedin get options', function (done) {
-            var t = new TinyRest({provider:'linkedin',
+            var t = new purest({provider:'linkedin',
                 consumerKey:'a', consumerSecret:'b'});
             var options = {headers:{}, oauth:{token:'a', secret:'b'}};
             t.options.get.call(t, 'api', options);
@@ -105,7 +105,7 @@ describe('options', function () {
             done();
         });
         it('set encoding to binary on certain gmaps APIs', function (done) {
-            var t = new TinyRest({provider:'gmaps'});
+            var t = new purest({provider:'gmaps'});
             var options = {};
             t.options.get.call(t, 'api', options);
             should.deepEqual(options, {});
@@ -172,14 +172,14 @@ describe('options', function () {
     describe('url', function () {
         // escape  OAuth's  RFC3986's symbols
         it('escape !*()\' for twitter on POST request', function (done) {
-            var t = new TinyRest({provider:'twitter'});
+            var t = new purest({provider:'twitter'});
             var options = {form:{one:"!*()'",two:2}};
             t.url('api', options).should
                 .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
             done();
         });
         it('append json on missing gmaps format', function (done) {
-            var t = new TinyRest({provider:'gmaps'});
+            var t = new purest({provider:'gmaps'});
             t.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
             t.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
             t.url('timezone/xml', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/xml');

@@ -1,5 +1,5 @@
 
-var TinyRest = require('../lib/provider'),
+var purest = require('../lib/provider'),
     cred = require('../config/credentials');
 
 var cmd = require('commander')
@@ -22,7 +22,7 @@ if (!cmd.example) {
 
 var provider = cmd.provider;
 
-var t = new TinyRest({
+var t = new purest({
     provider:provider,
     consumerKey:cred.app[provider].key,
     consumerSecret:cred.app[provider].secret
