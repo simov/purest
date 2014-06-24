@@ -1,52 +1,138 @@
 
 # purest
-**purest** is build on top of [request][1], adding just the needed configuration to ensure working with each REST API provider in a consistent way
+_**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with each REST API provider in a consistent and user friendly way
 
-## Design Goals
-- No syntax sugar
-- Zero abstraction on top of the REST APIs - *reading provider's official documentation is sufficient*
-- All provider's API calls should return data in the same way
-- Each request is a separate instance - *purest is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself*
+```js
+var purest = require('purest');
 
-###### Syntax sugar is evil
-- Syntax sugar means adding additional layer on top of what's already just an URL
-- Makes reading providers's official API documentation insufficient
-- Limits the module to only what's implemented
-- Changes/additions needs to be done each time the provider does them
-- Having multiple providers in an app each of which with its own API wrapper makes code inconsistent/hard to maintain
-- Adding syntax sugar once means, you'll have to support it forever
+var facebook = new purest({provider:'facebook'});
 
-## Obtaining Access Tokens
-1. Login to the REST API provider with your account
-2. Navigate to http://passport-oauth.herokuapp.com/
-3. Click on the provider you wan't to get access tokens for
-4. Follow the steps on the screen
-5. Copy and save the generated access tokens somewhere *(they are **not** stored on the heroku's server)*
+facebook.get('me', {qs:{access_token:'...'}}, function (err, res, body) { });
 
-## Supported Providers
-generate the list here
-
-Can't find what you are searching for .. [add it](fork) or [make a request](issue tracker)
-
-## API
-Remember when I told you *"No syntax sugar"*. Well I lied. Here is what you should know.
-
-```
-// ctor
-{
-  consumerKey
-  consumerSecret
-  version
-  api
-}
+facebook.post('me/feed', {
+  qs:{access_token:'...'},
+  form:{message: 'Purest is awesome!'}
+},
+function (err, res, body) { });
 ```
 
+
+## constructor
+```js
+new purest({
+  // required
+  provider:'name', // see the list of supported providers below
+
+  // OAuth 1 only
+  consumerKey:'app-key', // OAuth app consumer key
+  consumerSecret:'app-secret', // // OAuth app consumer secret
+
+  // optional, overrides config/provider.json
+  version:'2.1', // provider API version
+  domain:'https://api.twitter.com', // provider API domain
+  api:'youtube' // set specific api to use for providers with multiple api's under same domain
+})
 ```
-{
-    api: 'youtube', // when multiple apis under same domain/path
-    upload: 'cat.jpg' // the name of the file that's being uploaded
-}
+
+
+## get | post
+```js
+var twitter = new purest({provider:'twitter', consumerKey'..', consumerSecret:'..'});
+
+twitter.post('statuses/update', {
+  oauth:{token:'..', secret:'..'},
+  form:{status:'Loot!'}
+},
+function (err, res, body) { });
 ```
+
+### syntax
+```js
+[purest instance].[http method](
+  'api endpoint',
+  [mikeal's request params + some specific to purest],
+  callback([error object], [response object], [parsed JSON body])
+)
+```
+### additional request params
+Additional to the [mikeal's request params][2], _purest_ adds a few more parameters on its own
+
+#### secret
+> oauth:{token:'', secret:'same as token_secret'}
+
+```js
+t.twitter.get('users/show', {
+  oauth:{token:'..', secret:'..'},
+  qs:{screen_name:'nodejs'}
+}, function (err, res, body) {});
+```
+
+#### api
+> currently used only for Google and Yahoo<br />
+specific api to use for providers with multiple api's under same domain
+
+```js
+google.get('channels', {
+  api:'youtube',
+  qs:{
+    access_token:'..',
+    part:'id, snippet, contentDetails, statistics, status, topicDetails',
+    forUsername:'RayWilliamJohnson'
+  }
+}, function (err, res, body) {});
+
+yahoo.get('yql', {
+  api:'query',
+  oauth:{token:'..', secret:'..'},
+  qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
+}, function (err, res, body) {});
+```
+
+#### upload
+> file name is required when uploading
+
+```js
+twitter.post('statuses/update_with_media', {
+  oauth:{token:'..', secret:'..'},
+  upload:'cat.png',
+  form:{
+    status:'My cat is awesome!',
+    'media[]':fs.readFileSync('/absolute/path/to/cat.png')
+  }
+},
+function (err, res, body) {});
+
+facebook.post('me/photos', {
+  upload:'cat.png',
+  qs:{
+    access_token:'..',
+    message:'nyan nyan nyan ...'
+  },
+  form:{
+    source:fs.readFileSync('/absolute/path/to/cat.png')
+  }
+},
+function (err, res, body) {});
+```
+
+## providers
+[generate the list here]
+
+
+## examples
+...
+
+## goals
+- no syntax sugar
+- zero abstraction on top of the REST APIs - reading provider's official documentation is sufficient
+- all provider's API calls return data in the same way
+- each request is a separate instance - purest is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself, like for example the access tokens
+
+
+## license
+MIT
+
 
   [1]: https://github.com/mikeal/request
+  [2]: https://github.com/mikeal/request#requestoptions-callback
   
