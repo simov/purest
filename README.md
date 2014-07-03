@@ -1,6 +1,6 @@
 
 # purest
-_**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with each REST API provider in a consistent and user friendly way
+_**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and user friendly way
 
 ```js
 var purest = require('purest');
@@ -54,14 +54,14 @@ function (err, res, body) { });
   callback([error object], [response object], [parsed JSON body])
 )
 ```
-### additional request params
+### specific request params
 Additional to the [mikeal's request params][2], _purest_ adds a few more parameters on its own
 
 #### secret
 > oauth:{token:'', secret:'same as token_secret'}
 
 ```js
-t.twitter.get('users/show', {
+twitter.get('users/show', {
   oauth:{token:'..', secret:'..'},
   qs:{screen_name:'nodejs'}
 }, function (err, res, body) {});
@@ -126,7 +126,7 @@ function (err, res, body) {});
 - no syntax sugar
 - zero abstraction on top of the REST APIs - reading provider's official documentation is sufficient
 - all provider's API calls return data in the same way
-- each request is a separate instance - purest is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself, like for example the access tokens
+- each request is a separate instance - _purest_ is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself (like for example the access tokens)
 
 
 ## license
