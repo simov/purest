@@ -32,6 +32,14 @@ describe('instance', function () {
         t.consumerSecret.should.equal('app-secret');
         done();
     });
+    it('receive oauth app credentials through shortcuts', function (done) {
+        var t = new purest({provider:'twitter',
+            key:'app-key', secret:'app-secret'
+        });
+        t.consumerKey.should.equal('app-key');
+        t.consumerSecret.should.equal('app-secret');
+        done();
+    });
     it('set an API version', function (done) {
         var t = new purest({provider:'stackexchange', version:'2.1'});
         t.version.should.equal('2.1');
