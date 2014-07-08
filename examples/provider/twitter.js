@@ -6,10 +6,7 @@ exports = module.exports = function (t) {
     return {
         0: function (id) {
             t.get('users/show', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 qs:{user_id:id}
             }, function (err, res, body) {
                 debugger;
@@ -18,10 +15,7 @@ exports = module.exports = function (t) {
         },
         1: function () {
             t.get('statuses/user_timeline', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 qs:{
                     count: 3000
                     // trim_user: true
@@ -33,10 +27,7 @@ exports = module.exports = function (t) {
         },
         2: function () {
             t.get('statuses/home_timeline', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 qs:{count: 200}
             }, function (err, res, body) {
                 debugger;
@@ -45,10 +36,7 @@ exports = module.exports = function (t) {
         },
         3: function () {
             t.get('statuses/mentions_timeline', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                }
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret}
                 // qs:{since_id: 'id'}
             }, function (err, res, body) {
                 debugger;
@@ -57,10 +45,7 @@ exports = module.exports = function (t) {
         },
         4: function () {
             t.get('statuses/retweets_of_me', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                }
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -68,10 +53,7 @@ exports = module.exports = function (t) {
         },
         5: function () {
             t.get('statuses/retweets', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 qs:{
                     id:'tweet id must be passed as a parameter',
                     count:100
@@ -83,10 +65,7 @@ exports = module.exports = function (t) {
         },
         6: function () {
             t.get('help/configuration', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                }
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -94,10 +73,7 @@ exports = module.exports = function (t) {
         },
         7: function () {
             t.post('statuses/update', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 data:{status:'Message on '+new Date()}
             },
             function (err, res, body) {
@@ -107,11 +83,8 @@ exports = module.exports = function (t) {
         },
         8: function () {
             t.post('statuses/update_with_media', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret,
-                    upload:'cat.jpg'
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+                upload:'cat.jpg',
                 data:{
                     status:'Message on '+new Date(),
                     'media[]':fs.readFileSync('/absolute/path/to/cat.jpg')
@@ -123,10 +96,7 @@ exports = module.exports = function (t) {
         },
         9: function () {
             t.get('users/search', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                },
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
                 qs:{
                     q:'twitter'
                 }
@@ -137,10 +107,7 @@ exports = module.exports = function (t) {
         },
         10: function () {
             t.get('direct_messages', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                }
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);
@@ -148,10 +115,7 @@ exports = module.exports = function (t) {
         },
         11: function () {
             t.get('direct_messages/sent', {
-                oauth:{
-                    token:cred.user.twitter.token,
-                    secret:cred.user.twitter.secret
-                }
+                oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret}
             }, function (err, res, body) {
                 debugger;
                 console.log(body);

@@ -24,8 +24,8 @@ var provider = cmd.provider;
 
 var t = new purest({
     provider:provider,
-    consumerKey:cred.app[provider].key,
-    consumerSecret:cred.app[provider].secret
+    key:cred.app[provider].key,
+    secret:cred.app[provider].secret
 });
 
 var example = require('./provider/'+provider)(t);
