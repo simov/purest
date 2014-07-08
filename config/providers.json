@@ -1,78 +1,4 @@
 {
-    "twitter": {
-        "oauth": true,
-        "version": "1.1",
-        "domain": "https://api.twitter.com",
-        "docs": "https://dev.twitter.com"
-    },
-    "linkedin": {
-        "oauth": true,
-        "version": "v1",
-        "domain": "http://api.linkedin.com",
-        "docs": "http://developer.linkedin.com"
-    },
-    "yahoo": {
-        "oauth": true,
-        "api": {
-            "social": {
-                "version": "v1",
-                "domain": "http://social.yahooapis.com"
-            },
-            "query": {
-                "version": "v1",
-                "domain": "http://query.yahooapis.com"
-            },
-            "where": {
-                "version": "v1",
-                "domain": "http://where.yahooapis.com"
-            }	
-        }
-    },
-    "bitly": {
-        "version": "v3",
-        "domain": "https://api-ssl.bitly.com",
-        "docs": "http://dev.bitly.com"
-    },
-    "stocktwits": {
-        "version": "2",
-        "domain": "https://api.stocktwits.com",
-        "docs": "http://stocktwits.com/developers"
-    },
-    "facebook": {
-        "domain": "https://graph.facebook.com",
-        "docs": "https://developers.facebook.com"
-    },
-    "rubygems": {
-        "version": "v1",
-        "domain": "https://rubygems.org",
-        "docs": "http://guides.rubygems.org/rubygems-org-api"
-    },
-    "soundcloud": {
-        "domain": "https://api.soundcloud.com",
-        "docs": "http://developers.soundcloud.com"
-    },
-    "github": {
-        "domain": "https://api.github.com",
-        "docs": "http://developer.github.com"
-    },
-    "stackexchange": {
-        "version": "2.2",
-        "domain": "https://api.stackexchange.com",
-        "docs": "https://api.stackexchange.com"
-    },
-    "foursquare": {
-        "version": "v2",
-        "domain": "https://api.foursquare.com",
-        "docs": "https://developer.foursquare.com/"
-    },
-    "coderbits": {
-        "domain": "https://coderbits.com",
-        "docs": "https://coderbits.com/api"
-    },
-    "wikimapia": {
-        "domain": "http://api.wikimapia.org",
-        "docs": "http://wikimapia.org/api"
-    },
     "google": {
         "api": {
             "plus": {
@@ -107,8 +33,127 @@
         },
         "domain": "https://www.googleapis.com"
     },
+    "yahoo": {
+        "oauth": true,
+        "api": {
+            "social": {
+                "version": "v1",
+                "domain": "http://social.yahooapis.com"
+            },
+            "query": {
+                "version": "v1",
+                "domain": "http://query.yahooapis.com"
+            },
+            "where": {
+                "version": "v1",
+                "domain": "http://where.yahooapis.com"
+            }	
+        }
+    },
     "gmaps": {
         "version": "maps/api",
         "domain": "https://maps.googleapis.com"
-    }	
+    },
+    "twitter": {
+        "oauth": true,
+        "version": "1.1",
+        "domain": "https://api.twitter.com",
+        "docs": "https://dev.twitter.com"
+    },
+    "linkedin": {
+        "oauth": true,
+        "version": "v1",
+        "domain": "http://api.linkedin.com",
+        "docs": "http://developer.linkedin.com"
+    },
+    "bitly": {
+        "version": "v3",
+        "domain": "https://api-ssl.bitly.com",
+        "docs": "http://dev.bitly.com"
+    },
+    "stocktwits": {
+        "version": "2",
+        "domain": "https://api.stocktwits.com",
+        "docs": "http://stocktwits.com/developers"
+    },
+    "facebook": {
+        "domain": "https://graph.facebook.com",
+        "docs": "https://developers.facebook.com"
+    },
+    "soundcloud": {
+        "domain": "https://api.soundcloud.com",
+        "docs": "http://developers.soundcloud.com"
+    },
+    "github": {
+        "domain": "https://api.github.com",
+        "docs": "http://developer.github.com"
+    },
+    "stackexchange": {
+        "version": "2.2",
+        "domain": "https://api.stackexchange.com",
+        "docs": "https://api.stackexchange.com"
+    },
+    "foursquare": {
+        "version": "v2",
+        "domain": "https://api.foursquare.com",
+        "docs": "https://developer.foursquare.com/"
+    },
+    "coderbits": {
+        "domain": "https://coderbits.com",
+        "docs": "https://coderbits.com/api"
+    },
+    "rubygems": {
+        "version": "v1",
+        "domain": "https://rubygems.org",
+        "docs": "http://guides.rubygems.org/rubygems-org-api"
+    },
+    "wikimapia": {
+        "domain": "http://api.wikimapia.org",
+        "docs": "http://wikimapia.org/api"
+    },
+
+    "slack": {
+        "domain": "https://slack.com/api",
+        "docs": "https://api.slack.com/"
+    },
+    "instagram": {
+        "version": "v1",
+        "domain": "https://api.instagram.com",
+        "docs": "http://instagram.com/developer"
+    },
+    "flickr": {
+        "oauth": true,
+        "domain": "https://api.flickr.com",
+        "docs": "https://www.flickr.com/services/api/"
+    },
+    "disqus": {
+        "version": "3.0",
+        "domain": "https://disqus.com/api",
+        "docs": "https://disqus.com/api/docs/"
+    },
+    "trello": {
+        "oauth": true,
+        "version": "1",
+        "domain": "https://api.trello.com",
+        "docs": "https://trello.com/docs/"
+    },
+    "asana": {
+        "version": "1.0",
+        "domain": "https://app.asana.com/api",
+        "docs": "http://developer.asana.com/documentation/"
+    },
+    "mailchimp": {
+        "version": "2.0",
+        "domain": "https://us2.api.mailchimp.com",
+        "docs": "http://apidocs.mailchimp.com/"
+    },
+    "heroku": {
+        "domain": "https://api.heroku.com",
+        "docs": "https://devcenter.heroku.com/categories/platform-api"
+    },
+    "dropbox": {
+        "varsion": "1",
+        "domain": "https://api.dropbox.com",
+        "docs": "https://www.dropbox.com/developers"
+    }
 }
