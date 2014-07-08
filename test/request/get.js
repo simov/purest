@@ -5,24 +5,19 @@ var purest = require('../../lib/provider'),
 
 
 describe('get', function () {
-    var t = {};
+    var p = {};
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
-            if (provider.oauth) {
-                t[name] = new purest({provider:name,
-                    consumerKey:cred.app[name].key,
-                    consumerSecret:cred.app[name].secret
-                });
-            } else {
-                t[name] = new purest({provider:name});
-            }
+            p[name] = new purest(provider.oauth
+                ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
+                : {provider:name});
         }
         done();
     });
-    
+
     it.skip('get twitter resource', function (done) {
-        t.twitter.get('users/show', {
+        p.twitter.get('users/show', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             qs:{screen_name:'mightymob'}
         }, function (err, res, body) {
@@ -33,7 +28,7 @@ describe('get', function () {
         });
     });
     it.skip('get linkedin resource', function (done) {
-        t.linkedin.get('companies', {
+        p.linkedin.get('companies', {
             oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
             qs:{'email-domain':'apple.com'}
         }, function (err, res, body) {
@@ -44,7 +39,7 @@ describe('get', function () {
         });
     });
     it.skip('get facebook resource', function (done) {
-        t.facebook.get('me/groups', {
+        p.facebook.get('me/groups', {
             qs:{access_token:cred.user.facebook.token, fields:'id,name'}
         }, function (err, res, body) {
             if (err) return error(err, done);
@@ -56,7 +51,7 @@ describe('get', function () {
         });
     });
     it.skip('get facebook fql resource', function (done) {
-        t.facebook.get('fql', {
+        p.facebook.get('fql', {
             qs:{
                 access_token:cred.user.facebook.token,
                 q:'SELECT friend_count FROM user WHERE uid = 100006399333306'}
@@ -67,7 +62,7 @@ describe('get', function () {
         });
     });
     it.skip('get bitly resource', function (done) {
-        t.bitly.get('bitly_pro_domain', {
+        p.bitly.get('bitly_pro_domain', {
             qs:{access_token:cred.user.bitly.token, domain:'nyti.ms'}
         }, function (err, res, body) {
             if (err) return error(err, done);
@@ -77,7 +72,7 @@ describe('get', function () {
         });
     });
     it.skip('get stocktwits resource', function (done) {
-        t.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
+        p.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
             if (err) return error(err, done);
             body.response.status.should.equal(200);
             body.messages.length.should.equal(30);
@@ -85,7 +80,7 @@ describe('get', function () {
         });
     });
     it.skip('get soundcloud resource', function (done) {
-        t.soundcloud.get('users', {
+        p.soundcloud.get('users', {
             qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
         }, function (err, res, body) {
             if (err) return error(err, done);
@@ -94,7 +89,7 @@ describe('get', function () {
         });
     });
     it.skip('get github resource', function (done) {
-        t.github.get('users/simov', {
+        p.github.get('users/simov', {
             qs:{access_token:cred.user.github.token}
         }, function (err, res, body) {
             if (err) return error(err, done);
@@ -104,7 +99,7 @@ describe('get', function () {
         });
     });
     it.skip('get foursquare resource', function (done) {
-        t.foursquare.get('users/81257627', {
+        p.foursquare.get('users/81257627', {
             qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
         }, function (err, res, body) {
             if (err) return error(err, done);
@@ -113,7 +108,7 @@ describe('get', function () {
         });
     });
     it.skip('get stackexchange resource', function (done) {
-        t.stackexchange.get('users', {
+        p.stackexchange.get('users', {
             qs:{
                 key:cred.app.stackexchange.req_key,
                 access_token:cred.user.stackexchange.token,
@@ -128,7 +123,7 @@ describe('get', function () {
         });
     });
     it.skip('get rubygems resource', function (done) {
-        t.rubygems.get('gems/rails', function (err, res, body) {
+        p.rubygems.get('gems/rails', function (err, res, body) {
             if (err) return error(err, done);
             body.name.should.equal('rails');
             body.platform.should.equal('ruby');
@@ -136,14 +131,14 @@ describe('get', function () {
         });
     });
     it.skip('get coderbits resource', function (done) {
-        t.coderbits.get('simov', function (err, res, body) {
+        p.coderbits.get('simov', function (err, res, body) {
             if (err) return error(err, done);
             body.username.should.equal('simov');
             done();
         });
     });
     it.skip('get wikimapia resource', function (done) {
-        t.wikimapia.get('', {
+        p.wikimapia.get('', {
             qs: {
                 key:cred.app.wikimapia.req_key,
                 function:'place.search',
@@ -161,7 +156,7 @@ describe('get', function () {
 
     describe('yahoo', function () {
         it.skip('get social resource', function (done) {
-            t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
+            p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
@@ -173,7 +168,7 @@ describe('get', function () {
             });
         });
         it.skip('get yql resource', function (done) {
-            t.yahoo.get('yql', {
+            p.yahoo.get('yql', {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
@@ -186,7 +181,7 @@ describe('get', function () {
             });
         });
         it.skip('get geo resource', function (done) {
-            t.yahoo.get("places.q('Central Park, New York')", {
+            p.yahoo.get("places.q('Central Park, New York')", {
                 api:'where',
                 qs:{appid:cred.app.yahoo.req_key}
             }, function (err, res, body) {
@@ -199,7 +194,7 @@ describe('get', function () {
 
     describe('google', function () {
         it.skip('get google+ resource', function (done) {
-            t.google.get('people/106189723444098348646', {
+            p.google.get('people/106189723444098348646', {
                 api:'plus',
                 qs:{
                     access_token:cred.user.google.token
@@ -211,7 +206,7 @@ describe('get', function () {
             });
         });
         it.skip('get youtube resource', function (done) {
-            t.google.get('channels', {
+            p.google.get('channels', {
                 api:'youtube',
                 qs:{
                     access_token:cred.user.google.token,
@@ -225,7 +220,7 @@ describe('get', function () {
             });
         });
         it.skip('get youtube analytics resource', function (done) {
-            t.google.get('reports', {
+            p.google.get('reports', {
                 api:'youtube/analytics',
                 qs:{
                     access_token:cred.user.google.token,
@@ -241,7 +236,7 @@ describe('get', function () {
             });
         });
         it.skip('get drive resource', function (done) {
-            t.google.get('about', {
+            p.google.get('about', {
                 api:'drive',
                 qs:{
                     access_token:cred.user.google.token
@@ -253,7 +248,7 @@ describe('get', function () {
             });
         });
         it.skip('get freebase resource', function (done) {
-            t.google.get('search', {
+            p.google.get('search', {
                 api:'freebase',
                 qs:{
                     access_token:cred.user.google.token,
@@ -266,7 +261,7 @@ describe('get', function () {
             });
         });
         it.skip('get tasks resource', function (done) {
-            t.google.get('users/@me/lists', {
+            p.google.get('users/@me/lists', {
                 api:'tasks',
                 qs:{
                     access_token:cred.user.google.token
@@ -278,7 +273,7 @@ describe('get', function () {
             });
         });
         it.skip('get urlshortener resource', function (done) {
-            t.google.get('url', {
+            p.google.get('url', {
                 api:'urlshortener',
                 qs:{
                     key:cred.app.google.req_key,
@@ -291,7 +286,7 @@ describe('get', function () {
             });
         });
         it.skip('get pagespeed resource', function (done) {
-            t.google.get('runPagespeed', {
+            p.google.get('runPagespeed', {
                 api:'pagespeedonline',
                 qs:{
                     key:cred.app.google.req_key,
@@ -307,7 +302,7 @@ describe('get', function () {
     
     describe('google maps', function () {
         it.skip('get streetview resource', function (done) {
-            t.gmaps.get('streetview', {
+            p.gmaps.get('streetview', {
                 qs:{
                     key:cred.app.google.req_key,
                     location:'40.7828647,-73.9653551',
@@ -321,7 +316,7 @@ describe('get', function () {
             });
         });
         it.skip('get staticmap resource', function (done) {
-            t.gmaps.get('staticmap', {
+            p.gmaps.get('staticmap', {
                 qs:{
                     key:cred.app.google.req_key,
                     center:'40.7828647,-73.9653551',
@@ -337,7 +332,7 @@ describe('get', function () {
             });
         });
         it.skip('get geocode resource', function (done) {
-            t.gmaps.get('geocode/json', {
+            p.gmaps.get('geocode/json', {
                 qs:{
                     key:cred.app.google.req_key,
                     address:'Central Park, New York, NY',
@@ -351,7 +346,7 @@ describe('get', function () {
             });
         });
         it.skip('get directions resource', function (done) {
-            t.gmaps.get('directions/json', {
+            p.gmaps.get('directions/json', {
                 qs:{
                     key:cred.app.google.req_key,
                     origin:'Central Park, New York, NY',
@@ -366,7 +361,7 @@ describe('get', function () {
             });
         });
         it.skip('get timezone resource', function (done) {
-            t.gmaps.get('timezone/json', {
+            p.gmaps.get('timezone/json', {
                 qs:{
                     key:cred.app.google.req_key,
                     location:'40.7828647,-73.9653551',
@@ -380,7 +375,7 @@ describe('get', function () {
             });
         });
         it.skip('get elevation resource', function (done) {
-            t.gmaps.get('elevation/json', {
+            p.gmaps.get('elevation/json', {
                 qs:{
                     key:cred.app.google.req_key,
                     locations:'40.7828647,-73.9653551',
@@ -393,7 +388,7 @@ describe('get', function () {
             });
         });
         it.skip('get distancematrix resource', function (done) {
-            t.gmaps.get('distancematrix/json', {
+            p.gmaps.get('distancematrix/json', {
                 qs:{
                     key:cred.app.google.req_key,
                     origins:'40.7828647,-73.9653551',

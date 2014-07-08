@@ -5,23 +5,19 @@ var purest = require('../../lib/provider'),
 
 
 describe('post', function () {
-    var t = {};
+    var p = {};
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
-            if (provider.oauth) {
-                t[name] = new purest({provider:name,
-                    consumerKey:cred.app[name].key,
-                    consumerSecret:cred.app[name].secret
-                });
-            } else {
-                t[name] = new purest({provider:name});
-            }
+            p[name] = new purest(provider.oauth
+                ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
+                : {provider:name});
         }
         done();
     });
+
     it.skip('post twitter resource', function (done) {
-        t.twitter.post('statuses/update', {
+        p.twitter.post('statuses/update', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             form:{status:'Message on '+new Date()}
         },
@@ -32,7 +28,7 @@ describe('post', function () {
         });
     });
     it.skip('post linkedin resource', function (done) {
-        t.linkedin.post('people/~/shares', {
+        p.linkedin.post('people/~/shares', {
             oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
             form:{
                 comment:'Message on '+new Date(),
@@ -47,7 +43,7 @@ describe('post', function () {
         });
     });
     it.skip('post facebook resource', function (done) {
-        t.facebook.post('me/feed', {
+        p.facebook.post('me/feed', {
             qs:{access_token: cred.user.facebook.token},
             form:{message: 'Message on '+new Date()}
         },
@@ -58,7 +54,7 @@ describe('post', function () {
         });
     });
     it.skip('post stocktwits resource', function (done) {
-        t.stocktwits.post('messages/create', {
+        p.stocktwits.post('messages/create', {
             qs:{access_token: cred.user.stocktwits.token},
             form:{body: 'Message on '+new Date()}
         },

@@ -5,25 +5,20 @@ var purest = require('../../lib/provider'),
 
 
 describe('other http operations', function () {
-    var t = {};
+    var p = {};
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
-            if (provider.oauth) {
-                t[name] = new purest({provider:name,
-                    consumerKey:cred.app[name].key,
-                    consumerSecret:cred.app[name].secret
-                });
-            } else {
-                t[name] = new purest({provider:name});
-            }
+            p[name] = new purest(provider.oauth
+                ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
+                : {provider:name});
         }
         done();
     });
 
     describe('options', function () {
         it.skip('get yql resource', function (done) {
-            t.yahoo.get('yql', {
+            p.yahoo.get('yql', {
                 method:'OPTIONS',
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
@@ -37,7 +32,7 @@ describe('other http operations', function () {
             });
         });
         it.skip('get geo resource', function (done) {
-            t.yahoo.get("places.q('Central Park, New York')", {
+            p.yahoo.get("places.q('Central Park, New York')", {
                 method:'OPTIONS',
                 api:'where'
             }, function (err, res, body) {
@@ -50,7 +45,7 @@ describe('other http operations', function () {
 
     describe('head', function () {
         it.skip('get social resource', function (done) {
-            t.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
+            p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 method:'HEAD',
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret

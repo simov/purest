@@ -6,23 +6,19 @@ var purest = require('../../lib/provider'),
 
 
 describe('upload', function () {
-    var t = {};
+    var p = {};
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
-            if (provider.oauth) {
-                t[name] = new purest({provider:name,
-                    consumerKey:cred.app[name].key,
-                    consumerSecret:cred.app[name].secret
-                });
-            } else {
-                t[name] = new purest({provider:name});
-            }
+            p[name] = new purest(provider.oauth
+                ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
+                : {provider:name});
         }
         done();
     });
+
     it.skip('upload image to twitter', function (done) {
-        t.twitter.post('statuses/update_with_media', {
+        p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             upload:'cat1.png',
             form:{
@@ -38,7 +34,7 @@ describe('upload', function () {
         });
     });
     it.skip('upload image to facebook', function (done) {
-        t.facebook.post('me/photos', {
+        p.facebook.post('me/photos', {
             upload:'cat1.png',
             qs:{
                 access_token:cred.user.facebook.token,
@@ -56,7 +52,7 @@ describe('upload', function () {
         });
     });
     it.skip('upload image to stocktwits', function (done) {
-        t.stocktwits.post('messages/create', {
+        p.stocktwits.post('messages/create', {
             upload:'cat1.png',
             qs:{
                 access_token:cred.user.stocktwits.token
