@@ -1,19 +1,18 @@
 
 # purest
-_**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and user friendly way
+_**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
 ```js
 var purest = require('purest');
 
 var facebook = new purest({provider:'facebook'});
 
-facebook.get('me', {qs:{access_token:'...'}}, function (err, res, body) { });
+facebook.get('me', {qs:{access_token:'...'}}, function (err, res, body) {});
 
 facebook.post('me/feed', {
   qs:{access_token:'...'},
   form:{message: 'Purest is awesome!'}
-},
-function (err, res, body) { });
+}, function (err, res, body) {});
 ```
 
 
@@ -23,9 +22,9 @@ new purest({
   // required
   provider:'name', // see the list of supported providers below
 
-  // OAuth 1 only
-  consumerKey:'app-key', // OAuth app consumer key
-  consumerSecret:'app-secret', // // OAuth app consumer secret
+  // OAuth1 only
+  key:'app-key', // OAuth app consumer key
+  secret:'app-secret', // OAuth app consumer secret
 
   // optional, overrides config/provider.json
   version:'2.1', // provider API version
@@ -37,24 +36,23 @@ new purest({
 
 ## get | post
 ```js
-var twitter = new purest({provider:'twitter', consumerKey'..', consumerSecret:'..'});
+var twitter = new purest({provider:'twitter', key'..', secret:'..'});
 
 twitter.post('statuses/update', {
   oauth:{token:'..', secret:'..'},
-  form:{status:'Loot!'}
-},
-function (err, res, body) { });
+  form:{status:'Check out my new new!'}
+}, function (err, res, body) {});
 ```
 
 ### syntax
 ```js
 [purest instance].[http method](
   'api endpoint',
-  [mikeal's request params + some specific to purest],
+  {mikeal's request params + some specific to purest},
   callback([error object], [response object], [parsed JSON body])
 )
 ```
-### specific request params
+### specific purest params
 Additional to the [mikeal's request params][2], _purest_ adds a few more parameters on its own
 
 #### secret
@@ -99,8 +97,7 @@ twitter.post('statuses/update_with_media', {
     status:'My cat is awesome!',
     'media[]':fs.readFileSync('/absolute/path/to/cat.png')
   }
-},
-function (err, res, body) {});
+}, function (err, res, body) {});
 
 facebook.post('me/photos', {
   upload:'cat.png',
@@ -111,8 +108,7 @@ facebook.post('me/photos', {
   form:{
     source:fs.readFileSync('/absolute/path/to/cat.png')
   }
-},
-function (err, res, body) {});
+}, function (err, res, body) {});
 ```
 
 ## providers
@@ -126,7 +122,7 @@ function (err, res, body) {});
 - no syntax sugar
 - zero abstraction on top of the REST APIs - reading provider's official documentation is sufficient
 - all provider's API calls return data in the same way
-- each request is a separate instance - _purest_ is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself (like for example the access tokens)
+- each request is a separate instance - _purest_ is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself (like for example the access token)
 
 
 ## license
