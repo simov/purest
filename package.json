@@ -15,7 +15,7 @@
         "url"   : "git://github.com/simov/purest.git"
     },
     "dependencies": {
-        "request" : "2.27.0"
+        "request" : "2.37.0"
     },
     "devDependencies": {
         "mocha" : "*",
@@ -23,6 +23,6 @@
     },
     "main": "./lib/provider",
     "scripts": {
-        "test": "node_modules/bin/mocha --require should --reporter spec --timeout 10000 test/ test/network/"
+        "test": "node_modules/mocha/bin/mocha --require should --reporter spec --timeout 10000 test/ test/request/"
     }
 }
