@@ -125,7 +125,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
 
 ## misc
 ### examples
-...
+a bunch of examples can be found [here][4]
 
 
 ### access tokens
@@ -146,3 +146,4 @@ MIT
   [1]: https://github.com/mikeal/request
   [2]: https://github.com/mikeal/request#requestoptions-callback
   [3]: https://github.com/simov/grant
+  [4]: https://github.com/simov/purest/tree/master/examples
