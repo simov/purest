@@ -1,9 +1,9 @@
 {
     "name": "purest",
     "version": "1.0.0",
-    "description": "REST client library",
+    "description": "REST API client library",
     "keywords": [
-        "rest", "restful", "api", "http", "https"
+        "rest", "restful", "api", "http", "https", "client"
     ],
     "license"   : "MIT",
     "author": {
