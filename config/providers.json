@@ -54,7 +54,8 @@
     },
     "gmaps": {
         "version": "maps/api",
-        "domain": "https://maps.googleapis.com"
+        "domain": "https://maps.googleapis.com",
+        "docs": "https://developers.google.com/maps/"
     },
     "twitter": {
         "oauth": true,

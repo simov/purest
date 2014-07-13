@@ -27,7 +27,7 @@ facebook.post('me/feed', {
 
 
 ### providers
-[bitly](http://dev.bitly.com) / [coderbits](https://coderbits.com/api) / [facebook](https://developers.facebook.com) / [foursquare](https://developer.foursquare.com/) / [github](http://developer.github.com) / [gmaps]() / [google](https://developers.google.com/) / [linkedin](http://developer.linkedin.com) / [rubygems](http://guides.rubygems.org/rubygems-org-api) / [soundcloud](http://developers.soundcloud.com) / [stackexchange](https://api.stackexchange.com) / [stocktwits](http://stocktwits.com/developers) / [twitter](https://dev.twitter.com) / [wikimapia](http://wikimapia.org/api) / [yahoo](https://developer.yahoo.com/)
+[bitly](http://dev.bitly.com) / [coderbits](https://coderbits.com/api) / [facebook](https://developers.facebook.com) / [foursquare](https://developer.foursquare.com/) / [github](http://developer.github.com) / [gmaps](https://developers.google.com/maps/) / [google](https://developers.google.com/) / [linkedin](http://developer.linkedin.com) / [rubygems](http://guides.rubygems.org/rubygems-org-api) / [soundcloud](http://developers.soundcloud.com) / [stackexchange](https://api.stackexchange.com) / [stocktwits](http://stocktwits.com/developers) / [twitter](https://dev.twitter.com) / [wikimapia](http://wikimapia.org/api) / [yahoo](https://developer.yahoo.com/)
 
 
 ## API
