@@ -137,6 +137,7 @@ get one using _**[grant][3]**_
 - zero abstraction on top of the REST APIs - reading provider's official documentation is sufficient
 - all provider's API calls return data in the same way
 - each request is a separate instance - _purest_ is designed to be used with multiple accounts granted access to your application, that's why most of the parameters are passed to the request itself (like for example the access token)
+- easy addition of new providers
 
 
 ### license
