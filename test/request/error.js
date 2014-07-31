@@ -16,7 +16,7 @@ describe('error', function () {
         done();
     });
 
-    it.skip('return stocktwits api error', function (done) {
+    it('return stocktwits api error', function (done) {
         p.stocktwits.get('streams/user/nonexisting', function (err, res, body) {
             err.response.status.should.equal(404);
             err.errors[0].message.should.equal('User not found');

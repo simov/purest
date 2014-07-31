@@ -17,7 +17,7 @@ describe('upload', function () {
         done();
     });
 
-    it.skip('upload image to twitter', function (done) {
+    it('upload image to twitter', function (done) {
         p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             upload:'cat1.png',
@@ -33,7 +33,7 @@ describe('upload', function () {
             done();
         });
     });
-    it.skip('upload image to facebook', function (done) {
+    it('upload image to facebook', function (done) {
         p.facebook.post('me/photos', {
             upload:'cat1.png',
             qs:{
@@ -51,7 +51,7 @@ describe('upload', function () {
             done();
         });
     });
-    it.skip('upload image to stocktwits', function (done) {
+    it('upload image to stocktwits', function (done) {
         p.stocktwits.post('messages/create', {
             upload:'cat1.png',
             qs:{

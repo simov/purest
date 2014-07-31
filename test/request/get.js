@@ -16,7 +16,7 @@ describe('get', function () {
         done();
     });
 
-    it.skip('get twitter resource', function (done) {
+    it('get twitter resource', function (done) {
         p.twitter.get('users/show', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             qs:{screen_name:'mightymob'}
@@ -27,7 +27,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get linkedin resource', function (done) {
+    it('get linkedin resource', function (done) {
         p.linkedin.get('companies', {
             oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
             qs:{'email-domain':'apple.com'}
@@ -38,7 +38,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get facebook resource', function (done) {
+    it('get facebook resource', function (done) {
         p.facebook.get('me/groups', {
             qs:{access_token:cred.user.facebook.token, fields:'id,name'}
         }, function (err, res, body) {
@@ -50,7 +50,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get facebook fql resource', function (done) {
+    it('get facebook fql resource', function (done) {
         p.facebook.get('fql', {
             qs:{
                 access_token:cred.user.facebook.token,
@@ -61,7 +61,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get bitly resource', function (done) {
+    it('get bitly resource', function (done) {
         p.bitly.get('bitly_pro_domain', {
             qs:{access_token:cred.user.bitly.token, domain:'nyti.ms'}
         }, function (err, res, body) {
@@ -71,7 +71,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get stocktwits resource', function (done) {
+    it('get stocktwits resource', function (done) {
         p.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
             if (err) return error(err, done);
             body.response.status.should.equal(200);
@@ -79,7 +79,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get soundcloud resource', function (done) {
+    it('get soundcloud resource', function (done) {
         p.soundcloud.get('users', {
             qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
         }, function (err, res, body) {
@@ -88,7 +88,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get github resource', function (done) {
+    it('get github resource', function (done) {
         p.github.get('users/simov', {
             qs:{access_token:cred.user.github.token}
         }, function (err, res, body) {
@@ -98,7 +98,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get foursquare resource', function (done) {
+    it('get foursquare resource', function (done) {
         p.foursquare.get('users/81257627', {
             qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
         }, function (err, res, body) {
@@ -107,7 +107,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get stackexchange resource', function (done) {
+    it('get stackexchange resource', function (done) {
         p.stackexchange.get('users', {
             qs:{
                 key:cred.app.stackexchange.req_key,
@@ -122,7 +122,7 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get rubygems resource', function (done) {
+    it('get rubygems resource', function (done) {
         p.rubygems.get('gems/rails', function (err, res, body) {
             if (err) return error(err, done);
             body.name.should.equal('rails');
@@ -130,14 +130,14 @@ describe('get', function () {
             done();
         });
     });
-    it.skip('get coderbits resource', function (done) {
+    it('get coderbits resource', function (done) {
         p.coderbits.get('simov', function (err, res, body) {
             if (err) return error(err, done);
             body.username.should.equal('simov');
             done();
         });
     });
-    it.skip('get wikimapia resource', function (done) {
+    it('get wikimapia resource', function (done) {
         p.wikimapia.get('', {
             qs: {
                 key:cred.app.wikimapia.req_key,
@@ -155,7 +155,7 @@ describe('get', function () {
     });
 
     describe('yahoo', function () {
-        it.skip('get social resource', function (done) {
+        it('get social resource', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
@@ -167,7 +167,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get yql resource', function (done) {
+        it('get yql resource', function (done) {
             p.yahoo.get('yql', {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
@@ -180,7 +180,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get geo resource', function (done) {
+        it('get geo resource', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
                 api:'where',
                 qs:{appid:cred.app.yahoo.req_key}
@@ -193,7 +193,7 @@ describe('get', function () {
     });
 
     describe('google', function () {
-        it.skip('get google+ resource', function (done) {
+        it('get google+ resource', function (done) {
             p.google.get('people/106189723444098348646', {
                 api:'plus',
                 qs:{
@@ -205,7 +205,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get youtube resource', function (done) {
+        it('get youtube resource', function (done) {
             p.google.get('channels', {
                 api:'youtube',
                 qs:{
@@ -219,7 +219,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get youtube analytics resource', function (done) {
+        it('get youtube analytics resource', function (done) {
             p.google.get('reports', {
                 api:'youtube/analytics',
                 qs:{
@@ -235,7 +235,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get drive resource', function (done) {
+        it('get drive resource', function (done) {
             p.google.get('about', {
                 api:'drive',
                 qs:{
@@ -247,7 +247,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get freebase resource', function (done) {
+        it('get freebase resource', function (done) {
             p.google.get('search', {
                 api:'freebase',
                 qs:{
@@ -260,7 +260,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get tasks resource', function (done) {
+        it('get tasks resource', function (done) {
             p.google.get('users/@me/lists', {
                 api:'tasks',
                 qs:{
@@ -272,7 +272,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get urlshortener resource', function (done) {
+        it('get urlshortener resource', function (done) {
             p.google.get('url', {
                 api:'urlshortener',
                 qs:{
@@ -285,7 +285,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get pagespeed resource', function (done) {
+        it('get pagespeed resource', function (done) {
             p.google.get('runPagespeed', {
                 api:'pagespeedonline',
                 qs:{
@@ -301,7 +301,7 @@ describe('get', function () {
     });
     
     describe('google maps', function () {
-        it.skip('get streetview resource', function (done) {
+        it('get streetview resource', function (done) {
             p.gmaps.get('streetview', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -315,7 +315,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get staticmap resource', function (done) {
+        it('get staticmap resource', function (done) {
             p.gmaps.get('staticmap', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -331,7 +331,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get geocode resource', function (done) {
+        it('get geocode resource', function (done) {
             p.gmaps.get('geocode/json', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -345,7 +345,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get directions resource', function (done) {
+        it('get directions resource', function (done) {
             p.gmaps.get('directions/json', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -360,7 +360,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get timezone resource', function (done) {
+        it('get timezone resource', function (done) {
             p.gmaps.get('timezone/json', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -374,7 +374,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get elevation resource', function (done) {
+        it('get elevation resource', function (done) {
             p.gmaps.get('elevation/json', {
                 qs:{
                     key:cred.app.google.req_key,
@@ -387,7 +387,7 @@ describe('get', function () {
                 done();
             });
         });
-        it.skip('get distancematrix resource', function (done) {
+        it('get distancematrix resource', function (done) {
             p.gmaps.get('distancematrix/json', {
                 qs:{
                     key:cred.app.google.req_key,

@@ -17,7 +17,7 @@ describe('other http operations', function () {
     });
 
     describe('options', function () {
-        it.skip('get yql resource', function (done) {
+        it('get yql resource', function (done) {
             p.yahoo.get('yql', {
                 method:'OPTIONS',
                 oauth:{
@@ -31,7 +31,7 @@ describe('other http operations', function () {
                 done();
             });
         });
-        it.skip('get geo resource', function (done) {
+        it('get geo resource', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
                 method:'OPTIONS',
                 api:'where'
@@ -44,7 +44,7 @@ describe('other http operations', function () {
     });
 
     describe('head', function () {
-        it.skip('get social resource', function (done) {
+        it('get social resource', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 method:'HEAD',
                 oauth:{

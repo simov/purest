@@ -16,7 +16,7 @@ describe('post', function () {
         done();
     });
 
-    it.skip('post twitter resource', function (done) {
+    it('post twitter resource', function (done) {
         p.twitter.post('statuses/update', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             form:{status:'Message on '+new Date()}
@@ -27,7 +27,7 @@ describe('post', function () {
             done();
         });
     });
-    it.skip('post linkedin resource', function (done) {
+    it('post linkedin resource', function (done) {
         p.linkedin.post('people/~/shares', {
             oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
             form:{
@@ -42,7 +42,7 @@ describe('post', function () {
             done();
         });
     });
-    it.skip('post facebook resource', function (done) {
+    it('post facebook resource', function (done) {
         p.facebook.post('me/feed', {
             qs:{access_token: cred.user.facebook.token},
             form:{message: 'Message on '+new Date()}
@@ -53,7 +53,7 @@ describe('post', function () {
             done();
         });
     });
-    it.skip('post stocktwits resource', function (done) {
+    it('post stocktwits resource', function (done) {
         p.stocktwits.post('messages/create', {
             qs:{access_token: cred.user.stocktwits.token},
             form:{body: 'Message on '+new Date()}

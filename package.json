@@ -23,6 +23,6 @@
     },
     "main": "./lib/provider",
     "scripts": {
-        "test": "node_modules/mocha/bin/mocha --require should --reporter spec --timeout 10000 test/ test/request/"
+        "test": "node_modules/mocha/bin/mocha --require should --reporter spec --timeout 10000 test"
     }
 }
