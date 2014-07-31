@@ -13,8 +13,21 @@ exports = module.exports = function (t) {
                 console.log(body);
             });
         },
-        // get repo
+        // get user's repositories
         1: function () {
+            t.get('user/repos', {
+                qs:{
+                    access_token:cred.user.github.token
+                    // page:2
+                }
+            }, function (err, res, body) {
+                console.log(res.headers.link);
+                debugger;
+                console.log(body);
+            });
+        },
+        // get repo
+        2: function () {
             t.get('repos/senchalabs/connect', {
                 qs:{access_token:cred.user.github.token}
             }, function (err, res, body) {
