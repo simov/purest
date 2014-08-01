@@ -32,21 +32,33 @@ describe('utils', function () {
                 if (err) return done(err);
                 should.deepEqual(body, {data:'data'});
                 done();
-            })(null, {statusCode:200,headers:{}}, '{"data":"data"}');
+            })(
+                null,
+                {statusCode:200,headers:{'content-encoding':'application/json'}},
+                '{"data":"data"}'
+            );
         });
-        it('return parse error on body string', function (done) {
+        it('return parse error on malformed json', function (done) {
             utils.response(function (err, res, body) {
                 err.message.should.equal('Parse error!')
                 body.should.equal('<html>');
                 done();
-            })(null, {statusCode:200,headers:{}}, '<html>');
+            })(
+                null,
+                {statusCode:200,headers:{'content-encoding':'application/json'}},
+                '<html>'
+            );
         });
         it('return error on non successful status code', function (done) {
             utils.response(function (err, res, body) {
                 should.deepEqual(err, {data:'data'});
                 should.deepEqual(body, {data:'data'});
                 done();
-            })(null, {statusCode:500,headers:{}}, '{"data":"data"}');
+            })(
+                null,
+                {statusCode:500,headers:{'content-encoding':'application/json'}},
+                '{"data":"data"}'
+            );
         });
         it('succeed on JSON body', function (done) {
             utils.response(function (err, res, body) {
