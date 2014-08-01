@@ -299,8 +299,8 @@ describe('get', function () {
             });
         });
         it('get contacts', function (done) {
-            p.google.get('default/full', {
-                api:'m8/feeds/contacts',
+            p.google.get('contacts/default/full', {
+                api:'m8/feeds',
                 qs:{
                     access_token:cred.user.google.token
                 }

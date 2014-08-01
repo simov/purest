@@ -30,7 +30,7 @@
             "youtube/analytics": {
                 "version": "v1"
             },
-            "m8/feeds/contacts": {
+            "m8/feeds": {
                 "domain": "https://www.google.com",
                 "docs": "https://developers.google.com/google-apps/contacts/v3/"
             }

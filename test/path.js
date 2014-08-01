@@ -73,8 +73,8 @@ describe('path', function () {
         });
         it('get domain from provider.domain', function () {
             var p = new purest({provider:'google'});
-            p.url('api/method', {api:'m8/feeds/contacts'})
-                .should.equal('https://www.google.com/m8/feeds/contacts/api/method');
+            p.url('api/method', {api:'m8/feeds'})
+                .should.equal('https://www.google.com/m8/feeds/api/method');
         });
     });
 });
