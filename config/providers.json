@@ -29,6 +29,10 @@
             },
             "youtube/analytics": {
                 "version": "v1"
+            },
+            "m8/feeds/contacts": {
+                "domain": "https://www.google.com",
+                "docs": "https://developers.google.com/google-apps/contacts/v3/"
             }
         },
         "domain": "https://www.googleapis.com",
@@ -39,11 +43,11 @@
         "api": {
             "social": {
                 "version": "v1",
-                "domain": "http://social.yahooapis.com"
+                "domain": "https://social.yahooapis.com"
             },
             "query": {
                 "version": "v1",
-                "domain": "http://query.yahooapis.com"
+                "domain": "https://query.yahooapis.com"
             },
             "where": {
                 "version": "v1",

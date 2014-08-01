@@ -298,6 +298,19 @@ describe('get', function () {
                 done();
             });
         });
+        it('get contacts', function (done) {
+            p.google.get('default/full', {
+                api:'m8/feeds/contacts',
+                qs:{
+                    access_token:cred.user.google.token
+                }
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                res.statusCode.should.equal(200);
+                done();
+            });
+        });
     });
     
     describe('google maps', function () {
