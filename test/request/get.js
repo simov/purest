@@ -153,6 +153,21 @@ describe('get', function () {
             done();
         });
     });
+    it('openstreetmap', function (done) {
+        p.openstreetmap.get('user/details', {
+            // basic auth for reading user details
+            auth:{user:'...', pass:'...'}
+            
+            // or oauth for writing to the database
+            // oauth:{token:cred.user.openstreetmap.token,
+            // secret:cred.user.openstreetmap.secret}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            console.log(body);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {

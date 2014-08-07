@@ -118,10 +118,16 @@
         "domain": "http://api.wikimapia.org",
         "docs": "http://wikimapia.org/api"
     },
+    "openstreetmap": {
+        "oauth": true,
+        "version": "0.6",
+        "domain": "http://api.openstreetmap.org",
+        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+    },
 
 
     "slack": {
-        "domain": "https://slack.com/api",
+        "domain": "https://slack.com",
         "docs": "https://api.slack.com/"
     },
     "instagram": {
@@ -136,7 +142,7 @@
     },
     "disqus": {
         "version": "3.0",
-        "domain": "https://disqus.com/api",
+        "domain": "https://disqus.com",
         "docs": "https://disqus.com/api/docs/"
     },
     "trello": {
@@ -147,7 +153,7 @@
     },
     "asana": {
         "version": "1.0",
-        "domain": "https://app.asana.com/api",
+        "domain": "https://app.asana.com",
         "docs": "http://developer.asana.com/documentation/"
     },
     "mailchimp": {
@@ -160,7 +166,7 @@
         "docs": "https://devcenter.heroku.com/categories/platform-api"
     },
     "dropbox": {
-        "varsion": "1",
+        "version": "1",
         "domain": "https://api.dropbox.com",
         "docs": "https://www.dropbox.com/developers"
     }
