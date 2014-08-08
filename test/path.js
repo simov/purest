@@ -18,7 +18,7 @@ describe('path', function () {
             p.createPath('endpoint').should.equal('api/'+p.version+'/endpoint.json');
         });
         it('api/version/endpoint', function () {
-            var p = new purest({provider:'openstreetmap'});
+            var p = new purest({provider:'asana'});
             p.createPath('endpoint').should.equal('api/'+p.version+'/endpoint');
         });
         it('api/endpoint', function () {

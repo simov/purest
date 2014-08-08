@@ -122,6 +122,13 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
+- **token** - _user token shortcut (currently used only for Asana)_
+  ```js
+asana.get('users/me', {
+  token:'...'
+}, function (err, res, body) {});
+  ```
+
 
 ## misc
 ### examples

@@ -144,13 +144,13 @@
         "domain": "https://api.trello.com",
         "docs": "https://trello.com/docs/"
     },
-
-
     "asana": {
         "version": "1.0",
         "domain": "https://app.asana.com",
         "docs": "http://developer.asana.com/documentation/"
     },
+
+
     "mailchimp": {
         "version": "2.0",
         "domain": "https://us2.api.mailchimp.com",

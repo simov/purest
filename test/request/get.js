@@ -1,4 +1,5 @@
 
+var should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers'),
     cred = require('../../config/credentials');
@@ -221,6 +222,38 @@ describe('get', function () {
             debugger;
             if (err) return error(err, done);
             body.should.be.an.instanceOf(Array);
+            done();
+        });
+    });
+    it('asana basic auth', function (done) {
+        p.asana.get('users/me', {
+            auth:{user:cred.user.asana.api_key, pass:''}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body.data),
+                ['id','name','email','photo','workspaces']);
+            done();
+        });
+    });
+    it('asana oauth header', function (done) {
+        p.asana.get('users/me', {
+            headers: {
+                'Authorization': 'Bearer '+cred.user.asana.token
+            }
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body.data),
+                ['id','name','email','photo','workspaces']);
+            done();
+        });
+    });
+    it('asana oauth option', function (done) {
+        p.asana.get('users/me', {
+            token: cred.user.asana.token
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body.data),
+                ['id','name','email','photo','workspaces']);
             done();
         });
     });
