@@ -124,12 +124,12 @@
         "domain": "http://api.openstreetmap.org",
         "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
     },
-
-
     "slack": {
         "domain": "https://slack.com",
         "docs": "https://api.slack.com/"
     },
+
+
     "instagram": {
         "version": "v1",
         "domain": "https://api.instagram.com",

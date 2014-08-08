@@ -168,6 +168,15 @@ describe('get', function () {
             done();
         });
     });
+    it('slack', function (done) {
+        p.slack.get('users.list', {
+            qs:{token:cred.user.slack.token}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.ok.should.equal(true);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {
