@@ -280,6 +280,18 @@ describe('get', function () {
             done();
         });
     });
+    it('heroku', function (done) {
+        p.heroku.get('account', {
+            auth: {bearer:cred.user.heroku.token}
+            // or
+            // auth: {user:'email', pass:'password'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.email.should.be.type('string');
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {
