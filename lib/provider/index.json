@@ -1,1 +1,4 @@
-["twitter", "linkedin", "github", "stackexchange", "gmaps", "yahoo", "google", "asana"]
+[
+    "twitter", "linkedin", "github", "stackexchange", "gmaps", "yahoo", "google", "asana",
+    "mailchimp"
+]

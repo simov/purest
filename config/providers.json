@@ -149,13 +149,13 @@
         "domain": "https://app.asana.com",
         "docs": "http://developer.asana.com/documentation/"
     },
-
-
     "mailchimp": {
         "version": "2.0",
-        "domain": "https://us2.api.mailchimp.com",
+        "domain": "https://dc.api.mailchimp.com",
         "docs": "http://apidocs.mailchimp.com/"
     },
+
+
     "heroku": {
         "domain": "https://api.heroku.com",
         "docs": "https://devcenter.heroku.com/categories/platform-api"

@@ -80,5 +80,21 @@ describe('path', function () {
             p.url('api/method', {api:'m8/feeds'})
                 .should.equal('https://www.google.com/m8/feeds/api/method');
         });
+        it('get mailchimp data centre through apikey', function () {
+            var p = new purest({provider:'mailchimp'});
+            p.url('api/method', {qs:{apikey:'546ae091fd5ytr3a611d3hj527ad2940-us2'}})
+                .should.equal('https://us2.api.mailchimp.com/2.0/api/method.json');
+        });
+        it('get mailchimp data centre through option', function () {
+            var p = new purest({provider:'mailchimp'});
+            p.url('api/method', {dc:'us2'})
+                .should.equal('https://us2.api.mailchimp.com/2.0/api/method.json');
+        });
+        it('throw error on missing mailchimp data centre', function () {
+            var p = new purest({provider:'mailchimp'});
+            (function () {
+                p.url('api/method', {qs:{apikey:'access_token'}});
+            }).should.throw('purest: specify data centre to use through the dc option!');
+        });
     });
 });

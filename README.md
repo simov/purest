@@ -81,7 +81,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **api** - _specific api to use for providers with multiple api's under same domain (currently used only for Google and Yahoo)_
+- **api** - _specific api to use for providers with multiple api's under same domain (used only for Google and Yahoo)_
   ```js
   google.get('channels', {
     api:'youtube',
@@ -122,11 +122,28 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **token** - _user token shortcut (currently used only for Asana)_
+- **token** - _user token shortcut (used only for Asana)_
   ```js
-asana.get('users/me', {
-  token:'...'
-}, function (err, res, body) {});
+  asana.get('users/me', {
+    token:'...'
+  }, function (err, res, body) {});
+  ```
+
+- **dc** - _set data centre name, require when using access token (used only for Mailchimp)_
+  ```js
+  mailchimp.get('campaigns/list', {
+    dc:'us2',
+    qs:{apikey:'access_token'}
+  }, function (err, res, body) {});
+  ```
+  first obtain and store the user's data centre name
+  ```js
+  purest.request('https://login.mailchimp.com/oauth2/metadata', {
+    headers: {'Authorization': 'OAuth '+'access_token'},
+    json: true
+  }, function (err, res, body) {
+    // body.dc - data centre name
+  });
   ```
 
 

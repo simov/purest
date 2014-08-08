@@ -257,6 +257,29 @@ describe('get', function () {
             done();
         });
     });
+    it('mailchimp apikey', function (done) {
+        p.mailchimp.get('campaigns/list', {
+            qs:{apikey:cred.user.mailchimp.api_key}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body),
+                ['total','data','errors']);
+            body.errors.length.should.equal(0);
+            done();
+        });
+    });
+    it('mailchimp oauth', function (done) {
+        p.mailchimp.get('campaigns/list', {
+            dc:cred.user.mailchimp.dc,
+            qs:{apikey:cred.user.mailchimp.token}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body),
+                ['total','data','errors']);
+            body.errors.length.should.equal(0);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {
