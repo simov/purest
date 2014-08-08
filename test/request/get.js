@@ -204,6 +204,26 @@ describe('get', function () {
             done();
         });
     });
+    it('trello public', function (done) {
+        p.trello.get('boards/4d5ea62fd76aa1136000000c', {
+            qs:{key:cred.app.trello.key}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.name.should.equal('Trello Development');
+            done();
+        });
+    });
+    it('trello private', function (done) {
+        p.trello.get('members/me/boards', {
+            qs:{key:cred.app.trello.key, token:cred.user.trello.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.should.be.an.instanceOf(Array);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {

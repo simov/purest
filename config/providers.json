@@ -138,14 +138,14 @@
         "domain": "https://api.flickr.com",
         "docs": "https://www.flickr.com/services/api/"
     },
-
-
     "trello": {
         "oauth": true,
         "version": "1",
         "domain": "https://api.trello.com",
         "docs": "https://trello.com/docs/"
     },
+
+
     "asana": {
         "version": "1.0",
         "domain": "https://app.asana.com",
