@@ -158,8 +158,6 @@
         "domain": "https://api.heroku.com",
         "docs": "https://devcenter.heroku.com/categories/platform-api"
     },
-
-
     "dropbox": {
         "version": "1",
         "domain": "https://api.dropbox.com",
