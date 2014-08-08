@@ -10,7 +10,7 @@ describe('utils', function () {
         it('create a querystring with special characters escaped', function (done) {
             var t = new purest({provider:'twitter'});
             utils.qs.call(t, 'api', {one:"!*()'",two:2})
-                .should.equal('/1.1/api.json?one=%21%2a%28%29%27&two=2');
+                .should.equal('1.1/api.json?one=%21%2a%28%29%27&two=2');
             done();
         });
     });

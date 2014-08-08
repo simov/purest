@@ -3,70 +3,74 @@ var purest = require('../lib/provider');
 
 
 describe('path', function () {
-    it('create /version/api path', function () {
-        var providers = ['bitly', 'linkedin', 'stackexchange', 'gmaps'];
-        for (var i=0; i < providers.length; i++) {
-            var t = new purest({provider:providers[i]});
-            t.createPath('api/method').should.equal('/'+t.version+'/api/method');
-        }
+    describe('type', function () {
+        it('version/endpoint.json', function () {
+            var p = new purest({provider:'twitter'});
+            p.createPath('endpoint').should.equal(p.version+'/endpoint.json');
+        });
+        it('version/endpoint', function () {
+            var p = new purest({provider:'linkedin'});
+            p.createPath('endpoint').should.equal(p.version+'/endpoint');
+        });
+
+        it('api/version/endpoint.json', function () {
+            var p = new purest({provider:'stocktwits'});
+            p.createPath('endpoint').should.equal('api/'+p.version+'/endpoint.json');
+        });
+        it('api/version/endpoint', function () {
+            var p = new purest({provider:'openstreetmap'});
+            p.createPath('endpoint').should.equal('api/'+p.version+'/endpoint');
+        });
+        it('api/endpoint', function () {
+            var p = new purest({provider:'slack'});
+            p.createPath('endpoint').should.equal('api/endpoint');
+        });
+
+        it('endpoint.json', function () {
+            var p = new purest({provider:'soundcloud'});
+            p.createPath('endpoint').should.equal('endpoint.json');
+        });
+        it('endpoint', function () {
+            var p = new purest({provider:'facebook'});
+            p.createPath('endpoint').should.equal('endpoint');
+        });
     });
-    it('create /api path', function () {
-        var providers = ['facebook', 'github', 'wikimapia'];
-        for (var i=0; i < providers.length; i++) {
-            var t = new purest({provider:providers[i]});
-            t.createPath('api/method').should.equal('/api/method');
-        }
-    });
-    it('create /api/version/method.json path', function () {
-        var providers = ['stocktwits', 'rubygems'];
-        for (var i=0; i < providers.length; i++) {
-            var t = new purest({provider:providers[i]});
-            t.createPath('api/method').should.equal('/api/'+t.version+'/api/method.json');
-        }
-    });
-    it('create /version/api.json path', function () {
-        var providers = ['twitter'];
-        for (var i=0; i < providers.length; i++) {
-            var t = new purest({provider:providers[i]});
-            t.createPath('api/method').should.equal('/'+t.version+'/api/method.json');
-        }
-    });
-    it('create /api.json path', function () {
-        var providers = ['soundcloud', 'coderbits'];
-        for (var i=0; i < providers.length; i++) {
-            var t = new purest({provider:providers[i]});
-            t.createPath('api/method').should.equal('/api/method.json');
-        }
+    
+    describe('options', function () {
+        it('set version through options', function () {
+            var p = new purest({provider:'linkedin'});
+            p.createPath('endpoint',{version:'2.2'}).should.equal('2.2/endpoint');
+        });
     });
 
     describe('same domain', function () {
-        it('create /api/version/method path - api set in the ctor', function () {
+        it('apiname/version/endpoint - apiname set in the ctor', function () {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
                 google = require('../config/providers').google;
             for (var i=0; i < apis.length; i++) {
-                var t = new purest({provider:'google', api:apis[i]});
-                t.createPath('api/method',{})
-                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]].version+'/api/method');
+                var p = new purest({provider:'google', api:apis[i]});
+                p.createPath('endpoint',{})
+                    .should.equal(apis[i]+'/'+google.api[apis[i]].version+'/endpoint');
             }
         });
-        it('create /api/version/method path - api set in the params', function () {
+        it('apiname/version/endpoint - api set through options', function () {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
                 google = require('../config/providers').google;
             for (var i=0; i < apis.length; i++) {
-                var t = new purest({provider:'google'});
-                t.createPath('api/method',{api:apis[i]})
-                    .should.equal('/'+apis[i]+'/'+google.api[apis[i]].version+'/api/method');
+                var p = new purest({provider:'google'});
+                p.createPath('endpoint',{api:apis[i]})
+                    .should.equal(apis[i]+'/'+google.api[apis[i]].version+'/endpoint');
             }
         });
-        it('predefine an api version', function () {
-            var t = new purest({provider:'google'});
-            t.createPath('api/method',{api:'freebase', version:'4.4'})
-                .should.equal('/freebase/4.4/api/method');
+        it('set version through options', function () {
+            var p = new purest({provider:'google'});
+            p.createPath('api/method',{api:'freebase', version:'4.4'})
+                .should.equal('freebase/4.4/api/method');
         });
     });
 
     describe('url', function () {
-        it('get domain from api.name.domain', function () {
+        it('get domain from provider.api.name.domain', function () {
             var p = new purest({provider:'google'});
             p.url('api/method', {api:'plus'})
                 .should.equal('https://www.googleapis.com/plus/v1/api/method')
