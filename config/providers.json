@@ -128,13 +128,13 @@
         "domain": "https://slack.com",
         "docs": "https://api.slack.com/"
     },
-
-
     "instagram": {
         "version": "v1",
         "domain": "https://api.instagram.com",
         "docs": "http://instagram.com/developer"
     },
+
+
     "flickr": {
         "oauth": true,
         "domain": "https://api.flickr.com",

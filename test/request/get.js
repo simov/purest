@@ -177,6 +177,17 @@ describe('get', function () {
             done();
         });
     });
+    it('instagram', function (done) {
+        p.instagram.get('users/self/feed', {
+            qs:{access_token:cred.user.instagram.token}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.pagination.should.be.type('object');
+            body.meta.code.should.equal(200);
+            body.data.should.be.an.instanceOf(Array);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {
