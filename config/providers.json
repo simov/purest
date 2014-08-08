@@ -133,18 +133,13 @@
         "domain": "https://api.instagram.com",
         "docs": "http://instagram.com/developer"
     },
-
-
     "flickr": {
         "oauth": true,
         "domain": "https://api.flickr.com",
         "docs": "https://www.flickr.com/services/api/"
     },
-    "disqus": {
-        "version": "3.0",
-        "domain": "https://disqus.com",
-        "docs": "https://disqus.com/api/docs/"
-    },
+
+
     "trello": {
         "oauth": true,
         "version": "1",
@@ -169,5 +164,12 @@
         "version": "1",
         "domain": "https://api.dropbox.com",
         "docs": "https://www.dropbox.com/developers"
+    },
+
+
+    "disqus": {
+        "version": "3.0",
+        "domain": "https://disqus.com",
+        "docs": "https://disqus.com/api/docs/"
     }
 }

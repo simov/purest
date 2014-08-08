@@ -188,6 +188,22 @@ describe('get', function () {
             done();
         });
     });
+    it('flickr', function (done) {
+        p.flickr.get('', {
+            oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+            qs:{
+                method: 'flickr.people.findByUsername',
+                api_key:cred.app.flickr.key,
+                username:'obama',
+                format:'json'
+            }
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.stat.should.equal('ok');
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         it('social', function (done) {
