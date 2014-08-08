@@ -235,21 +235,9 @@ describe('get', function () {
             done();
         });
     });
-    it('asana oauth header', function (done) {
+    it('asana oauth', function (done) {
         p.asana.get('users/me', {
-            headers: {
-                'Authorization': 'Bearer '+cred.user.asana.token
-            }
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body.data),
-                ['id','name','email','photo','workspaces']);
-            done();
-        });
-    });
-    it('asana oauth option', function (done) {
-        p.asana.get('users/me', {
-            token: cred.user.asana.token
+            auth: {bearer:cred.user.asana.token}
         }, function (err, res, body) {
             if (err) return error(err, done);
             should.deepEqual(Object.keys(body.data),

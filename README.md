@@ -122,13 +122,6 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **token** - _user token shortcut (used only for Asana)_
-  ```js
-  asana.get('users/me', {
-    token:'...'
-  }, function (err, res, body) {});
-  ```
-
 - **dc** - _set data centre name, require when using access token (used only for Mailchimp)_
   ```js
   mailchimp.get('campaigns/list', {
