@@ -121,6 +121,21 @@ describe('upload', function () {
             done();
         });
     });
+    it('asana', function (done) {
+        var id = '15384754640287';
+        p.asana.post('tasks/'+id+'/attachments', {
+            auth: {bearer:cred.user.asana.token},
+            upload:'cat1.png',
+            form:{
+                file:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
+            }
+        },
+        function (err, res, body) {
+            if (err) return error(err, done);
+            body.data.name.should.equal('cat1.png');
+            done();
+        });
+    });
 });
 
 function error (err, done) {

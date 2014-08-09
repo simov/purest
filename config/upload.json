@@ -28,5 +28,11 @@
             "key": "photo",
             "types": ["image/gif", "image/jpeg", "image/png"]
         }
+    },
+    "asana": {
+        "tasks/attachments": {
+            "key": "file",
+            "types": []
+        }
     }	
 }
