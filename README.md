@@ -104,7 +104,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **upload** - _file name is required when uploading_
+- **upload** - _file name is required when uploading ([the rest of the examples][5])_
   ```js
   twitter.post('statuses/update_with_media', {
     oauth:{token:'..', secret:'..'},
@@ -123,17 +123,6 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
     },
     form:{
       source:fs.readFileSync('/absolute/path/to/cat.png')
-    }
-  }, function (err, res, body) {});
-
-  flickr.post('', {
-    oauth:{token:'...', secret:'...'},
-    api:'upload', // or replace
-    upload:'cat.png',
-    form: {
-      title: 'My cat is awesome',
-      description: 'very cute',
-      photo:fs.readFileSync('/absolute/path/to/cat.png')
     }
   }, function (err, res, body) {});
   ```
@@ -181,3 +170,4 @@ MIT
   [2]: https://github.com/mikeal/request#requestoptions-callback
   [3]: https://github.com/simov/grant
   [4]: https://github.com/simov/purest/tree/master/examples
+  [5]: https://github.com/simov/purest/blob/master/test/request/upload.js
