@@ -136,6 +136,25 @@ describe('upload', function () {
             done();
         });
     });
+    it('slack', function (done) {
+        p.slack.post('files.upload', {
+            upload:'cat1.png',
+            qs:{
+                token:cred.user.slack.token,
+                filename:'cat1',
+                title:'my awesome cat'
+            },
+            form:{
+                file:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
+            }
+        },
+        function (err, res, body) {
+            if (err) return error(err, done);
+            body.ok.should.equal(true);
+            body.file.name.should.equal('cat1');
+            done();
+        });
+    });
 });
 
 function error (err, done) {
