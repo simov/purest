@@ -125,6 +125,17 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
       source:fs.readFileSync('/absolute/path/to/cat.png')
     }
   }, function (err, res, body) {});
+
+  flickr.post('', {
+    oauth:{token:'...', secret:'...'},
+    api:'upload', // or replace
+    upload:'cat.png',
+    form: {
+      title: 'My cat is awesome',
+      description: 'very cute',
+      photo:fs.readFileSync('/absolute/path/to/cat.png')
+    }
+  }, function (err, res, body) {});
   ```
 
 - **dc** - _set data centre name, required when using access token (used only for Mailchimp)_

@@ -15,7 +15,8 @@
         "url"   : "git://github.com/simov/purest.git"
     },
     "dependencies": {
-        "request" : "2.37.0"
+        "request" : "2.37.0",
+        "mashape-oauth" : "0.1.71"
     },
     "devDependencies": {
         "mocha" : "*",

@@ -16,5 +16,11 @@
             "key": "source",
             "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
         }
+    },
+    "flickr": {
+        "": {
+            "key": "photo",
+            "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
+        }
     }	
 }

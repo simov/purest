@@ -17,7 +17,7 @@ describe('upload', function () {
         done();
     });
 
-    it('upload image to twitter', function (done) {
+    it('twitter', function (done) {
         p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
             upload:'cat1.png',
@@ -33,7 +33,7 @@ describe('upload', function () {
             done();
         });
     });
-    it('upload image to facebook', function (done) {
+    it('facebook', function (done) {
         p.facebook.post('me/photos', {
             upload:'cat1.png',
             qs:{
@@ -51,7 +51,7 @@ describe('upload', function () {
             done();
         });
     });
-    it('upload image to stocktwits', function (done) {
+    it('stocktwits', function (done) {
         p.stocktwits.post('messages/create', {
             upload:'cat1.png',
             qs:{
@@ -66,6 +66,42 @@ describe('upload', function () {
             if (err) return error(err, done);
             body.response.status.should.equal(200);
             body.message.entities.chart.should.be.an.instanceOf(Object);
+            done();
+        });
+    });
+    it('flickr upload', function (done) {
+        p.flickr.post('', {
+            oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+            api:'upload',
+            upload:'cat1.png',
+            form: {
+                title: 'My cat is awesome',
+                description: 'very cute',
+                is_public: 0, is_friend: 1, is_family: 1, hidden: 2,
+                photo:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            res.statusCode.should.equal(200);
+            done();
+        });
+    });
+    it('flickr replace', function (done) {
+        p.flickr.post('', {
+            oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+            api:'replace',
+            upload:'cat1.png',
+            form: {
+                photo_id:'14887285783',
+                photo:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            res.statusCode.should.equal(200);
             done();
         });
     });
