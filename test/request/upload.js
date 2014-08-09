@@ -105,6 +105,22 @@ describe('upload', function () {
             done();
         });
     });
+    it('foursquare', function (done) {
+        p.foursquare.post('users/self/update', {
+            upload:'cat1.png',
+            qs:{
+                oauth_token:cred.user.foursquare.token, v:'20140503'
+            },
+            form:{
+                photo:fs.readFileSync('/home/mighty/hdd/images/cat1.png')
+            }
+        },
+        function (err, res, body) {
+            if (err) return error(err, done);
+            body.meta.code.should.equal(200);
+            done();
+        });
+    });
 });
 
 function error (err, done) {

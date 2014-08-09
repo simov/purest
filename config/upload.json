@@ -22,5 +22,11 @@
             "key": "photo",
             "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
         }
+    },
+    "foursquare": {
+        "users/self/update": {
+            "key": "photo",
+            "types": ["image/gif", "image/jpeg", "image/png"]
+        }
     }	
 }
