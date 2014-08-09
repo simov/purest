@@ -69,6 +69,71 @@ describe('path', function () {
         });
     });
 
+    describe('different domains', function () {
+        it('yahoo', function () {
+            var apis = Object.keys(require('../config/providers').yahoo.api);
+            for (var i=0; i < apis.length; i++) {
+                var p = new purest({provider:'yahoo', api:apis[i]});
+                p.api.should.equal(apis[i]);
+                if (/(social|query)/.test(p.api)) {
+                    p.url('endpoint', {})
+                        .should.equal('https://'+p.api+'.yahooapis.com/v1/endpoint');
+                } else {
+                    p.url('endpoint', {})
+                        .should.equal('http://'+p.api+'.yahooapis.com/v1/endpoint');
+                }
+            }
+        });
+        it('google', function () {
+            var apis = Object.keys(require('../config/providers').google.api);
+            for (var i=0; i < apis.length; i++) {
+                var p = new purest({provider:'google', api:apis[i]});
+                p.api.should.equal(apis[i]);
+                if (/m8\/feeds/.test(p.api)) {
+                    p.url('endpoint', {})
+                        .should.match(/^https:\/\/www.google.com/);
+                } else {
+                    p.url('endpoint', {})
+                        .should.match(/^https:\/\/www.googleapis.com/);
+                }
+            }
+        });
+        it('flickr', function () {
+            var apis = Object.keys(require('../config/providers').flickr.api);
+            for (var i=0; i < apis.length; i++) {
+                var p = new purest({provider:'flickr', api:apis[i]});
+                p.api.should.equal(apis[i]);
+                if (/(upload|replace)/.test(p.api)) {
+                    p.url('endpoint', {})
+                        .should.match(/^https:\/\/up.flickr.com/);
+                } else {
+                    p.url('endpoint', {})
+                        .should.match(/^https:\/\/api.flickr.com/);
+                }
+            }
+        });
+    });
+
+    describe('different path', function () {
+        it('flickr', function () {
+            var apis = Object.keys(require('../config/providers').flickr.api);
+            for (var i=0; i < apis.length; i++) {
+                var p = new purest({provider:'flickr', api:apis[i]});
+                p.api.should.equal(apis[i]);
+                switch (p.api) {
+                    case 'upload': p.url('endpoint', {})
+                        .should.equal('https://up.flickr.com/services/upload'); break;
+                    case 'replace': p.url('endpoint', {})
+                        .should.equal('https://up.flickr.com/services/replace'); break;
+                }
+            }
+            var p = new purest({provider:'flickr'});
+            p.domain.should.equal('https://api.flickr.com');
+            p.url('endpoint', {})
+                .should.equal('https://api.flickr.com/services/rest');
+        });
+    });
+
     describe('url', function () {
         it('get domain from provider.api.name.domain', function () {
             var p = new purest({provider:'google'});
