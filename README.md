@@ -139,20 +139,20 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **dc** - _set data centre name, required when using access token (used only for Mailchimp)_
+- **dc** - _set data center name, required when using access token (used only for Mailchimp)_
   ```js
   mailchimp.get('campaigns/list', {
     dc:'us2',
     qs:{apikey:'access_token'}
   }, function (err, res, body) {});
   ```
-  first obtain and store the user's data centre name
+  first obtain and store the user's data center name
   ```js
   purest.request('https://login.mailchimp.com/oauth2/metadata', {
     headers: {'Authorization': 'OAuth '+'access_token'},
     json: true
   }, function (err, res, body) {
-    // body.dc - data centre name
+    // body.dc - data center name
   });
   ```
 
