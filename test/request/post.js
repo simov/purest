@@ -1,4 +1,5 @@
 
+var should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers'),
     cred = require('../../config/credentials');
@@ -16,52 +17,58 @@ describe('post', function () {
         done();
     });
 
-    it('post twitter resource', function (done) {
+    it('twitter', function (done) {
         p.twitter.post('statuses/update', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            form:{status:'Message on '+new Date()}
+            form:{status:'Sent on '+new Date()}
         },
         function (err, res, body) {
+            debugger;
             if (err) return error(err, done);
-            body.source.should.equal('<a href="http://outofindex.com" rel="nofollow">purest</a>');
+            body.id.should.be.type('number');
+            body.id_str.should.be.type('string');
             done();
         });
     });
-    it('post linkedin resource', function (done) {
+    it('linkedin', function (done) {
         p.linkedin.post('people/~/shares', {
             oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
             form:{
-                comment:'Message on '+new Date(),
+                comment:'Sent on '+new Date(),
                 visibility:{code:'anyone'}
             }
         },
         function (err, res, body) {
+            debugger;
             if (err) return error(err, done);
             body.updateKey.should.match(/^UNIU-\d+-\d+-SHARE$/);
             body.updateUrl.should.match(/^http:.*/);
             done();
         });
     });
-    it('post facebook resource', function (done) {
+    it('facebook', function (done) {
         p.facebook.post('me/feed', {
-            qs:{access_token: cred.user.facebook.token},
-            form:{message: 'Message on '+new Date()}
+            qs:{access_token:cred.user.facebook.token},
+            form:{message:'Sent on '+new Date()}
         },
         function (err, res, body) {
+            debugger;
             if (err) return error(err, done);
             body.id.should.match(/\d+_\d+/);
             done();
         });
     });
-    it('post stocktwits resource', function (done) {
+    it('stocktwits', function (done) {
         p.stocktwits.post('messages/create', {
-            qs:{access_token: cred.user.stocktwits.token},
-            form:{body: 'Message on '+new Date()}
+            qs:{access_token:cred.user.stocktwits.token},
+            form:{body:'Sent on '+new Date()}
         },
         function (err, res, body) {
+            debugger;
             if (err) return error(err, done);
-            body.message.source.id.should.equal(1348);
-            body.message.source.title.should.equal('purest');
+            body.response.status.should.equal(200);
+            should.deepEqual(Object.keys(body.message),
+                ['id','body','created_at','user','source'])
             done();
         });
     });

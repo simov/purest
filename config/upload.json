@@ -40,5 +40,11 @@
             "key": "file",
             "types": []
         }
+    },
+    "soundcloud": {
+        "tracks": {
+            "key": "track[asset_data]",
+            "types": []
+        }
     }	
 }

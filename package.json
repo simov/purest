@@ -16,7 +16,8 @@
     },
     "dependencies": {
         "request" : "2.37.0",
-        "mashape-oauth" : "0.1.71"
+        "mashape-oauth" : "0.1.71",
+        "mime-types" : "1.0.2"
     },
     "devDependencies": {
         "mocha" : "*",
