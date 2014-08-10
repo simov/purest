@@ -27,7 +27,7 @@ facebook.post('me/feed', {
 
 
 ### providers
-| | | | | |
+| | | | | | |
 :---: | :---: | :---: | :---: | :---: | :---:
 [asana](http://developer.asana.com/documentation/) | [bitly](http://dev.bitly.com) | [coderbits](https://coderbits.com/api) | [dropbox](https://www.dropbox.com/developers) | [facebook](https://developers.facebook.com) | [flickr](https://www.flickr.com/services/api/)
 [foursquare](https://developer.foursquare.com/) | [github](http://developer.github.com) | [gmaps](https://developers.google.com/maps/) | [google](https://developers.google.com/) | [heroku](https://devcenter.heroku.com/categories/platform-api) | [instagram](http://instagram.com/developer)
@@ -35,14 +35,14 @@ facebook.post('me/feed', {
 [stackexchange](https://api.stackexchange.com) | [stocktwits](http://stocktwits.com/developers) | [trello](https://trello.com/docs/) | [twitter](https://dev.twitter.com) | [wikimapia](http://wikimapia.org/api) | [yahoo](https://developer.yahoo.com/)
 
 ##### google
-| | | | | |
+| | | | | | |
 :---: | :---: | :---: | :---: | :---: | :---:
 [plus](https://developers.google.com/+/api) | [youtube](https://developers.google.com/youtube/v3) | [drive](https://developers.google.com/drive/v2/reference) | [freebase](https://developers.google.com/freebase/v1) | [tasks](https://developers.google.com/google-apps/tasks/) | [urlshortener](https://developers.google.com/url-shortener/)
 [pagespeedonline](https://developers.google.com/speed/docs/insights/v1/getting_started) | [youtube/analytics](https://developers.google.com/youtube/analytics) | [contacts](https://developers.google.com/google-apps/contacts/v3/)
 
 
 ##### yahoo
-| | |
+| | | |
 :---: | :---: | :---:
 [social](https://developer.yahoo.com/social) | [yql](https://developer.yahoo.com/yql) | [geo](https://developer.yahoo.com/geo/geoplanet)
 
@@ -159,7 +159,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
 
 ## misc
 ### examples
-a bunch of examples can be found [here][4] also take a look at the [tests][5]
+a bunch of examples can be found [here][4] also take a look at the [tests][6]
 
 
 ### access tokens
