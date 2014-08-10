@@ -6,53 +6,53 @@ var purest = require('../lib/provider');
 describe('instance', function () {
     it('throw an error on non specified provider', function (done) {
         (function () {
-            var t = new purest();
+            var p = new purest();
         }).should.throw('purest: provider option is required!');
         done();
     });
     it('throw an error on non existing provider', function (done) {
         (function () {
-            var t = new purest({provider:'dood'});
+            var p = new purest({provider:'dood'});
         }).should.throw('purest: non existing provider!');
         done();
     });
     it('receive provider name', function (done) {
-        var t = new purest({provider:'facebook'});
-        t.facebook.should.equal(true);
-        t.name.should.equal('facebook');
-        t.domain.should.equal('https://graph.facebook.com');
+        var p = new purest({provider:'facebook'});
+        p.facebook.should.equal(true);
+        p.name.should.equal('facebook');
+        p.domain.should.equal('https://graph.facebook.com');
         done();
     });
     it('receive oauth app credentials', function (done) {
-        var t = new purest({provider:'twitter',
+        var p = new purest({provider:'twitter',
             consumerKey:'app-key',
             consumerSecret:'app-secret'
         });
-        t.consumerKey.should.equal('app-key');
-        t.consumerSecret.should.equal('app-secret');
+        p.consumerKey.should.equal('app-key');
+        p.consumerSecret.should.equal('app-secret');
         done();
     });
     it('receive oauth app credentials through shortcuts', function (done) {
-        var t = new purest({provider:'twitter',
+        var p = new purest({provider:'twitter',
             key:'app-key', secret:'app-secret'
         });
-        t.consumerKey.should.equal('app-key');
-        t.consumerSecret.should.equal('app-secret');
+        p.consumerKey.should.equal('app-key');
+        p.consumerSecret.should.equal('app-secret');
         done();
     });
     it('set an API version', function (done) {
-        var t = new purest({provider:'stackexchange', version:'2.1'});
-        t.version.should.equal('2.1');
+        var p = new purest({provider:'stackexchange', version:'2.1'});
+        p.version.should.equal('2.1');
         done();
     });
     it('set an API domain name', function (done) {
-        var t = new purest({provider:'coderbits', domain:'https://api.coderbits.com'});
-        t.domain.should.equal('https://api.coderbits.com');
+        var p = new purest({provider:'coderbits', domain:'https://api.coderbits.com'});
+        p.domain.should.equal('https://api.coderbits.com');
         done();
     });
     it('set an API name', function (done) {
-        var t = new purest({provider:'google', api:'youtube'});
-        t.api.should.equal('youtube');
+        var p = new purest({provider:'google', api:'youtube'});
+        p.api.should.equal('youtube');
         done();
     });
     it('support multiple instances at once', function (done) {

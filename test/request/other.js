@@ -4,7 +4,7 @@ var purest = require('../../lib/provider'),
     cred = require('../../config/credentials');
 
 
-describe('other http operations', function () {
+describe('verbs', function () {
     var p = {};
     before(function (done) {
         for (var name in providers) {
@@ -17,7 +17,7 @@ describe('other http operations', function () {
     });
 
     describe('options', function () {
-        it('get yql resource', function (done) {
+        it('yahoo yql', function (done) {
             p.yahoo.get('yql', {
                 method:'OPTIONS',
                 oauth:{
@@ -31,7 +31,7 @@ describe('other http operations', function () {
                 done();
             });
         });
-        it('get geo resource', function (done) {
+        it('yahoo geo', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
                 method:'OPTIONS',
                 api:'where'
@@ -44,7 +44,7 @@ describe('other http operations', function () {
     });
 
     describe('head', function () {
-        it('get social resource', function (done) {
+        it('yagoo social', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 method:'HEAD',
                 oauth:{
