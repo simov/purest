@@ -18,20 +18,24 @@
                 "docs": "https://developers.google.com/freebase/v1"
             },
             "tasks": {
-                "version": "v1"
+                "version": "v1",
+                "docs": "https://developers.google.com/google-apps/tasks/"
             },
             "urlshortener": {
-                "version": "v1"
+                "version": "v1",
+                "docs": "https://developers.google.com/url-shortener/"
             },
             "pagespeedonline": {
                 "version": "v1",
                 "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
             },
             "youtube/analytics": {
-                "version": "v1"
+                "version": "v1",
+                "docs": "https://developers.google.com/youtube/analytics"
             },
-            "m8/feeds": {
+            "contacts": {
                 "domain": "https://www.google.com",
+                "path": "m8/feeds",
                 "docs": "https://developers.google.com/google-apps/contacts/v3/"
             }
         },
@@ -43,15 +47,18 @@
         "api": {
             "social": {
                 "version": "v1",
-                "domain": "https://social.yahooapis.com"
+                "domain": "https://social.yahooapis.com",
+                "docs": "https://developer.yahoo.com/social"
             },
-            "query": {
+            "yql": {
                 "version": "v1",
-                "domain": "https://query.yahooapis.com"
+                "domain": "https://query.yahooapis.com",
+                "docs": "https://developer.yahoo.com/yql"
             },
-            "where": {
+            "geo": {
                 "version": "v1",
-                "domain": "http://where.yahooapis.com"
+                "domain": "http://where.yahooapis.com",
+                "docs": "https://developer.yahoo.com/geo/geoplanet"
             }
         },
         "docs": "https://developer.yahoo.com/"

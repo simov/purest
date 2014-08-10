@@ -75,12 +75,13 @@ describe('path', function () {
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'yahoo', api:apis[i]});
                 p.api.should.equal(apis[i]);
-                if (/(social|query)/.test(p.api)) {
-                    p.url('endpoint', {})
-                        .should.equal('https://'+p.api+'.yahooapis.com/v1/endpoint');
-                } else {
-                    p.url('endpoint', {})
-                        .should.equal('http://'+p.api+'.yahooapis.com/v1/endpoint');
+                switch (p.api) {
+                    case 'geo': p.url('endpoint', {})
+                        .should.equal('http://where.yahooapis.com/v1/endpoint'); break;
+                    case 'social': p.url('endpoint', {})
+                        .should.equal('https://social.yahooapis.com/v1/endpoint'); break;
+                    case 'yql': p.url('endpoint', {})
+                        .should.equal('https://query.yahooapis.com/v1/endpoint'); break;
                 }
             }
         });
@@ -89,7 +90,7 @@ describe('path', function () {
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'google', api:apis[i]});
                 p.api.should.equal(apis[i]);
-                if (/m8\/feeds/.test(p.api)) {
+                if (/contacts/.test(p.api)) {
                     p.url('endpoint', {})
                         .should.match(/^https:\/\/www.google.com/);
                 } else {
@@ -142,7 +143,7 @@ describe('path', function () {
         });
         it('get domain from provider.domain', function () {
             var p = new purest({provider:'google'});
-            p.url('api/method', {api:'m8/feeds'})
+            p.url('api/method', {api:'contacts'})
                 .should.equal('https://www.google.com/m8/feeds/api/method');
         });
         it('get mailchimp data centre through apikey', function () {

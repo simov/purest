@@ -309,7 +309,7 @@ describe('get', function () {
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
-                api:'query',
+                api:'yql',
                 qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
             }, function (err, res, body) {
                 if (err) return error(err, done);
@@ -319,7 +319,7 @@ describe('get', function () {
         });
         it('geo', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
-                api:'where',
+                api:'geo',
                 qs:{appid:cred.app.yahoo.req_key}
             }, function (err, res, body) {
                 if (err) return error(err, done);
@@ -330,7 +330,7 @@ describe('get', function () {
     });
 
     describe('google', function () {
-        it('google+', function (done) {
+        it('plus', function (done) {
             p.google.get('people/106189723444098348646', {
                 api:'plus',
                 qs:{
@@ -356,7 +356,7 @@ describe('get', function () {
                 done();
             });
         });
-        it('youtube analytics', function (done) {
+        it('youtube/analytics', function (done) {
             p.google.get('reports', {
                 api:'youtube/analytics',
                 qs:{
@@ -437,7 +437,7 @@ describe('get', function () {
         });
         it('contacts', function (done) {
             p.google.get('contacts/default/full', {
-                api:'m8/feeds',
+                api:'contacts',
                 qs:{
                     access_token:cred.user.google.token
                 }
