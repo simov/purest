@@ -2,13 +2,14 @@
 var fs = require('fs'),
     path = require('path');
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers'),
-    cred = require('../../config/credentials');
+    providers = require('../../config/providers');
 var image = path.resolve(__dirname, '../fixtures/cat.png'),
     audio = path.resolve(__dirname, '../fixtures/beep.mp3');
 
 
 describe('upload', function () {
+    require('../fixtures/credentials');
+    var cred = require('../../config/credentials');
     var p = {};
     before(function (done) {
         for (var name in providers) {

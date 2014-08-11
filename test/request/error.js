@@ -1,10 +1,11 @@
 
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers'),
-    cred = require('../../config/credentials');
+    providers = require('../../config/providers');
 
 
 describe('error', function () {
+    require('../fixtures/credentials');
+    var cred = require('../../config/credentials');
     var p = {};
     before(function (done) {
         for (var name in providers) {
