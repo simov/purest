@@ -440,12 +440,13 @@ describe('get', function () {
             p.google.get('contacts/default/full', {
                 api:'contacts',
                 qs:{
-                    access_token:cred.user.google.token
+                    access_token:cred.user.google.token,
+                    'max-results':50
                 }
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                res.statusCode.should.equal(200);
+                body.feed['openSearch$itemsPerPage']['$t'].should.equal('50');
                 done();
             });
         });

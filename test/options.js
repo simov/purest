@@ -7,54 +7,48 @@ var purest = require('../lib/provider'),
 describe('options', function () {
     
     describe('upload', function () {
-        it('pass on missing upload option', function (done) {
+        it('pass on missing upload option', function () {
             var p = new purest({provider:'twitter'});
             var options = {};
             p.options.upload(p, 'api', options);
             should.deepEqual(options, {});
-            done();
         });
-        it('pass on missing upload provider', function (done) {
+        it('pass on missing upload provider', function () {
             var p = new purest({provider:'coderbits'});
             var options = {upload:'cat.jpg'};
             p.options.upload(p, 'api', options);
             should.deepEqual(options, {upload:'cat.jpg'});
-            done();
         });
-        it('pass on missing upload api', function (done) {
+        it('pass on missing upload api', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg'};
             p.options.upload(p, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
-            done();
         });
-        it('set the content-type to multipart/form-data', function (done) {
+        it('set the content-type to multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             p.options.upload(p, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
-            done();
         });
-        it('remove the form and json options', function (done) {
+        it('remove the form and json options', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             p.options.upload(p, 'statuses/update_with_media', options);
             should.equal(options.form, undefined);
             should.equal(options.json, undefined);
-            done();
         });
     });
     
     describe('multipart', function () {
-        it.skip('throw an error on unsupported media type', function (done) {
+        it.skip('throw an error on unsupported media type', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.tiff', headers:{}, form:{'media[]':'...'}};
             (function () {
                 p.options.upload(p, 'statuses/update_with_media', options);
             }).should.throw('Unsupported media type.');
-            done();
         });
-        it('generate multipart/form-data', function (done) {
+        it('generate multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
             var options =
                 {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
@@ -69,34 +63,30 @@ describe('options', function () {
                     'content-transfer-encoding': 'utf8',
                     body: 'tweet'}
             ]);
-            done();
         });
     });
 
     describe('get', function () {
-        it('set stackexchange get options', function (done) {
+        it('set stackexchange get options', function () {
             var p = new purest({provider:'stackexchange'});
             var options = {};
             p.options.get.call(p, 'api', options);
             should.deepEqual(options, {encoding:null});
-            done();
         });
-        it('set github get options', function (done) {
+        it('set github get options', function () {
             var p = new purest({provider:'github'});
             var options = {headers:{}};
             p.options.get.call(p, 'api', options);
             should.deepEqual(options, {headers:{'User-Agent':'purest'}});
-            done();
         });
-        it('set linkedin get options', function (done) {
+        it('set linkedin get options', function () {
             var p = new purest({provider:'linkedin',
                 consumerKey:'a', consumerSecret:'b'});
             var options = {headers:{}, oauth:{token:'a', secret:'b'}};
             p.options.get.call(p, 'api', options);
             options.headers['x-li-format'].should.equal('json');
-            done();
         });
-        it('set encoding to binary on certain gmaps APIs', function (done) {
+        it('set encoding to binary on certain gmaps APIs', function () {
             var p = new purest({provider:'gmaps'});
             var options = {};
             p.options.get.call(p, 'api', options);
@@ -106,12 +96,29 @@ describe('options', function () {
             options = {};
             p.options.get.call(p, 'staticmap', options);
             should.deepEqual(options, {encoding:null});
-            done();
+        });
+        it('google contacts set headers', function () {
+            var p = new purest({provider:'google'});
+            var options = {headers:{}, qs:{}, api:'contacts'};
+            p.options.get.call(p, 'endpoint', options);
+            options.headers['GData-Version'].should.equal('3.0');
+        });
+        it('google contacts return json by default', function () {
+            var p = new purest({provider:'google'});
+            var options = {headers:{}, qs:{}, api:'contacts'};
+            p.options.get.call(p, 'endpoint', options);
+            options.qs.alt.should.equal('json');
+        });
+        it('google contacts specify return type', function () {
+            var p = new purest({provider:'google'});
+            var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
+            p.options.get.call(p, 'endpoint', options);
+            options.qs.alt.should.equal('rss');
         });
     });
 
     describe('oauth', function () {
-        it('throw an error on missing credentials', function (done) {
+        it('throw an error on missing credentials', function () {
             (function () {
                 var options = new Options();
                 options.oauth.call({consumerSecret:'.'}, {token:'.', secret:'.'});
@@ -128,25 +135,22 @@ describe('options', function () {
                 var options = new Options();
                 options.oauth.call({consumerKey:'.', consumerSecret:'.'}, {token:'.'});
             }).should.throw('Missing OAuth credentials!');
-            done();
         });
-        it('use consumer key/secret provided from the ctor', function (done) {
+        it('use consumer key/secret provided from the ctor', function () {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
             args.oauth.consumer_key.should.equal('.');
             args.oauth.consumer_secret.should.equal('.');
-            done();
         });
-        it('use consumer key/secret provided as parameters', function (done) {
+        it('use consumer key/secret provided as parameters', function () {
             var options = new Options();
             var args = {oauth:{consumer_key:'-', consumer_secret:'-', token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
             args.oauth.consumer_key.should.equal('-');
             args.oauth.consumer_secret.should.equal('-');
-            done();
         });
-        it('accept user token/secret', function (done) {
+        it('accept user token/secret', function () {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
@@ -157,26 +161,23 @@ describe('options', function () {
             options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
             args.oauth.token.should.equal('.');
             args.oauth.token_secret.should.equal('.');
-            done();
         });
     });
 
     describe('url', function () {
         // escape  OAuth's  RFC3986's symbols
-        it('escape !*()\' for twitter on POST request', function (done) {
+        it('escape !*()\' for twitter on POST request', function () {
             var p = new purest({provider:'twitter'});
             var options = {form:{one:"!*()'",two:2}};
             p.url('api', options).should
                 .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
-            done();
         });
-        it('append json on missing gmaps format', function (done) {
+        it('append json on missing gmaps format', function () {
             var p = new purest({provider:'gmaps'});
             p.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
             p.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
             p.url('timezone/xml', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/xml');
             p.url('timezone/json', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
-            done();
         });
     });
 });
