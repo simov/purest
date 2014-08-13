@@ -25,13 +25,13 @@ describe('options', function () {
             p.options.upload(p, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
-        it('set the content-type to multipart/form-data', function () {
+        it('set content-type to multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             p.options.upload(p, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
         });
-        it('remove the form and json options', function () {
+        it('remove form and json options', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             p.options.upload(p, 'statuses/update_with_media', options);
@@ -41,13 +41,6 @@ describe('options', function () {
     });
     
     describe('multipart', function () {
-        it.skip('throw an error on unsupported media type', function () {
-            var p = new purest({provider:'twitter'});
-            var options = {upload:'cat.tiff', headers:{}, form:{'media[]':'...'}};
-            (function () {
-                p.options.upload(p, 'statuses/update_with_media', options);
-            }).should.throw('Unsupported media type.');
-        });
         it('generate multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
             var options =
@@ -66,118 +59,132 @@ describe('options', function () {
         });
     });
 
-    describe('get', function () {
-        it('set stackexchange get options', function () {
-            var p = new purest({provider:'stackexchange'});
-            var options = {};
-            p.options.get.call(p, 'api', options);
-            should.deepEqual(options, {encoding:null});
-        });
-        it('set github get options', function () {
-            var p = new purest({provider:'github'});
-            var options = {headers:{}};
-            p.options.get.call(p, 'api', options);
-            should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
-        });
-        it('set linkedin get options', function () {
-            var p = new purest({provider:'linkedin',
-                consumerKey:'a', consumerSecret:'b'});
-            var options = {headers:{}, oauth:{token:'a', secret:'b'}};
-            p.options.get.call(p, 'api', options);
-            options.headers['x-li-format'].should.equal('json');
-        });
-        it('set encoding to binary on certain gmaps APIs', function () {
-            var p = new purest({provider:'gmaps'});
-            var options = {};
-            p.options.get.call(p, 'api', options);
-            should.deepEqual(options, {});
-            p.options.get.call(p, 'streetview', options);
-            should.deepEqual(options, {encoding:null});
-            options = {};
-            p.options.get.call(p, 'staticmap', options);
-            should.deepEqual(options, {encoding:null});
-        });
-        it('google contacts set headers', function () {
-            var p = new purest({provider:'google'});
-            var options = {headers:{}, qs:{}, api:'contacts'};
-            p.options.get.call(p, 'endpoint', options);
-            options.headers['GData-Version'].should.equal('3.0');
-        });
-        it('google contacts return json by default', function () {
-            var p = new purest({provider:'google'});
-            var options = {headers:{}, qs:{}, api:'contacts'};
-            p.options.get.call(p, 'endpoint', options);
-            options.qs.alt.should.equal('json');
-        });
-        it('google contacts specify return type', function () {
-            var p = new purest({provider:'google'});
-            var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
-            p.options.get.call(p, 'endpoint', options);
-            options.qs.alt.should.equal('rss');
-        });
-    });
-
     describe('oauth', function () {
         it('throw error on missing credentials', function () {
             (function () {
                 var options = new Options();
-                options.oauth.call({secret:'.'}, {token:'.', secret:'.'});
+                options.oauth.call({secret:'s'}, {token:'t', secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({key:'.'}, {token:'.', secret:'.'});
+                options.oauth.call({key:'k'}, {token:'t', secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({key:'.', secret:'.'}, {secret:'.'});
+                options.oauth.call({key:'k', secret:'s'}, {secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({key:'.', secret:'.'}, {token:'.'});
+                options.oauth.call({key:'s', secret:'s'}, {token:'ts'});
             }).should.throw('Missing OAuth credentials!');
         });
         it('use consumer key/secret provided from the ctor', function () {
             var options = new Options();
-            var args = {oauth:{token:'.', secret:'.'}};
-            options.oauth.call({key:'.', secret:'.'}, args);
-            args.oauth.consumer_key.should.equal('.');
-            args.oauth.consumer_secret.should.equal('.');
+            var args = {oauth:{token:'t', secret:'ts'}};
+            options.oauth.call({key:'k', secret:'s'}, args);
+            args.oauth.consumer_key.should.equal('k');
+            args.oauth.consumer_secret.should.equal('s');
         });
         it('use consumer key/secret provided as parameters', function () {
             var options = new Options();
-            var args = {oauth:{consumer_key:'-', consumer_secret:'-', token:'.', secret:'.'}};
-            options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
-            args.oauth.consumer_key.should.equal('-');
-            args.oauth.consumer_secret.should.equal('-');
+            var args = {oauth:{consumer_key:'ck', consumer_secret:'cs', token:'t', secret:'s'}};
+            options.oauth.call({key:'k', secret:'s'}, args);
+            args.oauth.consumer_key.should.equal('ck');
+            args.oauth.consumer_secret.should.equal('cs');
         });
-        it('accept user token/secret', function () {
+        it('set user token/secret', function () {
             var options = new Options();
-            var args = {oauth:{token:'.', secret:'.'}};
-            options.oauth.call({key:'.', secret:'.'}, args);
-            args.oauth.token.should.equal('.');
-            args.oauth.token_secret.should.equal('.');
+            var args = {oauth:{token:'t', token_secret:'ts'}};
+            options.oauth.call({key:'k', secret:'s'}, args);
+            args.oauth.token.should.equal('t');
+            args.oauth.token_secret.should.equal('ts');
+        });
+        it('set user token/secret through token_secret shortcut', function () {
+            var options = new Options();
+            var args = {oauth:{token:'t', secret:'ts'}};
+            options.oauth.call({key:'k', secret:'s'}, args);
+            args.oauth.token.should.equal('t');
+            args.oauth.token_secret.should.equal('ts');
+        });
+    });
 
-            args = {oauth:{token:'.', token_secret:'.'}};
-            options.oauth.call({key:'.', secret:'.'}, args);
-            args.oauth.token.should.equal('.');
-            args.oauth.token_secret.should.equal('.');
+    describe('get', function () {
+        describe('stackexchange', function () {
+            it('set request encoding to binary', function () {
+                var p = new purest({provider:'stackexchange'});
+                var options = {};
+                p.options.get.call(p, 'api', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
+        describe('github', function () {
+            it('set user agent headers', function () {
+                var p = new purest({provider:'github'});
+                var options = {headers:{}};
+                p.options.get.call(p, 'api', options);
+                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
+            });
+        });
+        describe('linkedin', function () {
+            it('set json headers', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
+                p.options.get.call(p, 'api', options);
+                options.headers['x-li-format'].should.equal('json');
+            });
+        });
+        describe('gmaps', function () {
+            it('set encoding to binary on certain APIs', function () {
+                var p = new purest({provider:'gmaps'});
+                var options = {};
+                p.options.get.call(p, 'api', options);
+                should.deepEqual(options, {});
+                p.options.get.call(p, 'streetview', options);
+                should.deepEqual(options, {encoding:null});
+                options = {};
+                p.options.get.call(p, 'staticmap', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
+        describe('google', function () {
+            it('contacts API - set headers', function () {
+                var p = new purest({provider:'google'});
+                var options = {headers:{}, qs:{}, api:'contacts'};
+                p.options.get.call(p, 'endpoint', options);
+                options.headers['GData-Version'].should.equal('3.0');
+            });
+            it('contacts API - return json by default', function () {
+                var p = new purest({provider:'google'});
+                var options = {headers:{}, qs:{}, api:'contacts'};
+                p.options.get.call(p, 'endpoint', options);
+                options.qs.alt.should.equal('json');
+            });
+            it('contacts API - specify return type', function () {
+                var p = new purest({provider:'google'});
+                var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
+                p.options.get.call(p, 'endpoint', options);
+                options.qs.alt.should.equal('rss');
+            });
         });
     });
 
     describe('url', function () {
-        // escape  OAuth's  RFC3986's symbols
-        it('escape !*()\' for twitter on POST request', function () {
-            var p = new purest({provider:'twitter'});
-            var options = {form:{one:"!*()'",two:2}};
-            p.url('api', options).should
-                .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
+        describe('twitter', function () {
+            it('escape !*()\' (RFC3986 URI symbols) on POST request', function () {
+                var p = new purest({provider:'twitter'});
+                var options = {form:{one:"!*()'",two:2}};
+                p.url('api', options).should
+                    .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
+            });
         });
-        it('append json on missing gmaps format', function () {
-            var p = new purest({provider:'gmaps'});
-            p.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
-            p.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
-            p.url('timezone/xml', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/xml');
-            p.url('timezone/json', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
+        describe('gmaps', function () {
+            it('append json on missing return format', function () {
+                var p = new purest({provider:'gmaps'});
+                p.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
+                p.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
+                p.url('timezone/xml', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/xml');
+                p.url('timezone/json', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
+            });
         });
     });
 });

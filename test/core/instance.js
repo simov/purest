@@ -35,19 +35,30 @@ describe('instance', function () {
         p.key.should.equal('app-key');
         p.secret.should.equal('app-secret');
     });
-    it('set an API version', function () {
+    it('set API version', function () {
         var p = new purest({provider:'stackexchange', version:'2.1'});
         p.version.should.equal('2.1');
     });
-    it('set an API domain name', function () {
+    it('set API domain name', function () {
         var p = new purest({provider:'coderbits', domain:'https://api.coderbits.com'});
         p.domain.should.equal('https://api.coderbits.com');
     });
-    it('set an API name', function () {
+    it('set API path', function () {
+        var p = new purest({provider:'flickr'});
+        p.path.should.equal('services/rest');
+    });
+    it('set API name', function () {
         var p = new purest({provider:'google', api:'youtube'});
         p.api.should.equal('youtube');
     });
-    it('support multiple instances at once', function () {
+    it('set all available APIs for a provider', function () {
+        var p = new purest({provider:'flickr'});
+        should.deepEqual(p.apis, {
+            upload:{domain:'https://up.flickr.com', path:'services/upload'},
+            replace:{domain:'https://up.flickr.com', path:'services/replace'}
+        });
+    });
+    it('support multiple instances', function () {
         var github = new purest({provider:'github'});
         var stackexchange = new purest({provider:'stackexchange'});
         
