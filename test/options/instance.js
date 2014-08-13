@@ -4,36 +4,36 @@ var purest = require('../../lib/provider');
 
 
 describe('instance', function () {
-    it('throw an error on non specified provider', function () {
+    it('throw error on non specified provider', function () {
         (function () {
             var p = new purest();
         }).should.throw('purest: provider option is required!');
     });
-    it('throw an error on non existing provider', function () {
+    it('throw error on non existing provider', function () {
         (function () {
             var p = new purest({provider:'dood'});
         }).should.throw('purest: non existing provider!');
     });
-    it('receive provider name', function () {
+    it('set provider', function () {
         var p = new purest({provider:'facebook'});
         p.facebook.should.equal(true);
         p.name.should.equal('facebook');
         p.domain.should.equal('https://graph.facebook.com');
     });
-    it('receive oauth app credentials', function () {
+    it('set oauth app credentials', function () {
         var p = new purest({provider:'twitter',
             consumerKey:'app-key',
             consumerSecret:'app-secret'
         });
-        p.consumerKey.should.equal('app-key');
-        p.consumerSecret.should.equal('app-secret');
+        p.key.should.equal('app-key');
+        p.secret.should.equal('app-secret');
     });
-    it('receive oauth app credentials through shortcuts', function () {
+    it('set oauth app credentials through shortcuts', function () {
         var p = new purest({provider:'twitter',
             key:'app-key', secret:'app-secret'
         });
-        p.consumerKey.should.equal('app-key');
-        p.consumerSecret.should.equal('app-secret');
+        p.key.should.equal('app-key');
+        p.secret.should.equal('app-secret');
     });
     it('set an API version', function () {
         var p = new purest({provider:'stackexchange', version:'2.1'});
@@ -56,7 +56,7 @@ describe('instance', function () {
         
         var options = {headers:{}};
         github.options.get('api', options);
-        should.deepEqual(options, {headers:{'User-Agent':'purest'}});
+        should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
 
         var options = {headers:{}};
         stackexchange.options.get('api', options);

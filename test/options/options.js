@@ -77,7 +77,7 @@ describe('options', function () {
             var p = new purest({provider:'github'});
             var options = {headers:{}};
             p.options.get.call(p, 'api', options);
-            should.deepEqual(options, {headers:{'User-Agent':'purest'}});
+            should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
         });
         it('set linkedin get options', function () {
             var p = new purest({provider:'linkedin',
@@ -118,28 +118,28 @@ describe('options', function () {
     });
 
     describe('oauth', function () {
-        it('throw an error on missing credentials', function () {
+        it('throw error on missing credentials', function () {
             (function () {
                 var options = new Options();
-                options.oauth.call({consumerSecret:'.'}, {token:'.', secret:'.'});
+                options.oauth.call({secret:'.'}, {token:'.', secret:'.'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({consumerKey:'.'}, {token:'.', secret:'.'});
+                options.oauth.call({key:'.'}, {token:'.', secret:'.'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({consumerKey:'.', consumerSecret:'.'}, {secret:'.'});
+                options.oauth.call({key:'.', secret:'.'}, {secret:'.'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
                 var options = new Options();
-                options.oauth.call({consumerKey:'.', consumerSecret:'.'}, {token:'.'});
+                options.oauth.call({key:'.', secret:'.'}, {token:'.'});
             }).should.throw('Missing OAuth credentials!');
         });
         it('use consumer key/secret provided from the ctor', function () {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
-            options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
+            options.oauth.call({key:'.', secret:'.'}, args);
             args.oauth.consumer_key.should.equal('.');
             args.oauth.consumer_secret.should.equal('.');
         });
@@ -153,12 +153,12 @@ describe('options', function () {
         it('accept user token/secret', function () {
             var options = new Options();
             var args = {oauth:{token:'.', secret:'.'}};
-            options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
+            options.oauth.call({key:'.', secret:'.'}, args);
             args.oauth.token.should.equal('.');
             args.oauth.token_secret.should.equal('.');
 
             args = {oauth:{token:'.', token_secret:'.'}};
-            options.oauth.call({consumerKey:'.', consumerSecret:'.'}, args);
+            options.oauth.call({key:'.', secret:'.'}, args);
             args.oauth.token.should.equal('.');
             args.oauth.token_secret.should.equal('.');
         });
