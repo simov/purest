@@ -1,7 +1,7 @@
 
 var should = require('should');
-var purest = require('../lib/provider'),
-    Options = require('../lib/options');
+var purest = require('../../lib/provider'),
+    Options = require('../../lib/options');
 
 
 describe('options', function () {

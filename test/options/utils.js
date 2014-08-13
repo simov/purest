@@ -1,8 +1,8 @@
 
 var should = require('should'),
     zlib = require('zlib');
-var purest = require('../lib/provider'),
-    utils = require('../lib/utils');
+var purest = require('../../lib/provider'),
+    utils = require('../../lib/utils');
 
 
 describe('utils', function () {

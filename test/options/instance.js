@@ -1,6 +1,6 @@
 
 var should = require('should');
-var purest = require('../lib/provider');
+var purest = require('../../lib/provider');
 
 
 describe('instance', function () {

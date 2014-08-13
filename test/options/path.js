@@ -1,5 +1,6 @@
 
-var purest = require('../lib/provider');
+var purest = require('../../lib/provider');
+var providers = require('../../config/providers');
 
 
 describe('path', function () {
@@ -46,7 +47,7 @@ describe('path', function () {
     describe('same domain', function () {
         it('apiname/version/endpoint - apiname set in the ctor', function () {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
-                google = require('../config/providers').google;
+                google = providers.google;
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'google', api:apis[i]});
                 p.createPath('endpoint',{})
@@ -55,7 +56,7 @@ describe('path', function () {
         });
         it('apiname/version/endpoint - api set through options', function () {
             var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
-                google = require('../config/providers').google;
+                google = providers.google;
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'google'});
                 p.createPath('endpoint',{api:apis[i]})
@@ -71,7 +72,7 @@ describe('path', function () {
 
     describe('different domains', function () {
         it('yahoo', function () {
-            var apis = Object.keys(require('../config/providers').yahoo.api);
+            var apis = Object.keys(providers.yahoo.api);
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'yahoo', api:apis[i]});
                 p.api.should.equal(apis[i]);
@@ -86,7 +87,7 @@ describe('path', function () {
             }
         });
         it('google', function () {
-            var apis = Object.keys(require('../config/providers').google.api);
+            var apis = Object.keys(providers.google.api);
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'google', api:apis[i]});
                 p.api.should.equal(apis[i]);
@@ -100,7 +101,7 @@ describe('path', function () {
             }
         });
         it('flickr', function () {
-            var apis = Object.keys(require('../config/providers').flickr.api);
+            var apis = Object.keys(providers.flickr.api);
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'flickr', api:apis[i]});
                 p.api.should.equal(apis[i]);
@@ -117,7 +118,7 @@ describe('path', function () {
 
     describe('different path', function () {
         it('flickr', function () {
-            var apis = Object.keys(require('../config/providers').flickr.api);
+            var apis = Object.keys(providers.flickr.api);
             for (var i=0; i < apis.length; i++) {
                 var p = new purest({provider:'flickr', api:apis[i]});
                 p.api.should.equal(apis[i]);
