@@ -37,131 +37,169 @@ describe('path', function () {
         });
     });
     
-    describe('options', function () {
+    describe('version', function () {
+        it('set version through config', function () {
+            var p = new purest({provider:'linkedin'});
+            p.createPath('endpoint').should.equal('v1/endpoint');
+        });
         it('set version through options', function () {
             var p = new purest({provider:'linkedin'});
             p.createPath('endpoint',{version:'2.2'}).should.equal('2.2/endpoint');
         });
     });
 
-    describe('same domain', function () {
-        it('apiname/version/endpoint - apiname set in the ctor', function () {
-            var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
-                google = providers.google;
-            for (var i=0; i < apis.length; i++) {
-                var p = new purest({provider:'google', api:apis[i]});
-                p.createPath('endpoint',{})
-                    .should.equal(apis[i]+'/'+google.api[apis[i]].version+'/endpoint');
-            }
-        });
-        it('apiname/version/endpoint - api set through options', function () {
-            var apis = ['plus', 'youtube', 'drive', 'freebase', 'pagespeedonline'],
-                google = providers.google;
-            for (var i=0; i < apis.length; i++) {
+    describe('sub api', function () {
+        describe('core', function () {
+            it('api set through ctor', function () {
+                var p = new purest({provider:'google', api:'plus'});
+                p.createPath('endpoint').should.equal('plus/v1/endpoint');
+            });
+            it('api set through options', function () {
                 var p = new purest({provider:'google'});
-                p.createPath('endpoint',{api:apis[i]})
-                    .should.equal(apis[i]+'/'+google.api[apis[i]].version+'/endpoint');
-            }
+                p.createPath('endpoint', {api:'plus'}).should.equal('plus/v1/endpoint');
+            });
+            it('api version set through options', function () {
+                var p = new purest({provider:'google'});
+                p.createPath('endpoint', {api:'plus', version:'v2'})
+                    .should.equal('plus/v2/endpoint');
+            });
+            it('api name used as api path', function () {
+                var p = new purest({provider:'google'});
+                p.createPath('endpoint', {api:'plus'})
+                    .should.equal('plus/v1/endpoint');
+            });
+            it('api path set explicitly', function () {
+                var p = new purest({provider:'google'});
+                p.createPath('endpoint', {api:'contacts'})
+                    .should.equal('m8/feeds/endpoint');
+            });
         });
-        it('set version through options', function () {
-            var p = new purest({provider:'google'});
-            p.createPath('api/method',{api:'freebase', version:'4.4'})
-                .should.equal('freebase/4.4/api/method');
+        describe('flickr', function () {
+            it('provider path', function () {
+                var p = new purest({provider:'flickr'});
+                p.createPath('endpoint').should.equal('services/rest');
+            });
+            it('api path', function () {
+                var p = new purest({provider:'flickr'});
+                p.createPath('endpoint', {api:'upload'}).should.equal('services/upload');
+                p.createPath('endpoint', {api:'replace'}).should.equal('services/replace');
+            });
+        });
+        describe('google', function () {
+            it('apiname|apipath/apiver/endpoing', function () {
+                var p = new purest({provider:'google'});
+                for (var name in p.apis) {
+                    if (name == 'contacts') continue;
+                    p.createPath('endpoint',{api:name})
+                        .should.equal(name+'/'+p.apis[name].version+'/endpoint');
+                }
+            });
+            it('apiname|apipath/endpoing', function () {
+                var p = new purest({provider:'google'});
+                p.createPath('endpoint',{api:'contacts'})
+                        .should.equal('m8/feeds/endpoint');
+            });
+        });
+        describe('yahoo', function () {
+            it('apiversion/endpoint', function () {
+                var p = new purest({provider:'yahoo'});
+                for (var name in p.apis) {
+                    p.createPath('endpoint',{api:name})
+                        .should.equal(p.apis[name].version+'/endpoint');
+                }
+            });
         });
     });
+});
 
-    describe('different domains', function () {
-        it('yahoo', function () {
-            var apis = Object.keys(providers.yahoo.api);
-            for (var i=0; i < apis.length; i++) {
-                var p = new purest({provider:'yahoo', api:apis[i]});
-                p.api.should.equal(apis[i]);
-                switch (p.api) {
-                    case 'geo': p.url('endpoint', {})
-                        .should.equal('http://where.yahooapis.com/v1/endpoint'); break;
-                    case 'social': p.url('endpoint', {})
-                        .should.equal('https://social.yahooapis.com/v1/endpoint'); break;
-                    case 'yql': p.url('endpoint', {})
-                        .should.equal('https://query.yahooapis.com/v1/endpoint'); break;
-                }
-            }
+describe('url', function () {
+    describe('core', function () {
+        it('provider domain', function () {
+            var p = new purest({provider:'facebook'});
+            p.url('endpoint').should.equal('https://graph.facebook.com/endpoint');
+        });
+        it('api domain', function () {
+            var p = new purest({provider:'yahoo', api:'geo'});
+            p.url('endpoint').should.equal('http://where.yahooapis.com/v1/endpoint');
         });
         it('google', function () {
-            var apis = Object.keys(providers.google.api);
-            for (var i=0; i < apis.length; i++) {
-                var p = new purest({provider:'google', api:apis[i]});
-                p.api.should.equal(apis[i]);
-                if (/contacts/.test(p.api)) {
-                    p.url('endpoint', {})
-                        .should.match(/^https:\/\/www.google.com/);
-                } else {
-                    p.url('endpoint', {})
-                        .should.match(/^https:\/\/www.googleapis.com/);
+            var p = new purest({provider:'google'});
+            for (var name in p.apis) {
+                if (name == 'contacts') {
+                    p.url('endpoint',{api:name}).should.equal(
+                        ['https://www.google.com', 'm8/feeds', 'endpoint'].join('/')
+                    );
+                    continue;
                 }
+                p.url('endpoint',{api:name}).should.equal(
+                    ['https://www.googleapis.com', name, p.apis[name].version, 'endpoint']
+                    .join('/')
+                );
+            }
+        });
+        it('yahoo', function () {
+            var p = new purest({provider:'yahoo'});
+            for (var name in p.apis) {
+                var api = p.apis[name];
+                p.url('endpoint',{api:name}).should.equal(
+                    [api.domain, api.version, 'endpoint'].join('/')
+                );
             }
         });
         it('flickr', function () {
-            var apis = Object.keys(providers.flickr.api);
-            for (var i=0; i < apis.length; i++) {
-                var p = new purest({provider:'flickr', api:apis[i]});
-                p.api.should.equal(apis[i]);
-                if (/(upload|replace)/.test(p.api)) {
-                    p.url('endpoint', {})
-                        .should.match(/^https:\/\/up.flickr.com/);
-                } else {
-                    p.url('endpoint', {})
-                        .should.match(/^https:\/\/api.flickr.com/);
-                }
-            }
-        });
-    });
-
-    describe('different path', function () {
-        it('flickr', function () {
-            var apis = Object.keys(providers.flickr.api);
-            for (var i=0; i < apis.length; i++) {
-                var p = new purest({provider:'flickr', api:apis[i]});
-                p.api.should.equal(apis[i]);
-                switch (p.api) {
-                    case 'upload': p.url('endpoint', {})
-                        .should.equal('https://up.flickr.com/services/upload'); break;
-                    case 'replace': p.url('endpoint', {})
-                        .should.equal('https://up.flickr.com/services/replace'); break;
-                }
-            }
             var p = new purest({provider:'flickr'});
-            p.domain.should.equal('https://api.flickr.com');
-            p.url('endpoint', {})
-                .should.equal('https://api.flickr.com/services/rest');
+            for (var name in p.apis) {
+                var api = p.apis[name];
+                p.url('',{api:name}).should.equal(
+                    [api.domain, api.path].join('/')
+                );
+            }
+            p.url('').should.equal([p.domain, p.path].join('/'));
         });
     });
-
-    describe('url', function () {
-        it('get domain from provider.api.name.domain', function () {
-            var p = new purest({provider:'google'});
-            p.url('api/method', {api:'plus'})
-                .should.equal('https://www.googleapis.com/plus/v1/api/method')
-        });
-        it('get domain from provider.domain', function () {
-            var p = new purest({provider:'google'});
-            p.url('api/method', {api:'contacts'})
-                .should.equal('https://www.google.com/m8/feeds/api/method');
-        });
-        it('get mailchimp data center through apikey', function () {
+    describe('mailchimp', function () {
+        it('get data center name from apikey', function () {
             var p = new purest({provider:'mailchimp'});
-            p.url('api/method', {qs:{apikey:'546ae091fd5ytr3a611d3hj527ad2940-us2'}})
-                .should.equal('https://us2.api.mailchimp.com/2.0/api/method.json');
+            p.url('endpoint', {qs:{apikey:'546ae091fd5ytr3a611d3hj527ad2940-us2'}})
+                .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json');
         });
-        it('get mailchimp data center through option', function () {
+        it('get data center name from option', function () {
             var p = new purest({provider:'mailchimp'});
-            p.url('api/method', {dc:'us2'})
-                .should.equal('https://us2.api.mailchimp.com/2.0/api/method.json');
+            p.url('endpoint', {dc:'us2'})
+                .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json');
         });
-        it('throw error on missing mailchimp data center', function () {
+        it('throw error on missing data center name', function () {
             var p = new purest({provider:'mailchimp'});
             (function () {
-                p.url('api/method', {qs:{apikey:'access_token'}});
+                p.url('endpoint', {qs:{apikey:'access_token'}});
             }).should.throw('Purest: specify data center to use through the dc option!');
+        });
+    });
+    describe('twitter', function () {
+        it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {
+            var p = new purest({provider:'twitter'});
+            p.url('endpoint', {form:{one:"!*()'",two:2}}).should.equal(
+                'https://api.twitter.com/1.1/endpoint.json?one=%21%2a%28%29%27&two=2'
+            );
+        });
+        it('use default url on GET request', function () {
+            var p = new purest({provider:'twitter'});
+            p.url('endpoint').should.equal('https://api.twitter.com/1.1/endpoint.json');
+        });
+    });
+    describe('gmaps', function () {
+        it('set json as default return type', function () {
+            var p = new purest({provider:'gmaps'});
+            p.url('geocode').should.equal([p.domain, p.path, 'geocode', 'json'].join('/'));
+            p.url('directions').should.equal([p.domain, p.path, 'directions', 'json'].join('/'));
+            p.url('timezone').should.equal([p.domain, p.path, 'timezone', 'json'].join('/'));
+            p.url('elevation').should.equal([p.domain, p.path, 'elevation', 'json'].join('/'));
+            p.url('distancematrix').should.equal([p.domain, p.path, 'distancematrix', 'json'].join('/'));
+        });
+        it('specify return type', function () {
+            var p = new purest({provider:'gmaps'});
+            p.url('geocode/json').should.equal([p.domain, p.path, 'geocode', 'json'].join('/'));
+            p.url('directions/xml').should.equal([p.domain, p.path, 'directions', 'xml'].join('/'));
         });
     });
 });

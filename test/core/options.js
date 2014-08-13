@@ -167,24 +167,4 @@ describe('options', function () {
             });
         });
     });
-
-    describe('url', function () {
-        describe('twitter', function () {
-            it('escape !*()\' (RFC3986 URI symbols) on POST request', function () {
-                var p = new purest({provider:'twitter'});
-                var options = {form:{one:"!*()'",two:2}};
-                p.url('api', options).should
-                    .equal('https://api.twitter.com/1.1/api.json?one=%21%2a%28%29%27&two=2');
-            });
-        });
-        describe('gmaps', function () {
-            it('append json on missing return format', function () {
-                var p = new purest({provider:'gmaps'});
-                p.url('api', {}).should.equal('https://maps.googleapis.com/maps/api/api');
-                p.url('timezone', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
-                p.url('timezone/xml', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/xml');
-                p.url('timezone/json', {}).should.equal('https://maps.googleapis.com/maps/api/timezone/json');
-            });
-        });
-    });
 });

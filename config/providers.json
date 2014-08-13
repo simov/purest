@@ -80,8 +80,8 @@
         "docs": "https://www.flickr.com/services/api/"
     },
     "gmaps": {
-        "version": "maps/api",
         "domain": "https://maps.googleapis.com",
+        "path": "maps/api",
         "docs": "https://developers.google.com/maps/"
     },
     "twitter": {
