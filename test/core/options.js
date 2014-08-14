@@ -6,6 +6,90 @@ var purest = require('../../lib/provider'),
 
 describe('options', function () {
 
+    describe('get', function () {
+        describe('github', function () {
+            it('user defined User-Agent headers', function () {
+                var p = new purest({provider:'github'});
+                var options = {headers:{'User-Agent':'AwesomeApp'}};
+                p.options.get.call(p, 'endpoint', options);
+                should.deepEqual(options, {headers:{'User-Agent':'AwesomeApp'}});
+            });
+            it('set User-Agent headers', function () {
+                var p = new purest({provider:'github'});
+                var options = {headers:{}};
+                p.options.get.call(p, 'endpoint', options);
+                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
+            });
+        });
+        describe('gmaps', function () {
+            it('set binary encoding for certain APIs', function () {
+                var p = new purest({provider:'gmaps'});
+                var options = {};
+                p.options.get.call(p, 'endpoint', options);
+                should.deepEqual(options, {});
+                p.options.get.call(p, 'streetview', options);
+                should.deepEqual(options, {encoding:null});
+                options = {};
+                p.options.get.call(p, 'staticmap', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
+        describe('google', function () {
+            describe('contacts', function () {
+                it('set GData-Version to 3.0 by default', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{}, api:'contacts'};
+                    p.options.get.call(p, 'endpoint', options);
+                    options.headers['GData-Version'].should.equal('3.0');
+                });
+                it('user defined GData-Version', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{'GData-Version':'2.0'}, qs:{}, api:'contacts'};
+                    p.options.get.call(p, 'endpoint', options);
+                    options.headers['GData-Version'].should.equal('2.0');
+                });
+                it('return json by default', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{}, api:'contacts'};
+                    p.options.get.call(p, 'endpoint', options);
+                    options.qs.alt.should.equal('json');
+                });
+                it('specify return type', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
+                    p.options.get.call(p, 'endpoint', options);
+                    options.qs.alt.should.equal('rss');
+                });
+            });
+        });
+        describe('linkedin', function () {
+            it('set x-li-format to json by default', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
+                p.options.get.call(p, 'endpoint', options);
+                options.headers['x-li-format'].should.equal('json');
+            });
+            it('user defined x-li-format', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{'x-li-format':'jsonp'}, oauth:{token:'t', secret:'ts'}};
+                p.options.get.call(p, 'endpoint', options);
+                options.headers['x-li-format'].should.equal('jsonp');
+            });
+        });
+        describe('stackexchange', function () {
+            it('set request encoding to binary', function () {
+                var p = new purest({provider:'stackexchange'});
+                var options = {};
+                p.options.get.call(p, 'endpoint', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
+    });
+
+    describe('post', function () {
+        
+    });
+
     describe('oauth', function () {
         it('throw error on missing credentials', function () {
             (function () {
@@ -54,78 +138,18 @@ describe('options', function () {
             options.oauth.token_secret.should.equal('ts');
         });
     });
-
-    describe('get', function () {
-        describe('stackexchange', function () {
-            it('set request encoding to binary', function () {
-                var p = new purest({provider:'stackexchange'});
-                var options = {};
-                p.options.get.call(p, 'api', options);
-                should.deepEqual(options, {encoding:null});
-            });
-        });
-        describe('github', function () {
-            it('set user agent headers', function () {
-                var p = new purest({provider:'github'});
-                var options = {headers:{}};
-                p.options.get.call(p, 'api', options);
-                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
-            });
-        });
-        describe('linkedin', function () {
-            it('set json headers', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
-                var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
-                p.options.get.call(p, 'api', options);
-                options.headers['x-li-format'].should.equal('json');
-            });
-        });
-        describe('gmaps', function () {
-            it('set encoding to binary on certain APIs', function () {
-                var p = new purest({provider:'gmaps'});
-                var options = {};
-                p.options.get.call(p, 'api', options);
-                should.deepEqual(options, {});
-                p.options.get.call(p, 'streetview', options);
-                should.deepEqual(options, {encoding:null});
-                options = {};
-                p.options.get.call(p, 'staticmap', options);
-                should.deepEqual(options, {encoding:null});
-            });
-        });
-        describe('google', function () {
-            it('contacts API - set headers', function () {
-                var p = new purest({provider:'google'});
-                var options = {headers:{}, qs:{}, api:'contacts'};
-                p.options.get.call(p, 'endpoint', options);
-                options.headers['GData-Version'].should.equal('3.0');
-            });
-            it('contacts API - return json by default', function () {
-                var p = new purest({provider:'google'});
-                var options = {headers:{}, qs:{}, api:'contacts'};
-                p.options.get.call(p, 'endpoint', options);
-                options.qs.alt.should.equal('json');
-            });
-            it('contacts API - specify return type', function () {
-                var p = new purest({provider:'google'});
-                var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
-                p.options.get.call(p, 'endpoint', options);
-                options.qs.alt.should.equal('rss');
-            });
-        });
-    });
     
     describe('upload', function () {
         it('pass on missing upload option', function () {
             var p = new purest({provider:'twitter'});
             var options = {};
-            p.options.upload(p, 'api', options);
+            p.options.upload(p, 'endpoint', options);
             should.deepEqual(options, {});
         });
         it('pass on missing upload provider', function () {
             var p = new purest({provider:'coderbits'});
             var options = {upload:'cat.jpg'};
-            p.options.upload(p, 'api', options);
+            p.options.upload(p, 'endpoint', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
         it('pass on missing upload api', function () {
