@@ -222,7 +222,7 @@ describe('options', function () {
             p.options.upload(p, 'endpoint', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
-        it('pass on missing upload api', function () {
+        it('pass on missing upload endpoint', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg'};
             p.options.upload(p, 'upload_image', options);
@@ -238,11 +238,83 @@ describe('options', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             p.options.upload(p, 'statuses/update_with_media', options);
-            should.equal(options.form, undefined);
-            should.equal(options.json, undefined);
+            should.not.exist(options.form);
+            should.not.exist(options.json);
+            should.not.exist(options.upload);
+        });
+        describe('asana', function () {
+            it('match on regex endpoint', function () {
+                var p = new purest({provider:'asana'});
+                var options = {upload:'cat.jpg', headers:{}, form:{file:''}, json:true};
+                p.options.upload(p, 'tasks/id/attachments', options);
+                options.headers['content-type'].should.equal('multipart/form-data');
+                should.not.exist(options.form);
+                should.not.exist(options.json);
+                should.not.exist(options.upload);
+            });
         });
     });
     
+    describe('beforeMultipart', function () {
+        describe('flickr', function () {
+            it('generate OAuth params and add them to form body', function () {
+                var p = new purest({provider:'flickr', key:'k', secret:'s'});
+                var options = {upload:'cat.jpg', headers:{},
+                    oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
+                p.options.beforeMultipart(p, '', options);
+                options.form.oauth_consumer_key.should.equal('k');
+                options.form.oauth_nonce.should.be.instanceOf(String);
+                options.form.oauth_signature_method.should.equal('HMAC-SHA1');
+                options.form.oauth_timestamp.should.be.instanceOf(String);
+                options.form.oauth_token.should.equal('t');
+                options.form.oauth_version.should.equal('1.0');
+                options.form.oauth_signature.should.be.instanceOf(String);
+                options.form.photo.should.equal('');
+            });
+        });
+    });
+
+    describe('afterMultipart', function () {
+        describe('flickr', function () {
+            it('remove oauth options key', function () {
+                var p = new purest({provider:'flickr', key:'k', secret:'s'});
+                var options = {upload:'cat.jpg', headers:{},
+                    oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
+                p.options.afterMultipart(p, '', options);
+                should.not.exist(options.oauth);
+            });
+        });
+        describe('soundcloud', function () {
+            it('remove multipart content-type', function () {
+                var p = new purest({provider:'soundcloud'});
+                var options = {upload:'beep.mp3', headers:{},
+                    form:{'track[title]':'title', 'track[asset_data]':''}, json:true};
+
+                options.multipart = p.options.multipart(p, 'tracks', options);
+                should.deepEqual([{
+                    'content-disposition': 'form-data; name="track[title]"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'title'}, {
+                    'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
+                    'content-type': 'audio/mpeg',
+                    'content-transfer-encoding': 'binary',
+                    body: ''
+                }], options.multipart);
+
+                p.options.afterMultipart(p, 'tracks', options);
+                should.deepEqual([{
+                    'content-disposition': 'form-data; name="track[title]"',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'title'}, {
+                    'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
+                    'content-transfer-encoding': 'binary',
+                    body: ''
+                }], options.multipart);
+            });
+        });
+    });
+
     describe('multipart', function () {
         it('generate multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
@@ -260,13 +332,5 @@ describe('options', function () {
                     body: 'tweet'}
             ]);
         });
-    });
-
-    describe('beforeMultipart', function () {
-        
-    });
-
-    describe('afterMultipart', function () {
-        
     });
 });
