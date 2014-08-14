@@ -1,4 +1,5 @@
 
+var should = require('should');
 var purest = require('../../lib/provider');
 var providers = require('../../config/providers');
 
@@ -177,10 +178,12 @@ describe('url', function () {
     });
     describe('twitter', function () {
         it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {
-            var p = new purest({provider:'twitter'});
-            p.url('endpoint', {form:{one:"!*()'",two:2}}).should.equal(
+            var p = new purest({provider:'twitter'}),
+                options = {form:{one:"!*()'",two:2}};
+            p.url('endpoint', options).should.equal(
                 'https://api.twitter.com/1.1/endpoint.json?one=%21%2a%28%29%27&two=2'
             );
+            should.not.exist(options.form);
         });
         it('use default url on GET request', function () {
             var p = new purest({provider:'twitter'});
