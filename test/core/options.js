@@ -87,7 +87,77 @@ describe('options', function () {
     });
 
     describe('post', function () {
-        
+        describe('github', function () {
+            it('user defined User-Agent headers', function () {
+                var p = new purest({provider:'github'});
+                var options = {headers:{'User-Agent':'AwesomeApp'}};
+                p.options.post.call(p, 'endpoint', options);
+                should.deepEqual(options, {headers:{'User-Agent':'AwesomeApp'}});
+            });
+            it('set User-Agent headers', function () {
+                var p = new purest({provider:'github'});
+                var options = {headers:{}};
+                p.options.post.call(p, 'endpoint', options);
+                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
+            });
+        });
+        describe('google', function () {
+            describe('contacts', function () {
+                it('set GData-Version to 3.0 by default', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{}, api:'contacts'};
+                    p.options.post.call(p, 'endpoint', options);
+                    options.headers['GData-Version'].should.equal('3.0');
+                });
+                it('user defined GData-Version', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{'GData-Version':'2.0'}, qs:{}, api:'contacts'};
+                    p.options.post.call(p, 'endpoint', options);
+                    options.headers['GData-Version'].should.equal('2.0');
+                });
+                it('return json by default', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{}, api:'contacts'};
+                    p.options.post.call(p, 'endpoint', options);
+                    options.qs.alt.should.equal('json');
+                });
+                it('specify return type', function () {
+                    var p = new purest({provider:'google'});
+                    var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
+                    p.options.post.call(p, 'endpoint', options);
+                    options.qs.alt.should.equal('rss');
+                });
+            });
+        });
+        describe('linkedin', function () {
+            it('set x-li-format to json by default', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
+                p.options.post.call(p, 'endpoint', options);
+                options.headers['x-li-format'].should.equal('json');
+            });
+            it('user defined x-li-format', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{'x-li-format':'jsonp'}, oauth:{token:'t', secret:'ts'}};
+                p.options.post.call(p, 'endpoint', options);
+                options.headers['x-li-format'].should.equal('jsonp');
+            });
+            it('send form data as entity body', function () {
+                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var options = {headers:{}, form:{a:1}, oauth:{token:'t', secret:'ts'}};
+                p.options.post.call(p, 'endpoint', options);
+                options.body.should.equal('{"a":1}');
+                should.not.exist(options.form);
+            });
+        });
+        describe('stackexchange', function () {
+            it('set request encoding to binary', function () {
+                var p = new purest({provider:'stackexchange'});
+                var options = {};
+                p.options.post.call(p, 'endpoint', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
     });
 
     describe('oauth', function () {
