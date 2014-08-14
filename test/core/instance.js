@@ -35,6 +35,10 @@ describe('instance', function () {
         p.key.should.equal('app-key');
         p.secret.should.equal('app-secret');
     });
+    it('set oauth flag', function () {
+        var p = new purest({provider:'twitter'});
+        p.oauth.should.equal(true);
+    });
     it('set API version', function () {
         var p = new purest({provider:'stackexchange', version:'2.1'});
         p.version.should.equal('2.1');
