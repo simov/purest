@@ -259,7 +259,7 @@ describe('options', function () {
         describe('flickr', function () {
             it('generate OAuth params and add them to form body', function () {
                 var p = new purest({provider:'flickr', key:'k', secret:'s'});
-                var options = {upload:'cat.jpg', headers:{},
+                var options = {upload:'cat.jpg', api:'upload', headers:{},
                     oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
                 p.options.beforeMultipart(p, '', options);
                 options.form.oauth_consumer_key.should.equal('k');
