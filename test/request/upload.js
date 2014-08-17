@@ -8,7 +8,7 @@ var image = path.resolve(__dirname, '../fixtures/cat.png'),
 
 
 describe('upload', function () {
-    require('../fixtures/credentials');
+    require('../utils/credentials');
     var cred = require('../../config/credentials');
     var p = {};
     before(function (done) {

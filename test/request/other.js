@@ -4,7 +4,7 @@ var purest = require('../../lib/provider'),
 
 
 describe('verbs', function () {
-    require('../fixtures/credentials');
+    require('../utils/credentials');
     var cred = require('../../config/credentials');
     var p = {};
     before(function (done) {
