@@ -157,16 +157,17 @@ describe('get', function () {
     });
     it('openstreetmap', function (done) {
         p.openstreetmap.get('user/details', {
-            // basic auth for reading user details
-            auth:{user:'...', pass:'...'}
-            
-            // or oauth for writing to the database
-            // oauth:{token:cred.user.openstreetmap.token,
-            // secret:cred.user.openstreetmap.secret}
+            // oauth for writing to the database
+            oauth:{
+                token:cred.user.openstreetmap.token,
+                secret:cred.user.openstreetmap.secret
+            }
+            // or basic auth for reading user details
+            // auth: {user:'email', pass:'password'}
         }, function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            console.log(body);
+            body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
             done();
         });
     });
