@@ -1,8 +1,11 @@
 
+var fs = require('fs'),
+    path = require('path');
 var should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers'),
     refresh = require('../utils/refresh');
+
 
 describe('get', function () {
     require('../utils/credentials');
@@ -489,7 +492,7 @@ describe('get', function () {
         });
     });
     
-    describe('google maps', function () {
+    describe('gmaps', function () {
         it('streetview', function (done) {
             p.gmaps.get('streetview', {
                 qs:{
@@ -500,7 +503,7 @@ describe('get', function () {
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
-                (require('fs')).writeFileSync('streetview.jpg', body, 'binary');
+                fs.writeFileSync('streetview.jpg', body, 'binary');
                 done();
             });
         });
@@ -516,7 +519,7 @@ describe('get', function () {
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
-                (require('fs')).writeFileSync('staticmap.jpg', body, 'binary');
+                fs.writeFileSync('staticmap.jpg', body, 'binary');
                 done();
             });
         });
@@ -586,10 +589,14 @@ describe('get', function () {
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
-                body.rows[0].elements[0].distance.text.should.equal('11.3 km');
-                body.rows[0].elements[0].duration.text.should.equal('18 mins');
+                body.rows[0].elements[0].distance.text.should.equal('11.8 km');
+                body.rows[0].elements[0].duration.text.should.equal('21 mins');
                 done();
             });
+        });
+        after(function () {
+            fs.unlinkSync('staticmap.jpg');
+            fs.unlinkSync('streetview.jpg');
         });
     });
 });
