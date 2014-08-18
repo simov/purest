@@ -1,8 +1,8 @@
 
 var should = require('should');
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers');
-
+    providers = require('../../config/providers'),
+    refresh = require('../utils/refresh');
 
 describe('get', function () {
     require('../utils/credentials');
@@ -227,24 +227,34 @@ describe('get', function () {
             done();
         });
     });
-    it('asana basic auth', function (done) {
-        p.asana.get('users/me', {
-            auth:{user:cred.user.asana.api_key, pass:''}
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body.data),
-                ['id','name','email','photo','workspaces']);
-            done();
+    describe('asana', function () {
+        var access = {};
+        before(function (done) {
+            refresh.asana(function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
         });
-    });
-    it('asana oauth', function (done) {
-        p.asana.get('users/me', {
-            auth: {bearer:cred.user.asana.token}
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body.data),
-                ['id','name','email','photo','workspaces']);
-            done();
+        it('basic auth', function (done) {
+            p.asana.get('users/me', {
+                auth:{user:cred.user.asana.api_key, pass:''}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body.data),
+                    ['id','name','email','photo','workspaces']);
+                done();
+            });
+        });
+        it('oauth', function (done) {
+            p.asana.get('users/me', {
+                auth: {bearer:access.token}
+            }, function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body.data),
+                    ['id','name','email','photo','workspaces']);
+                done();
+            });
         });
     });
     it('mailchimp apikey', function (done) {
@@ -270,16 +280,26 @@ describe('get', function () {
             done();
         });
     });
-    it('heroku', function (done) {
-        p.heroku.get('account', {
-            auth: {bearer:cred.user.heroku.token}
-            // or
-            // auth: {user:'email', pass:'password'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.email.should.be.type('string');
-            done();
+    describe('heroku', function () {
+        var access = {};
+        before(function (done) {
+            refresh.heroku(function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
+        });
+        it('', function (done) {
+            p.heroku.get('account', {
+                auth: {bearer:access.token}
+                // or
+                // auth: {user:'email', pass:'password'}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.email.should.be.type('string');
+                done();
+            });
         });
     });
     it('dropbox', function (done) {
@@ -294,10 +314,18 @@ describe('get', function () {
     });
 
     describe('yahoo', function () {
+        var access = {};
+        before(function (done) {
+            refresh.yahoo(function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.oauth_token, secret:body.oauth_token_secret};
+                done();
+            });
+        });
         it('social', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 oauth:{
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
+                    token:access.token, secret:access.secret
                 },
                 api:'social'
             }, function (err, res, body) {
@@ -309,7 +337,7 @@ describe('get', function () {
         it('yql', function (done) {
             p.yahoo.get('yql', {
                 oauth:{
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
+                    token:access.token, secret:access.secret
                 },
                 api:'yql',
                 qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
@@ -332,11 +360,19 @@ describe('get', function () {
     });
 
     describe('google', function () {
+        var access = {};
+        before(function (done) {
+            refresh.google(function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
+        });
         it('plus', function (done) {
             p.google.get('people/106189723444098348646', {
                 api:'plus',
                 qs:{
-                    access_token:cred.user.google.token
+                    access_token:access.token
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
@@ -348,7 +384,7 @@ describe('get', function () {
             p.google.get('channels', {
                 api:'youtube',
                 qs:{
-                    access_token:cred.user.google.token,
+                    access_token:access.token,
                     part:'id, snippet, contentDetails, statistics, status, topicDetails',
                     forUsername:'RayWilliamJohnson'
                 }
@@ -362,7 +398,7 @@ describe('get', function () {
             p.google.get('reports', {
                 api:'youtube/analytics',
                 qs:{
-                    access_token:cred.user.google.token,
+                    access_token:access.token,
                     ids:'channel==UCar6nMFGfuv254zn5vDyVaA',
                     metrics:'views',
                     'start-date':'2014-01-15',
@@ -378,7 +414,7 @@ describe('get', function () {
             p.google.get('about', {
                 api:'drive',
                 qs:{
-                    access_token:cred.user.google.token
+                    access_token:access.token
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
@@ -390,7 +426,7 @@ describe('get', function () {
             p.google.get('search', {
                 api:'freebase',
                 qs:{
-                    access_token:cred.user.google.token,
+                    access_token:access.token,
                     query:'Thriftworks'
                 }
             }, function (err, res, body) {
@@ -403,7 +439,7 @@ describe('get', function () {
             p.google.get('users/@me/lists', {
                 api:'tasks',
                 qs:{
-                    access_token:cred.user.google.token
+                    access_token:access.token
                 }
             }, function (err, res, body) {
                 if (err) return error(err, done);
@@ -441,7 +477,7 @@ describe('get', function () {
             p.google.get('contacts/default/full', {
                 api:'contacts',
                 qs:{
-                    access_token:cred.user.google.token,
+                    access_token:access.token,
                     'max-results':50
                 }
             }, function (err, res, body) {
