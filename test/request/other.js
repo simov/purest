@@ -7,14 +7,13 @@ describe('verbs', function () {
     require('../utils/credentials');
     var cred = require('../../config/credentials');
     var p = {};
-    before(function (done) {
+    before(function () {
         for (var name in providers) {
             var provider = providers[name];
             p[name] = new purest(provider.oauth
                 ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
                 : {provider:name});
         }
-        done();
     });
 
     describe('options', function () {
