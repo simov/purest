@@ -116,7 +116,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **upload** - _file name is required when uploading ([the rest of the examples][5])_
+- **upload** - _file name is required when uploading ([see the rest of the examples][5])_
   ```js
   twitter.post('statuses/update_with_media', {
     oauth:{token:'..', secret:'..'},
