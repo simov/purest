@@ -34,6 +34,21 @@ exports = module.exports = function (t) {
                 debugger;
                 console.log(body);
             });
+        },
+        // get repo
+        3: function () {
+            t.post('markdown', {
+                qs:{
+                    access_token:cred.user.github.token
+                },
+                body:{
+                    text: '# Header',
+                    mode: 'markdown'
+                }
+            }, function (err, res, body) {
+                debugger;
+                console.log(body);
+            });
         }
     };
 }
