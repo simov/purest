@@ -22,13 +22,13 @@ if (!cmd.example) {
 
 var provider = cmd.provider;
 
-var t = new purest({
+var p = new purest({
     provider:provider,
     key:cred.app[provider].key,
     secret:cred.app[provider].secret
 });
 
-var example = require('./provider/'+provider)(t);
+var example = require('./provider/'+provider)(p);
 
 if (example[cmd.example] == undefined) {
     return console.log('Specified example index does not exist!');

@@ -181,6 +181,10 @@
         "domain": "https://api.dropbox.com",
         "docs": "https://www.dropbox.com/developers"
     },
+    "sendgrid": {
+        "domain": "https://api.sendgrid.com",
+        "docs": "http://sendgrid.com/docs/"
+    },
 
 
     "disqus": {

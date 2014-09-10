@@ -315,6 +315,16 @@ describe('get', function () {
             done();
         });
     });
+    it('sendgrid', function (done) {
+        p.sendgrid.get('profile.get', {
+            qs:{api_user:cred.user.sendgrid.user, api_key:cred.user.sendgrid.pass}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body[0].active.should.equal('true');
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         var access = {};

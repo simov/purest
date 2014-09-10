@@ -72,6 +72,24 @@ describe('post', function () {
             done();
         });
     });
+    it('sendgrid', function (done) {
+        p.sendgrid.post('mail.send', {
+            form:{
+                api_user:cred.user.sendgrid.user,
+                api_key:cred.user.sendgrid.pass,
+                from:'purest@mailinator.com',
+                to:'purest@mailinator.com',
+                subject:'Purest is awesome!',
+                text:'True idd!'
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.message.should.equal('success');
+            done();
+        });
+    });
 });
 
 function error (err, done) {

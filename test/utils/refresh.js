@@ -32,7 +32,6 @@ exports = module.exports = {
                 grant_type:'refresh_token',
                 client_id:cred.app.asana.key,
                 client_secret:cred.app.asana.secret,
-                // redirect_ur:'http://passport-oauth.herokuapp.com/connect/asana/callback',
                 refresh_token:cred.user.asana.refresh
             },
             json:true
