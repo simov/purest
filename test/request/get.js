@@ -558,7 +558,7 @@ describe('get', function () {
             }, function (err, res, body) {
                 if (err) return error(err, done);
                 body.routes[0].summary
-                    .should.equal('79th Street Transverse and Central Park West');
+                    .should.equal('79th St Transverse and Central Park West');
                 done();
             });
         });
