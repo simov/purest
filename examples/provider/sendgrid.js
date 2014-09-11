@@ -8,7 +8,7 @@ exports = module.exports = function (p) {
             p.get('blocks.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -21,7 +21,7 @@ exports = module.exports = function (p) {
             p.get('bounces.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -34,7 +34,7 @@ exports = module.exports = function (p) {
             p.get('invalidemails.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -47,7 +47,7 @@ exports = module.exports = function (p) {
             p.get('spamreports.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -60,7 +60,7 @@ exports = module.exports = function (p) {
             p.get('unsubscribes.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -73,7 +73,7 @@ exports = module.exports = function (p) {
             p.get('credentials/get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -85,7 +85,7 @@ exports = module.exports = function (p) {
             p.get('profile.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -97,7 +97,7 @@ exports = module.exports = function (p) {
             p.get('filter.getavailable', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
@@ -109,7 +109,7 @@ exports = module.exports = function (p) {
             p.get('stats.get', {
                 qs:{
                     api_user:cred.user.sendgrid.token,
-                    api_key:cred.user.sendgrid.secret,
+                    api_key:cred.user.sendgrid.secret
                 }
             }, function (err, res, body) {
                 debugger;
