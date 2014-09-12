@@ -325,6 +325,16 @@ describe('get', function () {
             done();
         });
     });
+    it('mandrill', function (done) {
+        p.mandrill.post('users/info', {
+            form:{key:cred.user.mandrill.key}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.reputation.should.be.type('number');
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         var access = {};

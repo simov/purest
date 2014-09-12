@@ -185,6 +185,11 @@
         "domain": "https://api.sendgrid.com",
         "docs": "http://sendgrid.com/docs/"
     },
+    "mandrill": {
+        "domain": "https://mandrillapp.com",
+        "version": "1.0",
+        "docs": "https://mandrillapp.com/api/docs/"
+    },
 
 
     "disqus": {

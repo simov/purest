@@ -90,6 +90,26 @@ describe('post', function () {
             done();
         });
     });
+    it('mandrill', function (done) {
+        p.mandrill.post('messages/send', {
+            form:{
+                key:cred.user.mandrill.key,
+                message: {
+                    html:'<h1>Purest is awesome!</h1>',
+                    text:'Plain text',
+                    subject:'Purest is awesome!',
+                    from_email:'purest@mailinator.com',
+                    to:[{email:'purest@mailinator.com'}]
+                }
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body[0].status.should.equal('sent');
+            done();
+        });
+    });
 });
 
 function error (err, done) {
