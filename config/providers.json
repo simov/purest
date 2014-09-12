@@ -190,6 +190,11 @@
         "version": "1.0",
         "docs": "https://mandrillapp.com/api/docs/"
     },
+    "mailgun": {
+        "domain": "https://api.mailgun.net",
+        "version": "v2",
+        "docs": "http://documentation.mailgun.com/"
+    },
 
 
     "disqus": {

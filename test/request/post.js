@@ -110,6 +110,25 @@ describe('post', function () {
             done();
         });
     });
+    it('mailgun', function (done) {
+        p.mailgun.post(cred.user.mailgun.domain+'/messages', {
+            auth:{user:'api',pass:cred.user.mailgun.key},
+            form:{
+                from:'purest@mailinator.com',
+                to:'purest@mailinator.com',
+                subject:'Purest is awesome!',
+                html:'<h1>Purest is awesome!</h1>',
+                text:'Plain text'
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.message.should.be.type('string');
+            body.id.should.be.type('string');
+            done();
+        });
+    });
 });
 
 function error (err, done) {

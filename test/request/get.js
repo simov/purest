@@ -335,6 +335,17 @@ describe('get', function () {
             done();
         });
     });
+    it('mailgun', function (done) {
+        p.mailgun.get(cred.user.mailgun.domain+'/stats', {
+            auth:{user:'api',pass:cred.user.mailgun.key}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.total_count.should.be.type('number');
+            body.items.should.be.instanceOf(Array);
+            done();
+        });
+    });
 
     describe('yahoo', function () {
         var access = {};
