@@ -1,50 +1,47 @@
 {
     "twitter": {
         "statuses/update_with_media": {
-            "key": "media[]",
-            "types": ["image/gif", "image/jpeg", "image/png"]
+            "key": "media[]"
         }
     },
     "stocktwits": {
         "messages/create": {
-            "key": "chart",
-            "types": ["image/gif", "image/jpeg", "image/png"]
+            "key": "chart"
         }
     },
     "facebook": {
         "me/photos": {
-            "key": "source",
-            "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
+            "key": "source"
         }
     },
     "flickr": {
         "": {
-            "key": "photo",
-            "types": ["image/gif", "image/jpeg", "image/png", "image/bmp", "image/tiff"]
+            "key": "photo"
         }
     },
     "foursquare": {
         "users/self/update": {
-            "key": "photo",
-            "types": ["image/gif", "image/jpeg", "image/png"]
+            "key": "photo"
         }
     },
     "asana": {
         "tasks/attachments": {
-            "key": "file",
-            "types": []
+            "key": "file"
         }
     },
     "slack": {
         "files.upload": {
-            "key": "file",
-            "types": []
+            "key": "file"
         }
     },
     "soundcloud": {
         "tracks": {
-            "key": "track[asset_data]",
-            "types": []
+            "key": "track[asset_data]"
+        }
+    },
+    "sendgrid": {
+        "mail.send": {
+            "key": "files"
         }
     }	
 }
