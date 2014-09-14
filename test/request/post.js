@@ -78,8 +78,9 @@ describe('post', function () {
                 api_user:cred.user.sendgrid.user,
                 api_key:cred.user.sendgrid.pass,
                 from:'purest@mailinator.com',
-                to:'purest@mailinator.com',
-                subject:'Purest is awesome!',
+                to:['purest@mailinator.com','purest2@mailinator.com'],
+                subject:'Purest is awesome! (sendgrid)',
+                html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!'
             }
         },
@@ -95,18 +96,19 @@ describe('post', function () {
             form:{
                 key:cred.user.mandrill.key,
                 message: {
-                    html:'<h1>Purest is awesome!</h1>',
-                    text:'Plain text',
-                    subject:'Purest is awesome!',
                     from_email:'purest@mailinator.com',
-                    to:[{email:'purest@mailinator.com'}]
+                    to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
+                    subject:'Purest is awesome! (mandrill)',
+                    html:'<h1>Purest is awesome!</h1>',
+                    text:'True idd!'
                 }
             }
         },
         function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
+            should.deepEqual(Object.keys(body[0]), ['email','status','_id', 'reject_reason']);
+            should.deepEqual(Object.keys(body[1]), ['email','status','_id', 'reject_reason']);
             done();
         });
     });
@@ -115,10 +117,10 @@ describe('post', function () {
             auth:{user:'api',pass:cred.user.mailgun.key},
             form:{
                 from:'purest@mailinator.com',
-                to:'purest@mailinator.com',
-                subject:'Purest is awesome!',
+                to:'purest@mailinator.com,purest2@mailinator.com',
+                subject:'Purest is awesome! (mailgun)',
                 html:'<h1>Purest is awesome!</h1>',
-                text:'Plain text'
+                text:'True idd!'
             }
         },
         function (err, res, body) {
