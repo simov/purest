@@ -253,6 +253,29 @@ describe('options', function () {
                 should.not.exist(options.upload);
             });
         });
+        describe('sendgrid', function () {
+            it('pass on missing files key', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {upload:true, headers:{}, form:{}, json:true};
+                p.options.upload(p, 'mail.send', options);
+                should.deepEqual(options, {upload:true, headers:{}, form:{}, json:true});
+            });
+            it('pass on empty files array', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {upload:true, headers:{}, form:{files:[]}, json:true};
+                p.options.upload(p, 'mail.send', options);
+                should.deepEqual(options, {upload:true, headers:{}, form:{files:[]}, json:true});
+            });
+            it('match on non empty files array', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {upload:true, headers:{}, form:{files:[{filename:'',content:''}]}, json:true};
+                p.options.upload(p, 'mail.send', options);
+                options.headers['content-type'].should.equal('multipart/form-data');
+                should.not.exist(options.form);
+                should.not.exist(options.json);
+                should.not.exist(options.upload);
+            });
+        });
     });
     
     describe('beforeMultipart', function () {
@@ -322,15 +345,55 @@ describe('options', function () {
                 {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
             p.options.upload(p, 'statuses/update_with_media', options);
             should.deepEqual(options.multipart, [{
-                    'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
-                    'content-type': 'image/jpeg',
-                    'content-transfer-encoding': 'binary',
-                    body: '...'}, {
-                    'content-disposition': 'form-data; name="status"',
+                'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
+                'content-type': 'image/jpeg',
+                'content-transfer-encoding': 'binary',
+                body: '...'}, {
+                'content-disposition': 'form-data; name="status"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'tweet'}
+            ]);
+        });
+        describe('sendgrid', function () {
+            it('string text key, array text key, array file key', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {
+                    upload:true, headers:{},
+                    form:{
+                        from:'purest@email.com',
+                        to:['a@email.com','b@email.com'],
+                        files:[
+                            {filename:'file1.png',content:'content1'},
+                            {filename:'file2.mp3',content:'content2'}
+                        ]
+                    },
+                    json:true
+                };
+                p.options.upload(p, 'mail.send', options);
+                should.deepEqual(options.multipart, [{
+                    'content-disposition': 'form-data; name="from"',
                     'content-type': 'text/plain',
                     'content-transfer-encoding': 'utf8',
-                    body: 'tweet'}
-            ]);
+                    body: 'purest@email.com' }, {
+                    'content-disposition': 'form-data; name="to"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'a@email.com' }, {
+                    'content-disposition': 'form-data; name="to"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'b@email.com' }, {
+                    'content-disposition': 'form-data; name="files[file1.png]"; filename="file1.png"',
+                    'content-type': 'image/png',
+                    'content-transfer-encoding': 'binary',
+                    body: 'content1' }, {
+                    'content-disposition': 'form-data; name="files[file2.mp3]"; filename="file2.mp3"',
+                    'content-type': 'audio/mpeg',
+                    'content-transfer-encoding': 'binary',
+                    body: 'content2' }
+                ]);
+            });
         });
     });
 });
