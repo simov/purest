@@ -182,19 +182,49 @@ describe('upload', function () {
             done();
         });
     });
+    it('sendgrid', function (done) {
+        p.sendgrid.post('mail.send', {
+            upload:true,
+            form:{
+                api_user:cred.user.sendgrid.user,
+                api_key:cred.user.sendgrid.pass,
+                from:'purest@mailinator.com',
+                to:['purest@mailinator.com','purest2@mailinator.com'],
+                subject:'Purest is awesome! (sendgrid+attachments)',
+                html:'<h1>Purest is awesome!</h1>',
+                text:'True idd!',
+                files: [{
+                    filename:'cat.png',
+                    content:fs.readFileSync(image)
+                }, {
+                    filename:'beep.mp3',
+                    content:fs.readFileSync(audio)
+                }]
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.message.should.equal('success');
+            done();
+        });
+    });
     it('mandrill', function (done) {
         // uses base64 not multipart
         p.mandrill.post('messages/send', {
             form:{
                 key:cred.user.mandrill.key,
                 message: {
-                    html:'<h1>Purest is awesome!</h1>',
-                    text:'Plain text',
-                    subject:'Purest is awesome!',
                     from_email:'purest@mailinator.com',
-                    to:[{email:'purest@mailinator.com'}],
+                    to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
+                    subject:'Purest is awesome! (mandrill+attachments)',
+                    html:'<h1>Purest is awesome!</h1>',
+                    text:'True idd!',
                     attachments:[{
                         type:'image/png',name:'cat.png',
+                        content:fs.readFileSync(image).toString('base64')
+                    }, {
+                        type:'audio/mp3',name:'beep.mp3',
                         content:fs.readFileSync(image).toString('base64')
                     }]
                 }
@@ -204,6 +234,7 @@ describe('upload', function () {
             debugger;
             if (err) return error(err, done);
             should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
+            should.deepEqual(Object.keys(body[1]), ['email','status','_id']);
             done();
         });
     });
