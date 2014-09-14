@@ -1,6 +1,7 @@
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
 var image = path.resolve(__dirname, '../fixtures/cat.png'),
@@ -178,6 +179,31 @@ describe('upload', function () {
             debugger;
             if (err) return error(err, done);
             body.kind.should.equal('track');
+            done();
+        });
+    });
+    it('mandrill', function (done) {
+        // uses base64 not multipart
+        p.mandrill.post('messages/send', {
+            form:{
+                key:cred.user.mandrill.key,
+                message: {
+                    html:'<h1>Purest is awesome!</h1>',
+                    text:'Plain text',
+                    subject:'Purest is awesome!',
+                    from_email:'purest@mailinator.com',
+                    to:[{email:'purest@mailinator.com'}],
+                    attachments:[{
+                        type:'image/png',name:'cat.png',
+                        content:fs.readFileSync(image).toString('base64')
+                    }]
+                }
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
             done();
         });
     });

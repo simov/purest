@@ -106,7 +106,7 @@ describe('post', function () {
         function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            body[0].status.should.equal('sent');
+            should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
             done();
         });
     });
