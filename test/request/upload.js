@@ -3,7 +3,8 @@ var fs = require('fs'),
     path = require('path'),
     should = require('should');
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers');
+    providers = require('../../config/providers'),
+    refresh = require('../utils/refresh');
 var image = path.resolve(__dirname, '../fixtures/cat.png'),
     audio = path.resolve(__dirname, '../fixtures/beep.mp3');
 
@@ -128,20 +129,30 @@ describe('upload', function () {
             done();
         });
     });
-    it('asana', function (done) {
-        var id = '15384754640287';
-        p.asana.post('tasks/'+id+'/attachments', {
-            auth: {bearer:cred.user.asana.token},
-            upload:'cat.png',
-            form:{
-                file:fs.readFileSync(image)
-            }
-        },
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.data.name.should.equal('cat.png');
-            done();
+    describe('asana', function () {
+        var access = {};
+        before(function (done) {
+            refresh.asana(function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
+        });
+        it('upload', function (done) {
+            var id = '16202185639027';
+            p.asana.post('tasks/'+id+'/attachments', {
+                auth: {bearer:access.token},
+                upload:'cat.png',
+                form:{
+                    file:fs.readFileSync(image)
+                }
+            },
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.data.name.should.equal('cat.png');
+                done();
+            });
         });
     });
     it('slack', function (done) {
@@ -235,6 +246,33 @@ describe('upload', function () {
             if (err) return error(err, done);
             should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
             should.deepEqual(Object.keys(body[1]), ['email','status','_id']);
+            done();
+        });
+    });
+    it('mailgun', function (done) {
+        p.mailgun.post(cred.user.mailgun.domain+'/messages', {
+            auth:{user:'api',pass:cred.user.mailgun.key},
+            upload:true,
+            form:{
+                from:'purest@mailinator.com',
+                to:'purest@mailinator.com,purest2@mailinator.com',
+                subject:'Purest is awesome! (mailgun)',
+                html:'<h1>Purest is awesome!</h1>',
+                text:'True idd!',
+                attachment:[{
+                    filename:'cat.png',
+                    content:fs.readFileSync(image)
+                }, {
+                    filename:'beep.mp3',
+                    content:fs.readFileSync(audio)
+                }]
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.message.should.be.type('string');
+            body.id.should.be.type('string');
             done();
         });
     });

@@ -278,13 +278,13 @@ describe('options', function () {
         });
     });
     
-    describe('beforeMultipart', function () {
+    describe('before multipart', function () {
         describe('flickr', function () {
             it('generate OAuth params and add them to form body', function () {
                 var p = new purest({provider:'flickr', key:'k', secret:'s'});
                 var options = {upload:'cat.jpg', api:'upload', headers:{},
                     oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
-                p.options.beforeMultipart(p, '', options);
+                p.options.multipart.before(p, '', options);
                 options.form.oauth_consumer_key.should.equal('k');
                 options.form.oauth_nonce.should.be.instanceOf(String);
                 options.form.oauth_signature_method.should.equal('HMAC-SHA1');
@@ -297,13 +297,13 @@ describe('options', function () {
         });
     });
 
-    describe('afterMultipart', function () {
+    describe('after multipart', function () {
         describe('flickr', function () {
             it('remove oauth options key', function () {
                 var p = new purest({provider:'flickr', key:'k', secret:'s'});
                 var options = {upload:'cat.jpg', headers:{},
                     oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
-                p.options.afterMultipart(p, '', options);
+                p.options.multipart.after(p, '', options);
                 should.not.exist(options.oauth);
             });
         });
@@ -313,7 +313,7 @@ describe('options', function () {
                 var options = {upload:'beep.mp3', headers:{},
                     form:{'track[title]':'title', 'track[asset_data]':''}, json:true};
 
-                options.multipart = p.options.multipart(p, 'tracks', options);
+                options.multipart = p.options.multipart.create(p, 'tracks', options);
                 should.deepEqual([{
                     'content-disposition': 'form-data; name="track[title]"',
                     'content-type': 'text/plain',
@@ -325,7 +325,7 @@ describe('options', function () {
                     body: ''
                 }], options.multipart);
 
-                p.options.afterMultipart(p, 'tracks', options);
+                p.options.multipart.after(p, 'tracks', options);
                 should.deepEqual([{
                     'content-disposition': 'form-data; name="track[title]"',
                     'content-transfer-encoding': 'utf8',

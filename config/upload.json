@@ -43,5 +43,10 @@
         "mail.send": {
             "key": "files"
         }
+    },
+    "mailgun": {
+        "messages": {
+            "key": "attachment"
+        }
     }	
 }

@@ -292,7 +292,7 @@ describe('get', function () {
                 done();
             });
         });
-        it('', function (done) {
+        it('get', function (done) {
             p.heroku.get('account', {
                 auth: {bearer:access.token}
                 // or
