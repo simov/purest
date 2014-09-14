@@ -23,6 +23,10 @@ describe('path', function () {
             var p = new purest({provider:'asana'});
             p.createPath('endpoint').should.equal('api/'+p.version+'/endpoint');
         });
+        it('api/endpoint.json', function () {
+            var p = new purest({provider:'sendgrid'});
+            p.createPath('endpoint').should.equal('api/endpoint.json');
+        });
         it('api/endpoint', function () {
             var p = new purest({provider:'slack'});
             p.createPath('endpoint').should.equal('api/endpoint');
