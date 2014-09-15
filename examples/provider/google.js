@@ -6,7 +6,7 @@ exports = module.exports = function (p) {
     return {
         // get all google contact's groups
         0: function () {
-            p.google.get('groups/default/full', {
+            p.get('groups/default/full', {
                 api:'contacts',
                 qs:{
                     access_token:cred.user.google.token,
@@ -19,7 +19,7 @@ exports = module.exports = function (p) {
         },
         // get google contacts from specific group
         1: function () {
-            p.google.get('contacts/default/full', {
+            p.get('contacts/default/full', {
                 api:'contacts',
                 qs:{
                     access_token:cred.user.google.token,
@@ -31,8 +31,41 @@ exports = module.exports = function (p) {
                 console.log(body);
             });
         },
+        // pagination
         2: function () {
-            
+            function next (link) {
+                for (var i=0; i < link.length; i++) {
+                    if (link[i].rel == 'next') {
+                        return parseInt(
+                            link[i].href.replace(/.*start-index=(\d+).*/,'$1')
+                        , 10);
+                    }
+                }
+                return false;
+            }
+            var contacts = [];
+            (function page (index, done) {
+                p.get('contacts/default/full', {
+                    api:'contacts',
+                    qs:{
+                        access_token:cred.user.google.token,
+                        'start-index':index,
+                        'max-results':50
+                    }
+                }, function (err, res, body) {
+                    debugger;
+                    if (err) return done(err);
+                    contacts = contacts.concat(body.feed.entry);
+                    var index = next(body.feed.link);
+                    console.log(index);
+                    if (index) return page(index, done);
+                    done();
+                });
+            }(1, function (err) {
+                debugger;
+                if (err) throw err;
+                console.log(contacts.length);
+            }));
         }
     };
 }
