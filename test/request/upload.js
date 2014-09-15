@@ -195,7 +195,7 @@ describe('upload', function () {
     });
     it('sendgrid', function (done) {
         p.sendgrid.post('mail.send', {
-            upload:true,
+            upload:['cat.png','beep.mp3'],
             form:{
                 api_user:cred.user.sendgrid.user,
                 api_key:cred.user.sendgrid.pass,
@@ -204,13 +204,10 @@ describe('upload', function () {
                 subject:'Purest is awesome! (sendgrid+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
-                files: [{
-                    filename:'cat.png',
-                    content:fs.readFileSync(image)
-                }, {
-                    filename:'beep.mp3',
-                    content:fs.readFileSync(audio)
-                }]
+                files: [
+                    fs.readFileSync(image),
+                    fs.readFileSync(audio)
+                ]
             }
         },
         function (err, res, body) {
@@ -221,7 +218,7 @@ describe('upload', function () {
         });
     });
     it('mandrill', function (done) {
-        // uses base64 not multipart
+        // uses base64 instead of multipart
         p.mandrill.post('messages/send', {
             form:{
                 key:cred.user.mandrill.key,
@@ -252,20 +249,17 @@ describe('upload', function () {
     it('mailgun', function (done) {
         p.mailgun.post(cred.user.mailgun.domain+'/messages', {
             auth:{user:'api',pass:cred.user.mailgun.key},
-            upload:true,
+            upload:['cat.png','beep.mp3'],
             form:{
                 from:'purest@mailinator.com',
                 to:'purest@mailinator.com,purest2@mailinator.com',
-                subject:'Purest is awesome! (mailgun)',
+                subject:'Purest is awesome! (mailgun+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
-                attachment:[{
-                    filename:'cat.png',
-                    content:fs.readFileSync(image)
-                }, {
-                    filename:'beep.mp3',
-                    content:fs.readFileSync(audio)
-                }]
+                attachment:[
+                    fs.readFileSync(image),
+                    fs.readFileSync(audio)
+                ]
             }
         },
         function (err, res, body) {
