@@ -91,7 +91,9 @@ twitter.post('statuses/update', {
 ### specific purest params
 Additional to the [mikeal's request params][2], _purest_ adds a few more parameters on its own
 
-- **secret** - _oauth `token_secret` shortcut_
+
+#### oauth:secret
+- Shortcut for `oauth:token_secret`
   ```js
   twitter.get('users/show', {
     oauth:{token:'..', secret:'..'},
@@ -99,7 +101,8 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **api** - _specific api to use for providers with multiple api's under same domain (used only for Google and Yahoo)_
+#### api
+- _Google|Yahoo only_ - Specific API to use for providers with multiple API's under the same domain
   ```js
   google.get('channels', {
     api:'youtube',
@@ -109,7 +112,9 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
       forUsername:'RayWilliamJohnson'
     }
   }, function (err, res, body) {});
+  ```
 
+  ```js
   yahoo.get('yql', {
     api:'yql',
     oauth:{token:'..', secret:'..'},
@@ -117,7 +122,12 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **upload** - _file name is required when uploading ([see the rest of the examples][5])_
+
+#### upload
+
+- The `upload` key is required for _multipart encoded_ requests
+- Everything inside the `form` key will be transferred as _multipart/form-data_ instead of a querystring
+
   ```js
   twitter.post('statuses/update_with_media', {
     oauth:{token:'..', secret:'..'},
@@ -127,7 +137,10 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
       'media[]':fs.readFileSync('/absolute/path/to/cat.png')
     }
   }, function (err, res, body) {});
+  ```
 
+- It's possible to encode only part of the request's data as _multipart/form-data_ _(that purely depends on the provider you use)_
+  ```js
   facebook.post('me/photos', {
     upload:'cat.png',
     qs:{
@@ -140,14 +153,40 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
-- **dc** - _set data center name, required when using access token (used only for Mailchimp)_
+- Some providers allow encoding of multiple values for a given key inside the multipart encoded body _(in this example we're sending an email with two attachments to two different recipients at the same time)_
+  ```js
+  sendgrid.post('mail.send', {
+    upload:['cat.png','beep.mp3'],
+    form:{
+      api_user:'..',
+      api_key:'..',
+      from:'purest@mailinator.com',
+      to:['purest@mailinator.com','purest2@mailinator.com'],
+      subject:'Purest is awesome!',
+      html:'<h1>Purest is awesome!</h1>',
+      text:'True idd!',
+      files: [
+        fs.readFileSync('/absolute/path/to/cat.png'),
+        fs.readFileSync('/absolute/path/to/beep.mp3')
+      ]
+    }
+  }, function (err, res, body) {});
+  ```
+
+- _[see the rest of the upload examples][5]_
+
+
+#### dc
+- _Mailchimp only_ - set **d**ata **c**enter name (required when using access token)
+  
   ```js
   mailchimp.get('campaigns/list', {
     dc:'us2',
     qs:{apikey:'access_token'}
   }, function (err, res, body) {});
   ```
-  first obtain and store the user's data center name
+- First obtain and store the user's data center name
+  
   ```js
   purest.request('https://login.mailchimp.com/oauth2/metadata', {
     headers: {'Authorization': 'OAuth '+'access_token'},
