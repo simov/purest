@@ -229,19 +229,29 @@ describe('options', function () {
             should.deepEqual(options, {upload:'cat.jpg'});
         });
         describe('asana', function () {
-            it('match on regex endpoint', function () {
+            it('regex endpoint', function () {
                 var p = new purest({provider:'asana'});
-                var options = {upload:'cat.jpg', headers:{}, form:{file:''}, json:true};
-                p.options._upload.before(p, 'tasks/id/attachments', options)
-                    .should.equal(true);
+                var options = {upload:'cat.jpg', form:{file:''}};
+                p.options._upload.before(p, 'tasks/id/attachments', options).should.equal(true);
             });
         });
         describe('sendgrid', function () {
-            it('match on existing files key', function () {
+            it('key existance', function () {
                 var p = new purest({provider:'sendgrid'});
-                var options = {upload:'cat.png', headers:{}, form:{files:'...'}, json:true};
-                p.options._upload.before(p, 'mail.send', options)
-                    .should.equal(true);
+                var options = {upload:'cat.png', form:{files:'...'}};
+                p.options._upload.before(p, 'mail.send', options).should.equal(true);
+            });
+        });
+        describe('mailgun', function () {
+            it('regex endpoint', function () {
+                var p = new purest({provider:'mailgun'});
+                var options = {upload:'cat.png', form:{attachment:'...'}};
+                p.options._upload.before(p, 'domain/messages', options).should.equal(true);
+            });
+            it('key existance', function () {
+                var p = new purest({provider:'mailgun'});
+                var options = {upload:'cat.png', form:{attachment:'...'}};
+                p.options._upload.before(p, 'domain/messages', options).should.equal(true);
             });
         });
     });
@@ -285,59 +295,91 @@ describe('options', function () {
         });
     });
 
+    describe('multipart text item', function () {
+        it('default', function () {
+            var options = new Options();
+            should.deepEqual(options.multipart.text('key','data'), {
+                'content-disposition': 'form-data; name="key"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'data'
+            });
+        });
+    });
+
+    describe('multipart file item', function () {
+        it('default', function () {
+            var options = new Options();
+            should.deepEqual(options.multipart.file('key','cat.png','data'), {
+                'content-disposition': 'form-data; name="key"; filename="cat.png"',
+                'content-type': 'image/png',
+                'content-transfer-encoding': 'binary',
+                body: 'data'
+            });
+        });
+        it('sendgrid', function () {
+            var p = new purest({provider:'sendgrid'});
+            should.deepEqual(p.options.multipart.file('key','cat.png','data'), {
+                'content-disposition': 'form-data; name="key[cat.png]"; filename="cat.png"',
+                'content-type': 'image/png',
+                'content-transfer-encoding': 'binary',
+                body: 'data'
+            });
+        });
+    });
+
     describe('multipart', function () {
-        it('generate multipart/form-data', function () {
+        it('single file to upload', function () {
             var p = new purest({provider:'twitter'});
-            var options =
-                {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
-            p.options.upload(p, 'statuses/update_with_media', options);
-            should.deepEqual(options.multipart, [{
+            var options = {
+                upload:'cat.jpg',
+                form:{'media[]':'...', status:'tweet'
+            }};
+            var multipart = p.options.multipart.create(p, 'statuses/update_with_media', options);
+            should.deepEqual(multipart, [{
                 'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
                 'content-type': 'image/jpeg',
                 'content-transfer-encoding': 'binary',
-                body: '...'}, {
-                'content-disposition': 'form-data; name="status"',
+                body: '...' },
+                { 'content-disposition': 'form-data; name="status"',
                 'content-type': 'text/plain',
                 'content-transfer-encoding': 'utf8',
-                body: 'tweet'}
-            ]);
+                body: 'tweet'
+            }]);
         });
-        describe('sendgrid', function () {
-            it('string text key, array text key, array file key', function () {
-                var p = new purest({provider:'sendgrid'});
-                var options = {
-                    upload:['cat.png','beep.mp3'], headers:{},
-                    form:{
-                        from:'purest@email.com',
-                        to:['a@email.com','b@email.com'],
-                        files:['content1','content2']
-                    },
-                    json:true
-                };
-                p.options.upload(p, 'mail.send', options);
-                should.deepEqual(options.multipart, [{
-                    'content-disposition': 'form-data; name="from"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'purest@email.com' }, {
-                    'content-disposition': 'form-data; name="to"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'a@email.com' }, {
-                    'content-disposition': 'form-data; name="to"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'b@email.com' }, {
-                    'content-disposition': 'form-data; name="files[cat.png]"; filename="cat.png"',
-                    'content-type': 'image/png',
-                    'content-transfer-encoding': 'binary',
-                    body: 'content1' }, {
-                    'content-disposition': 'form-data; name="files[beep.mp3]"; filename="beep.mp3"',
-                    'content-type': 'audio/mpeg',
-                    'content-transfer-encoding': 'binary',
-                    body: 'content2' }
-                ]);
-            });
+        it('array of files to upload & array of text fields', function () {
+            var p = new purest({provider:'mailgun'});
+            var options = {
+                upload:['cat.png','beep.mp3'],
+                form:{
+                    from:'purest@email.com',
+                    to:['a@email.com','b@email.com'],
+                    files:['content1','content2']
+                }
+            };
+            var multipart = p.options.multipart.create(p, 'messages', options);
+            should.deepEqual(multipart, [{
+                'content-disposition': 'form-data; name="from"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'purest@email.com' },
+                { 'content-disposition': 'form-data; name="to"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'a@email.com' },
+                { 'content-disposition': 'form-data; name="to"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'b@email.com' },
+                { 'content-disposition': 'form-data; name="files"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'content1' },
+                { 'content-disposition': 'form-data; name="files"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'content2'
+            }]);
         });
     });
 
@@ -354,30 +396,32 @@ describe('options', function () {
         describe('soundcloud', function () {
             it('remove multipart content-type', function () {
                 var p = new purest({provider:'soundcloud'});
-                var options = {upload:'beep.mp3', headers:{},
-                    form:{'track[title]':'title', 'track[asset_data]':''}, json:true};
+                var options = {
+                    upload:'beep.mp3',
+                    form:{'track[title]':'title', 'track[asset_data]':'...'}
+                };
 
                 options.multipart = p.options.multipart.create(p, 'tracks', options);
-                should.deepEqual([{
+                should.deepEqual(options.multipart, [{
                     'content-disposition': 'form-data; name="track[title]"',
                     'content-type': 'text/plain',
                     'content-transfer-encoding': 'utf8',
-                    body: 'title'}, {
-                    'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
+                    body: 'title' },
+                    { 'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
                     'content-type': 'audio/mpeg',
                     'content-transfer-encoding': 'binary',
-                    body: ''
-                }], options.multipart);
+                    body: '...'
+                }]);
 
                 p.options.multipart.after(p, 'tracks', options);
-                should.deepEqual([{
+                should.deepEqual(options.multipart, [{
                     'content-disposition': 'form-data; name="track[title]"',
                     'content-transfer-encoding': 'utf8',
-                    body: 'title'}, {
-                    'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
+                    body: 'title' },
+                    { 'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
                     'content-transfer-encoding': 'binary',
-                    body: ''
-                }], options.multipart);
+                    body: '...'
+                }]);
             });
         });
     });
