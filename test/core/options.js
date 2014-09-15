@@ -209,7 +209,7 @@ describe('options', function () {
         });
     });
     
-    describe('upload', function () {
+    describe('before upload', function () {
         it('pass on missing upload option', function () {
             var p = new purest({provider:'twitter'});
             var options = {};
@@ -228,53 +228,41 @@ describe('options', function () {
             p.options.upload(p, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
+        describe('asana', function () {
+            it('match on regex endpoint', function () {
+                var p = new purest({provider:'asana'});
+                var options = {upload:'cat.jpg', headers:{}, form:{file:''}, json:true};
+                p.options._upload.before(p, 'tasks/id/attachments', options)
+                    .should.equal(true);
+            });
+        });
+        describe('sendgrid', function () {
+            it('match on existing files key', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {upload:'cat.png', headers:{}, form:{files:'...'}, json:true};
+                p.options._upload.before(p, 'mail.send', options)
+                    .should.equal(true);
+            });
+        });
+    });
+
+    describe('upload', function () {
         it('set content-type to multipart/form-data', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             p.options.upload(p, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
         });
+    });
+
+    describe('after upload', function () {
         it('remove form and json options', function () {
             var p = new purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
-            p.options.upload(p, 'statuses/update_with_media', options);
+            p.options._upload.after(p, 'statuses/update_with_media', options);
             should.not.exist(options.form);
             should.not.exist(options.json);
             should.not.exist(options.upload);
-        });
-        describe('asana', function () {
-            it('match on regex endpoint', function () {
-                var p = new purest({provider:'asana'});
-                var options = {upload:'cat.jpg', headers:{}, form:{file:''}, json:true};
-                p.options.upload(p, 'tasks/id/attachments', options);
-                options.headers['content-type'].should.equal('multipart/form-data');
-                should.not.exist(options.form);
-                should.not.exist(options.json);
-                should.not.exist(options.upload);
-            });
-        });
-        describe('sendgrid', function () {
-            it('pass on missing files key', function () {
-                var p = new purest({provider:'sendgrid'});
-                var options = {upload:true, headers:{}, form:{}, json:true};
-                p.options.upload(p, 'mail.send', options);
-                should.deepEqual(options, {upload:true, headers:{}, form:{}, json:true});
-            });
-            it('pass on empty files array', function () {
-                var p = new purest({provider:'sendgrid'});
-                var options = {upload:true, headers:{}, form:{files:[]}, json:true};
-                p.options.upload(p, 'mail.send', options);
-                should.deepEqual(options, {upload:true, headers:{}, form:{files:[]}, json:true});
-            });
-            it('match on non empty files array', function () {
-                var p = new purest({provider:'sendgrid'});
-                var options = {upload:true, headers:{}, form:{files:[{filename:'',content:''}]}, json:true};
-                p.options.upload(p, 'mail.send', options);
-                options.headers['content-type'].should.equal('multipart/form-data');
-                should.not.exist(options.form);
-                should.not.exist(options.json);
-                should.not.exist(options.upload);
-            });
         });
     });
     
@@ -293,6 +281,62 @@ describe('options', function () {
                 options.form.oauth_version.should.equal('1.0');
                 options.form.oauth_signature.should.be.instanceOf(String);
                 options.form.photo.should.equal('');
+            });
+        });
+    });
+
+    describe('multipart', function () {
+        it('generate multipart/form-data', function () {
+            var p = new purest({provider:'twitter'});
+            var options =
+                {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
+            p.options.upload(p, 'statuses/update_with_media', options);
+            should.deepEqual(options.multipart, [{
+                'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
+                'content-type': 'image/jpeg',
+                'content-transfer-encoding': 'binary',
+                body: '...'}, {
+                'content-disposition': 'form-data; name="status"',
+                'content-type': 'text/plain',
+                'content-transfer-encoding': 'utf8',
+                body: 'tweet'}
+            ]);
+        });
+        describe('sendgrid', function () {
+            it('string text key, array text key, array file key', function () {
+                var p = new purest({provider:'sendgrid'});
+                var options = {
+                    upload:['cat.png','beep.mp3'], headers:{},
+                    form:{
+                        from:'purest@email.com',
+                        to:['a@email.com','b@email.com'],
+                        files:['content1','content2']
+                    },
+                    json:true
+                };
+                p.options.upload(p, 'mail.send', options);
+                should.deepEqual(options.multipart, [{
+                    'content-disposition': 'form-data; name="from"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'purest@email.com' }, {
+                    'content-disposition': 'form-data; name="to"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'a@email.com' }, {
+                    'content-disposition': 'form-data; name="to"',
+                    'content-type': 'text/plain',
+                    'content-transfer-encoding': 'utf8',
+                    body: 'b@email.com' }, {
+                    'content-disposition': 'form-data; name="files[cat.png]"; filename="cat.png"',
+                    'content-type': 'image/png',
+                    'content-transfer-encoding': 'binary',
+                    body: 'content1' }, {
+                    'content-disposition': 'form-data; name="files[beep.mp3]"; filename="beep.mp3"',
+                    'content-type': 'audio/mpeg',
+                    'content-transfer-encoding': 'binary',
+                    body: 'content2' }
+                ]);
             });
         });
     });
@@ -334,65 +378,6 @@ describe('options', function () {
                     'content-transfer-encoding': 'binary',
                     body: ''
                 }], options.multipart);
-            });
-        });
-    });
-
-    describe('multipart', function () {
-        it('generate multipart/form-data', function () {
-            var p = new purest({provider:'twitter'});
-            var options =
-                {upload:'cat.jpg', headers:{}, form:{'media[]':'...', status:'tweet'}};
-            p.options.upload(p, 'statuses/update_with_media', options);
-            should.deepEqual(options.multipart, [{
-                'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
-                'content-type': 'image/jpeg',
-                'content-transfer-encoding': 'binary',
-                body: '...'}, {
-                'content-disposition': 'form-data; name="status"',
-                'content-type': 'text/plain',
-                'content-transfer-encoding': 'utf8',
-                body: 'tweet'}
-            ]);
-        });
-        describe('sendgrid', function () {
-            it('string text key, array text key, array file key', function () {
-                var p = new purest({provider:'sendgrid'});
-                var options = {
-                    upload:true, headers:{},
-                    form:{
-                        from:'purest@email.com',
-                        to:['a@email.com','b@email.com'],
-                        files:[
-                            {filename:'file1.png',content:'content1'},
-                            {filename:'file2.mp3',content:'content2'}
-                        ]
-                    },
-                    json:true
-                };
-                p.options.upload(p, 'mail.send', options);
-                should.deepEqual(options.multipart, [{
-                    'content-disposition': 'form-data; name="from"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'purest@email.com' }, {
-                    'content-disposition': 'form-data; name="to"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'a@email.com' }, {
-                    'content-disposition': 'form-data; name="to"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'b@email.com' }, {
-                    'content-disposition': 'form-data; name="files[file1.png]"; filename="file1.png"',
-                    'content-type': 'image/png',
-                    'content-transfer-encoding': 'binary',
-                    body: 'content1' }, {
-                    'content-disposition': 'form-data; name="files[file2.mp3]"; filename="file2.mp3"',
-                    'content-type': 'audio/mpeg',
-                    'content-transfer-encoding': 'binary',
-                    body: 'content2' }
-                ]);
             });
         });
     });
