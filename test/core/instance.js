@@ -63,19 +63,19 @@ describe('instance', function () {
         });
     });
     it('support multiple instances', function () {
-        var github = new purest({provider:'github'});
+        var google = new purest({provider:'google'});
         var stackexchange = new purest({provider:'stackexchange'});
         
-        github.name.should.equal('github');
+        google.name.should.equal('google');
         stackexchange.name.should.equal('stackexchange');
         
-        var options = {headers:{}};
-        github.options.get('api', options);
-        should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
+        var options = {api:'contacts', headers:{}};
+        google.options.get('api', options);
+        should.deepEqual(options.headers, {'GData-Version':'3.0'});
 
-        var options = {headers:{}};
+        var options = {};
         stackexchange.options.get('api', options);
-        should.deepEqual(options, {headers:{}, encoding:null});
+        should.deepEqual(options, {encoding:null});
     });
     it('expose the default request method', function () {
         purest.request.should.be.type('function');

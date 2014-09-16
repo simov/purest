@@ -1,26 +1,53 @@
 
-var should = require('should');
-var purest = require('../../lib/provider'),
-    Options = require('../../lib/options');
+var should = require('should'),
+    proxyquire = require('proxyquire');
+
+var stub = {
+    request: function (url, options, cb) {
+        stub.next(options);
+    },
+    utils: {
+        response: function (cb) {}
+    },
+    done: function (cb) {
+        stub.next = cb;
+    },
+    next: null
+};
+var purest = proxyquire('../../lib/provider', {
+    'request':stub.request, './utils':stub.utils
+});
+var Options = require('../../lib/options');
 
 
 describe('options', function () {
 
-    describe('get', function () {
-        describe('github', function () {
-            it('user defined User-Agent headers', function () {
-                var p = new purest({provider:'github'});
-                var options = {headers:{'User-Agent':'AwesomeApp'}};
-                p.options.get.call(p, 'endpoint', options);
-                should.deepEqual(options, {headers:{'User-Agent':'AwesomeApp'}});
+    describe('user agent', function () {
+        it('missing headers object', function () {
+            var p = new purest({provider:'github'});
+            stub.done(function (options) {
+                should.deepEqual(options.headers, {'User-Agent':'Purest'});
             });
-            it('set User-Agent headers', function () {
-                var p = new purest({provider:'github'});
-                var options = {headers:{}};
-                p.options.get.call(p, 'endpoint', options);
-                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
-            });
+            p.get('endpoint', {});
         });
+        it('existing headers object', function () {
+            var p = new purest({provider:'github'});
+            stub.done(function (options) {
+                should.deepEqual(options.headers,
+                    {'Content-Type':'..', 'User-Agent':'Purest'});
+            });
+            p.get('endpoint', {headers:{'Content-Type':'..'}});
+        });
+        it('override', function () {
+            var p = new purest({provider:'github'});
+            stub.done(function (options) {
+                should.deepEqual(options.headers, {'user-agent': 'Cat'});
+            });
+            p.get('endpoint', {headers:{'user-agent':'Cat'}});
+        });
+    });
+
+    describe('get', function () {
         describe('gmaps', function () {
             it('set binary encoding for certain APIs', function () {
                 var p = new purest({provider:'gmaps'});
@@ -87,20 +114,6 @@ describe('options', function () {
     });
 
     describe('post', function () {
-        describe('github', function () {
-            it('user defined User-Agent headers', function () {
-                var p = new purest({provider:'github'});
-                var options = {headers:{'User-Agent':'AwesomeApp'}};
-                p.options.post.call(p, 'endpoint', options);
-                should.deepEqual(options, {headers:{'User-Agent':'AwesomeApp'}});
-            });
-            it('set User-Agent headers', function () {
-                var p = new purest({provider:'github'});
-                var options = {headers:{}};
-                p.options.post.call(p, 'endpoint', options);
-                should.deepEqual(options, {headers:{'User-Agent':'Purest'}});
-            });
-        });
         describe('google', function () {
             describe('contacts', function () {
                 it('set GData-Version to 3.0 by default', function () {
