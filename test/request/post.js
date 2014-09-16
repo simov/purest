@@ -42,7 +42,7 @@ describe('post', function () {
             debugger;
             if (err) return error(err, done);
             body.updateKey.should.match(/^UPDATE-\d+-\d+$/);
-            body.updateUrl.should.match(/^http:.*/);
+            body.updateUrl.should.match(/^https:.*/);
             done();
         });
     });
