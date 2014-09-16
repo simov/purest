@@ -1,6 +1,6 @@
 {
     "name": "purest",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "REST API client library",
     "keywords": [
         "rest", "restful", "api", "http", "https", "client"
