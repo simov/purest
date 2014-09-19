@@ -94,6 +94,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
 
 #### oauth:secret
 - Shortcut for `oauth:token_secret`
+  
   ```js
   twitter.get('users/show', {
     oauth:{token:'..', secret:'..'},
