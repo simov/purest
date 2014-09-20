@@ -217,35 +217,6 @@ describe('upload', function () {
             done();
         });
     });
-    it('mandrill', function (done) {
-        // uses base64 instead of multipart
-        p.mandrill.post('messages/send', {
-            form:{
-                key:cred.user.mandrill.key,
-                message: {
-                    from_email:'purest@mailinator.com',
-                    to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
-                    subject:'Purest is awesome! (mandrill+attachments)',
-                    html:'<h1>Purest is awesome!</h1>',
-                    text:'True idd!',
-                    attachments:[{
-                        type:'image/png',name:'cat.png',
-                        content:fs.readFileSync(image).toString('base64')
-                    }, {
-                        type:'audio/mp3',name:'beep.mp3',
-                        content:fs.readFileSync(image).toString('base64')
-                    }]
-                }
-            }
-        },
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body[0]), ['email','status','_id']);
-            should.deepEqual(Object.keys(body[1]), ['email','status','_id']);
-            done();
-        });
-    });
     it('mailgun', function (done) {
         p.mailgun.post(cred.user.mailgun.domain+'/messages', {
             auth:{user:'api',pass:cred.user.mailgun.key},
