@@ -178,7 +178,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
 
 
 #### dc
-- _Mailchimp only_ - set **d**ata **c**enter name (required when using access token)
+- _Mailchimp only_ - set data center name (required when using access token)
   
   ```js
   mailchimp.get('campaigns/list', {
