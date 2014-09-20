@@ -111,6 +111,14 @@ describe('options', function () {
                 should.deepEqual(options, {encoding:null});
             });
         });
+        describe('dropbox', function () {
+            it('set request encoding to binary on files api', function () {
+                var p = new purest({provider:'dropbox'});
+                var options = {api:'files'};
+                p.options.get.call(p, 'endpoint', options);
+                should.deepEqual(options, {api:'files',encoding:null});
+            });
+        });
     });
 
     describe('post', function () {

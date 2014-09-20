@@ -79,6 +79,17 @@
         "path": "services/rest",
         "docs": "https://www.flickr.com/services/api/"
     },
+    "dropbox": {
+        "api": {
+            "files": {
+                "version": "1",
+                "domain": "https://api-content.dropbox.com"
+            }
+        },
+        "version": "1",
+        "domain": "https://api.dropbox.com",
+        "docs": "https://www.dropbox.com/developers"
+    },
     "gmaps": {
         "domain": "https://maps.googleapis.com",
         "path": "maps/api",
@@ -175,11 +186,6 @@
     "heroku": {
         "domain": "https://api.heroku.com",
         "docs": "https://devcenter.heroku.com/categories/platform-api"
-    },
-    "dropbox": {
-        "version": "1",
-        "domain": "https://api.dropbox.com",
-        "docs": "https://www.dropbox.com/developers"
     },
     "sendgrid": {
         "domain": "https://api.sendgrid.com",

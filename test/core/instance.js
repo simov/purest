@@ -64,18 +64,26 @@ describe('instance', function () {
     });
     it('support multiple instances', function () {
         var google = new purest({provider:'google'});
-        var stackexchange = new purest({provider:'stackexchange'});
-        
+        var gmaps = new purest({provider:'gmaps'});
+
         google.name.should.equal('google');
-        stackexchange.name.should.equal('stackexchange');
-        
+        gmaps.name.should.equal('gmaps');
+
         var options = {api:'contacts', headers:{}};
-        google.options.get('api', options);
+        google.options.get('endpoing', options);
         should.deepEqual(options.headers, {'GData-Version':'3.0'});
 
         var options = {};
-        stackexchange.options.get('api', options);
+        gmaps.options.get('streetview', options);
         should.deepEqual(options, {encoding:null});
+
+        var options = {api:'contacts', headers:{}};
+        google.url.get('endpoint', options)
+            .should.equal('https://www.google.com/m8/feeds/endpoint');
+
+        var options = {api:'contacts', headers:{}};
+        gmaps.url.get('geocode', options)
+            .should.equal('https://maps.googleapis.com/maps/api/geocode/json');
     });
     it('expose the default request method', function () {
         purest.request.should.be.type('function');
