@@ -67,7 +67,7 @@ new purest({
 ```
 
 
-### get | post
+### get | post | put
 ```js
 var twitter = new purest({provider:'twitter', key'..', secret:'..'});
 
@@ -103,7 +103,10 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   ```
 
 #### api
-- _Google|Yahoo only_ - Specific API to use for providers with multiple API's under the same domain
+- Specific API to use for providers with multiple API's under different domains or path
+  
+  - Google - plus | youtube | drive | freebase | tasks | urlshortener | pagespeedonline | youtube/analytics | contacts
+  
   ```js
   google.get('channels', {
     api:'youtube',
@@ -115,11 +118,38 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
+  - Yahoo - social | yql | geo
+  
   ```js
   yahoo.get('yql', {
     api:'yql',
     oauth:{token:'..', secret:'..'},
     qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
+  }, function (err, res, body) {});
+  ```
+
+  - Flickr - upload | replace
+
+  ```js
+  flickr.post('', {
+    oauth:{token:'..', secret:'..'},
+    api:'upload',
+    upload:'cat.png',
+    form: {
+      title:'My cat is awesome!',
+      description:'nyan',
+      photo:fs.readFileSync('/absolute/path/to/cat.png')
+    }
+  }, function (err, res, body) {});
+  ```
+
+  - Dropbox - files
+
+  ```js
+  dropbox.put('files_put/auto/cat.png', {
+    auth:{bearer:'..'},
+    api:'files',
+    body:fs.readFileSync('/absolute/path/to/cat.png')
   }, function (err, res, body) {});
   ```
 
@@ -195,6 +225,30 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {
     // body.dc - data center name
   });
+  ```
+
+
+### specific purest methods
+
+#### refresh
+
+- OAuth1 - Yahoo
+
+  ```js
+  yahoo.refresh(
+    {key:'..',secret:'..'}, // app
+    {token:'..',secret:'..'}, // user
+    {oauth_session_handle:'..'}, // options
+  function (err, res, body) {});
+  ```
+
+- OAuth2 - Asana | Heroku | Google
+
+  ```js
+  google.refresh(
+    {key:'..',secret:'..'}, // app
+    'refresh token',
+  function (err, res, body) {});
   ```
 
 
