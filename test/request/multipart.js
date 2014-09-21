@@ -3,8 +3,7 @@ var fs = require('fs'),
     path = require('path'),
     should = require('should');
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers'),
-    refresh = require('../utils/refresh');
+    providers = require('../../config/providers');
 var image = path.resolve(__dirname, '../fixtures/cat.png'),
     audio = path.resolve(__dirname, '../fixtures/beep.mp3');
 
@@ -132,7 +131,10 @@ describe('upload', function () {
     describe('asana', function () {
         var access = {};
         before(function (done) {
-            refresh.asana(function (err, res, body) {
+            p.asana.refresh(
+                cred.app.asana,
+                cred.user.asana.refresh,
+            function (err, res, body) {
                 if (err) return done(err);
                 access = {token:body.access_token};
                 done();

@@ -3,8 +3,7 @@ var fs = require('fs'),
     path = require('path');
 var should = require('should');
 var purest = require('../../lib/provider'),
-    providers = require('../../config/providers'),
-    refresh = require('../utils/refresh');
+    providers = require('../../config/providers');
 
 
 describe('get', function () {
@@ -249,7 +248,10 @@ describe('get', function () {
     describe('asana', function () {
         var access = {};
         before(function (done) {
-            refresh.asana(function (err, res, body) {
+            p.asana.refresh(
+                cred.app.asana,
+                cred.user.asana.refresh,
+            function (err, res, body) {
                 debugger;
                 if (err) return done(err);
                 access = {token:body.access_token};
@@ -309,7 +311,10 @@ describe('get', function () {
     describe('heroku', function () {
         var access = {};
         before(function (done) {
-            refresh.heroku(function (err, res, body) {
+            p.heroku.refresh(
+                cred.app.heroku,
+                cred.user.heroku.refresh,
+            function (err, res, body) {
                 if (err) return done(err);
                 access = {token:body.access_token};
                 done();
@@ -373,7 +378,11 @@ describe('get', function () {
     describe('yahoo', function () {
         var access = {};
         before(function (done) {
-            refresh.yahoo(function (err, res, body) {
+            p.yahoo.refresh(
+                cred.app.yahoo,
+                cred.user.yahoo,
+                {oauth_session_handle:cred.user.yahoo.session},
+            function (err, res, body) {
                 if (err) return done(err);
                 access = {token:body.oauth_token, secret:body.oauth_token_secret};
                 done();
@@ -422,7 +431,10 @@ describe('get', function () {
     describe('google', function () {
         var access = {};
         before(function (done) {
-            refresh.google(function (err, res, body) {
+            p.google.refresh(
+                cred.app.google,
+                cred.user.google.refresh,
+            function (err, res, body) {
                 if (err) return done(err);
                 access = {token:body.access_token};
                 done();

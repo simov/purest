@@ -40,7 +40,8 @@
             }
         },
         "domain": "https://www.googleapis.com",
-        "docs": "https://developers.google.com/"
+        "docs": "https://developers.google.com/",
+        "refresh": "https://accounts.google.com/o/oauth2/token"
     },
     "yahoo": {
         "oauth": true,
@@ -61,7 +62,8 @@
                 "docs": "https://developer.yahoo.com/geo/geoplanet"
             }
         },
-        "docs": "https://developer.yahoo.com/"
+        "docs": "https://developer.yahoo.com/",
+        "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
     },
     "flickr": {
         "oauth": true,
@@ -176,7 +178,8 @@
     "asana": {
         "version": "1.0",
         "domain": "https://app.asana.com",
-        "docs": "http://developer.asana.com/documentation/"
+        "docs": "http://developer.asana.com/documentation/",
+        "refresh": "https://app.asana.com/-/oauth_token"
     },
     "mailchimp": {
         "version": "2.0",
@@ -185,7 +188,8 @@
     },
     "heroku": {
         "domain": "https://api.heroku.com",
-        "docs": "https://devcenter.heroku.com/categories/platform-api"
+        "docs": "https://devcenter.heroku.com/categories/platform-api",
+        "refresh": "https://id.heroku.com/oauth/token"
     },
     "sendgrid": {
         "domain": "https://api.sendgrid.com",
