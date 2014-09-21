@@ -14,8 +14,9 @@
         "url"   : "git://github.com/simov/purest.git"
     },
     "dependencies": {
-        "commander": "2.1.0",
-        "purest": "*"
+        "commander" : "2.1.0",
+        "purest"    : "*",
+        "async"     : "0.9.0"
     },
     "main": "./index",
     "bin": {
