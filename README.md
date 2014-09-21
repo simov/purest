@@ -231,6 +231,7 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
 ### specific purest methods
 
 #### refresh
+Get new _access token_ using _refresh token_ and/or any other parameters that the provider returns after the _OAuth flow_ is complete for the first time.
 
 - OAuth1 - Yahoo
 
