@@ -1,51 +1,10 @@
 
-var should = require('should'),
-    proxyquire = require('proxyquire');
-
-var stub = {
-    request: function (url, options, cb) {
-        stub.next(options);
-    },
-    utils: {
-        response: function (cb) {}
-    },
-    done: function (cb) {
-        stub.next = cb;
-    },
-    next: null
-};
-var purest = proxyquire('../../lib/provider', {
-    'request':stub.request, './utils':stub.utils
-});
-var Options = require('../../lib/options');
+var should = require('should');
+var purest = require('../../lib/provider'),
+    Options = require('../../lib/options');
 
 
 describe('options', function () {
-
-    describe('user agent', function () {
-        it('missing headers object', function () {
-            var p = new purest({provider:'github'});
-            stub.done(function (options) {
-                should.deepEqual(options.headers, {'User-Agent':'Purest'});
-            });
-            p.get('endpoint', {});
-        });
-        it('existing headers object', function () {
-            var p = new purest({provider:'github'});
-            stub.done(function (options) {
-                should.deepEqual(options.headers,
-                    {'Content-Type':'..', 'User-Agent':'Purest'});
-            });
-            p.get('endpoint', {headers:{'Content-Type':'..'}});
-        });
-        it('override', function () {
-            var p = new purest({provider:'github'});
-            stub.done(function (options) {
-                should.deepEqual(options.headers, {'user-agent': 'Cat'});
-            });
-            p.get('endpoint', {headers:{'user-agent':'Cat'}});
-        });
-    });
 
     describe('get', function () {
         describe('gmaps', function () {

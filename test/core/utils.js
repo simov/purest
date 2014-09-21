@@ -36,6 +36,24 @@ describe('utils', function () {
         });
     });
 
+    describe('user agent', function () {
+        it('create headers object', function () {
+            var options = {};
+            utils.agent(options);
+            should.deepEqual(options.headers, {'User-Agent':'Purest'});
+        });
+        it('extend headers object', function () {
+            var options = {headers:{'Content-Type':'...'}};
+            utils.agent(options);
+            should.deepEqual(options.headers, {'Content-Type':'...', 'User-Agent':'Purest'});
+        });
+        it('override user agent', function () {
+            var options = {headers:{'user-agent':'Cat'}};
+            utils.agent(options);
+            should.deepEqual(options.headers, {'user-agent':'Cat'});
+        });
+    });
+
     describe('response', function () {
         it('don\'t throw error on missing callback', function () {
             utils.response()(null, {}, {});
