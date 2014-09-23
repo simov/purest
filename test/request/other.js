@@ -44,7 +44,7 @@ describe('verbs', function () {
     });
 
     describe('head', function () {
-        it('yagoo social', function (done) {
+        it('yahoo social', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 method:'HEAD',
                 oauth:{

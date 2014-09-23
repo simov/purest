@@ -1,7 +1,11 @@
 
-var should = require('should');
+var fs = require('fs'),
+    path = require('path'),
+    should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
+var image = path.resolve(__dirname, '../fixtures/cat.png'),
+    audio = path.resolve(__dirname, '../fixtures/beep.mp3');
 
 
 describe('post', function () {
@@ -129,7 +133,7 @@ describe('post', function () {
                             content:fs.readFileSync(image).toString('base64')
                         }, {
                             type:'audio/mp3',name:'beep.mp3',
-                            content:fs.readFileSync(image).toString('base64')
+                            content:fs.readFileSync(audio).toString('base64')
                         }]
                     }
                 }
