@@ -1,5 +1,6 @@
 
-# purest
+# purest [![img-npm-version]][url-npm]
+
 _**purest**_ is build on top of [request][1], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
 ```js
@@ -280,3 +281,7 @@ MIT
   [4]: https://github.com/simov/purest/tree/master/examples
   [5]: https://github.com/simov/purest/blob/master/test/request/upload.js
   [6]: https://github.com/simov/purest/tree/master/test/request
+  [url-npm]: https://www.npmjs.org/package/purest
+
+  [img-npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat (NPM Version)
+  [img-npm-downloads]: http://img.shields.io/npm/dm/purest.svg?style=flat (NPM Downloads)
