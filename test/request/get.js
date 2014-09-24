@@ -8,7 +8,11 @@ var purest = require('../../lib/provider'),
 
 describe('get', function () {
     require('../utils/credentials');
-    var cred = require('../../config/credentials');
+    var cred = {
+        app:require('../../config/app'),
+        user:require('../../config/user')
+    };
+    var refresh = require('../utils/refresh');
     var p = {};
     before(function (done) {
         for (var name in providers) {
@@ -44,40 +48,31 @@ describe('get', function () {
             done();
         });
     });
-    it('facebook', function (done) {
-        p.facebook.get('me/groups', {
-            qs:{access_token:cred.user.facebook.token, fields:'id,name'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.data.length.should.equal(2);
-            Object.keys(body.data[0]).length.should.equal(2);
-            body.data[0].id.should.equal('313807222041302');
-            body.data[0].name.should.equal('Facebook Developers');
-            done();
+    describe('facebook', function () {
+        it('get', function (done) {
+            p.facebook.get('me/groups', {
+                qs:{access_token:cred.user.facebook.token, fields:'id,name'}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.data.length.should.equal(2);
+                Object.keys(body.data[0]).length.should.equal(2);
+                body.data[0].id.should.equal('313807222041302');
+                body.data[0].name.should.equal('Facebook Developers');
+                done();
+            });
         });
-    });
-    it('facebook fql', function (done) {
-        p.facebook.get('fql', {
-            qs:{
-                access_token:cred.user.facebook.token,
-                q:'SELECT friend_count FROM user WHERE uid = 100006399333306'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.data[0].friend_count.should.equal(1);
-            done();
-        });
-    });
-    it('bitly', function (done) {
-        p.bitly.get('bitly_pro_domain', {
-            qs:{access_token:cred.user.bitly.token, domain:'nyti.ms'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.data.domain.should.equal('nyti.ms');
-            body.data.bitly_pro_domain.should.equal(true);
-            done();
+        it('fql', function (done) {
+            p.facebook.get('fql', {
+                qs:{
+                    access_token:cred.user.facebook.token,
+                    q:'SELECT friend_count FROM user WHERE uid = 100006399333306'}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.data[0].friend_count.should.equal(1);
+                done();
+            });
         });
     });
     it('stocktwits', function (done) {
@@ -86,16 +81,6 @@ describe('get', function () {
             if (err) return error(err, done);
             body.response.status.should.equal(200);
             body.messages.length.should.equal(30);
-            done();
-        });
-    });
-    it('soundcloud', function (done) {
-        p.soundcloud.get('users', {
-            qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body[0].username.should.equal('Thriftworks');
             done();
         });
     });
@@ -110,20 +95,10 @@ describe('get', function () {
             done();
         });
     });
-    it('foursquare', function (done) {
-        p.foursquare.get('users/81257627', {
-            qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.response.user.firstName.should.equal('Simo');
-            done();
-        });
-    });
     it('stackexchange', function (done) {
         p.stackexchange.get('users', {
             qs:{
-                key:cred.app.stackexchange.req_key,
+                key:cred.user.stackexchange.apikey,
                 access_token:cred.user.stackexchange.token,
                 site:'stackoverflow',
                 sort:'reputation',
@@ -136,63 +111,29 @@ describe('get', function () {
             done();
         });
     });
-    it('rubygems', function (done) {
-        p.rubygems.get('gems/rails', function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.name.should.equal('rails');
-            body.platform.should.equal('ruby');
-            done();
+    describe('heroku', function () {
+        var access = {};
+        before(function (done) {
+            p.heroku.refresh(
+                cred.app.heroku,
+                cred.user.heroku.refresh,
+            function (err, res, body) {
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
         });
-    });
-    it('coderbits', function (done) {
-        p.coderbits.get('simov', function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.username.should.equal('simov');
-            done();
-        });
-    });
-    it('wikimapia', function (done) {
-        p.wikimapia.get('', {
-            qs: {
-                key:cred.app.wikimapia.req_key,
-                function:'place.search',
-                q:'Central Park, New York, NY',
-                lat:'40.7629025',
-                lon:'-73.9826439',
-                format:'json'
-            }
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.count.should.equal(5);
-            done();
-        });
-    });
-    it('openstreetmap', function (done) {
-        p.openstreetmap.get('user/details', {
-            // oauth for writing to the database
-            oauth:{
-                token:cred.user.openstreetmap.token,
-                secret:cred.user.openstreetmap.secret
-            }
-            // or basic auth for reading user details
-            // auth: {user:'email', pass:'password'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
-            done();
-        });
-    });
-    it('slack', function (done) {
-        p.slack.get('users.list', {
-            qs:{token:cred.user.slack.token}
-        }, function (err, res, body) {
-            if (err) return error(err, done);
-            body.ok.should.equal(true);
-            done();
+        it('get', function (done) {
+            p.heroku.get('account', {
+                auth: {bearer:access.token}
+                // or
+                // auth: {user:'email', pass:'password'}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.email.should.be.type('string');
+                done();
+            });
         });
     });
     it('instagram', function (done) {
@@ -223,6 +164,52 @@ describe('get', function () {
             done();
         });
     });
+    it('foursquare', function (done) {
+        p.foursquare.get('users/81257627', {
+            qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.response.user.firstName.should.equal('Simo');
+            done();
+        });
+    });
+    describe('asana', function () {
+        var access = {};
+        before(function (done) {
+            p.asana.refresh(
+                cred.app.asana,
+                cred.user.asana.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return done(err);
+                access = {token:body.access_token};
+                done();
+            });
+        });
+        it('basic auth', function (done) {
+            p.asana.get('users/me', {
+                auth:{user:cred.user.asana.apikey, pass:''}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body.data),
+                    ['id','name','email','photo','workspaces']);
+                done();
+            });
+        });
+        it('oauth', function (done) {
+            p.asana.get('users/me', {
+                auth: {bearer:access.token}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body.data),
+                    ['id','name','email','photo','workspaces']);
+                done();
+            });
+        });
+    });
     describe('trello', function () {
         it('public', function (done) {
             p.trello.get('boards/4d5ea62fd76aa1136000000c', {
@@ -245,46 +232,55 @@ describe('get', function () {
             });
         });
     });
-    describe('asana', function () {
+    it('slack', function (done) {
+        p.slack.get('users.list', {
+            qs:{token:cred.user.slack.token}
+        }, function (err, res, body) {
+            if (err) return error(err, done);
+            body.ok.should.equal(true);
+            done();
+        });
+    });
+    it('dropbox', function (done) {
+        p.dropbox.get('account/info', {
+            auth: {bearer:cred.user.dropbox.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.email.should.be.type('string');
+            done();
+        });
+    });
+    describe('box', function () {
         var access = {};
         before(function (done) {
-            p.asana.refresh(
-                cred.app.asana,
-                cred.user.asana.refresh,
+            p.box.refresh(
+                cred.app.box,
+                cred.user.box.refresh,
             function (err, res, body) {
                 debugger;
                 if (err) return done(err);
                 access = {token:body.access_token};
+                refresh.store('box', body.refresh_token);
                 done();
             });
         });
-        it('basic auth', function (done) {
-            p.asana.get('users/me', {
-                auth:{user:cred.user.asana.api_key, pass:''}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                should.deepEqual(Object.keys(body.data),
-                    ['id','name','email','photo','workspaces']);
-                done();
-            });
-        });
-        it('oauth', function (done) {
-            p.asana.get('users/me', {
+        it('get', function (done) {
+            p.box.get('users/me', {
                 auth: {bearer:access.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                should.deepEqual(Object.keys(body.data),
-                    ['id','name','email','photo','workspaces']);
+                body.type.should.equal('user');
+                body.id.should.be.type('string');
                 done();
             });
         });
     });
     describe('mailchimp', function () {
-        it('api_key', function (done) {
+        it('apikey', function (done) {
             p.mailchimp.get('campaigns/list', {
-                qs:{apikey:cred.user.mailchimp.api_key}
+                qs:{apikey:cred.user.mailchimp.apikey}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -306,41 +302,6 @@ describe('get', function () {
                 body.errors.length.should.equal(0);
                 done();
             });
-        });
-    });
-    describe('heroku', function () {
-        var access = {};
-        before(function (done) {
-            p.heroku.refresh(
-                cred.app.heroku,
-                cred.user.heroku.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
-        it('get', function (done) {
-            p.heroku.get('account', {
-                auth: {bearer:access.token}
-                // or
-                // auth: {user:'email', pass:'password'}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.email.should.be.type('string');
-                done();
-            });
-        });
-    });
-    it('dropbox', function (done) {
-        p.dropbox.get('account/info', {
-            auth: {bearer:cred.user.dropbox.token}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.email.should.be.type('string');
-            done();
         });
     });
     it('sendgrid', function (done) {
@@ -365,12 +326,83 @@ describe('get', function () {
     });
     it('mailgun', function (done) {
         p.mailgun.get(cred.user.mailgun.domain+'/stats', {
-            auth:{user:'api',pass:cred.user.mailgun.key}
+            auth:{user:'api',pass:cred.user.mailgun.apikey}
         }, function (err, res, body) {
             debugger;
             if (err) return error(err, done);
             body.total_count.should.be.type('number');
             body.items.should.be.instanceOf(Array);
+            done();
+        });
+    });
+    it('wikimapia', function (done) {
+        p.wikimapia.get('', {
+            qs: {
+                key:cred.user.wikimapia.apikey,
+                function:'place.search',
+                q:'Central Park, New York, NY',
+                lat:'40.7629025',
+                lon:'-73.9826439',
+                format:'json'
+            }
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.count.should.equal(5);
+            done();
+        });
+    });
+    it('openstreetmap', function (done) {
+        p.openstreetmap.get('user/details', {
+            // oauth for writing to the database
+            oauth:{
+                token:cred.user.openstreetmap.token,
+                secret:cred.user.openstreetmap.secret
+            }
+            // or basic auth for reading user details
+            // auth: {user:'email', pass:'password'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
+            done();
+        });
+    });
+    it('bitly', function (done) {
+        p.bitly.get('bitly_pro_domain', {
+            qs:{access_token:cred.user.bitly.token, domain:'nyti.ms'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.data.domain.should.equal('nyti.ms');
+            body.data.bitly_pro_domain.should.equal(true);
+            done();
+        });
+    });
+    it('soundcloud', function (done) {
+        p.soundcloud.get('users', {
+            qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body[0].username.should.equal('Thriftworks');
+            done();
+        });
+    });
+    it('rubygems', function (done) {
+        p.rubygems.get('gems/rails', function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.name.should.equal('rails');
+            body.platform.should.equal('ruby');
+            done();
+        });
+    });
+    it('coderbits', function (done) {
+        p.coderbits.get('simov', function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.username.should.equal('simov');
             done();
         });
     });
@@ -418,7 +450,7 @@ describe('get', function () {
         it('geo', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
                 api:'geo',
-                qs:{appid:cred.app.yahoo.req_key}
+                qs:{appid:cred.user.yahoo.apikey}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -529,7 +561,7 @@ describe('get', function () {
             p.google.get('url', {
                 api:'urlshortener',
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     shortUrl:'http://goo.gl/0wkZ4V'
                 }
             }, function (err, res, body) {
@@ -543,7 +575,7 @@ describe('get', function () {
             p.google.get('runPagespeed', {
                 api:'pagespeedonline',
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     url:'http://www.amazon.com/'
                 }
             }, function (err, res, body) {
@@ -573,7 +605,7 @@ describe('get', function () {
         it('streetview', function (done) {
             p.gmaps.get('streetview', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     location:'40.7828647,-73.9653551',
                     size:'400x400',
                     sensor:false
@@ -588,7 +620,7 @@ describe('get', function () {
         it('staticmap', function (done) {
             p.gmaps.get('staticmap', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     center:'40.7828647,-73.9653551',
                     size:'640x640',
                     zoom:15,
@@ -605,7 +637,7 @@ describe('get', function () {
         it('geocode', function (done) {
             p.gmaps.get('geocode/json', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     address:'Central Park, New York, NY',
                     sensor:false
                 }
@@ -620,7 +652,7 @@ describe('get', function () {
         it('directions', function (done) {
             p.gmaps.get('directions/json', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     origin:'Central Park, New York, NY',
                     destination:'New York, New Jersey',
                     sensor:false
@@ -636,7 +668,7 @@ describe('get', function () {
         it('timezone', function (done) {
             p.gmaps.get('timezone/json', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     location:'40.7828647,-73.9653551',
                     timestamp:'1331161200',
                     sensor:false
@@ -651,7 +683,7 @@ describe('get', function () {
         it('elevation', function (done) {
             p.gmaps.get('elevation/json', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     locations:'40.7828647,-73.9653551',
                     sensor:false
                 }
@@ -665,7 +697,7 @@ describe('get', function () {
         it('distancematrix', function (done) {
             p.gmaps.get('distancematrix/json', {
                 qs:{
-                    key:cred.app.google.req_key,
+                    key:cred.user.google.apikey,
                     origins:'40.7828647,-73.9653551',
                     destinations:'40.7873463,-74.0108939',
                     sensor:false

@@ -15,4 +15,8 @@ npm-debug.log
 node_modules
 
 config/credentials.json
+config/app.json
+config/user.json
 config/examples.json
+
+test/fixtures/coffee.jpg

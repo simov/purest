@@ -5,7 +5,11 @@ var purest = require('../../lib/provider'),
 
 describe('verbs', function () {
     require('../utils/credentials');
-    var cred = require('../../config/credentials');
+    var cred = {
+        app:require('../../config/app'),
+        user:require('../../config/user')
+    };
+    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {

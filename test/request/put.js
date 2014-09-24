@@ -8,7 +8,11 @@ var image = fs.readFileSync(path.resolve(__dirname, '../fixtures/cat.png'));
 
 describe('put', function () {
     require('../utils/credentials');
-    var cred = require('../../config/credentials');
+    var cred = {
+        app:require('../../config/app'),
+        user:require('../../config/user')
+    };
+    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {

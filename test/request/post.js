@@ -10,7 +10,11 @@ var image = path.resolve(__dirname, '../fixtures/cat.png'),
 
 describe('post', function () {
     require('../utils/credentials');
-    var cred = require('../../config/credentials');
+    var cred = {
+        app:require('../../config/app'),
+        user:require('../../config/user')
+    };
+    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {
@@ -149,7 +153,7 @@ describe('post', function () {
     });
     it('mailgun', function (done) {
         p.mailgun.post(cred.user.mailgun.domain+'/messages', {
-            auth:{user:'api',pass:cred.user.mailgun.key},
+            auth:{user:'api',pass:cred.user.mailgun.apikey},
             form:{
                 from:'purest@mailinator.com',
                 to:'purest@mailinator.com,purest2@mailinator.com',

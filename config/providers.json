@@ -109,6 +109,18 @@
         "domain": "http://api.linkedin.com",
         "docs": "http://developer.linkedin.com"
     },
+    "openstreetmap": {
+        "oauth": true,
+        "version": "0.6",
+        "domain": "http://api.openstreetmap.org",
+        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+    },
+    "trello": {
+        "oauth": true,
+        "version": "1",
+        "domain": "https://api.trello.com",
+        "docs": "https://trello.com/docs/"
+    },
     "bitly": {
         "version": "v3",
         "domain": "https://api-ssl.bitly.com",
@@ -154,12 +166,6 @@
         "domain": "http://api.wikimapia.org",
         "docs": "http://wikimapia.org/api"
     },
-    "openstreetmap": {
-        "oauth": true,
-        "version": "0.6",
-        "domain": "http://api.openstreetmap.org",
-        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
-    },
     "slack": {
         "domain": "https://slack.com",
         "docs": "https://api.slack.com/"
@@ -168,12 +174,6 @@
         "version": "v1",
         "domain": "https://api.instagram.com",
         "docs": "http://instagram.com/developer"
-    },
-    "trello": {
-        "oauth": true,
-        "version": "1",
-        "domain": "https://api.trello.com",
-        "docs": "https://trello.com/docs/"
     },
     "asana": {
         "version": "1.0",
@@ -204,6 +204,12 @@
         "domain": "https://api.mailgun.net",
         "version": "v2",
         "docs": "http://documentation.mailgun.com/"
+    },
+    "box": {
+        "domain": "https://api.box.com",
+        "version": "2.0",
+        "docs": "https://developers.box.com/",
+        "refresh": "https://api.box.com/oauth2/token"
     },
 
 

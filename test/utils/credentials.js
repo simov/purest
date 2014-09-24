@@ -2,14 +2,16 @@
 var fs = require('fs'),
     path = require('path');
 
-var fpath = path.resolve(__dirname, '../../config/credentials.json'),
+var app = path.resolve(__dirname, '../../config/app.json'),
+    user = path.resolve(__dirname, '../../config/user.json'),
     providers = require('../../config/providers');
 
-if (fs.existsSync(fpath)) return;
+if (fs.existsSync(app)) return;
 
 var cred = {app:{}, user:{}};
 for (var key in providers) {
     cred.app[key] = {key:'', secret:''};
     cred.user[key] = {token:'', secret:''};
 }
-fs.writeFileSync(fpath, JSON.stringify(cred, null, 4), 'utf8');
+fs.writeFileSync(app, JSON.stringify(cred.app, null, 4), 'utf8');
+fs.writeFileSync(user, JSON.stringify(cred.user, null, 4), 'utf8');

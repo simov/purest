@@ -1,4 +1,6 @@
 
+var fs = require('fs'),
+    path = require('path');
 var should = require('should');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
@@ -6,7 +8,11 @@ var purest = require('../../lib/provider'),
 
 describe('refresh', function () {
     require('../utils/credentials');
-    var cred = require('../../config/credentials');
+    var cred = {
+        app:require('../../config/app'),
+        user:require('../../config/user')
+    };
+    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {
@@ -97,6 +103,31 @@ describe('refresh', function () {
             body.token_type.should.equal('Bearer');
             body.expires_in.should.equal(3600);
             done();
+        });
+    });
+    // https://developers.box.com/docs/#oauth-2-token
+    describe('box', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.box.refresh(
+                cred.app.box,
+                cred.user.box.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'expires_in', 'restricted_to',
+                    'refresh_token', 'token_type'
+                ]);
+                body.access_token.should.be.type('string');
+                body.refresh_token.should.be.type('string');
+                body.token_type.should.equal('bearer');
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('box', _body.refresh_token);
         });
     });
 });
