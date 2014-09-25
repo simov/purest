@@ -216,12 +216,5 @@
         },
         "docs": "https://developer.yahoo.com/",
         "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
-    },
-
-
-    "disqus": {
-        "version": "3.0",
-        "domain": "https://disqus.com",
-        "docs": "https://disqus.com/api/docs/"
     }
 }
