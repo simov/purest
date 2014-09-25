@@ -234,6 +234,23 @@ describe('options', function () {
                 p.options._upload.before(p, 'domain/messages', options).should.equal(true);
             });
         });
+        describe('box', function () {
+            it('pass on missing upload api key', function () {
+                var p = new purest({provider:'box'});
+                var options = {upload:'cat.png', form:{filename:'...'}};
+                should.equal(p.options._upload.before(p, 'files/content', options), undefined);
+            });
+            it('match on upload api', function () {
+                var p = new purest({provider:'box'});
+                var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
+                p.options._upload.before(p, 'files/content', options).should.equal(true);
+            });
+            it('match on regex endpoint', function () {
+                var p = new purest({provider:'box'});
+                var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
+                p.options._upload.before(p, 'files/1234/content', options).should.equal(true);
+            });
+        });
     });
 
     describe('upload', function () {

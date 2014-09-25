@@ -154,6 +154,18 @@ Additional to the [mikeal's request params][2], _purest_ adds a few more paramet
   }, function (err, res, body) {});
   ```
 
+  - Box - upload
+
+  ```js
+  box.post('files/content', {
+    auth:{bearer:'..'},
+    api:'upload',
+    upload:'cat.png',
+    qs:{parent_id:0},
+    form:{filename:fs.readFileSync('/absolute/path/to/cat.png')}
+  }, function (err, res, body) {});
+  ```
+
 
 #### upload
 
@@ -244,7 +256,7 @@ Get new _access token_ using _refresh token_ and/or any other parameters that th
   function (err, res, body) {});
   ```
 
-- OAuth2 - Asana | Heroku | Google
+- OAuth2 - Asana | Heroku | Google | Box
 
   ```js
   google.refresh(

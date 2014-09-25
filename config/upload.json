@@ -48,5 +48,10 @@
         "messages": {
             "key": "attachment"
         }
+    },
+    "box": {
+        "files/content": {
+            "key": "filename"
+        }
     }	
 }

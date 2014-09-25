@@ -127,7 +127,7 @@ describe('refresh', function () {
             });
         });
         after(function () {
-            refresh.store('box', _body.refresh_token);
+            refresh.store('box', _body.access_token, _body.refresh_token);
         });
     });
 });

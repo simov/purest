@@ -261,7 +261,7 @@ describe('get', function () {
                 debugger;
                 if (err) return done(err);
                 access = {token:body.access_token};
-                refresh.store('box', body.refresh_token);
+                refresh.store('box', body.access_token, body.refresh_token);
                 done();
             });
         });

@@ -247,6 +247,45 @@ describe('upload', function () {
             done();
         });
     });
+    describe('box', function () {
+        var access = {}, file = {};
+        before(function (done) {
+            p.box.refresh(
+                cred.app.box,
+                cred.user.box.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return done(err);
+                access = {token:body.access_token};
+                refresh.store('box', body.access_token, body.refresh_token);
+                done();
+            });
+        });
+        it('upload', function (done) {
+            p.box.post('files/content', {
+                auth:{bearer:access.token},
+                api:'upload',
+                upload:'cat.png',
+                qs:{parent_id:0},
+                form:{filename:fs.readFileSync(image)}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.entries[0].name.should.equal('cat.png');
+                file = body.entries[0];
+                done();
+            });
+        });
+        after(function (done) {
+            p.box.del('files/'+file.id, {
+                auth:{bearer:access.token}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                done();
+            });
+        });
+    });
 });
 
 function error (err, done) {

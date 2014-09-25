@@ -92,6 +92,18 @@
         "domain": "https://api.dropbox.com",
         "docs": "https://www.dropbox.com/developers"
     },
+    "box": {
+        "api": {
+            "upload": {
+                "version": "2.0",
+                "domain": "https://upload.box.com"
+            }
+        },
+        "domain": "https://api.box.com",
+        "version": "2.0",
+        "docs": "https://developers.box.com/",
+        "refresh": "https://api.box.com/oauth2/token"
+    },
     "gmaps": {
         "domain": "https://maps.googleapis.com",
         "path": "maps/api",
@@ -204,12 +216,6 @@
         "domain": "https://api.mailgun.net",
         "version": "v2",
         "docs": "http://documentation.mailgun.com/"
-    },
-    "box": {
-        "domain": "https://api.box.com",
-        "version": "2.0",
-        "docs": "https://developers.box.com/",
-        "refresh": "https://api.box.com/oauth2/token"
     },
 
 
