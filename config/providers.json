@@ -1,4 +1,76 @@
 {
+    "asana": {
+        "version": "1.0",
+        "domain": "https://app.asana.com",
+        "docs": "http://developer.asana.com/documentation/",
+        "refresh": "https://app.asana.com/-/oauth_token"
+    },
+    "bitly": {
+        "version": "v3",
+        "domain": "https://api-ssl.bitly.com",
+        "docs": "http://dev.bitly.com"
+    },
+    "box": {
+        "api": {
+            "upload": {
+                "version": "2.0",
+                "domain": "https://upload.box.com"
+            }
+        },
+        "domain": "https://api.box.com",
+        "version": "2.0",
+        "docs": "https://developers.box.com/",
+        "refresh": "https://api.box.com/oauth2/token"
+    },
+    "coderbits": {
+        "domain": "https://coderbits.com",
+        "docs": "https://coderbits.com/api"
+    },
+    "dropbox": {
+        "api": {
+            "files": {
+                "version": "1",
+                "domain": "https://api-content.dropbox.com"
+            }
+        },
+        "version": "1",
+        "domain": "https://api.dropbox.com",
+        "docs": "https://www.dropbox.com/developers"
+    },
+    "facebook": {
+        "domain": "https://graph.facebook.com",
+        "docs": "https://developers.facebook.com"
+    },
+    "flickr": {
+        "oauth": true,
+        "api": {
+            "upload": {
+                "domain": "https://up.flickr.com",
+                "path": "services/upload"
+            },
+            "replace": {
+                "domain": "https://up.flickr.com",
+                "path": "services/replace"
+            }
+        },
+        "domain": "https://api.flickr.com",
+        "path": "services/rest",
+        "docs": "https://www.flickr.com/services/api/"
+    },
+    "foursquare": {
+        "version": "v2",
+        "domain": "https://api.foursquare.com",
+        "docs": "https://developer.foursquare.com/"
+    },
+    "github": {
+        "domain": "https://api.github.com",
+        "docs": "http://developer.github.com"
+    },
+    "gmaps": {
+        "domain": "https://maps.googleapis.com",
+        "path": "maps/api",
+        "docs": "https://developers.google.com/maps/"
+    },
     "google": {
         "api": {
             "plus": {
@@ -43,6 +115,86 @@
         "docs": "https://developers.google.com/",
         "refresh": "https://accounts.google.com/o/oauth2/token"
     },
+    "heroku": {
+        "domain": "https://api.heroku.com",
+        "docs": "https://devcenter.heroku.com/categories/platform-api",
+        "refresh": "https://id.heroku.com/oauth/token"
+    },
+    "instagram": {
+        "version": "v1",
+        "domain": "https://api.instagram.com",
+        "docs": "http://instagram.com/developer"
+    },
+    "linkedin": {
+        "oauth": true,
+        "version": "v1",
+        "domain": "http://api.linkedin.com",
+        "docs": "http://developer.linkedin.com"
+    },
+    "mailchimp": {
+        "version": "2.0",
+        "domain": "https://dc.api.mailchimp.com",
+        "docs": "http://apidocs.mailchimp.com/"
+    },
+    "mailgun": {
+        "domain": "https://api.mailgun.net",
+        "version": "v2",
+        "docs": "http://documentation.mailgun.com/"
+    },
+    "mandrill": {
+        "domain": "https://mandrillapp.com",
+        "version": "1.0",
+        "docs": "https://mandrillapp.com/api/docs/"
+    },
+    "openstreetmap": {
+        "oauth": true,
+        "version": "0.6",
+        "domain": "http://api.openstreetmap.org",
+        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+    },
+    "rubygems": {
+        "version": "v1",
+        "domain": "https://rubygems.org",
+        "docs": "http://guides.rubygems.org/rubygems-org-api"
+    },
+    "sendgrid": {
+        "domain": "https://api.sendgrid.com",
+        "docs": "http://sendgrid.com/docs/"
+    },
+    "slack": {
+        "domain": "https://slack.com",
+        "docs": "https://api.slack.com/"
+    },
+    "soundcloud": {
+        "domain": "https://api.soundcloud.com",
+        "docs": "http://developers.soundcloud.com"
+    },
+    "stackexchange": {
+        "version": "2.2",
+        "domain": "https://api.stackexchange.com",
+        "docs": "https://api.stackexchange.com"
+    },
+    "stocktwits": {
+        "version": "2",
+        "domain": "https://api.stocktwits.com",
+        "docs": "http://stocktwits.com/developers"
+    },
+    "trello": {
+        "oauth": true,
+        "version": "1",
+        "domain": "https://api.trello.com",
+        "docs": "https://trello.com/docs/"
+    },
+    "twitter": {
+        "oauth": true,
+        "version": "1.1",
+        "domain": "https://api.twitter.com",
+        "docs": "https://dev.twitter.com"
+    },
+    "wikimapia": {
+        "domain": "http://api.wikimapia.org",
+        "docs": "http://wikimapia.org/api"
+    },
     "yahoo": {
         "oauth": true,
         "api": {
@@ -64,158 +216,6 @@
         },
         "docs": "https://developer.yahoo.com/",
         "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
-    },
-    "flickr": {
-        "oauth": true,
-        "api": {
-            "upload": {
-                "domain": "https://up.flickr.com",
-                "path": "services/upload"
-            },
-            "replace": {
-                "domain": "https://up.flickr.com",
-                "path": "services/replace"
-            }
-        },
-        "domain": "https://api.flickr.com",
-        "path": "services/rest",
-        "docs": "https://www.flickr.com/services/api/"
-    },
-    "dropbox": {
-        "api": {
-            "files": {
-                "version": "1",
-                "domain": "https://api-content.dropbox.com"
-            }
-        },
-        "version": "1",
-        "domain": "https://api.dropbox.com",
-        "docs": "https://www.dropbox.com/developers"
-    },
-    "box": {
-        "api": {
-            "upload": {
-                "version": "2.0",
-                "domain": "https://upload.box.com"
-            }
-        },
-        "domain": "https://api.box.com",
-        "version": "2.0",
-        "docs": "https://developers.box.com/",
-        "refresh": "https://api.box.com/oauth2/token"
-    },
-    "gmaps": {
-        "domain": "https://maps.googleapis.com",
-        "path": "maps/api",
-        "docs": "https://developers.google.com/maps/"
-    },
-    "twitter": {
-        "oauth": true,
-        "version": "1.1",
-        "domain": "https://api.twitter.com",
-        "docs": "https://dev.twitter.com"
-    },
-    "linkedin": {
-        "oauth": true,
-        "version": "v1",
-        "domain": "http://api.linkedin.com",
-        "docs": "http://developer.linkedin.com"
-    },
-    "openstreetmap": {
-        "oauth": true,
-        "version": "0.6",
-        "domain": "http://api.openstreetmap.org",
-        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
-    },
-    "trello": {
-        "oauth": true,
-        "version": "1",
-        "domain": "https://api.trello.com",
-        "docs": "https://trello.com/docs/"
-    },
-    "bitly": {
-        "version": "v3",
-        "domain": "https://api-ssl.bitly.com",
-        "docs": "http://dev.bitly.com"
-    },
-    "stocktwits": {
-        "version": "2",
-        "domain": "https://api.stocktwits.com",
-        "docs": "http://stocktwits.com/developers"
-    },
-    "facebook": {
-        "domain": "https://graph.facebook.com",
-        "docs": "https://developers.facebook.com"
-    },
-    "soundcloud": {
-        "domain": "https://api.soundcloud.com",
-        "docs": "http://developers.soundcloud.com"
-    },
-    "github": {
-        "domain": "https://api.github.com",
-        "docs": "http://developer.github.com"
-    },
-    "stackexchange": {
-        "version": "2.2",
-        "domain": "https://api.stackexchange.com",
-        "docs": "https://api.stackexchange.com"
-    },
-    "foursquare": {
-        "version": "v2",
-        "domain": "https://api.foursquare.com",
-        "docs": "https://developer.foursquare.com/"
-    },
-    "coderbits": {
-        "domain": "https://coderbits.com",
-        "docs": "https://coderbits.com/api"
-    },
-    "rubygems": {
-        "version": "v1",
-        "domain": "https://rubygems.org",
-        "docs": "http://guides.rubygems.org/rubygems-org-api"
-    },
-    "wikimapia": {
-        "domain": "http://api.wikimapia.org",
-        "docs": "http://wikimapia.org/api"
-    },
-    "slack": {
-        "domain": "https://slack.com",
-        "docs": "https://api.slack.com/"
-    },
-    "instagram": {
-        "version": "v1",
-        "domain": "https://api.instagram.com",
-        "docs": "http://instagram.com/developer"
-    },
-    "asana": {
-        "version": "1.0",
-        "domain": "https://app.asana.com",
-        "docs": "http://developer.asana.com/documentation/",
-        "refresh": "https://app.asana.com/-/oauth_token"
-    },
-    "mailchimp": {
-        "version": "2.0",
-        "domain": "https://dc.api.mailchimp.com",
-        "docs": "http://apidocs.mailchimp.com/"
-    },
-    "heroku": {
-        "domain": "https://api.heroku.com",
-        "docs": "https://devcenter.heroku.com/categories/platform-api",
-        "refresh": "https://id.heroku.com/oauth/token"
-    },
-    "sendgrid": {
-        "domain": "https://api.sendgrid.com",
-        "docs": "http://sendgrid.com/docs/"
-    },
-    "mandrill": {
-        "domain": "https://mandrillapp.com",
-        "version": "1.0",
-        "docs": "https://mandrillapp.com/api/docs/"
-    },
-    "mailgun": {
-        "domain": "https://api.mailgun.net",
-        "version": "v2",
-        "docs": "http://documentation.mailgun.com/"
     },
 
 
