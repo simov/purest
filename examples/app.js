@@ -1,6 +1,9 @@
 
-var purest = require('../lib/provider'),
-    cred = require('../config/credentials');
+var purest = require('../lib/provider');
+var cred = {
+    app:require('../config/app'),
+    user:require('../config/user')
+};
 
 var cmd = require('commander')
     .version('0.0.0')

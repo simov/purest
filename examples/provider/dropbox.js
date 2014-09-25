@@ -2,8 +2,11 @@
 var fs = require('fs'),
     path = require('path');
 var async = require('async');
-var cred = require('../../config/credentials'),
-    fpath = path.resolve(__dirname,'../../test/fixtures/cat.png');
+var cred = {
+    app:require('../../config/app'),
+    user:require('../../config/user')
+};
+var fpath = path.resolve(__dirname,'../../test/fixtures/cat.png');
 
 
 exports = module.exports = function (p) {

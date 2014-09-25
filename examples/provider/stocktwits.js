@@ -1,5 +1,8 @@
 
-var cred = require('../../config/credentials');
+var cred = {
+    app:require('../../config/app'),
+    user:require('../../config/user')
+};
 
 
 exports = module.exports = function (t) {
