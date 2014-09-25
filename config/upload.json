@@ -1,12 +1,12 @@
 {
-    "twitter": {
-        "statuses/update_with_media": {
-            "key": "media[]"
+    "asana": {
+        "tasks/attachments": {
+            "key": "file"
         }
     },
-    "stocktwits": {
-        "messages/create": {
-            "key": "chart"
+    "box": {
+        "files/content": {
+            "key": "filename"
         }
     },
     "facebook": {
@@ -24,9 +24,14 @@
             "key": "photo"
         }
     },
-    "asana": {
-        "tasks/attachments": {
-            "key": "file"
+    "mailgun": {
+        "messages": {
+            "key": "attachment"
+        }
+    },
+    "sendgrid": {
+        "mail.send": {
+            "key": "files"
         }
     },
     "slack": {
@@ -39,19 +44,14 @@
             "key": "track[asset_data]"
         }
     },
-    "sendgrid": {
-        "mail.send": {
-            "key": "files"
+    "stocktwits": {
+        "messages/create": {
+            "key": "chart"
         }
     },
-    "mailgun": {
-        "messages": {
-            "key": "attachment"
+    "twitter": {
+        "statuses/update_with_media": {
+            "key": "media[]"
         }
-    },
-    "box": {
-        "files/content": {
-            "key": "filename"
-        }
-    }	
+    }
 }
