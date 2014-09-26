@@ -30,23 +30,17 @@ facebook.post('me/feed', {
 ### providers
 | | | | | | |
 :---: | :---: | :---: | :---: | :---: | :---:
-[asana](http://developer.asana.com/documentation/) | [bitly](http://dev.bitly.com) | [coderbits](https://coderbits.com/api) | [dropbox](https://www.dropbox.com/developers) | [facebook](https://developers.facebook.com) | [flickr](https://www.flickr.com/services/api/)
-[foursquare](https://developer.foursquare.com/) | [github](http://developer.github.com) | [gmaps](https://developers.google.com/maps/) | [google](https://developers.google.com/) | [heroku](https://devcenter.heroku.com/categories/platform-api) | [instagram](http://instagram.com/developer)
+[asana](http://developer.asana.com/documentation/) | [bitly](http://dev.bitly.com) | [box](https://developers.box.com/) | [coderbits](https://coderbits.com/api) | [dropbox](https://www.dropbox.com/developers) | [facebook](https://developers.facebook.com)
+[flickr](https://www.flickr.com/services/api/) | [foursquare](https://developer.foursquare.com/) | [github](http://developer.github.com) | [google](https://developers.google.com/) | [heroku](https://devcenter.heroku.com/categories/platform-api) | [instagram](http://instagram.com/developer)
 [linkedin](http://developer.linkedin.com) | [mailchimp](http://apidocs.mailchimp.com/) | [mailgun](http://documentation.mailgun.com/) | [mandrill](https://mandrillapp.com/api/docs/) | [openstreetmap](http://wiki.openstreetmap.org/wiki/API_v0.6) | [rubygems](http://guides.rubygems.org/rubygems-org-api)
 [sendgrid](http://sendgrid.com/docs/) | [slack](https://api.slack.com/) | [soundcloud](http://developers.soundcloud.com) | [stackexchange](https://api.stackexchange.com) | [stocktwits](http://stocktwits.com/developers) | [trello](https://trello.com/docs/)
-[twitter](https://dev.twitter.com) | [wikimapia](http://wikimapia.org/api) | [yahoo](https://developer.yahoo.com/)
+[twitter](https://dev.twitter.com) | [wikimapia](http://wikimapia.org/api) | [yahoo](https://developer.yahoo.com/) |
 
 ##### google
-| | | | | | |
-:---: | :---: | :---: | :---: | :---: | :---:
-[plus](https://developers.google.com/+/api) | [youtube](https://developers.google.com/youtube/v3) | [drive](https://developers.google.com/drive/v2/reference) | [freebase](https://developers.google.com/freebase/v1) | [tasks](https://developers.google.com/google-apps/tasks/) | [urlshortener](https://developers.google.com/url-shortener/)
-[pagespeedonline](https://developers.google.com/speed/docs/insights/v1/getting_started) | [youtube/analytics](https://developers.google.com/youtube/analytics) | [contacts](https://developers.google.com/google-apps/contacts/v3/)
-
+[contacts](https://developers.google.com/google-apps/contacts/v3/) | [drive](https://developers.google.com/drive/v2/reference) | [freebase](https://developers.google.com/freebase/v1) | [gmaps](https://developers.google.com/maps/) | [pagespeedonline](https://developers.google.com/speed/docs/insights/v1/getting_started) | [plus](https://developers.google.com/+/api) | [tasks](https://developers.google.com/google-apps/tasks/) | [urlshortener](https://developers.google.com/url-shortener/) | [youtube](https://developers.google.com/youtube/v3) | [youtube/analytics](https://developers.google.com/youtube/analytics)
 
 ##### yahoo
-| | | |
-:---: | :---: | :---:
-[social](https://developer.yahoo.com/social) | [yql](https://developer.yahoo.com/yql) | [geo](https://developer.yahoo.com/geo/geoplanet)
+[geo](https://developer.yahoo.com/geo/geoplanet) | [social](https://developer.yahoo.com/social) | [yql](https://developer.yahoo.com/yql)
 
 
 ## API
