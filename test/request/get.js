@@ -603,7 +603,8 @@ describe('get', function () {
     
     describe('gmaps', function () {
         it('streetview', function (done) {
-            p.gmaps.get('streetview', {
+            p.google.get('streetview', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     location:'40.7828647,-73.9653551',
@@ -618,7 +619,8 @@ describe('get', function () {
             });
         });
         it('staticmap', function (done) {
-            p.gmaps.get('staticmap', {
+            p.google.get('staticmap', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     center:'40.7828647,-73.9653551',
@@ -635,7 +637,8 @@ describe('get', function () {
             });
         });
         it('geocode', function (done) {
-            p.gmaps.get('geocode/json', {
+            p.google.get('geocode/json', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     address:'Central Park, New York, NY',
@@ -650,7 +653,8 @@ describe('get', function () {
             });
         });
         it('directions', function (done) {
-            p.gmaps.get('directions/json', {
+            p.google.get('directions/json', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     origin:'Central Park, New York, NY',
@@ -666,7 +670,8 @@ describe('get', function () {
             });
         });
         it('timezone', function (done) {
-            p.gmaps.get('timezone/json', {
+            p.google.get('timezone/json', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     location:'40.7828647,-73.9653551',
@@ -681,7 +686,8 @@ describe('get', function () {
             });
         });
         it('elevation', function (done) {
-            p.gmaps.get('elevation/json', {
+            p.google.get('elevation/json', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     locations:'40.7828647,-73.9653551',
@@ -695,7 +701,8 @@ describe('get', function () {
             });
         });
         it('distancematrix', function (done) {
-            p.gmaps.get('distancematrix/json', {
+            p.google.get('distancematrix/json', {
+                api:'gmaps',
                 qs:{
                     key:cred.user.google.apikey,
                     origins:'40.7828647,-73.9653551',

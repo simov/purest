@@ -1,20 +1,23 @@
 
 var should = require('should');
-var purest = require('../../lib/provider'),
+var Purest = require('../../lib/provider'),
     Options = require('../../lib/options');
 
 
 describe('options', function () {
 
     describe('get', function () {
-        describe('gmaps', function () {
+        describe('google', function () {
             it('set binary encoding for certain APIs', function () {
-                var p = new purest({provider:'gmaps'});
+                var p = new Purest({provider:'google',api:'gmaps'});
                 var options = {};
                 p.options.get.call(p, 'endpoint', options);
                 should.deepEqual(options, {});
+                
+                options = {};
                 p.options.get.call(p, 'streetview', options);
                 should.deepEqual(options, {encoding:null});
+
                 options = {};
                 p.options.get.call(p, 'staticmap', options);
                 should.deepEqual(options, {encoding:null});
@@ -23,25 +26,25 @@ describe('options', function () {
         describe('google', function () {
             describe('contacts', function () {
                 it('set GData-Version to 3.0 by default', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{}, api:'contacts'};
                     p.options.get.call(p, 'endpoint', options);
                     options.headers['GData-Version'].should.equal('3.0');
                 });
                 it('user defined GData-Version', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{'GData-Version':'2.0'}, qs:{}, api:'contacts'};
                     p.options.get.call(p, 'endpoint', options);
                     options.headers['GData-Version'].should.equal('2.0');
                 });
                 it('return json by default', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{}, api:'contacts'};
                     p.options.get.call(p, 'endpoint', options);
                     options.qs.alt.should.equal('json');
                 });
                 it('specify return type', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
                     p.options.get.call(p, 'endpoint', options);
                     options.qs.alt.should.equal('rss');
@@ -50,13 +53,13 @@ describe('options', function () {
         });
         describe('linkedin', function () {
             it('set x-li-format to json by default', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
                 p.options.get.call(p, 'endpoint', options);
                 options.headers['x-li-format'].should.equal('json');
             });
             it('user defined x-li-format', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{'x-li-format':'jsonp'}, oauth:{token:'t', secret:'ts'}};
                 p.options.get.call(p, 'endpoint', options);
                 options.headers['x-li-format'].should.equal('jsonp');
@@ -64,7 +67,7 @@ describe('options', function () {
         });
         describe('stackexchange', function () {
             it('set request encoding to binary', function () {
-                var p = new purest({provider:'stackexchange'});
+                var p = new Purest({provider:'stackexchange'});
                 var options = {};
                 p.options.get.call(p, 'endpoint', options);
                 should.deepEqual(options, {encoding:null});
@@ -72,7 +75,7 @@ describe('options', function () {
         });
         describe('dropbox', function () {
             it('set request encoding to binary on files api', function () {
-                var p = new purest({provider:'dropbox'});
+                var p = new Purest({provider:'dropbox'});
                 var options = {api:'files'};
                 p.options.get.call(p, 'endpoint', options);
                 should.deepEqual(options, {api:'files',encoding:null});
@@ -84,25 +87,25 @@ describe('options', function () {
         describe('google', function () {
             describe('contacts', function () {
                 it('set GData-Version to 3.0 by default', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{}, api:'contacts'};
                     p.options.post.call(p, 'endpoint', options);
                     options.headers['GData-Version'].should.equal('3.0');
                 });
                 it('user defined GData-Version', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{'GData-Version':'2.0'}, qs:{}, api:'contacts'};
                     p.options.post.call(p, 'endpoint', options);
                     options.headers['GData-Version'].should.equal('2.0');
                 });
                 it('return json by default', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{}, api:'contacts'};
                     p.options.post.call(p, 'endpoint', options);
                     options.qs.alt.should.equal('json');
                 });
                 it('specify return type', function () {
-                    var p = new purest({provider:'google'});
+                    var p = new Purest({provider:'google'});
                     var options = {headers:{}, qs:{alt:'rss'}, api:'contacts'};
                     p.options.post.call(p, 'endpoint', options);
                     options.qs.alt.should.equal('rss');
@@ -111,19 +114,19 @@ describe('options', function () {
         });
         describe('linkedin', function () {
             it('set x-li-format to json by default', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{}, oauth:{token:'t', secret:'ts'}};
                 p.options.post.call(p, 'endpoint', options);
                 options.headers['x-li-format'].should.equal('json');
             });
             it('user defined x-li-format', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{'x-li-format':'jsonp'}, oauth:{token:'t', secret:'ts'}};
                 p.options.post.call(p, 'endpoint', options);
                 options.headers['x-li-format'].should.equal('jsonp');
             });
             it('send form data as entity body', function () {
-                var p = new purest({provider:'linkedin', key:'k', secret:'s'});
+                var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{}, form:{a:1}, oauth:{token:'t', secret:'ts'}};
                 p.options.post.call(p, 'endpoint', options);
                 options.body.should.equal('{"a":1}');
@@ -132,7 +135,7 @@ describe('options', function () {
         });
         describe('stackexchange', function () {
             it('set request encoding to binary', function () {
-                var p = new purest({provider:'stackexchange'});
+                var p = new Purest({provider:'stackexchange'});
                 var options = {};
                 p.options.post.call(p, 'endpoint', options);
                 should.deepEqual(options, {encoding:null});
@@ -143,45 +146,45 @@ describe('options', function () {
     describe('oauth', function () {
         it('throw error on missing credentials', function () {
             (function () {
-                var p = new purest({provider:'twitter', secret:'s'});
+                var p = new Purest({provider:'twitter', secret:'s'});
                 p.options.oauth.call(p, {token:'t', secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
-                var p = new purest({provider:'twitter', key:'k'});
+                var p = new Purest({provider:'twitter', key:'k'});
                 p.options.oauth.call(p, {token:'t', secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
-                var p = new purest({provider:'twitter', key:'k', secret:'s'});
+                var p = new Purest({provider:'twitter', key:'k', secret:'s'});
                 p.options.oauth.call(p, {secret:'ts'});
             }).should.throw('Missing OAuth credentials!');
             (function () {
-                var p = new purest({provider:'twitter', key:'k', secret:'s'});
+                var p = new Purest({provider:'twitter', key:'k', secret:'s'});
                 p.options.oauth.call(p, {token:'ts'});
             }).should.throw('Missing OAuth credentials!');
         });
         it('use consumer key/secret provided from the ctor', function () {
-            var p = new purest({provider:'twitter', key:'k', secret:'s'}),
+            var p = new Purest({provider:'twitter', key:'k', secret:'s'}),
                 options = {oauth:{token:'t', secret:'ts'}};
             p.options.oauth.call(p, options);
             options.oauth.consumer_key.should.equal('k');
             options.oauth.consumer_secret.should.equal('s');
         });
         it('use consumer key/secret provided as parameters', function () {
-            var p = new purest({provider:'twitter', key:'k', secret:'s'}),
+            var p = new Purest({provider:'twitter', key:'k', secret:'s'}),
                 options = {oauth:{consumer_key:'ck', consumer_secret:'cs', token:'t', secret:'s'}};
             p.options.oauth.call(p, options);
             options.oauth.consumer_key.should.equal('ck');
             options.oauth.consumer_secret.should.equal('cs');
         });
         it('set user token/secret', function () {
-            var p = new purest({provider:'twitter', key:'k', secret:'s'}),
+            var p = new Purest({provider:'twitter', key:'k', secret:'s'}),
                 options = {oauth:{token:'t', token_secret:'ts'}};
             p.options.oauth.call(p, options);
             options.oauth.token.should.equal('t');
             options.oauth.token_secret.should.equal('ts');
         });
         it('set user token/secret through token_secret shortcut', function () {
-            var p = new purest({provider:'twitter', key:'k', secret:'s'}),
+            var p = new Purest({provider:'twitter', key:'k', secret:'s'}),
                 options = {oauth:{token:'t', secret:'ts'}};
             p.options.oauth.call(p, options);
             options.oauth.token.should.equal('t');
@@ -191,62 +194,62 @@ describe('options', function () {
     
     describe('before upload', function () {
         it('pass on missing upload option', function () {
-            var p = new purest({provider:'twitter'});
+            var p = new Purest({provider:'twitter'});
             var options = {};
             p.options.upload(p, 'endpoint', options);
             should.deepEqual(options, {});
         });
         it('pass on missing upload provider', function () {
-            var p = new purest({provider:'coderbits'});
+            var p = new Purest({provider:'coderbits'});
             var options = {upload:'cat.jpg'};
             p.options.upload(p, 'endpoint', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
         it('pass on missing upload endpoint', function () {
-            var p = new purest({provider:'twitter'});
+            var p = new Purest({provider:'twitter'});
             var options = {upload:'cat.jpg'};
             p.options.upload(p, 'upload_image', options);
             should.deepEqual(options, {upload:'cat.jpg'});
         });
         describe('asana', function () {
             it('regex endpoint', function () {
-                var p = new purest({provider:'asana'});
+                var p = new Purest({provider:'asana'});
                 var options = {upload:'cat.jpg', form:{file:''}};
                 p.options._upload.before(p, 'tasks/id/attachments', options).should.equal(true);
             });
         });
         describe('sendgrid', function () {
             it('key existance', function () {
-                var p = new purest({provider:'sendgrid'});
+                var p = new Purest({provider:'sendgrid'});
                 var options = {upload:'cat.png', form:{files:'...'}};
                 p.options._upload.before(p, 'mail.send', options).should.equal(true);
             });
         });
         describe('mailgun', function () {
             it('regex endpoint', function () {
-                var p = new purest({provider:'mailgun'});
+                var p = new Purest({provider:'mailgun'});
                 var options = {upload:'cat.png', form:{attachment:'...'}};
                 p.options._upload.before(p, 'domain/messages', options).should.equal(true);
             });
             it('key existance', function () {
-                var p = new purest({provider:'mailgun'});
+                var p = new Purest({provider:'mailgun'});
                 var options = {upload:'cat.png', form:{attachment:'...'}};
                 p.options._upload.before(p, 'domain/messages', options).should.equal(true);
             });
         });
         describe('box', function () {
             it('pass on missing upload api key', function () {
-                var p = new purest({provider:'box'});
+                var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', form:{filename:'...'}};
                 should.equal(p.options._upload.before(p, 'files/content', options), undefined);
             });
             it('match on upload api', function () {
-                var p = new purest({provider:'box'});
+                var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
                 p.options._upload.before(p, 'files/content', options).should.equal(true);
             });
             it('match on regex endpoint', function () {
-                var p = new purest({provider:'box'});
+                var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
                 p.options._upload.before(p, 'files/1234/content', options).should.equal(true);
             });
@@ -255,7 +258,7 @@ describe('options', function () {
 
     describe('upload', function () {
         it('set content-type to multipart/form-data', function () {
-            var p = new purest({provider:'twitter'});
+            var p = new Purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
             p.options.upload(p, 'statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
@@ -264,7 +267,7 @@ describe('options', function () {
 
     describe('after upload', function () {
         it('remove form and json options', function () {
-            var p = new purest({provider:'twitter'});
+            var p = new Purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}, form:{'media[]':''}, json:true};
             p.options._upload.after(p, 'statuses/update_with_media', options);
             should.not.exist(options.form);
@@ -276,7 +279,7 @@ describe('options', function () {
     describe('before multipart', function () {
         describe('flickr', function () {
             it('generate OAuth params and add them to form body', function () {
-                var p = new purest({provider:'flickr', key:'k', secret:'s'});
+                var p = new Purest({provider:'flickr', key:'k', secret:'s'});
                 var options = {upload:'cat.jpg', api:'upload', headers:{},
                     oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
                 p.options.multipart.before(p, '', options);
@@ -315,7 +318,7 @@ describe('options', function () {
             });
         });
         it('sendgrid', function () {
-            var p = new purest({provider:'sendgrid'});
+            var p = new Purest({provider:'sendgrid'});
             should.deepEqual(p.options.multipart.file('key','cat.png','data'), {
                 'content-disposition': 'form-data; name="key[cat.png]"; filename="cat.png"',
                 'content-type': 'image/png',
@@ -327,7 +330,7 @@ describe('options', function () {
 
     describe('multipart', function () {
         it('single file to upload', function () {
-            var p = new purest({provider:'twitter'});
+            var p = new Purest({provider:'twitter'});
             var options = {
                 upload:'cat.jpg',
                 form:{'media[]':'...', status:'tweet'
@@ -345,7 +348,7 @@ describe('options', function () {
             }]);
         });
         it('array of files to upload & array of text fields', function () {
-            var p = new purest({provider:'mailgun'});
+            var p = new Purest({provider:'mailgun'});
             var options = {
                 upload:['cat.png','beep.mp3'],
                 form:{
@@ -383,7 +386,7 @@ describe('options', function () {
     describe('after multipart', function () {
         describe('flickr', function () {
             it('remove oauth options key', function () {
-                var p = new purest({provider:'flickr', key:'k', secret:'s'});
+                var p = new Purest({provider:'flickr', key:'k', secret:'s'});
                 var options = {upload:'cat.jpg', headers:{},
                     oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
                 p.options.multipart.after(p, '', options);
@@ -392,7 +395,7 @@ describe('options', function () {
         });
         describe('soundcloud', function () {
             it('remove multipart content-type', function () {
-                var p = new purest({provider:'soundcloud'});
+                var p = new Purest({provider:'soundcloud'});
                 var options = {
                     upload:'beep.mp3',
                     form:{'track[title]':'title', 'track[asset_data]':'...'}

@@ -23,11 +23,11 @@ describe('verbs', function () {
     describe('options', function () {
         it('yahoo yql', function (done) {
             p.yahoo.get('yql', {
+                api:'yql',
                 method:'OPTIONS',
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                },
-                api:'query'
+                }
             }, function (err, res, body) {
                 if (err) return error(err, done);
                 res.headers.allow
@@ -37,8 +37,8 @@ describe('verbs', function () {
         });
         it('yahoo geo', function (done) {
             p.yahoo.get("places.q('Central Park, New York')", {
-                method:'OPTIONS',
-                api:'where'
+                api:'geo',
+                method:'OPTIONS'
             }, function (err, res, body) {
                 if (err) return error(err, done);
                 res.headers.allow.should.equal('GET,HEAD,POST,OPTIONS')
@@ -50,11 +50,11 @@ describe('verbs', function () {
     describe('head', function () {
         it('yahoo social', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
+                api:'social',
                 method:'HEAD',
                 oauth:{
                     token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                },
-                api:'social'
+                }
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);

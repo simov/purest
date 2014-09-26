@@ -1,220 +1,313 @@
 {
     "asana": {
-        "version": "1.0",
         "domain": "https://app.asana.com",
+        "format": "api/version/endpoint",
+        "version": "1.0",
+        "refresh": "https://app.asana.com/-/oauth_token",
         "docs": "http://developer.asana.com/documentation/",
-        "refresh": "https://app.asana.com/-/oauth_token"
+        "multipart": {
+            "tasks/attachments": "file"
+        }
     },
     "bitly": {
-        "version": "v3",
         "domain": "https://api-ssl.bitly.com",
+        "format": "version/endpoint",
+        "version": "v3",
         "docs": "http://dev.bitly.com"
     },
     "box": {
+        "domain": "https://api.box.com",
+        "format": "version/endpoint",
+        "version": "2.0",
+        "refresh": "https://api.box.com/oauth2/token",
+        "docs": "https://developers.box.com/",
         "api": {
             "upload": {
+                "domain": "https://upload.box.com",
                 "version": "2.0",
-                "domain": "https://upload.box.com"
+                "format": "api/version/endpoint"
             }
         },
-        "domain": "https://api.box.com",
-        "version": "2.0",
-        "docs": "https://developers.box.com/",
-        "refresh": "https://api.box.com/oauth2/token"
+        "multipart": {
+            "files/content": "filename"
+        }
     },
     "coderbits": {
         "domain": "https://coderbits.com",
+        "format": "endpoint.type",
         "docs": "https://coderbits.com/api"
     },
     "dropbox": {
+        "domain": "https://api.dropbox.com",
+        "format": "version/endpoint",
+        "version": "1",
+        "docs": "https://www.dropbox.com/developers",
         "api": {
             "files": {
-                "version": "1",
-                "domain": "https://api-content.dropbox.com"
+                "domain": "https://api-content.dropbox.com",
+                "format": "version/endpoint",
+                "version": "1"
             }
-        },
-        "version": "1",
-        "domain": "https://api.dropbox.com",
-        "docs": "https://www.dropbox.com/developers"
+        }
     },
     "facebook": {
         "domain": "https://graph.facebook.com",
-        "docs": "https://developers.facebook.com"
+        "format": "endpoint",
+        "docs": "https://developers.facebook.com",
+        "multipart": {
+            "me/photos": "source"
+        }
     },
     "flickr": {
+        "domain": "https://api.flickr.com",
+        "format": "path/endpoint",
+        "path": "services/rest",
+        "docs": "https://www.flickr.com/services/api/",
         "oauth": true,
         "api": {
             "upload": {
                 "domain": "https://up.flickr.com",
+                "format": "path",
                 "path": "services/upload"
             },
             "replace": {
                 "domain": "https://up.flickr.com",
+                "format": "path",
                 "path": "services/replace"
             }
         },
-        "domain": "https://api.flickr.com",
-        "path": "services/rest",
-        "docs": "https://www.flickr.com/services/api/"
+        "multipart": {
+            "": "photo"
+        }
     },
     "foursquare": {
-        "version": "v2",
         "domain": "https://api.foursquare.com",
-        "docs": "https://developer.foursquare.com/"
+        "format": "version/endpoint",
+        "version": "v2",
+        "docs": "https://developer.foursquare.com/",
+        "multipart": {
+            "users/self/update": "photo"
+        }
     },
     "github": {
         "domain": "https://api.github.com",
+        "format": "endpoint",
         "docs": "http://developer.github.com"
     },
-    "gmaps": {
-        "domain": "https://maps.googleapis.com",
-        "path": "maps/api",
-        "docs": "https://developers.google.com/maps/"
-    },
     "google": {
+        "domain": "https://www.googleapis.com",
+        "format": "",
+        "refresh": "https://accounts.google.com/o/oauth2/token",
+        "docs": "https://developers.google.com/",
         "api": {
+            "gmaps": {
+                "domain": "https://maps.googleapis.com",
+                "format": "path/endpoint",
+                "path": "maps/api",
+                "docs": "https://developers.google.com/maps/"
+            },
             "plus": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "plus",
                 "version": "v1",
                 "docs": "https://developers.google.com/+/api"
             },
             "youtube": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "youtube",
                 "version": "v3",
                 "docs": "https://developers.google.com/youtube/v3"
             },
             "drive": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "drive",
                 "version": "v2",
                 "docs": "https://developers.google.com/drive/v2/reference"
             },
             "freebase": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "freebase",
                 "version": "v1",
                 "docs": "https://developers.google.com/freebase/v1"
             },
             "tasks": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "tasks",
                 "version": "v1",
                 "docs": "https://developers.google.com/google-apps/tasks/"
             },
             "urlshortener": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "urlshortener",
                 "version": "v1",
                 "docs": "https://developers.google.com/url-shortener/"
             },
             "pagespeedonline": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "pagespeedonline",
                 "version": "v1",
                 "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
             },
             "youtube/analytics": {
+                "domain": "https://www.googleapis.com",
+                "format": "path/version/endpoint",
+                "path": "youtube/analytics",
                 "version": "v1",
                 "docs": "https://developers.google.com/youtube/analytics"
             },
             "contacts": {
                 "domain": "https://www.google.com",
+                "format": "path/endpoint",
                 "path": "m8/feeds",
                 "docs": "https://developers.google.com/google-apps/contacts/v3/"
             }
-        },
-        "domain": "https://www.googleapis.com",
-        "docs": "https://developers.google.com/",
-        "refresh": "https://accounts.google.com/o/oauth2/token"
+        }
     },
     "heroku": {
         "domain": "https://api.heroku.com",
-        "docs": "https://devcenter.heroku.com/categories/platform-api",
-        "refresh": "https://id.heroku.com/oauth/token"
+        "format": "endpoint",
+        "refresh": "https://id.heroku.com/oauth/token",
+        "docs": "https://devcenter.heroku.com/categories/platform-api"
     },
     "instagram": {
-        "version": "v1",
         "domain": "https://api.instagram.com",
+        "format": "version/endpoint",
+        "version": "v1",
         "docs": "http://instagram.com/developer"
     },
     "linkedin": {
-        "oauth": true,
-        "version": "v1",
         "domain": "http://api.linkedin.com",
+        "format": "version/endpoint",
+        "version": "v1",
+        "oauth": true,
         "docs": "http://developer.linkedin.com"
     },
     "mailchimp": {
-        "version": "2.0",
         "domain": "https://dc.api.mailchimp.com",
+        "format": "version/endpoint.type",
+        "version": "2.0",
         "docs": "http://apidocs.mailchimp.com/"
     },
     "mailgun": {
         "domain": "https://api.mailgun.net",
+        "format": "version/endpoint",
         "version": "v2",
-        "docs": "http://documentation.mailgun.com/"
+        "docs": "http://documentation.mailgun.com/",
+        "multipart": {
+            "messages": "attachment"
+        }
     },
     "mandrill": {
         "domain": "https://mandrillapp.com",
+        "format": "api/version/endpoint.type",
         "version": "1.0",
         "docs": "https://mandrillapp.com/api/docs/"
     },
     "openstreetmap": {
-        "oauth": true,
-        "version": "0.6",
         "domain": "http://api.openstreetmap.org",
+        "format": "api/version/endpoint",
+        "version": "0.6",
+        "oauth": true,
         "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
     },
     "rubygems": {
-        "version": "v1",
         "domain": "https://rubygems.org",
+        "format": "api/version/endpoint.type",
+        "version": "v1",
         "docs": "http://guides.rubygems.org/rubygems-org-api"
     },
     "sendgrid": {
         "domain": "https://api.sendgrid.com",
-        "docs": "http://sendgrid.com/docs/"
+        "format": "api/endpoint.type",
+        "docs": "http://sendgrid.com/docs/",
+        "multipart": {
+            "mail.send": "files"
+        }
     },
     "slack": {
         "domain": "https://slack.com",
-        "docs": "https://api.slack.com/"
+        "format": "api/endpoint",
+        "docs": "https://api.slack.com/",
+        "multipart": {
+            "files.upload": "file"
+        }
     },
     "soundcloud": {
         "domain": "https://api.soundcloud.com",
-        "docs": "http://developers.soundcloud.com"
+        "format": "endpoint.type",
+        "docs": "http://developers.soundcloud.com",
+        "multipart": {
+            "tracks": "track[asset_data]"
+        }
     },
     "stackexchange": {
-        "version": "2.2",
         "domain": "https://api.stackexchange.com",
+        "format": "version/endpoint",
+        "version": "2.2",
         "docs": "https://api.stackexchange.com"
     },
     "stocktwits": {
-        "version": "2",
         "domain": "https://api.stocktwits.com",
-        "docs": "http://stocktwits.com/developers"
+        "format": "api/version/endpoint.type",
+        "version": "2",
+        "docs": "http://stocktwits.com/developers",
+        "multipart": {
+            "messages/create": "chart"
+        }
     },
     "trello": {
-        "oauth": true,
-        "version": "1",
         "domain": "https://api.trello.com",
+        "format": "version/endpoint",
+        "version": "1",
+        "oauth": true,
         "docs": "https://trello.com/docs/"
     },
     "twitter": {
-        "oauth": true,
-        "version": "1.1",
         "domain": "https://api.twitter.com",
-        "docs": "https://dev.twitter.com"
+        "format": "version/endpoint.type",
+        "version": "1.1",
+        "oauth": true,
+        "docs": "https://dev.twitter.com",
+        "multipart": {
+            "statuses/update_with_media": "media[]"
+        }
     },
     "wikimapia": {
         "domain": "http://api.wikimapia.org",
+        "format": "endpoint",
         "docs": "http://wikimapia.org/api"
     },
     "yahoo": {
         "oauth": true,
+        "format": "",
+        "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
+        "docs": "https://developer.yahoo.com/",
         "api": {
             "social": {
-                "version": "v1",
                 "domain": "https://social.yahooapis.com",
+                "format": "version/endpoint",
+                "version": "v1",
                 "docs": "https://developer.yahoo.com/social"
             },
             "yql": {
-                "version": "v1",
                 "domain": "https://query.yahooapis.com",
+                "format": "version/endpoint",
+                "version": "v1",
                 "docs": "https://developer.yahoo.com/yql"
             },
             "geo": {
-                "version": "v1",
                 "domain": "http://where.yahooapis.com",
+                "format": "version/endpoint",
+                "version": "v1",
                 "docs": "https://developer.yahoo.com/geo/geoplanet"
             }
-        },
-        "docs": "https://developer.yahoo.com/",
-        "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
+        }
     }
 }
