@@ -25,16 +25,15 @@ describe('post', function () {
         }
     });
 
-    it('twitter', function (done) {
-        p.twitter.post('statuses/update', {
-            oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            form:{status:'Sent on '+new Date()}
+    it('facebook', function (done) {
+        p.facebook.post('me/feed', {
+            qs:{access_token:cred.user.facebook.token},
+            form:{message:'Sent on '+new Date()}
         },
         function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            body.id.should.be.type('number');
-            body.id_str.should.be.type('string');
+            body.id.should.match(/\d+_\d+/);
             done();
         });
     });
@@ -54,40 +53,13 @@ describe('post', function () {
             done();
         });
     });
-    it('facebook', function (done) {
-        p.facebook.post('me/feed', {
-            qs:{access_token:cred.user.facebook.token},
-            form:{message:'Sent on '+new Date()}
-        },
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.id.should.match(/\d+_\d+/);
-            done();
-        });
-    });
-    it('stocktwits', function (done) {
-        p.stocktwits.post('messages/create', {
-            qs:{access_token:cred.user.stocktwits.token},
-            form:{body:'Sent on '+new Date()}
-        },
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.response.status.should.equal(200);
-            should.deepEqual(Object.keys(body.message),
-                ['id','body','created_at','user','source'])
-            done();
-        });
-    });
-    it('sendgrid', function (done) {
-        p.sendgrid.post('mail.send', {
+    it('mailgun', function (done) {
+        p.mailgun.post(cred.user.mailgun.domain+'/messages', {
+            auth:{user:'api',pass:cred.user.mailgun.apikey},
             form:{
-                api_user:cred.user.sendgrid.user,
-                api_key:cred.user.sendgrid.pass,
                 from:'purest@mailinator.com',
-                to:['purest@mailinator.com','purest2@mailinator.com'],
-                subject:'Purest is awesome! (sendgrid)',
+                to:'purest@mailinator.com,purest2@mailinator.com',
+                subject:'Purest is awesome! (mailgun)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!'
             }
@@ -95,7 +67,8 @@ describe('post', function () {
         function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            body.message.should.equal('success');
+            body.message.should.be.type('string');
+            body.id.should.be.type('string');
             done();
         });
     });
@@ -151,13 +124,14 @@ describe('post', function () {
             });
         });
     });
-    it('mailgun', function (done) {
-        p.mailgun.post(cred.user.mailgun.domain+'/messages', {
-            auth:{user:'api',pass:cred.user.mailgun.apikey},
+    it('sendgrid', function (done) {
+        p.sendgrid.post('mail.send', {
             form:{
+                api_user:cred.user.sendgrid.user,
+                api_key:cred.user.sendgrid.pass,
                 from:'purest@mailinator.com',
-                to:'purest@mailinator.com,purest2@mailinator.com',
-                subject:'Purest is awesome! (mailgun)',
+                to:['purest@mailinator.com','purest2@mailinator.com'],
+                subject:'Purest is awesome! (sendgrid)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!'
             }
@@ -165,8 +139,34 @@ describe('post', function () {
         function (err, res, body) {
             debugger;
             if (err) return error(err, done);
-            body.message.should.be.type('string');
-            body.id.should.be.type('string');
+            body.message.should.equal('success');
+            done();
+        });
+    });
+    it('stocktwits', function (done) {
+        p.stocktwits.post('messages/create', {
+            qs:{access_token:cred.user.stocktwits.token},
+            form:{body:'Sent on '+new Date()}
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.response.status.should.equal(200);
+            should.deepEqual(Object.keys(body.message),
+                ['id','body','created_at','user','source'])
+            done();
+        });
+    });
+    it('twitter', function (done) {
+        p.twitter.post('statuses/update', {
+            oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+            form:{status:'Sent on '+new Date()}
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.id.should.be.type('number');
+            body.id_str.should.be.type('string');
             done();
         });
     });
