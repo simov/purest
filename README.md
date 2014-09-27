@@ -62,7 +62,7 @@ new purest({
 ```
 
 
-### get | post | put
+### get | post | put | del
 ```js
 var twitter = new purest({provider:'twitter', key'..', secret:'..'});
 
