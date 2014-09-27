@@ -84,10 +84,6 @@ describe('instance', function () {
         });
     });
 
-    it('multipart config', function () {
-        var p = new Purest({provider:'box'});
-        should.deepEqual(p.multipart, {'files/content':'filename'});
-    });
     it('provider name, flag', function () {
         var p = new Purest({provider:'facebook'});
         p.facebook.should.equal(true);
@@ -97,7 +93,7 @@ describe('instance', function () {
     it('override', function () {
         var p = new Purest({provider:'stackexchange'});
         var options = {};
-        p.options.get.call(p,'endpoint',options);
+        p.before.get('endpoint',options);
         should.deepEqual(options, {encoding:null})
     });
     it('refresh', function () {
@@ -113,11 +109,11 @@ describe('instance', function () {
         stackexchange.name.should.equal('stackexchange');
 
         var options = {api:'contacts', headers:{}};
-        google.options.get('endpoint', options);
+        google.before.get('endpoint', options);
         should.deepEqual(options.headers, {'GData-Version':'3.0'});
 
         var options = {};
-        stackexchange.options.get('endpoint', options);
+        stackexchange.before.get('endpoint', options);
         should.deepEqual(options, {encoding:null});
     });
     it('expose the default request method', function () {
