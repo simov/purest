@@ -16,7 +16,7 @@ var cmd = require('commander')
 if (!cmd.provider) {
     return console.log('Pass in a REST API provider!');
 }
-if (!cred.app[cmd.provider]) {
+if (!cred.user[cmd.provider]) {
     return console.log('Non existing provider!');
 }
 if (!cmd.example) {
@@ -27,8 +27,8 @@ var provider = cmd.provider;
 
 var p = new purest({
     provider:provider,
-    key:cred.app[provider].key,
-    secret:cred.app[provider].secret
+    key:cred.app[provider] ? cred.app[provider].key : null,
+    secret:cred.app[provider] ? cred.app[provider].secret : null
 });
 
 var example = require('./provider/'+provider)(p);

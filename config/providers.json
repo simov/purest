@@ -217,6 +217,12 @@
         "oauth": true,
         "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
     },
+    "pipelinedeals": {
+        "domain": "https://api.pipelinedeals.com",
+        "format": "api/version/endpoint.type",
+        "version": "v3",
+        "docs": "https://www.pipelinedeals.com/api/docs/introduction"
+    },
     "rubygems": {
         "domain": "https://rubygems.org",
         "format": "api/version/endpoint.type",
