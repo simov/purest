@@ -85,14 +85,29 @@ describe('get', function () {
                 done();
             });
         });
-        it('get', function (done) {
+        it('content API', function (done) {
             p.box.get('users/me', {
-                auth: {bearer:access.token}
+                auth:{bearer:access.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
                 body.type.should.equal('user');
                 body.id.should.be.type('string');
+                done();
+            });
+        });
+    });
+    describe('box', function () {
+        it('view API', function (done) {
+            p.box.get('documents', {
+                headers: {
+                    'Authorization':'Token '+cred.user.box.viewapikey
+                },
+                api:'view'
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.document_collection.should.be.an.instanceOf(Object);
                 done();
             });
         });

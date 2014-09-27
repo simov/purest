@@ -150,12 +150,12 @@ describe('override', function () {
             });
         });
         describe('box', function () {
-            it('pass on missing upload api key', function () {
+            it('skip on missing upload API key', function () {
                 var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', form:{filename:'...'}};
                 p.before.upload('files/content', options).should.equal(false);
             });
-            it('match on upload api', function () {
+            it('match on upload API', function () {
                 var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
                 p.before.upload('files/content', options).should.equal(true);
@@ -164,6 +164,11 @@ describe('override', function () {
                 var p = new Purest({provider:'box'});
                 var options = {upload:'cat.png', api:'upload', form:{filename:'...'}};
                 p.before.upload('files/1234/content', options).should.equal(true);
+            });
+            it('match on view-upload API', function () {
+                var p = new Purest({provider:'box'});
+                var options = {upload:'cat.png', api:'view-upload', form:{file:'...'}};
+                p.before.upload('documents', options).should.equal(true);
             });
         });
         describe('mailgun', function () {

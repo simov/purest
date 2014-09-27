@@ -5,7 +5,8 @@ var fs = require('fs'),
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
 var image = path.resolve(__dirname, '../fixtures/cat.png'),
-    audio = path.resolve(__dirname, '../fixtures/beep.mp3');
+    audio = path.resolve(__dirname, '../fixtures/beep.mp3'),
+    pdf = path.resolve(__dirname, '../fixtures/coffee.pdf');
 
 
 describe('upload', function () {
@@ -68,7 +69,7 @@ describe('upload', function () {
                 done();
             });
         });
-        it('upload', function (done) {
+        it('content API', function (done) {
             p.box.post('files/content', {
                 auth:{bearer:access.token},
                 api:'upload',
@@ -89,6 +90,24 @@ describe('upload', function () {
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
+                done();
+            });
+        });
+    });
+    describe('box', function () {
+        it('view API', function (done) {
+            p.box.post('documents', {
+                headers: {
+                    'Authorization':'Token '+cred.user.box.viewapikey
+                },
+                api:'view-upload',
+                upload:'coffee.pdf',
+                form:{name:'coffee.pdf', file:fs.readFileSync(pdf)}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.type.should.equal('document');
+                body.status.should.equal('queued');
                 done();
             });
         });

@@ -26,10 +26,21 @@
                 "domain": "https://upload.box.com",
                 "version": "2.0",
                 "format": "api/version/endpoint"
+            },
+            "view": {
+                "domain": "https://view-api.box.com",
+                "version": "1",
+                "format": "version/endpoint"
+            },
+            "view-upload": {
+                "domain": "https://upload.view-api.box.com",
+                "version": "1",
+                "format": "version/endpoint"
             }
         },
         "multipart": {
-            "files/content": "filename"
+            "files/content": "filename",
+            "documents": "file"
         }
     },
     "coderbits": {
