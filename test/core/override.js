@@ -5,6 +5,20 @@ var Purest = require('../../lib/provider');
 
 describe('override', function () {
     describe('before get', function () {
+        describe('box', function () {
+            it('skip on non file download endpoint', function () {
+                var p = new Purest({provider:'box'});
+                var options = {};
+                p.before.get('files/content', options);
+                should.deepEqual(options, {});
+            });
+            it('set encoding null on file download endpoint', function () {
+                var p = new Purest({provider:'box'});
+                var options = {};
+                p.before.get('files/123/content', options);
+                should.deepEqual(options, {encoding:null});
+            });
+        });
         describe('dropbox', function () {
             it('set request encoding to binary on files api', function () {
                 var p = new Purest({provider:'dropbox'});

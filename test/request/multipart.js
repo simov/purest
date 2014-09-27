@@ -55,7 +55,7 @@ describe('upload', function () {
             });
         });
     });
-    describe('box', function () {
+    describe('box content', function () {
         var access = {}, file = {};
         before(function (done) {
             p.box.refresh(
@@ -69,7 +69,7 @@ describe('upload', function () {
                 done();
             });
         });
-        it('content API', function (done) {
+        it('upload', function (done) {
             p.box.post('files/content', {
                 auth:{bearer:access.token},
                 api:'upload',
@@ -84,18 +84,31 @@ describe('upload', function () {
                 done();
             });
         });
+        it('download', function (done) {
+            p.box.get('/files/'+file.id+'/content', {
+                auth:{bearer:access.token}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                fs.writeFileSync('cat.png', body, 'binary');
+                var stat = fs.statSync('cat.png');
+                stat.size.should.equal(22025);
+                done();
+            });
+        });
         after(function (done) {
             p.box.del('files/'+file.id, {
                 auth:{bearer:access.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
+                fs.unlinkSync('cat.png');
                 done();
             });
         });
     });
-    describe('box', function () {
-        it('view API', function (done) {
+    describe('box view', function () {
+        it('upload', function (done) {
             p.box.post('documents', {
                 headers: {
                     'Authorization':'Token '+cred.user.box.viewapikey
