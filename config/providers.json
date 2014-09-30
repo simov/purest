@@ -1,329 +1,647 @@
 {
     "asana": {
-        "domain": "https://app.asana.com",
-        "format": "api/version/endpoint",
-        "version": "1.0",
-        "refresh": "https://app.asana.com/-/oauth_token",
-        "docs": "http://developer.asana.com/documentation/",
-        "multipart": {
-            "tasks/attachments": "file"
+        "__provider": {
+            "refresh": "https://app.asana.com/-/oauth_token",
+            "docs": "http://developer.asana.com/documentation/"
+        },
+        "https://app.asana.com": {
+            "api/[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1.0"
+                },
+                "tasks\\/.*\\/attachments": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "post": {
+                        "multipart": "file"
+                    }
+                }
+            }
         }
     },
     "bitly": {
-        "domain": "https://api-ssl.bitly.com",
-        "format": "version/endpoint",
-        "version": "v3",
-        "docs": "http://dev.bitly.com"
+        "__provider": {
+            "docs": "http://dev.bitly.com"
+        },
+        "https://api-ssl.bitly.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v3"
+                }
+            }
+        }
     },
     "box": {
-        "domain": "https://api.box.com",
-        "format": "version/endpoint",
-        "version": "2.0",
-        "refresh": "https://api.box.com/oauth2/token",
-        "docs": "https://developers.box.com/",
-        "api": {
-            "upload": {
-                "domain": "https://upload.box.com",
-                "version": "2.0",
-                "format": "api/version/endpoint"
-            },
-            "view": {
-                "domain": "https://view-api.box.com",
-                "version": "1",
-                "format": "version/endpoint"
-            },
-            "view-upload": {
-                "domain": "https://upload.view-api.box.com",
-                "version": "1",
-                "format": "version/endpoint"
+        "__provider": {
+            "refresh": "https://api.box.com/oauth2/token",
+            "docs": "https://developers.box.com/"
+        },
+        "https://api.box.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "2.0"
+                },
+                "files\\/\\d+\\/content": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "get": {
+                        "encoding": null
+                    }
+                }
             }
         },
-        "multipart": {
-            "files/content": "filename",
-            "documents": "file"
+        "https://upload.box.com": {
+            "api/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["upload"],
+                    "version": "2.0"
+                },
+                "files\\/(?:.*\\/)?content": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "post": {
+                        "multipart": "filename"
+                    }
+                }
+            }
+        },
+        "https://view-api.box.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["view", "view-api"],
+                    "version": "1"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "Authorization": "Token [key]"
+                        }
+                    }
+                },
+                "documents\\/.+\\/content\\.(?:pdf|zip)": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "get": {
+                        "encoding": null
+                    }
+                }
+            }
+        },
+        "https://upload.view-api.box.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["view-upload"],
+                    "version": "1"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "Authorization": "Token [key]"
+                        }
+                    }
+                },
+                "documents": {
+                    "post": {
+                        "multipart": "file"
+                    }
+                }
+            }
+        },
+        "https://cloud.box.com": {
+            "shared/static/{endpoint}": {
+                "__path": {
+                    "alias": ["cloud", "download"]
+                },
+                "*": {
+                    "all": {
+                        "encoding": null
+                    }
+                }
+            }
         }
     },
     "coderbits": {
-        "domain": "https://coderbits.com",
-        "format": "endpoint.type",
-        "docs": "https://coderbits.com/api"
+        "__provider": {
+            "docs": "https://coderbits.com/api"
+        },
+        "https://coderbits.com": {
+            "{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default"
+                }
+            }
+        }
     },
     "dropbox": {
-        "domain": "https://api.dropbox.com",
-        "format": "version/endpoint",
-        "version": "1",
-        "docs": "https://www.dropbox.com/developers",
-        "api": {
-            "files": {
-                "domain": "https://api-content.dropbox.com",
-                "format": "version/endpoint",
-                "version": "1"
+        "__provider": {
+            "docs": "https://www.dropbox.com/developers"
+        },
+        "https://api.dropbox.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1"
+                }
+            }
+        },
+        "https://api-content.dropbox.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["files", "api-content"],
+                    "version": "1"
+                },
+                "*": {
+                    "get": {
+                        "encoding": null
+                    }
+                }
             }
         }
     },
     "facebook": {
-        "domain": "https://graph.facebook.com",
-        "format": "endpoint",
-        "docs": "https://developers.facebook.com",
-        "multipart": {
-            "me/photos": "source"
+        "__provider": {
+            "docs": "https://developers.facebook.com"
+        },
+        "https://graph.facebook.com": {
+            "{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "me/photos": {
+                    "post": {
+                        "multipart": "source"
+                    }
+                }
+            }
         }
     },
     "flickr": {
-        "domain": "https://api.flickr.com",
-        "format": "path/endpoint",
-        "path": "services/rest",
-        "docs": "https://www.flickr.com/services/api/",
-        "oauth": true,
-        "api": {
-            "upload": {
-                "domain": "https://up.flickr.com",
-                "format": "path",
-                "path": "services/upload"
-            },
-            "replace": {
-                "domain": "https://up.flickr.com",
-                "format": "path",
-                "path": "services/replace"
+        "__provider": {
+            "oauth": true,
+            "docs": "https://www.flickr.com/services/api/"
+        },
+        "https://api.flickr.com": {
+            "services/rest/{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                }
             }
         },
-        "multipart": {
-            "": "photo"
+        "https://up.flickr.com": {
+            "services/upload/{endpoint}": {
+                "__path": {
+                    "alias": ["upload"]
+                },
+                "*": {
+                    "post": {
+                        "multipart": "photo"
+                    }
+                }
+            },
+            "services/replace/{endpoint}": {
+                "__path": {
+                    "alias": ["replace"]
+                },
+                "*": {
+                    "post": {
+                        "multipart": "photo"
+                    }
+                }
+            }
         }
     },
     "foursquare": {
-        "domain": "https://api.foursquare.com",
-        "format": "version/endpoint",
-        "version": "v2",
-        "docs": "https://developer.foursquare.com/",
-        "multipart": {
-            "users/self/update": "photo"
+        "__provider": {
+            "docs": "https://developer.foursquare.com/"
+        },
+        "https://api.foursquare.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v2"
+                },
+                "users/self/update": {
+                    "post": {
+                        "multipart": "photo"
+                    }
+                }
+            }
         }
     },
     "github": {
-        "domain": "https://api.github.com",
-        "format": "endpoint",
-        "docs": "http://developer.github.com"
+        "__provider": {
+            "docs": "http://developer.github.com"
+        },
+        "https://api.github.com": {
+            "{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                }
+            }
+        }
     },
     "google": {
-        "domain": "https://www.googleapis.com",
-        "format": "",
-        "refresh": "https://accounts.google.com/o/oauth2/token",
-        "docs": "https://developers.google.com/",
-        "api": {
-            "gmaps": {
-                "domain": "https://maps.googleapis.com",
-                "format": "path/endpoint",
-                "path": "maps/api",
-                "docs": "https://developers.google.com/maps/"
+        "__provider": {
+            "refresh": "https://accounts.google.com/o/oauth2/token",
+            "docs": "https://developers.google.com/"
+        },
+        "https://www.googleapis.com": {
+            "plus/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["plus"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/+/api"
+                }
             },
-            "plus": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "plus",
-                "version": "v1",
-                "docs": "https://developers.google.com/+/api"
+            "youtube/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["youtube"],
+                    "version": "v3",
+                    "docs": "https://developers.google.com/youtube/v3"
+                }
             },
-            "youtube": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "youtube",
-                "version": "v3",
-                "docs": "https://developers.google.com/youtube/v3"
+            "drive/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["drive"],
+                    "version": "v2",
+                    "docs": "https://developers.google.com/drive/v2/reference"
+                }
             },
-            "drive": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "drive",
-                "version": "v2",
-                "docs": "https://developers.google.com/drive/v2/reference"
+            "freebase/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["freebase"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/freebase/v1"
+                }
             },
-            "freebase": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "freebase",
-                "version": "v1",
-                "docs": "https://developers.google.com/freebase/v1"
+            "tasks/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["tasks"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/google-apps/tasks/"
+                }
             },
-            "tasks": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "tasks",
-                "version": "v1",
-                "docs": "https://developers.google.com/google-apps/tasks/"
+            "urlshortener/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["urlshortener"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/url-shortener/"
+                }
             },
-            "urlshortener": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "urlshortener",
-                "version": "v1",
-                "docs": "https://developers.google.com/url-shortener/"
+            "pagespeedonline/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["pagespeedonline", "pagespeed"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
+                }
             },
-            "pagespeedonline": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "pagespeedonline",
-                "version": "v1",
-                "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
-            },
-            "youtube/analytics": {
-                "domain": "https://www.googleapis.com",
-                "format": "path/version/endpoint",
-                "path": "youtube/analytics",
-                "version": "v1",
-                "docs": "https://developers.google.com/youtube/analytics"
-            },
-            "contacts": {
-                "domain": "https://www.google.com",
-                "format": "path/endpoint",
-                "path": "m8/feeds",
-                "docs": "https://developers.google.com/google-apps/contacts/v3/"
+            "youtube/analytics/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["youtube/analytics"],
+                    "version": "v1",
+                    "docs": "https://developers.google.com/youtube/analytics"
+                }
+            }
+        },
+        "https://maps.googleapis.com": {
+            "maps/api/{endpoint}": {
+                "__path": {
+                    "alias": ["gmaps"],
+                    "docs": "https://developers.google.com/maps/"
+                },
+                "streetview": {
+                    "get": {
+                        "encoding": null
+                    }
+                },
+                "staticmap": {
+                    "get": {
+                        "encoding": null
+                    }
+                }
+            }
+        },
+        "https://www.google.com": {
+            "m8/feeds/{endpoint}": {
+                "__path": {
+                    "alias": ["contacts"],
+                    "docs": "https://developers.google.com/google-apps/contacts/v3/"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "GData-Version": "3.0"
+                        },
+                        "qs": {"alt": "json"}
+                    }
+                }
             }
         }
     },
     "heroku": {
-        "domain": "https://api.heroku.com",
-        "format": "endpoint",
-        "refresh": "https://id.heroku.com/oauth/token",
-        "docs": "https://devcenter.heroku.com/categories/platform-api"
+        "__provider": {
+            "refresh": "https://id.heroku.com/oauth/token",
+            "docs": "https://devcenter.heroku.com/categories/platform-api"
+        },
+        "https://api.heroku.com": {
+            "{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                }
+            }
+        }
     },
     "instagram": {
-        "domain": "https://api.instagram.com",
-        "format": "version/endpoint",
-        "version": "v1",
-        "docs": "http://instagram.com/developer"
+        "__provider": {
+            "docs": "http://instagram.com/developer"
+        },
+        "https://api.instagram.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                }
+            }
+        }
     },
     "linkedin": {
-        "domain": "http://api.linkedin.com",
-        "format": "version/endpoint",
-        "version": "v1",
-        "oauth": true,
-        "docs": "http://developer.linkedin.com"
+        "__provider": {
+            "oauth": true,
+            "docs": "http://developer.linkedin.com"
+        },
+        "http://api.linkedin.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "x-li-format": "json"
+                        }
+                    }
+                }
+            }
+        }
     },
     "mailchimp": {
-        "domain": "https://dc.api.mailchimp.com",
-        "format": "version/endpoint.type",
-        "version": "2.0",
-        "docs": "http://apidocs.mailchimp.com/"
+        "__provider": {
+            "docs": "http://apidocs.mailchimp.com/"
+        },
+        "https://[dc].api.mailchimp.com": {
+            "[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "2.0"
+                }
+            }
+        }
     },
     "mailgun": {
-        "domain": "https://api.mailgun.net",
-        "format": "version/endpoint",
-        "version": "v2",
-        "docs": "http://documentation.mailgun.com/",
-        "multipart": {
-            "messages": "attachment"
+        "__provider": {
+            "docs": "http://documentation.mailgun.com/"
+        },
+        "https://api.mailgun.net": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v2"
+                },
+                ".*\\/messages": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "post": {
+                        "multipart": "attachment"
+                    }
+                }
+            }
         }
     },
     "mandrill": {
-        "domain": "https://mandrillapp.com",
-        "format": "api/version/endpoint.type",
-        "version": "1.0",
-        "docs": "https://mandrillapp.com/api/docs/"
+        "__provider": {
+            "docs": "https://mandrillapp.com/api/docs/"
+        },
+        "https://mandrillapp.com": {
+            "api/[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1.0"
+                }
+            }
+        }
     },
     "openstreetmap": {
-        "domain": "http://api.openstreetmap.org",
-        "format": "api/version/endpoint",
-        "version": "0.6",
-        "oauth": true,
-        "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+        "__provider": {
+            "oauth": true,
+            "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+        },
+        "http://api.openstreetmap.org": {
+            "api/[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "0.6"
+                }
+            }
+        }
     },
     "pipelinedeals": {
-        "domain": "https://api.pipelinedeals.com",
-        "format": "api/version/endpoint.type",
-        "version": "v3",
-        "docs": "https://www.pipelinedeals.com/api/docs/introduction"
+        "__provider": {
+            "docs": "https://www.pipelinedeals.com/api/docs/introduction"
+        },
+        "https://api.pipelinedeals.com": {
+            "api/[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v3"
+                }
+            }
+        }
     },
     "rubygems": {
-        "domain": "https://rubygems.org",
-        "format": "api/version/endpoint.type",
-        "version": "v1",
-        "docs": "http://guides.rubygems.org/rubygems-org-api"
+        "__provider": {
+            "docs": "http://guides.rubygems.org/rubygems-org-api"
+        },
+        "https://rubygems.org": {
+            "api/[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                }
+            }
+        }
     },
     "sendgrid": {
-        "domain": "https://api.sendgrid.com",
-        "format": "api/endpoint.type",
-        "docs": "http://sendgrid.com/docs/",
-        "multipart": {
-            "mail.send": "files"
+        "__provider": {
+            "docs": "http://sendgrid.com/docs/"
+        },
+        "https://api.sendgrid.com": {
+            "api/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "mail.send": {
+                    "post": {
+                        "multipart": "files"
+                    }
+                }
+            }
         }
     },
     "slack": {
-        "domain": "https://slack.com",
-        "format": "api/endpoint",
-        "docs": "https://api.slack.com/",
-        "multipart": {
-            "files.upload": "file"
+        "__provider": {
+            "docs": "https://api.slack.com/"
+        },
+        "https://slack.com": {
+            "api/{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "files.upload": {
+                    "post": {
+                        "multipart": "file"
+                    }
+                }
+            }
         }
     },
     "soundcloud": {
-        "domain": "https://api.soundcloud.com",
-        "format": "endpoint.type",
-        "docs": "http://developers.soundcloud.com",
-        "multipart": {
-            "tracks": "track[asset_data]"
+        "__provider": {
+            "docs": "http://developers.soundcloud.com"
+        },
+        "https://api.soundcloud.com": {
+            "{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "tracks": {
+                    "post": {
+                        "multipart": "track[asset_data]"
+                    }
+                }
+            }
         }
     },
     "stackexchange": {
-        "domain": "https://api.stackexchange.com",
-        "format": "version/endpoint",
-        "version": "2.2",
-        "docs": "https://api.stackexchange.com"
+        "__provider": {
+            "docs": "https://api.stackexchange.com"
+        },
+        "https://api.stackexchange.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "2.2"
+                },
+                "*": {
+                    "all": {
+                        "encoding": null
+                    }
+                }
+            }
+        }
     },
     "stocktwits": {
-        "domain": "https://api.stocktwits.com",
-        "format": "api/version/endpoint.type",
-        "version": "2",
-        "docs": "http://stocktwits.com/developers",
-        "multipart": {
-            "messages/create": "chart"
+        "__provider": {
+            "docs": "http://stocktwits.com/developers"
+        },
+        "https://api.stocktwits.com": {
+            "api/[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "2"
+                },
+                "messages/create": {
+                    "post": {
+                        "multipart": "chart"
+                    }
+                }
+            }
         }
     },
     "trello": {
-        "domain": "https://api.trello.com",
-        "format": "version/endpoint",
-        "version": "1",
-        "oauth": true,
-        "docs": "https://trello.com/docs/"
+        "__provider": {
+            "oauth": true,
+            "docs": "https://trello.com/docs/"
+        },
+        "https://api.trello.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1"
+                }
+            }
+        }
     },
     "twitter": {
-        "domain": "https://api.twitter.com",
-        "format": "version/endpoint.type",
-        "version": "1.1",
-        "oauth": true,
-        "docs": "https://dev.twitter.com",
-        "multipart": {
-            "statuses/update_with_media": "media[]"
+        "__provider": {
+            "oauth": true,
+            "docs": "https://dev.twitter.com"
+        },
+        "https://api.twitter.com": {
+            "[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1.1"
+                },
+                "statuses/update_with_media": {
+                    "post": {
+                        "multipart": "media[]"
+                    }
+                }
+            }
         }
     },
     "wikimapia": {
-        "domain": "http://api.wikimapia.org",
-        "format": "endpoint",
-        "docs": "http://wikimapia.org/api"
+        "__provider": {
+            "docs": "http://wikimapia.org/api"
+        },
+        "http://api.wikimapia.org": {
+            "{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                }
+            }
+        }
     },
     "yahoo": {
-        "oauth": true,
-        "format": "",
-        "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
-        "docs": "https://developer.yahoo.com/",
-        "api": {
-            "social": {
-                "domain": "https://social.yahooapis.com",
-                "format": "version/endpoint",
-                "version": "v1",
-                "docs": "https://developer.yahoo.com/social"
-            },
-            "yql": {
-                "domain": "https://query.yahooapis.com",
-                "format": "version/endpoint",
-                "version": "v1",
-                "docs": "https://developer.yahoo.com/yql"
-            },
-            "geo": {
-                "domain": "http://where.yahooapis.com",
-                "format": "version/endpoint",
-                "version": "v1",
-                "docs": "https://developer.yahoo.com/geo/geoplanet"
+        "__provider": {
+            "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
+            "oauth": true,
+            "docs": "https://developer.yahoo.com/"
+        },
+        "https://social.yahooapis.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["social"],
+                    "version": "v1",
+                    "docs": "https://developer.yahoo.com/social"
+                }
+            }
+        },
+        "https://query.yahooapis.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["query", "yql"],
+                    "version": "v1",
+                    "docs": "https://developer.yahoo.com/yql"
+                }
+            }
+        },
+        "http://where.yahooapis.com": {
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["where", "geo"],
+                    "version": "v1",
+                    "docs": "https://developer.yahoo.com/geo/geoplanet"
+                }
             }
         }
     }

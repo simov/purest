@@ -1,7 +1,8 @@
 
 var should = require('should');
 var Purest = require('../../lib/provider'),
-    Multipart = require('../../lib/multipart');
+    Multipart = require('../../lib/multipart'),
+    config = require('../../lib/config');
 
 
 describe('multipart', function () {
@@ -23,7 +24,7 @@ describe('multipart', function () {
             body: 'data'
         });
     });
-    it('multipart endpoints', function () {
+    it.skip('multipart endpoints', function () {
         var p = new Purest({provider:'twitter'});
         should.deepEqual(p.multipart.endpoints, {'statuses/update_with_media': 'media[]'});
     });
@@ -33,6 +34,8 @@ describe('multipart', function () {
             upload:'cat.jpg',
             form:{'media[]':'...', status:'tweet'
         }};
+        options = config.options('statuses/update_with_media', options, 'post',
+            p.apis.__default.endpoints);
         var multipart = p.multipart.create('statuses/update_with_media', options);
         should.deepEqual(multipart, [{
             'content-disposition': 'form-data; name="media[]"; filename="cat.jpg"',
@@ -46,7 +49,7 @@ describe('multipart', function () {
         }]);
     });
     it('array of files to upload & array of text fields', function () {
-        var p = new Purest({provider:'mailgun'});
+        var p = new Purest({provider:'sendgrid'});
         var options = {
             upload:['cat.png','beep.mp3'],
             form:{
@@ -55,28 +58,30 @@ describe('multipart', function () {
                 files:['content1','content2']
             }
         };
-        var multipart = p.multipart.create('messages', options);
+        options = config.options('mail.send', options, 'post',
+            p.apis.__default.endpoints);
+        var multipart = p.multipart.create('mail.send', options);
         should.deepEqual(multipart, [{
-            'content-disposition': 'form-data; name="from"',
-            'content-type': 'text/plain',
-            'content-transfer-encoding': 'utf8',
-            body: 'purest@email.com' },
-            { 'content-disposition': 'form-data; name="to"',
-            'content-type': 'text/plain',
-            'content-transfer-encoding': 'utf8',
-            body: 'a@email.com' },
-            { 'content-disposition': 'form-data; name="to"',
-            'content-type': 'text/plain',
-            'content-transfer-encoding': 'utf8',
-            body: 'b@email.com' },
-            { 'content-disposition': 'form-data; name="files"',
-            'content-type': 'text/plain',
-            'content-transfer-encoding': 'utf8',
-            body: 'content1' },
-            { 'content-disposition': 'form-data; name="files"',
-            'content-type': 'text/plain',
-            'content-transfer-encoding': 'utf8',
-            body: 'content2'
+        'content-disposition': 'form-data; name="from"',
+        'content-type': 'text/plain',
+        'content-transfer-encoding': 'utf8',
+        body: 'purest@email.com' },
+        { 'content-disposition': 'form-data; name="to"',
+        'content-type': 'text/plain',
+        'content-transfer-encoding': 'utf8',
+        body: 'a@email.com' },
+        { 'content-disposition': 'form-data; name="to"',
+        'content-type': 'text/plain',
+        'content-transfer-encoding': 'utf8',
+        body: 'b@email.com' },
+        { 'content-disposition': 'form-data; name="files[cat.png]"; filename="cat.png"',
+        'content-type': 'image/png',
+        'content-transfer-encoding': 'binary',
+        body: 'content1' },
+        { 'content-disposition': 'form-data; name="files[beep.mp3]"; filename="beep.mp3"',
+        'content-type': 'audio/mpeg',
+        'content-transfer-encoding': 'binary',
+        body: 'content2'
         }]);
     });
 });

@@ -17,7 +17,7 @@ describe('get', function () {
     before(function (done) {
         for (var name in providers) {
             var provider = providers[name];
-            p[name] = new purest(provider.oauth
+            p[name] = new purest(provider.__provider.oauth
                 ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
                 : {provider:name});
         }
@@ -110,6 +110,39 @@ describe('get', function () {
                 body.document_collection.should.be.an.instanceOf(Object);
                 done();
             });
+        });
+        it.skip('view download', function (done) {
+            // needs session/sharing permissions for that document
+            p.box.get('documents/d7ee1566af95470eb2a44df5f612ed17/content.pdf', {
+                headers: {
+                    'Authorization':'Token '+cred.user.box.viewapikey
+                },
+                api:'view'
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                fs.writeFileSync('test.pdf', body, 'binary');
+                fs.statSync('test.pdf').size.should.equal(973602);
+                done();
+            });
+        });
+        it.skip('cloud download', function (done) {
+            // works
+            p.box.get('zzxlzc38hq7u1u5jdteu.pdf', {
+                headers: {
+                    'Authorization':'Token '+cred.user.box.viewapikey
+                },
+                api:'download'
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                fs.writeFileSync('test.pdf', body, 'binary');
+                fs.statSync('test.pdf').size.should.equal(973602);
+                done();
+            });
+        });
+        after(function () {
+            // fs.unlinkSync('test.pdf');
         });
     });
     it('coderbits', function (done) {

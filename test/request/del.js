@@ -17,7 +17,7 @@ describe('del', function () {
     before(function () {
         for (var name in providers) {
             var provider = providers[name];
-            p[name] = new purest(provider.oauth
+            p[name] = new purest(provider.__provider.oauth
                 ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
                 : {provider:name});
         }

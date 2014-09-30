@@ -1,7 +1,8 @@
 
 var should = require('should');
 var Purest = require('../../lib/provider'),
-    Options = require('../../lib/options');
+    Options = require('../../lib/options'),
+    config = require('../../lib/config');
 
 
 describe('options', function () {
@@ -77,6 +78,8 @@ describe('options', function () {
         it('set content-type to multipart/form-data', function () {
             var p = new Purest({provider:'twitter'});
             var options = {upload:'cat.jpg', headers:{}};
+            options = config.options('statuses/update_with_media', options, 'post',
+                p.apis.__default.endpoints);
             p.options.upload('statuses/update_with_media', options);
             options.headers['content-type'].should.equal('multipart/form-data');
             should.not.exist(options.form);
