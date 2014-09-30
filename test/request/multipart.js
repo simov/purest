@@ -20,7 +20,7 @@ describe('upload', function () {
     before(function () {
         for (var name in providers) {
             var provider = providers[name];
-            p[name] = new purest(provider.oauth
+            p[name] = new purest(provider.__provider.oauth
                 ? {provider:name, key:cred.app[name].key, secret:cred.app[name].secret}
                 : {provider:name});
         }
@@ -85,14 +85,13 @@ describe('upload', function () {
             });
         });
         it('download', function (done) {
-            p.box.get('/files/'+file.id+'/content', {
+            p.box.get('files/'+file.id+'/content', {
                 auth:{bearer:access.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
                 fs.writeFileSync('cat.png', body, 'binary');
-                var stat = fs.statSync('cat.png');
-                stat.size.should.equal(22025);
+                fs.statSync('cat.png').size.should.equal(22025);
                 done();
             });
         });
@@ -108,7 +107,8 @@ describe('upload', function () {
         });
     });
     describe('box view', function () {
-        it('upload', function (done) {
+        it.skip('upload', function (done) {
+            // works - need to figure out a testing scheme
             p.box.post('documents', {
                 headers: {
                     'Authorization':'Token '+cred.user.box.viewapikey

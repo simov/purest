@@ -35,33 +35,11 @@ describe('instance', function () {
         p.oauth.should.equal(true);
     });
 
-    it('API version', function () {
-        var p = new Purest({provider:'stackexchange'});
-        p.version.should.equal('2.2');
-        var p = new Purest({provider:'stackexchange',version:'5.0'});
-        p.version.should.equal('5.0');
-    });
-    it('API domain', function () {
-        var p = new Purest({provider:'coderbits'});
-        p.domain.should.equal('https://coderbits.com');
-        var p = new Purest({provider:'coderbits',domain:'https://api.coderbits.com'});
-        p.domain.should.equal('https://api.coderbits.com');
-    });
-    it('API path', function () {
-        var p = new Purest({provider:'flickr'});
-        p.path.should.equal('services/rest');
-        var p = new Purest({provider:'flickr',path:'rest/api'});
-        p.path.should.equal('rest/api');
-    });
     it('API return data type', function () {
         var p = new Purest({provider:'twitter'});
         p.type.should.equal('');
         var p = new Purest({provider:'twitter',type:'xml'});
         p.type.should.equal('xml');
-    });
-    it('API path format', function () {
-        var p = new Purest({provider:'twitter'});
-        p.format.should.equal('version/endpoint.type');
     });
 
     it('throw on non existing API', function () {
@@ -76,8 +54,9 @@ describe('instance', function () {
         var p = new Purest({provider:'google', api:'plus'});
         p.api.should.equal('plus');
     });
-    it('APIs', function () {
+    it.skip('APIs', function () {
         var p = new Purest({provider:'flickr'});
+        console.log(p.apis);
         should.deepEqual(p.apis, {
             upload:{domain:'https://up.flickr.com',format:'path',path:'services/upload'},
             replace:{domain:'https://up.flickr.com',format:'path',path:'services/replace'}
@@ -91,10 +70,10 @@ describe('instance', function () {
     });
 
     it('override', function () {
-        var p = new Purest({provider:'stackexchange'});
-        var options = {};
-        p.before.get('endpoint',options);
-        should.deepEqual(options, {encoding:null})
+        var p = new Purest({provider:'linkedin'});
+        var options = {form:{key:'data'}};
+        p.before.post('endpoint',options);
+        should.deepEqual(options, {body:'{"key":"data"}'})
     });
     it('refresh', function () {
         var p = new Purest({provider:'google'});
@@ -102,19 +81,17 @@ describe('instance', function () {
     });
 
     it('support multiple instances', function () {
-        var google = new Purest({provider:'google'}),
-            stackexchange = new Purest({provider:'stackexchange'});
+        var mailgun = new Purest({provider:'mailgun'}),
+            sendgrid = new Purest({provider:'sendgrid'});
 
-        google.name.should.equal('google');
-        stackexchange.name.should.equal('stackexchange');
+        mailgun.name.should.equal('mailgun');
+        sendgrid.name.should.equal('sendgrid');
 
-        var options = {api:'contacts', headers:{}};
-        google.before.get('endpoint', options);
-        should.deepEqual(options.headers, {'GData-Version':'3.0'});
+        var options = {form:{}};
+        mailgun.before.upload('endpoint', options).should.equal(false);
 
-        var options = {};
-        stackexchange.before.get('endpoint', options);
-        should.deepEqual(options, {encoding:null});
+        var options = {form:{files:'..'}};
+        sendgrid.before.upload('endpoint', options).should.equal(true);
     });
     it('expose the default request method', function () {
         Purest.request.should.be.type('function');
