@@ -45,15 +45,6 @@ describe('config', function () {
             });
         });
         describe('view', function () {
-            it('* all', function () {
-                var p = new Purest({provider:'box', api:'view'}),
-                    endpoints = p.apis.view.endpoints;
-                var options = {};
-                should.deepEqual(
-                    config.options('endpoint', options, 'get', endpoints),
-                    { headers: {'Authorization':'Token [key]'} }
-                );
-            });
             it('documents\\/.+\\/content\\.(?:pdf|zip)', function () {
                 var p = new Purest({provider:'box', api:'upload'}),
                     endpoints = p.apis.upload.endpoints;
@@ -65,22 +56,13 @@ describe('config', function () {
             });
         });
         describe('view-upload', function () {
-            it('* all', function () {
-                var p = new Purest({provider:'box', api:'view'}),
-                    endpoints = p.apis.view.endpoints;
-                var options = {};
-                should.deepEqual(
-                    config.options('endpoint', options, 'get', endpoints),
-                    { headers: {'Authorization':'Token [key]'} }
-                );
-            });
             it('documents', function () {
                 var p = new Purest({provider:'box', api:'view-upload'}),
                     endpoints = p.apis['view-upload'].endpoints;
                 var options = {};
                 should.deepEqual(
                     config.options('documents', options, 'post', endpoints),
-                    { headers: {'Authorization':'Token [key]'}, multipart: 'file' }
+                        {multipart:'file'}
                 );
             });
         });
