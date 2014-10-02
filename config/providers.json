@@ -5,6 +5,12 @@
             "docs": "http://developer.asana.com/documentation/"
         },
         "https://app.asana.com": {
+            "__domain": {
+                "auth": [
+                    {"auth": {"bearer": "[0]"}},
+                    {"auth": {"user":"[0]", "pass":"[1]"}}
+                ]
+            },
             "api/[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -26,6 +32,11 @@
             "docs": "http://dev.bitly.com"
         },
         "https://api-ssl.bitly.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -40,6 +51,11 @@
             "docs": "https://developers.box.com/"
         },
         "https://api.box.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -56,6 +72,11 @@
             }
         },
         "https://upload.box.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
             "api/[version]/{endpoint}": {
                 "__path": {
                     "alias": ["upload"],
@@ -72,17 +93,15 @@
             }
         },
         "https://view-api.box.com": {
+            "__domain": {
+                "auth": {
+                    "headers": {"Authorization": "Token [0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["view", "view-api"],
                     "version": "1"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "Authorization": "Token [key]"
-                        }
-                    }
                 },
                 "documents\\/.+\\/content\\.(?:pdf|zip)": {
                     "__endpoint": {
@@ -95,17 +114,15 @@
             }
         },
         "https://upload.view-api.box.com": {
+            "__domain": {
+                "auth": {
+                    "headers": {"Authorization": "Token [0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["view-upload"],
                     "version": "1"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "Authorization": "Token [key]"
-                        }
-                    }
                 },
                 "documents": {
                     "post": {
@@ -115,6 +132,11 @@
             }
         },
         "https://cloud.box.com": {
+            "__domain": {
+                "auth": {
+                    "headers": {"Authorization": "Token [0]"}
+                }
+            },
             "shared/static/{endpoint}": {
                 "__path": {
                     "alias": ["cloud", "download"]
@@ -132,6 +154,9 @@
             "docs": "https://coderbits.com/api"
         },
         "https://coderbits.com": {
+            "__domain": {
+                
+            },
             "{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default"
@@ -144,6 +169,11 @@
             "docs": "https://www.dropbox.com/developers"
         },
         "https://api.dropbox.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -152,6 +182,11 @@
             }
         },
         "https://api-content.dropbox.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["files", "api-content"],
@@ -170,6 +205,11 @@
             "docs": "https://developers.facebook.com"
         },
         "https://graph.facebook.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -188,6 +228,11 @@
             "docs": "https://www.flickr.com/services/api/"
         },
         "https://api.flickr.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "services/rest/{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -195,6 +240,11 @@
             }
         },
         "https://up.flickr.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "services/upload/{endpoint}": {
                 "__path": {
                     "alias": ["upload"]
@@ -222,6 +272,11 @@
             "docs": "https://developer.foursquare.com/"
         },
         "https://api.foursquare.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"oauth_token": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -240,6 +295,11 @@
             "docs": "http://developer.github.com"
         },
         "https://api.github.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -253,6 +313,11 @@
             "docs": "https://developers.google.com/"
         },
         "https://www.googleapis.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "plus/[version]/{endpoint}": {
                 "__path": {
                     "alias": ["plus"],
@@ -292,6 +357,9 @@
                 "__path": {
                     "alias": ["urlshortener"],
                     "version": "v1",
+                    "auth": {
+                        "qs": {"key": "[0]"}
+                    },
                     "docs": "https://developers.google.com/url-shortener/"
                 }
             },
@@ -311,6 +379,11 @@
             }
         },
         "https://maps.googleapis.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"key": "[0]"}
+                }
+            },
             "maps/api/{endpoint}": {
                 "__path": {
                     "alias": ["gmaps"],
@@ -329,6 +402,11 @@
             }
         },
         "https://www.google.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "m8/feeds/{endpoint}": {
                 "__path": {
                     "alias": ["contacts"],
@@ -351,6 +429,11 @@
             "docs": "https://devcenter.heroku.com/categories/platform-api"
         },
         "https://api.heroku.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -363,6 +446,11 @@
             "docs": "http://instagram.com/developer"
         },
         "https://api.instagram.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -377,6 +465,11 @@
             "docs": "http://developer.linkedin.com"
         },
         "http://api.linkedin.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -397,6 +490,11 @@
             "docs": "http://apidocs.mailchimp.com/"
         },
         "https://[dc].api.mailchimp.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"apikey": "[0]"}
+                }
+            },
             "[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -410,6 +508,11 @@
             "docs": "http://documentation.mailgun.com/"
         },
         "https://api.mailgun.net": {
+            "__domain": {
+                "auth": {
+                    "auth": {"user": "[0]", "pass": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -431,6 +534,11 @@
             "docs": "https://mandrillapp.com/api/docs/"
         },
         "https://mandrillapp.com": {
+            "__domain": {
+                "auth": {
+                    "form": {"key": "[0]"}
+                }
+            },
             "api/[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -445,6 +553,11 @@
             "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
         },
         "http://api.openstreetmap.org": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "api/[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -458,6 +571,11 @@
             "docs": "https://www.pipelinedeals.com/api/docs/introduction"
         },
         "https://api.pipelinedeals.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"api_key": "[0]"}
+                }
+            },
             "api/[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -471,6 +589,9 @@
             "docs": "http://guides.rubygems.org/rubygems-org-api"
         },
         "https://rubygems.org": {
+            "__domain": {
+                
+            },
             "api/[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -484,6 +605,11 @@
             "docs": "http://sendgrid.com/docs/"
         },
         "https://api.sendgrid.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"api_user": "[0]", "api_key": "[1]"}
+                }
+            },
             "api/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default"
@@ -501,6 +627,11 @@
             "docs": "https://api.slack.com/"
         },
         "https://slack.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"token": "[0]"}
+                }
+            },
             "api/{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -518,6 +649,11 @@
             "docs": "http://developers.soundcloud.com"
         },
         "https://api.soundcloud.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"oauth_token": "[0]"}
+                }
+            },
             "{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default"
@@ -535,6 +671,11 @@
             "docs": "https://api.stackexchange.com"
         },
         "https://api.stackexchange.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"key": "[0]", "access_token": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -553,6 +694,11 @@
             "docs": "http://stocktwits.com/developers"
         },
         "https://api.stocktwits.com": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
             "api/[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -572,6 +718,12 @@
             "docs": "https://trello.com/docs/"
         },
         "https://api.trello.com": {
+            "__domain": {
+                "auth": [
+                    {"qs": {"key": "[0]"}},
+                    {"qs": {"key": "[0]", "token": "[1]"}}
+                ]
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": "__default",
@@ -586,6 +738,11 @@
             "docs": "https://dev.twitter.com"
         },
         "https://api.twitter.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "[version]/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default",
@@ -604,6 +761,11 @@
             "docs": "http://wikimapia.org/api"
         },
         "http://api.wikimapia.org": {
+            "__domain": {
+                "auth": {
+                    "qs": {"key": "[0]"}
+                }
+            },
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
@@ -618,6 +780,11 @@
             "docs": "https://developer.yahoo.com/"
         },
         "https://social.yahooapis.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["social"],
@@ -627,6 +794,11 @@
             }
         },
         "https://query.yahooapis.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["query", "yql"],
@@ -636,6 +808,11 @@
             }
         },
         "http://where.yahooapis.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
             "[version]/{endpoint}": {
                 "__path": {
                     "alias": ["where", "geo"],
