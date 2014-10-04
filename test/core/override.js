@@ -365,28 +365,7 @@ describe('override', function () {
         });
     });
 
-    describe('mailgun', function () {
-        describe('before upload', function () {
-            it('check for key existance', function () {
-                var p = new Purest({provider:'mailgun'});
-                var options = {upload:'cat.png', form:{}};
-                p.before.upload('domain/messages', options).should.equal(false);
-                var options = {upload:'cat.png', form:{attachment:'...'}};
-                p.before.upload('domain/messages', options).should.equal(true);
-            });
-        });
-    });
-
     describe('sendgrid', function () {
-        describe('before upload', function () {
-            it('check for key existance', function () {
-                var p = new Purest({provider:'sendgrid'});
-                var options = {upload:'cat.png', form:{}};
-                p.before.upload('mail.send', options).should.equal(false);
-                var options = {upload:'cat.png', form:{files:'...'}};
-                p.before.upload('mail.send', options).should.equal(true);
-            });
-        });
         describe('multipart file', function () {
             it('customize content-disposition', function () {
                 var p = new Purest({provider:'sendgrid'});

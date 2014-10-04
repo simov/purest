@@ -59,29 +59,30 @@ describe('options', function () {
     describe('upload', function () {
         it('skip on missing upload option', function () {
             var p = new Purest({provider:'twitter'});
-            var options = {};
+            var options = {headers:{}};
             p.options.upload('endpoint', options);
-            should.deepEqual(options, {});
+            should.deepEqual(options.headers, {});
         });
-        it('skip on missing multipart endpoints', function () {
-            var p = new Purest({provider:'coderbits'});
-            var options = {upload:'cat.jpg'};
-            p.options.upload('endpoint', options);
-            should.deepEqual(options, {upload:'cat.jpg'});
-        });
-        it.skip('skip on missing multipart endpoint', function () {
+        it('skip on missing multipart option', function () {
             var p = new Purest({provider:'twitter'});
-            var options = {upload:'cat.jpg'};
+            var options = {upload:'cat.jpg', headers:{}};
+            p.options.upload('endpoint', options);
+            should.deepEqual(options.headers, {});
+        });
+        it('skip on missing multipart file key', function () {
+            var p = new Purest({provider:'twitter'});
+            var options = {upload:'cat.jpg', multipart:'media[]', form:{}, headers:{}};
             p.options.upload('upload_image', options);
-            should.deepEqual(options, {upload:'cat.jpg'});
+            should.deepEqual(options.headers, {});
         });
         it('set content-type to multipart/form-data', function () {
             var p = new Purest({provider:'twitter'});
-            var options = {upload:'cat.jpg', headers:{}};
-            options = config.options('statuses/update_with_media', options, 'post',
-                p.apis.__default.endpoints);
+            var options = {
+                upload:'cat.jpg', multipart:'media[]',
+                form:{'media[]':'..'}, headers:{}
+            };
             p.options.upload('statuses/update_with_media', options);
-            options.headers['content-type'].should.equal('multipart/form-data');
+            should.deepEqual(options.headers, {'content-type':'multipart/form-data'});
             should.not.exist(options.form);
             should.not.exist(options.json);
             should.not.exist(options.upload);
