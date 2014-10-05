@@ -212,17 +212,19 @@ describe('query', function () {
                 done();
             });
     });
-    it.skip('foursquare', function (done) {
-        p.foursquare.get('users/81257627', {
-            qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.response.user.firstName.should.equal('Simo');
-            done();
-        });
+    it('foursquare', function (done) {
+        p.foursquare.query()
+            .get('users/81257627')
+            .where({v:'20140503'})
+            .auth(cred.user.foursquare.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.response.user.firstName.should.equal('Simo');
+                done();
+            });
     });
-    it.skip('github', function (done) {
+    it('github', function (done) {
         p.github.get('users/simov', {
             qs:{access_token:cred.user.github.token}
         }, function (err, res, body) {
@@ -233,7 +235,7 @@ describe('query', function () {
             done();
         });
     });
-    describe.skip('google', function () {
+    describe('google', function () {
         var access = {};
         before(function (done) {
             p.google.refresh(
@@ -245,248 +247,233 @@ describe('query', function () {
                 done();
             });
         });
-        it.skip('plus', function (done) {
-            p.google.get('people/106189723444098348646', {
-                api:'plus',
-                qs:{
-                    access_token:access.token
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.displayName.should.equal('Larry Page');
-                done();
-            });
+        it('plus', function (done) {
+            p.google.query('plus')
+                .select('people/106189723444098348646')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.displayName.should.equal('Larry Page');
+                    done();
+                });
         });
-        it.skip('youtube', function (done) {
-            p.google.get('channels', {
-                api:'youtube',
-                qs:{
-                    access_token:access.token,
-                    part:'id, snippet, contentDetails, statistics, status, topicDetails',
-                    forUsername:'RayWilliamJohnson'
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.items[0].snippet.title.should.equal('RayWilliamJohnson');
-                done();
-            });
+        it('youtube', function (done) {
+            p.google.query('youtube')
+                .select('channels')
+                .where({
+                    forUsername:'RayWilliamJohnson',
+                    part:'id, snippet, contentDetails, statistics, status, topicDetails'
+                })
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.items[0].snippet.title.should.equal('RayWilliamJohnson');
+                    done();
+                });
         });
-        it.skip('youtube/analytics', function (done) {
-            p.google.get('reports', {
-                api:'youtube/analytics',
-                qs:{
-                    access_token:access.token,
+        it('youtube/analytics', function (done) {
+            p.google.query('youtube/analytics')
+                .select('reports')
+                .where({
                     ids:'channel==UCar6nMFGfuv254zn5vDyVaA',
                     metrics:'views',
                     'start-date':'2014-01-15',
                     'end-date':'2014-02-15'
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.rows.should.be.an.instanceOf(Array);
-                done();
-            });
+                })
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.rows.should.be.an.instanceOf(Array);
+                    done();
+                });
         });
-        it.skip('drive', function (done) {
-            p.google.get('about', {
-                api:'drive',
-                qs:{
-                    access_token:access.token
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.user.isAuthenticatedUser.should.equal(true);
-                done();
-            });
+        it('drive', function (done) {
+            p.google.query('drive')
+                .get('about')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.user.isAuthenticatedUser.should.equal(true);
+                    done();
+                });
         });
-        it.skip('freebase', function (done) {
-            p.google.get('search', {
-                api:'freebase',
-                qs:{
-                    access_token:access.token,
-                    query:'Thriftworks'
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.result[0].name.should.equal('Thriftworks');
-                done();
-            });
+        it('freebase', function (done) {
+            p.google.query('freebase')
+                .select('search')
+                .where({query:'Thriftworks'})
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.result[0].name.should.equal('Thriftworks');
+                    done();
+                });
         });
-        it.skip('tasks', function (done) {
-            p.google.get('users/@me/lists', {
-                api:'tasks',
-                qs:{
-                    access_token:access.token
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.items[0].title.should.equal('Default List');
-                done();
-            });
+        it('tasks', function (done) {
+            p.google.query('tasks')
+                .select('users/@me/lists')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.items[0].title.should.equal('Default List');
+                    done();
+                });
         });
-        it.skip('urlshortener', function (done) {
-            p.google.get('url', {
-                api:'urlshortener',
-                qs:{
-                    key:cred.user.google.apikey,
-                    shortUrl:'http://goo.gl/0wkZ4V'
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.longUrl.should.equal('http://nodejs.org/');
-                done();
-            });
+        it('urlshortener', function (done) {
+            p.google.query('urlshortener')
+                .select('url')
+                .where({shortUrl:'http://goo.gl/0wkZ4V'})
+                .auth(cred.user.google.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.longUrl.should.equal('http://nodejs.org/');
+                    done();
+                });
         });
-        it.skip('pagespeed', function (done) {
-            p.google.get('runPagespeed', {
-                api:'pagespeedonline',
-                qs:{
-                    key:cred.user.google.apikey,
-                    url:'http://www.amazon.com/'
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.responseCode.should.equal(200);
-                done();
-            });
+        it('pagespeed', function (done) {
+            p.google.query('pagespeedonline')
+                .select('runPagespeed')
+                .where({url:'http://www.amazon.com/'})
+                .auth(cred.user.google.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.responseCode.should.equal(200);
+                    done();
+                });
         });
-        it.skip('contacts', function (done) {
-            p.google.get('contacts/default/full', {
-                api:'contacts',
-                qs:{
-                    access_token:access.token,
-                    'max-results':50
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.feed['openSearch$itemsPerPage']['$t'].should.equal('50');
-                done();
-            });
+        it('contacts', function (done) {
+            p.google.query('contacts')
+                .select('contacts/default/full')
+                .where({'max-results':50})
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.feed['openSearch$itemsPerPage']['$t'].should.equal('50');
+                    done();
+                });
         });
-        describe.skip('gmaps', function () {
-            it.skip('streetview', function (done) {
-                p.google.get('streetview', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+        describe('gmaps', function () {
+            it('streetview', function (done) {
+                p.google.query('gmaps')
+                    .get('streetview')
+                    .where({
                         location:'40.7828647,-73.9653551',
                         size:'400x400',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    fs.writeFileSync('streetview.jpg', body, 'binary');
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        fs.writeFileSync('streetview.jpg', body, 'binary');
+                        done();
+                    });
             });
-            it.skip('staticmap', function (done) {
-                p.google.get('staticmap', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('staticmap', function (done) {
+                p.google.query('gmaps')
+                    .get('staticmap')
+                    .where({
                         center:'40.7828647,-73.9653551',
                         size:'640x640',
                         zoom:15,
                         format:'jpg',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    fs.writeFileSync('staticmap.jpg', body, 'binary');
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        fs.writeFileSync('staticmap.jpg', body, 'binary');
+                        done();
+                    });
             });
-            it.skip('geocode', function (done) {
-                p.google.get('geocode/json', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('geocode', function (done) {
+                p.google.query('gmaps')
+                    .get('geocode')
+                    .where({
                         address:'Central Park, New York, NY',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    body.results[0].formatted_address
-                        .should.equal('Central Park, New York, NY, USA');
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        body.results[0].formatted_address
+                            .should.equal('Central Park, New York, NY, USA');
+                        done();
+                    });
             });
-            it.skip('directions', function (done) {
-                p.google.get('directions/json', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('directions', function (done) {
+                p.google.query('gmaps')
+                    .get('directions')
+                    .where({
                         origin:'Central Park, New York, NY',
                         destination:'New York, New Jersey',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    body.routes[0].summary
-                        .should.equal('79th St Transverse and Central Park West');
-                    done();
-                });
+                    })
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        body.routes[0].summary
+                            .should.equal('79th St Transverse and Central Park West');
+                        done();
+                    });
             });
-            it.skip('timezone', function (done) {
-                p.google.get('timezone/json', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('timezone', function (done) {
+                p.google.query('gmaps')
+                    .select('timezone')
+                    .where({
                         location:'40.7828647,-73.9653551',
                         timestamp:'1331161200',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    body.timeZoneName.should.equal('Eastern Standard Time');
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        body.timeZoneName.should.equal('Eastern Standard Time');
+                        done();
+                    });
             });
-            it.skip('elevation', function (done) {
-                p.google.get('elevation/json', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('elevation', function (done) {
+                p.google.query('gmaps')
+                    .get('elevation')
+                    .where({
                         locations:'40.7828647,-73.9653551',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    body.results[0].elevation.should.equal(34.39545059204102);
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        body.results[0].elevation.should.equal(34.39545059204102);
+                        done();
+                    });
             });
-            it.skip('distancematrix', function (done) {
-                p.google.get('distancematrix/json', {
-                    api:'gmaps',
-                    qs:{
-                        key:cred.user.google.apikey,
+            it('distancematrix', function (done) {
+                p.google.query('gmaps')
+                    .get('distancematrix')
+                    .where({
                         origins:'40.7828647,-73.9653551',
                         destinations:'40.7873463,-74.0108939',
                         sensor:false
-                    }
-                }, function (err, res, body) {
-                    debugger;
-                    if (err) return error(err, done);
-                    body.rows[0].elements[0].distance.text.should.equal('11.8 km');
-                    body.rows[0].elements[0].duration.text.should.equal('21 mins');
-                    done();
-                });
+                    })
+                    .auth(cred.user.google.apikey)
+                    .request(function (err, res, body) {
+                        debugger;
+                        if (err) return error(err, done);
+                        body.rows[0].elements[0].distance.text.should.equal('11.8 km');
+                        body.rows[0].elements[0].duration.text.should.equal('21 mins');
+                        done();
+                    });
             });
             after(function () {
                 fs.unlinkSync('staticmap.jpg');
