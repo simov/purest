@@ -777,6 +777,11 @@
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
+                },
+                "*": {
+                    "all": {
+                        "qs": {"format": "json"}
+                    }
                 }
             }
         }

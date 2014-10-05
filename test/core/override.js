@@ -281,6 +281,19 @@ describe('config', function () {
             });
         });
     });
+    describe('wikimapia', function () {
+        describe('__default', function () {
+            it('* all', function () {
+                var p = new Purest({provider:'wikimapia'}),
+                    endpoints = p.apis.__default.endpoints;
+                var options = {};
+                should.deepEqual(
+                    config.options('', options, 'get', endpoints),
+                    { qs: { format: 'json' } }
+                );
+            });
+        });
+    });
 });
 
 
