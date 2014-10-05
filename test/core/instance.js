@@ -80,7 +80,7 @@ describe('instance', function () {
         p.refresh.should.be.type('function');
     });
 
-    it('support multiple instances', function () {
+    it.skip('support multiple instances', function () {
         var mailgun = new Purest({provider:'mailgun'}),
             sendgrid = new Purest({provider:'sendgrid'});
 
@@ -92,6 +92,9 @@ describe('instance', function () {
 
         var options = {form:{files:'..'}};
         sendgrid.before.upload('endpoint', options).should.equal(true);
+    });
+    it.skip('config & query methods', function () {
+        
     });
     it('expose the default request method', function () {
         Purest.request.should.be.type('function');
