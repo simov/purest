@@ -376,6 +376,27 @@ describe('override', function () {
         });
     });
 
+    describe('openstreetmap', function () {
+        it('change auth method', function () {
+            var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
+            provider.query().auth('user','pass');
+            provider.options.oauth(provider._config._options);
+            provider.before.get('endpoint', provider._config._options);
+            should.deepEqual(provider._config._options,
+                {api:'__default', auth:{user:'user', pass:'pass'}});
+        });
+        it('keep auth method', function () {
+            var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
+            provider.query().auth('0123456789012345678901234567890','pass');
+            provider.options.oauth(provider._config._options);
+            provider.before.get('endpoint', provider._config._options);
+            should.deepEqual(provider._config._options,
+                {api:'__default', oauth:{
+                    consumer_key:'key', consumer_secret:'secret',
+                    token:'0123456789012345678901234567890', token_secret:'pass'}});
+        });
+    });
+
     describe('sendgrid', function () {
         describe('multipart file', function () {
             it('customize content-disposition', function () {
