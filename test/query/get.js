@@ -481,7 +481,7 @@ describe('query', function () {
             });
         });
     });
-    describe.skip('heroku', function () {
+    describe('heroku', function () {
         var access = {};
         before(function (done) {
             p.heroku.refresh(
@@ -493,127 +493,130 @@ describe('query', function () {
                 done();
             });
         });
-        it.skip('get', function (done) {
-            p.heroku.get('account', {
-                auth: {bearer:access.token}
-                // or
-                // auth: {user:'email', pass:'password'}
-            }, function (err, res, body) {
+        it('get', function (done) {
+            p.heroku.query()
+                .get('account')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.email.should.be.type('string');
+                    done();
+                });
+        });
+    });
+    it('instagram', function (done) {
+        p.instagram.query()
+            .select('users/self/feed')
+            .auth(cred.user.instagram.token)
+            .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                body.email.should.be.type('string');
+                body.pagination.should.be.type('object');
+                body.meta.code.should.equal(200);
+                body.data.should.be.an.instanceOf(Array);
                 done();
             });
-        });
     });
-    it.skip('instagram', function (done) {
-        p.instagram.get('users/self/feed', {
-            qs:{access_token:cred.user.instagram.token}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.pagination.should.be.type('object');
-            body.meta.code.should.equal(200);
-            body.data.should.be.an.instanceOf(Array);
-            done();
-        });
-    });
-    it.skip('linkedin', function (done) {
-        p.linkedin.get('companies', {
-            oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
-            qs:{'email-domain':'apple.com'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.values[0].id.should.equal(162479);
-            body.values[0].name.should.equal('Apple');
-            done();
-        });
-    });
-    describe.skip('mailchimp', function () {
-        it.skip('apikey', function (done) {
-            p.mailchimp.get('campaigns/list', {
-                qs:{apikey:cred.user.mailchimp.apikey}
-            }, function (err, res, body) {
+    it('linkedin', function (done) {
+        p.linkedin.query()
+            .select('companies')
+            .where({'email-domain':'apple.com'})
+            .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
+            .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                should.deepEqual(Object.keys(body),
-                    ['total','data','errors']);
-                body.errors.length.should.equal(0);
+                body.values[0].id.should.equal(162479);
+                body.values[0].name.should.equal('Apple');
                 done();
             });
+    });
+    describe('mailchimp', function () {
+        it('apikey', function (done) {
+            p.mailchimp.query()
+                .select('campaigns/list')
+                .auth(cred.user.mailchimp.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    should.deepEqual(Object.keys(body),
+                        ['total','data','errors']);
+                    body.errors.length.should.equal(0);
+                    done();
+                });
         });
-        it.skip('oauth', function (done) {
-            p.mailchimp.get('campaigns/list', {
-                dc:cred.user.mailchimp.dc,
-                qs:{apikey:cred.user.mailchimp.token}
-            }, function (err, res, body) {
+        it('oauth', function (done) {
+            p.mailchimp.query()
+                .select('campaigns/list')
+                .auth(cred.user.mailchimp.token)
+                .options({dc:cred.user.mailchimp.dc})
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    should.deepEqual(Object.keys(body),
+                        ['total','data','errors']);
+                    body.errors.length.should.equal(0);
+                    done();
+                });
+        });
+    });
+    it('mailgun', function (done) {
+        p.mailgun.query()
+            .select(cred.user.mailgun.domain+'/stats')
+            .auth('api', cred.user.mailgun.apikey)
+            .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                should.deepEqual(Object.keys(body),
-                    ['total','data','errors']);
-                body.errors.length.should.equal(0);
+                body.total_count.should.be.type('number');
+                body.items.should.be.instanceOf(Array);
                 done();
             });
-        });
     });
-    it.skip('mailgun', function (done) {
-        p.mailgun.get(cred.user.mailgun.domain+'/stats', {
-            auth:{user:'api',pass:cred.user.mailgun.apikey}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.total_count.should.be.type('number');
-            body.items.should.be.instanceOf(Array);
-            done();
-        });
+    it('mandrill', function (done) {
+        p.mandrill.query()
+            .post('users/info')
+            .auth(cred.user.mandrill.key)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.reputation.should.be.type('number');
+                done();
+            });
     });
-    it.skip('mandrill', function (done) {
-        p.mandrill.post('users/info', {
-            form:{key:cred.user.mandrill.key}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.reputation.should.be.type('number');
-            done();
-        });
+    it('openstreetmap', function (done) {
+        p.openstreetmap.query()
+            .select('user/details')
+            .auth(cred.user.openstreetmap.token, cred.user.openstreetmap.secret)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
+                done();
+            });
     });
-    it.skip('openstreetmap', function (done) {
-        p.openstreetmap.get('user/details', {
-            // oauth for writing to the database
-            oauth:{
-                token:cred.user.openstreetmap.token,
-                secret:cred.user.openstreetmap.secret
-            }
-            // or basic auth for reading user details
-            // auth: {user:'email', pass:'password'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
-            done();
-        });
+    it('rubygems', function (done) {
+        p.rubygems.query()
+            .select('gems/rails')
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.name.should.equal('rails');
+                body.platform.should.equal('ruby');
+                done();
+            });
     });
-    it.skip('rubygems', function (done) {
-        p.rubygems.get('gems/rails', function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.name.should.equal('rails');
-            body.platform.should.equal('ruby');
-            done();
-        });
+    it('sendgrid', function (done) {
+        p.sendgrid.query()
+            .select('profile.get')
+            .auth(cred.user.sendgrid.user, cred.user.sendgrid.pass)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body[0].active.should.equal('true');
+                done();
+            });
     });
-    it.skip('sendgrid', function (done) {
-        p.sendgrid.get('profile.get', {
-            qs:{api_user:cred.user.sendgrid.user, api_key:cred.user.sendgrid.pass}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body[0].active.should.equal('true');
-            done();
-        });
-    });
-    it.skip('slack', function (done) {
+    it('slack', function (done) {
         p.slack.get('users.list', {
             qs:{token:cred.user.slack.token}
         }, function (err, res, body) {
@@ -622,33 +625,34 @@ describe('query', function () {
             done();
         });
     });
-    it.skip('soundcloud', function (done) {
-        p.soundcloud.get('users', {
-            qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body[0].username.should.equal('Thriftworks');
-            done();
-        });
+    it('soundcloud', function (done) {
+        p.soundcloud.query()
+            .select('users')
+            .where({q:'thriftworks'})
+            .auth(cred.user.soundcloud.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body[0].username.should.equal('Thriftworks');
+                done();
+            });
     });
-    it.skip('stackexchange', function (done) {
-        p.stackexchange.get('users', {
-            qs:{
-                key:cred.user.stackexchange.apikey,
-                access_token:cred.user.stackexchange.token,
+    it('stackexchange', function (done) {
+        p.stackexchange.query()
+            .select('users')
+            .where({
                 site:'stackoverflow',
                 sort:'reputation',
                 order:'desc'
-            }
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.items.length.should.equal(30);
-            done();
-        });
+            })
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.items.length.should.equal(30);
+                done();
+            });
     });
-    it.skip('stocktwits', function (done) {
+    it('stocktwits', function (done) {
         p.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
             debugger;
             if (err) return error(err, done);
@@ -657,58 +661,61 @@ describe('query', function () {
             done();
         });
     });
-    describe.skip('trello', function () {
-        it.skip('public', function (done) {
-            p.trello.get('boards/4d5ea62fd76aa1136000000c', {
-                qs:{key:cred.app.trello.key}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.name.should.equal('Trello Development');
-                done();
-            });
+    describe('trello', function () {
+        it('public', function (done) {
+            p.trello.query()
+                .get('boards/4d5ea62fd76aa1136000000c')
+                .auth(cred.app.trello.key)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.name.should.equal('Trello Development');
+                    done();
+                });
         });
-        it.skip('private', function (done) {
-            p.trello.get('members/me/boards', {
-                qs:{key:cred.app.trello.key, token:cred.user.trello.token}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.should.be.an.instanceOf(Array);
-                done();
-            });
-        });
-    });
-    it.skip('twitter', function (done) {
-        p.twitter.get('users/show', {
-            oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            qs:{screen_name:'mightymob'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.id.should.equal(1504092505);
-            body.screen_name.should.equal('mightymob');
-            done();
+        it('private', function (done) {
+            p.trello.query()
+                .get('members/me/boards')
+                .auth(cred.app.trello.key, cred.user.trello.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.be.an.instanceOf(Array);
+                    done();
+                });
         });
     });
-    it.skip('wikimapia', function (done) {
-        p.wikimapia.get('', {
-            qs: {
-                key:cred.user.wikimapia.apikey,
+    it('twitter', function (done) {
+        p.twitter.query()
+            .select('users/show')
+            .where({screen_name:'mightymob'})
+            .auth(cred.user.twitter.token, cred.user.twitter.secret)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.id.should.equal(1504092505);
+                body.screen_name.should.equal('mightymob');
+                done();
+            })
+    });
+    it('wikimapia', function (done) {
+        p.wikimapia.query()
+            .select('')
+            .where({
                 function:'place.search',
                 q:'Central Park, New York, NY',
                 lat:'40.7629025',
-                lon:'-73.9826439',
-                format:'json'
-            }
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.count.should.equal(5);
-            done();
-        });
+                lon:'-73.9826439'
+            })
+            .auth(cred.user.wikimapia.apikey)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.count.should.equal(5);
+                done();
+            });
     });
-    describe.skip('yahoo', function () {
+    describe('yahoo', function () {
         var access = {};
         before(function (done) {
             p.yahoo.refresh(
@@ -721,43 +728,39 @@ describe('query', function () {
                 done();
             });
         });
-        it.skip('social', function (done) {
-            p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
-                oauth:{
-                    token:access.token, secret:access.secret
-                },
-                api:'social'
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.profile.nickname.should.equal('Simeon')
-                done();
-            });
+        it('social', function (done) {
+            p.yahoo.query('social')
+                .select('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile')
+                .auth(access.token, access.secret)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.profile.nickname.should.equal('Simeon')
+                    done();
+                });
         });
-        it.skip('yql', function (done) {
-            p.yahoo.get('yql', {
-                oauth:{
-                    token:access.token, secret:access.secret
-                },
-                api:'yql',
-                qs:{q:'SELECT * FROM social.profile WHERE guid=me'}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.query.results.profile.nickname.should.equal('Simeon');
-                done();
-            });
+        it('yql', function (done) {
+            p.yahoo.config('yql')
+                .get('yql')
+                .where({q:'SELECT * FROM social.profile WHERE guid=me'})
+                .auth(access.token, access.secret)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.query.results.profile.nickname.should.equal('Simeon');
+                    done();
+                });
         });
-        it.skip('geo', function (done) {
-            p.yahoo.get("places.q('Central Park, New York')", {
-                api:'geo',
-                qs:{appid:cred.user.yahoo.apikey}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.places.place[0].admin1.should.equal('New York');
-                done();
-            });
+        it('geo', function (done) {
+            p.yahoo.query('geo')
+                .select("places.q('Central Park, New York')")
+                .auth(cred.user.yahoo.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.places.place[0].admin1.should.equal('New York');
+                    done();
+                });
         });
     });
 });

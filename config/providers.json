@@ -823,7 +823,7 @@
         "http://where.yahooapis.com": {
             "__domain": {
                 "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
+                    "qs": {"appid": "[0]"}
                 }
             },
             "[version]/{endpoint}": {
