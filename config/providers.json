@@ -437,9 +437,10 @@
         },
         "https://api.heroku.com": {
             "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
+                "auth": [
+                    {"auth": {"bearer": "[0]"}},
+                    {"auth": {"user": "[0]", "pass": "[1]"}}
+                ]
             },
             "{endpoint}": {
                 "__path": {
