@@ -97,6 +97,17 @@ describe('config', function () {
         });
     });
     describe('flickr', function () {
+        describe('__default', function () {
+            it('* all', function () {
+                var p = new Purest({provider:'flickr'}),
+                    endpoints = p.apis.__default.endpoints;
+                var options = {};
+                should.deepEqual(
+                    config.options('', options, 'get', endpoints),
+                    {qs:{format:'json'}}
+                );
+            });
+        });
         describe('upload', function () {
             it('* post', function () {
                 var p = new Purest({provider:'flickr', api:'upload'}),
