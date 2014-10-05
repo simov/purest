@@ -6,7 +6,7 @@ var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
 
 
-describe('chain', function () {
+describe('query', function () {
     require('../utils/credentials');
     var cred = {
         app:require('../../config/app'),
@@ -38,36 +38,42 @@ describe('chain', function () {
             });
         });
         it('basic auth', function (done) {
-            p.asana.config().get('users/me').auth(cred.user.asana.apikey,'')
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                should.deepEqual(Object.keys(body.data),
-                    ['id','name','email','photo','workspaces']);
-                done();
-            });
+            p.asana.config()
+                .get('users/me')
+                .auth(cred.user.asana.apikey,'')
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    should.deepEqual(Object.keys(body.data),
+                        ['id','name','email','photo','workspaces']);
+                    done();
+                });
         });
         it('oauth', function (done) {
-            p.asana.config().get('users/me').auth(access.token)
+            p.asana.config()
+                .get('users/me')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    should.deepEqual(Object.keys(body.data),
+                        ['id','name','email','photo','workspaces']);
+                    done();
+                });
+        });
+    });
+    it('bitly', function (done) {
+        p.bitly.query()
+            .select('bitly_pro_domain')
+            .where({domain:'nyti.ms'})
+            .auth(cred.user.bitly.token)
             .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                should.deepEqual(Object.keys(body.data),
-                    ['id','name','email','photo','workspaces']);
+                body.data.domain.should.equal('nyti.ms');
+                body.data.bitly_pro_domain.should.equal(true);
                 done();
             });
-        });
-    });
-    it.skip('bitly', function (done) {
-        p.bitly.get('bitly_pro_domain', {
-            qs:{access_token:cred.user.bitly.token, domain:'nyti.ms'}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.data.domain.should.equal('nyti.ms');
-            body.data.bitly_pro_domain.should.equal(true);
-            done();
-        });
     });
     describe('box', function () {
         var access = {};
@@ -84,25 +90,29 @@ describe('chain', function () {
             });
         });
         it('content API', function (done) {
-            p.box.config().get('users/me').auth(access.token)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.type.should.equal('user');
-                body.id.should.be.type('string');
-                done();
-            });
+            p.box.config()
+                .get('users/me')
+                .auth(access.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.type.should.equal('user');
+                    body.id.should.be.type('string');
+                    done();
+                });
         });
     });
     describe('box', function () {
         it('view API', function (done) {
-            p.box.config('view').get('documents').auth(cred.user.box.viewapikey)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.document_collection.should.be.an.instanceOf(Object);
-                done();
-            });
+            p.box.config('view')
+                .get('documents')
+                .auth(cred.user.box.viewapikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.document_collection.should.be.an.instanceOf(Object);
+                    done();
+                });
         });
         it.skip('view download', function (done) {
             // needs session/sharing permissions for that document
@@ -138,7 +148,7 @@ describe('chain', function () {
             // fs.unlinkSync('test.pdf');
         });
     });
-    it.skip('coderbits', function (done) {
+    it('coderbits', function (done) {
         p.coderbits.get('simov', function (err, res, body) {
             debugger;
             if (err) return error(err, done);
@@ -146,58 +156,61 @@ describe('chain', function () {
             done();
         });
     });
-    it.skip('dropbox', function (done) {
-        p.dropbox.get('account/info', {
-            auth: {bearer:cred.user.dropbox.token}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.email.should.be.type('string');
-            done();
-        });
-    });
-    describe.skip('facebook', function () {
-        it.skip('get', function (done) {
-            p.facebook.get('me/groups', {
-                qs:{access_token:cred.user.facebook.token, fields:'id,name'}
-            }, function (err, res, body) {
+    it('dropbox', function (done) {
+        p.dropbox.query()
+            .get('account/info')
+            .auth(cred.user.dropbox.token)
+            .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                body.data.length.should.equal(2);
-                Object.keys(body.data[0]).length.should.equal(2);
-                body.data[0].id.should.equal('313807222041302');
-                body.data[0].name.should.equal('Facebook Developers');
+                body.email.should.be.type('string');
                 done();
             });
+    });
+    describe('facebook', function () {
+        it('get', function (done) {
+            p.facebook.query()
+                .get('me/groups')
+                .where({fields:'id,name'})
+                .auth(cred.user.facebook.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.data.length.should.equal(2);
+                    Object.keys(body.data[0]).length.should.equal(2);
+                    body.data[0].id.should.equal('313807222041302');
+                    body.data[0].name.should.equal('Facebook Developers');
+                    done();
+                });
         });
-        it.skip('fql', function (done) {
-            p.facebook.get('fql', {
-                qs:{
-                    access_token:cred.user.facebook.token,
-                    q:'SELECT friend_count FROM user WHERE uid = 100006399333306'}
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.data[0].friend_count.should.equal(1);
-                done();
-            });
+        it('fql', function (done) {
+            p.facebook.query()
+                .select('fql')
+                .where({q:'SELECT friend_count FROM user WHERE uid = 100006399333306'})
+                .auth(cred.user.facebook.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.data[0].friend_count.should.equal(1);
+                    done();
+                });
         });
     });
-    it.skip('flickr', function (done) {
-        p.flickr.get('', {
-            oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
-            qs:{
+    it('flickr', function (done) {
+        p.flickr.query()
+            .select('')
+            .where({
                 method: 'flickr.people.findByUsername',
                 api_key:cred.app.flickr.key,
-                username:'obama',
-                format:'json'
-            }
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.stat.should.equal('ok');
-            done();
-        });
+                username:'obama'
+            })
+            .auth(cred.user.flickr.token, cred.user.flickr.secret)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.stat.should.equal('ok');
+                done();
+            });
     });
     it.skip('foursquare', function (done) {
         p.foursquare.get('users/81257627', {
