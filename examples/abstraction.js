@@ -10,7 +10,8 @@ function Facebook (options) {
 Facebook.prototype.user = function (options, done) {
     async.waterfall([
         function (done) {
-            this.purest.config().get('me')
+            this.purest.query()
+                .get('me')
                 .auth(options.auth.token)
                 .request(function (err, res, body) {
                     // error responses must be wrapped also
@@ -19,9 +20,10 @@ Facebook.prototype.user = function (options, done) {
                 });
         }.bind(this),
         function (result, done) {
-            this.purest.config().get(result.id+'/picture')
+            this.purest.query()
+                .select(result.id+'/picture')
+                .where({redirect:false})
                 .auth(options.auth.token)
-                .qs({redirect:false})
                 .request(function (err, res, body) {
                     if (err) return done(err);
                     result.avatar = body.data.url;
@@ -43,7 +45,8 @@ function Linkedin (options) {
 Linkedin.prototype.user = function (options, done) {
     var fields = ':(id,first-name,last-name,formatted-name,headline,picture-url,'+
         'auth-token,distance,num-connections)';
-    this.purest.config().get('people/~'+fields)
+    this.purest.query()
+        .select('people/~'+fields)
         .auth(options.auth.token, options.auth.secret)
         .request(function (err, res, body) {
             // error responses must be wrapped also
@@ -62,9 +65,10 @@ function Twitter (options) {
 }
 
 Twitter.prototype.user = function (options, done) {
-    this.purest.config().get('users/show')
+    this.purest.query()
+        .get('users/show')
+        .where({user_id:options.id})
         .auth(options.auth.token, options.auth.secret)
-        .qs({user_id:options.id})
         .request(function (err, res, body) {
             // error responses must be wrapped also
             if (err) return done(err);
