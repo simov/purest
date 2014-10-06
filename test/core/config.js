@@ -30,9 +30,7 @@ var fixture = {
                     },
                     'documents': {
                         get: {
-                            options: {
-                                encoding: null
-                            }
+                            encoding: null
                         }
                     },
                     'files\\/\\d+\\/content': {
@@ -64,9 +62,7 @@ var fixture = {
                 str: {
                     'documents': {
                         get: {
-                            options: {
-                                encoding: null
-                            }
+                            encoding: null
                         }
                     }
                 },
@@ -103,7 +99,7 @@ describe('config', function () {
         );
         should.deepEqual(
             config.options('documents', {}, 'get', endpoints),
-            {headers:{'x-li-format':'json'}, options:{encoding:null} }
+            {headers:{'x-li-format':'json'}, encoding:null }
         );
         should.deepEqual(
             config.options('files/123/content', {}, 'post', endpoints),
