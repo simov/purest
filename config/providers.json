@@ -508,6 +508,12 @@
                     "alias": "__default",
                     "version": "2.0"
                 }
+            },
+            "export/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["export"],
+                    "version": "1.0"
+                }
             }
         }
     },
