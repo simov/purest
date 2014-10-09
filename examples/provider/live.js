@@ -1,9 +1,11 @@
 
-var fs = require('fs');
+var fs = require('fs'),
+    path = require('path');
 var cred = {
     app:require('../../config/app'),
     user:require('../../config/user')
 };
+var fpath = path.resolve(__dirname,'../../test/fixtures/cat.png');
 
 
 exports = module.exports = function (p) {
@@ -106,6 +108,53 @@ exports = module.exports = function (p) {
                     debugger;
                     if (err) console.log(err);
                     console.log(body);
+                });
+        },
+        // upload a file
+        8: function () {
+            p.query()
+                .put('me/skydrive/files/cat.png')
+                .options({body:fs.readFileSync(fpath)})
+                .auth(cred.user.live.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) console.log(err);
+                    console.log(body);
+                });
+        },
+        // upload streaming a file
+        9: function () {
+            fs.createReadStream(fpath)
+                .pipe(p.query()
+                .put('me/skydrive/files/cat.png')
+                .auth(cred.user.live.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) console.log(err);
+                    console.log(body);
+                }));
+        },
+        // download file
+        10: function () {
+            p.query()
+                .get('file.e8e0202776d99ad4.E8E0202776D99AD4!108/content')
+                .auth(cred.user.live.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) console.log(err);
+                    console.log(body);
+                    fs.writeFileSync('cat.png', body);
+                });
+        },
+        // download streaming a file
+        11: function () {
+            p.query()
+                .get('file.e8e0202776d99ad4.E8E0202776D99AD4!108/content')
+                .auth(cred.user.live.token)
+                .request()
+                .pipe(fs.createWriteStream('cat.png'))
+                .on('end', function () {
+                    console.log('DONE!');
                 });
         }
     };

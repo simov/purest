@@ -513,6 +513,24 @@
                     "get": {
                         "encoding": null
                     }
+                },
+                ".*\\/skydrive\\/files\\/.*": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "put": {
+                        "headers": {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                },
+                "file\\..*\\/content": {
+                    "__endpoint": {
+                        "regex": true
+                    },
+                    "get": {
+                        "encoding": null
+                    }
                 }
             }
         }
