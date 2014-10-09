@@ -110,6 +110,34 @@ describe('refresh', function () {
             done();
         });
     });
+    // http://msdn.microsoft.com/en-us/library/hh243647.aspx
+    describe('live', function () {
+        var _body = null;
+        it('live', function (done) {
+            p.live.refresh(
+                cred.app.live,
+                cred.user.live.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'token_type', 'expires_in', 'scope',
+                    'access_token', 'refresh_token', 'authentication_token',
+                    'user_id'
+                ]);
+                body.token_type.should.equal('bearer');
+                body.expires_in.should.equal(3600);
+                body.access_token.should.be.type('string');
+                body.refresh_token.should.be.type('string');
+                body.authentication_token.should.be.type('string');
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('live', _body.access_token, _body.refresh_token);
+        });
+    });
     // https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
     it('yahoo', function (done) {
         p.yahoo.refresh(

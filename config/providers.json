@@ -493,6 +493,30 @@
             }
         }
     },
+    "live": {
+        "__provider": {
+            "refresh": "https://login.live.com/oauth20_token.srf",
+            "docs": "http://msdn.microsoft.com/en-us/library/dn783283.aspx"
+        },
+        "https://apis.live.net": {
+            "__domain": {
+                "auth": {
+                    "qs": {"access_token": "[0]"}
+                }
+            },
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v5.0"
+                },
+                "me/picture": {
+                    "get": {
+                        "encoding": null
+                    }
+                }
+            }
+        }
+    },
     "mailchimp": {
         "__provider": {
             "docs": "http://apidocs.mailchimp.com/"
