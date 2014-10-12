@@ -1,6 +1,6 @@
 
 var async = require('async');
-var Purest = require('../lib/provider');
+var Purest = require('../../lib/provider');
 
 
 function Facebook (options) {
@@ -100,8 +100,8 @@ function Provider (options) {
 // consumer app
 var async = require('async');
 var cred = {
-    app: require('../config/app'),
-    user: require('../config/user')
+    app: require('../../config/app'),
+    user: require('../../config/user')
 };
 
 
