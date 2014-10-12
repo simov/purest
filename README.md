@@ -3,6 +3,9 @@
 
 _**Purest**_ is build on top of [request][request], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
+
+## Simple Usage
+
 ```js
 var Purest = require('purest');
 var google = new Purest({provider:'google'});
@@ -10,11 +13,14 @@ var google = new Purest({provider:'google'});
 google.get('channels', {
   api:'youtube',
   qs:{
-    access_token:'access-token',
+    access_token:'token',
     forUsername:'RayWilliamJohnson'
   }
 }, function (err, res, body) {});
 ```
+
+
+## Expressive API
 
 On top of that _**Purest**_ provides a nice API to make your application code more expressive
 
@@ -28,7 +34,27 @@ google.query('youtube')
   .request(function (err, res, body) {});
 ```
 
-## [Documentation][docs]
+
+## Streaming
+
+Everything you know about [request][request] works out of the box
+
+```js
+// move a file from Box to Dropbox
+box.query()
+  .get('files/21838973235/content')
+  .auth('token')
+  .request()
+  .pipe(dropbox.query('files')
+    .put('files_put/auto/cat.jpg')
+    .auth('token')
+    .request()
+    .on('end', done));
+```
+
+
+# [Documentation][docs]
+
 
 ## License
 
