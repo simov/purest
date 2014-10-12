@@ -646,7 +646,9 @@
         },
         "https://rubygems.org": {
             "__domain": {
-                
+                "auth": {
+                    "headers": {"Authorization": "[0]"}
+                }
             },
             "api/[version]/{endpoint}.[type]": {
                 "__path": {
