@@ -75,22 +75,29 @@ describe('refresh', function () {
         });
     });
     // https://developers.google.com/accounts/docs/OAuth2WebServer?hl=fr#refresh
-    it('google', function (done) {
-        p.google.refresh(
-            cred.app.google,
-            cred.user.google.refresh,
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body), [
-                'access_token', 'token_type', 'expires_in', 'id_token'
-            ]);
-            body.access_token.should.be.type('string');
-            body.token_type.should.equal('Bearer');
-            body.expires_in.should.equal(3600);
-            done();
+    describe('google', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.google.refresh(
+                cred.app.google,
+                cred.user.google.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'token_type', 'expires_in', 'id_token'
+                ]);
+                body.access_token.should.be.type('string');
+                body.token_type.should.equal('Bearer');
+                body.expires_in.should.equal(3600);
+                _body = body;
+                done();
+            });
         });
-    });
+        after(function () {
+            refresh.store('google', _body.access_token);
+        });
+    })
     // https://devcenter.heroku.com/articles/oauth#token-refresh
     it('heroku', function (done) {
         p.heroku.refresh(
