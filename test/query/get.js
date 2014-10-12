@@ -596,12 +596,12 @@ describe('query', function () {
     });
     it('rubygems', function (done) {
         p.rubygems.query()
-            .select('gems/rails')
+            .get('gems')
+            .auth(cred.user.rubygems.apikey)
             .request(function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                body.name.should.equal('rails');
-                body.platform.should.equal('ruby');
+                should.deepEqual(body, []);
                 done();
             });
     });
