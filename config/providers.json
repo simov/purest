@@ -654,6 +654,13 @@
                 "__path": {
                     "alias": "__default",
                     "version": "v1"
+                },
+                "api_key": {
+                    "__endpoint": {
+                        "auth": {
+                            "auth": {"user":"[0]", "pass":"[1]"}
+                        }
+                    }
                 }
             }
         }

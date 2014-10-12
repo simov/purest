@@ -594,16 +594,29 @@ describe('query', function () {
                 done();
             });
     });
-    it('rubygems', function (done) {
-        p.rubygems.query()
-            .get('gems')
-            .auth(cred.user.rubygems.apikey)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                should.deepEqual(body, []);
-                done();
-            });
+    describe('rubygems', function () {
+        it('headers auth', function (done) {
+            p.rubygems.query()
+                .get('gems')
+                .auth(cred.user.rubygems.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    should.deepEqual(body, []);
+                    done();
+                });
+        });
+        it('basic auth', function (done) {
+            p.rubygems.query()
+                .get('api_key')
+                .auth(cred.user.rubygems.user, cred.user.rubygems.pass)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.rubygems_api_key.should.be.type('string');
+                    done();
+                });
+        });
     });
     it('sendgrid', function (done) {
         p.sendgrid.query()
