@@ -193,6 +193,28 @@ describe('refresh', function () {
             refresh.store('paypal', _body.access_token);
         });
     });
+    // https://github.com/justintv/Twitch-API/blob/master/authentication.md
+    describe('twitch', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.twitch.refresh(
+                cred.app.twitch,
+                cred.user.twitch.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'refresh_token', 'scope'
+                ]);
+                body.access_token.should.be.type('string');
+                body.refresh_token.should.be.type('string');
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('twitch', _body.access_token);
+        });
+    });
     // https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
     it('yahoo', function (done) {
         p.yahoo.refresh(

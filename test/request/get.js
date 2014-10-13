@@ -709,6 +709,17 @@ describe('get', function () {
             });
         });
     });
+    it('twitch', function (done) {
+        p.twitch.get('user', {
+            headers:{Authorization:'OAuth '+cred.user.twitch.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body._id.should.be.type('number');
+            body.name.should.be.type('string');
+            done();
+        });
+    });
     it('twitter', function (done) {
         p.twitter.get('users/show', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},

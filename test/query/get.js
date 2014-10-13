@@ -722,6 +722,18 @@ describe('query', function () {
                 });
         });
     });
+    it('twitch', function (done) {
+        p.twitch.query()
+            .get('user')
+            .auth(cred.user.twitch.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body._id.should.be.type('number');
+                body.name.should.be.type('string');
+                done();
+            });
+    });
     it('twitter', function (done) {
         p.twitter.query()
             .select('users/show')

@@ -865,6 +865,31 @@
             }
         }
     },
+    "twitch": {
+        "__provider": {
+            "refresh": "https://api.twitch.tv/kraken/oauth2/token",
+            "docs": "https://github.com/justintv/twitch-api"
+        },
+        "https://api.twitch.tv": {
+            "__domain": {
+                "auth": {
+                    "headers": {"Authorization": "OAuth [0]"}
+                }
+            },
+            "kraken/{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "Accepts": "application/vnd.twitchtv.v2+json"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "twitter": {
         "__provider": {
             "oauth": true,
