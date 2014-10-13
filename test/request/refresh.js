@@ -145,6 +145,29 @@ describe('refresh', function () {
             refresh.store('live', _body.access_token, _body.refresh_token);
         });
     });
+    // https://developer.paypal.com/docs/api/#grant-token-from-refresh-token
+    describe('paypal', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.paypal.refresh(
+                cred.app.paypal,
+                cred.user.paypal.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'token_type', 'expires_in', 'access_token'
+                ]);
+                body.access_token.should.be.type('string');
+                body.token_type.should.equal('Bearer');
+                body.expires_in.should.equal('28800');
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('paypal', _body.access_token);
+        });
+    });
     // https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
     it('yahoo', function (done) {
         p.yahoo.refresh(

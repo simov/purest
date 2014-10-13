@@ -601,6 +601,19 @@ describe('get', function () {
             done();
         });
     });
+    it('paypal', function (done) {
+        p.paypal.get('userinfo', {
+            api:'identity',
+            auth:{bearer:cred.user.paypal.token},
+            qs: {schema:'openid'}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.user_id.should.be.type('string');
+            body.name.should.be.type('string');
+            done();
+        });
+    });
     it('rubygems', function (done) {
         p.rubygems.get('gems/rails', function (err, res, body) {
             debugger;

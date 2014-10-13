@@ -117,6 +117,21 @@ describe('override', function () {
         });
     });
 
+    describe('paypal', function () {
+        describe('url domain', function () {
+            it('use default domain', function () {
+                var provider = new Purest({provider:'paypal', api:'payments'});
+                provider.url.get('endpoint', {})
+                    .should.equal('https://api.paypal.com/v1/payments/endpoint');
+            });
+            it('use sandbox domain', function () {
+                var provider = new Purest({provider:'paypal', api:'payments'});
+                provider.url.get('endpoint', {sandbox:true})
+                    .should.equal('https://api.sandbox.paypal.com/v1/payments/endpoint');
+            });
+        });
+    });
+
     describe('sendgrid', function () {
         describe('multipart file', function () {
             it('customize content-disposition', function () {

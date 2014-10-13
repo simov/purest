@@ -622,6 +622,55 @@
             }
         }
     },
+    "paypal": {
+        "__provider": {
+            "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
+            "docs": "https://developer.paypal.com/docs/"
+        },
+        "https://api.paypal.com": {
+            "__domain": {
+                "auth": {
+                    "auth":{"bearer": "[0]"}
+                }
+            },
+            "[version]/payments/{endpoint}": {
+                "__path": {
+                    "alias": ["payments"],
+                    "version": "v1"
+                }
+            },
+            "[version]/vault/{endpoint}": {
+                "__path": {
+                    "alias": ["vault"],
+                    "version": "v1"
+                }
+            },
+            "[version]/identity/openidconnect/{endpoint}": {
+                "__path": {
+                    "alias": ["identity"],
+                    "version": "v1"
+                }
+            },
+            "[version]/invoicing/{endpoint}": {
+                "__path": {
+                    "alias": ["invoicing"],
+                    "version": "v1"
+                }
+            },
+            "[version]/payment-experience/{endpoint}": {
+                "__path": {
+                    "alias": ["payment-experience"],
+                    "version": "v1"
+                }
+            },
+            "[version]/notifications/{endpoint}": {
+                "__path": {
+                    "alias": ["notifications"],
+                    "version": "v1"
+                }
+            }
+        }
+    },
     "pipelinedeals": {
         "__provider": {
             "docs": "https://www.pipelinedeals.com/api/docs/introduction"

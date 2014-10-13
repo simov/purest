@@ -594,6 +594,19 @@ describe('query', function () {
                 done();
             });
     });
+    it('paypal', function (done) {
+        p.paypal.query('identity')
+            .get('userinfo')
+            .where({schema:'openid'})
+            .auth(cred.user.paypal.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.user_id.should.be.type('string');
+                body.name.should.be.type('string');
+                done();
+            });
+    });
     describe('rubygems', function () {
         it('headers auth', function (done) {
             p.rubygems.query()
