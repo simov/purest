@@ -164,6 +164,25 @@
             }
         }
     },
+    "digitalocean": {
+        "__provider": {
+            "refresh": "https://cloud.digitalocean.com/v1/oauth/token",
+            "docs": "https://developers.digitalocean.com/"
+        },
+        "https://api.digitalocean.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v2"
+                }
+            }
+        }
+    },
     "dropbox": {
         "__provider": {
             "docs": "https://www.dropbox.com/developers"

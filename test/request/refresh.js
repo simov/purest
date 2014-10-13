@@ -74,6 +74,31 @@ describe('refresh', function () {
             refresh.store('box', _body.access_token, _body.refresh_token);
         });
     });
+    // https://developers.digitalocean.com/oauth/
+    describe('digitalocean', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.digitalocean.refresh(
+                cred.app.digitalocean,
+                cred.user.digitalocean.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'token_type', 'expires_in',
+                    'refresh_token', 'scope', 'uid','info'
+                ]);
+                body.access_token.should.be.type('string');
+                body.refresh_token.should.be.type('string');
+                body.token_type.should.equal('bearer');
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('digitalocean', _body.access_token, _body.refresh_token);
+        });
+    });
     // https://developers.google.com/accounts/docs/OAuth2WebServer?hl=fr#refresh
     describe('google', function () {
         var _body = null;

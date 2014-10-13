@@ -153,6 +153,16 @@ describe('get', function () {
             done();
         });
     });
+    it('digitalocean', function (done) {
+        p.digitalocean.get('actions', {
+            auth:{bearer:cred.user.digitalocean.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.actions.should.be.instanceOf(Array);
+            done();
+        });
+    });
     it('dropbox', function (done) {
         p.dropbox.get('account/info', {
             auth: {bearer:cred.user.dropbox.token}
