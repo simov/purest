@@ -44,7 +44,10 @@ exports = module.exports = function (p) {
                     console.log(data);
                     console.log('---------------------');
                     done();
-                }));
+                }))
+                .on('end', function (e) {
+                    console.log('DONE!');
+                });
         }
     };
 }
