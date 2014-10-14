@@ -193,6 +193,28 @@ describe('refresh', function () {
             refresh.store('paypal', _body.access_token);
         });
     });
+    // https://stripe.com/docs/connect/oauth#test-keys-for-livemode-applications
+    describe('stripe', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.stripe.refresh(
+                cred.app.stripe,
+                cred.user.stripe.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'livemode', 'refresh_token',
+                    'token_type',
+                    'stripe_publishable_key', 'stripe_user_id', 'scope'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('stripe', _body.access_token);
+        });
+    });
     // https://github.com/justintv/Twitch-API/blob/master/authentication.md
     describe('twitch', function () {
         var _body = null;

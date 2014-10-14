@@ -687,6 +687,17 @@ describe('get', function () {
             done();
         });
     });
+    it('stripe', function (done) {
+        p.stripe.get('account', {
+            auth:{user:cred.user.stripe.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.id.should.be.type('string');
+            body.email.should.be.type('string');
+            done();
+        });
+    });
     describe('trello', function () {
         it('public', function (done) {
             p.trello.get('boards/4d5ea62fd76aa1136000000c', {

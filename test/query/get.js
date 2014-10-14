@@ -698,6 +698,18 @@ describe('query', function () {
             done();
         });
     });
+    it('stripe', function (done) {
+        p.stripe.query()
+            .get('account')
+            .auth(cred.user.stripe.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.id.should.be.type('string');
+                body.email.should.be.type('string');
+                done();
+            });
+    });
     describe('trello', function () {
         it('public', function (done) {
             p.trello.query()

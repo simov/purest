@@ -845,6 +845,25 @@
             }
         }
     },
+    "stripe": {
+        "__provider": {
+            "refresh": "https://connect.stripe.com/oauth/token",
+            "docs": "https://stripe.com/docs"
+        },
+        "https://api.stripe.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"user":"[0]"}
+                }
+            },
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                }
+            }
+        }
+    },
     "trello": {
         "__provider": {
             "oauth": true,
