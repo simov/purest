@@ -914,6 +914,30 @@
             }
         }
     },
+    "vimeo": {
+        "__provider": {
+            "docs": "https://developer.vimeo.com/"
+        },
+        "https://api.vimeo.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
+            "{endpoint}": {
+                "__path": {
+                    "alias": "__default"
+                },
+                "*": {
+                    "all": {
+                        "headers": {
+                            "Accepts": "application/vnd.vimeo.*+json;version=3.2"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "wikimapia": {
         "__provider": {
             "docs": "http://wikimapia.org/api"

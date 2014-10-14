@@ -747,6 +747,18 @@ describe('query', function () {
                 done();
             })
     });
+    it('vimeo', function (done) {
+        p.vimeo.query()
+            .get('me')
+            .auth(cred.user.vimeo.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.name.should.be.type('string');
+                body.uri.should.be.type('string');
+                done();
+            });
+    });
     it('wikimapia', function (done) {
         p.wikimapia.query()
             .select('')
