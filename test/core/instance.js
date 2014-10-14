@@ -34,6 +34,14 @@ describe('instance', function () {
         var p = new Purest({provider:'twitter'});
         p.oauth.should.equal(true);
     });
+    it('oauth2 flag', function () {
+        var p = new Purest({provider:'facebook'});
+        p.oauth2.should.equal(true);
+    });
+    it('refresh token uri', function () {
+        var p = new Purest({provider:'google'});
+        p._refresh.should.equal('https://accounts.google.com/o/oauth2/token');
+    });
 
     it('API return data type', function () {
         var p = new Purest({provider:'twitter'});

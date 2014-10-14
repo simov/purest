@@ -41,6 +41,7 @@
     },
     "asana": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://app.asana.com/-/oauth_token",
             "docs": "http://developer.asana.com/documentation/"
         },
@@ -69,6 +70,7 @@
     },
     "bitly": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://dev.bitly.com"
         },
         "https://api-ssl.bitly.com": {
@@ -87,6 +89,7 @@
     },
     "box": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://api.box.com/oauth2/token",
             "docs": "https://developers.box.com/"
         },
@@ -206,6 +209,7 @@
     },
     "digitalocean": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://cloud.digitalocean.com/v1/oauth/token",
             "docs": "https://developers.digitalocean.com/"
         },
@@ -225,6 +229,7 @@
     },
     "dropbox": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://www.dropbox.com/developers"
         },
         "https://api.dropbox.com": {
@@ -261,6 +266,7 @@
     },
     "facebook": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://developers.facebook.com"
         },
         "https://graph.facebook.com": {
@@ -335,6 +341,7 @@
     },
     "foursquare": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://developer.foursquare.com/"
         },
         "https://api.foursquare.com": {
@@ -358,6 +365,7 @@
     },
     "github": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://developer.github.com"
         },
         "https://api.github.com": {
@@ -375,6 +383,7 @@
     },
     "google": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://accounts.google.com/o/oauth2/token",
             "docs": "https://developers.google.com/"
         },
@@ -491,6 +500,7 @@
     },
     "heroku": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://id.heroku.com/oauth/token",
             "docs": "https://devcenter.heroku.com/categories/platform-api"
         },
@@ -510,6 +520,7 @@
     },
     "imgur": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://api.imgur.com/oauth2/token",
             "docs": "https://api.imgur.com/"
         },
@@ -530,6 +541,7 @@
     },
     "instagram": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://instagram.com/developer"
         },
         "https://api.instagram.com": {
@@ -574,6 +586,7 @@
     },
     "live": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://login.live.com/oauth20_token.srf",
             "docs": "http://msdn.microsoft.com/en-us/library/dn783283.aspx"
         },
@@ -616,6 +629,7 @@
     },
     "mailchimp": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://apidocs.mailchimp.com/"
         },
         "https://[dc].api.mailchimp.com": {
@@ -704,6 +718,7 @@
     },
     "paypal": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
             "docs": "https://developer.paypal.com/docs/"
         },
@@ -818,6 +833,7 @@
     },
     "slack": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://api.slack.com/"
         },
         "https://slack.com": {
@@ -840,6 +856,7 @@
     },
     "soundcloud": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://developers.soundcloud.com"
         },
         "https://api.soundcloud.com": {
@@ -862,6 +879,7 @@
     },
     "stackexchange": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://api.stackexchange.com"
         },
         "https://api.stackexchange.com": {
@@ -885,6 +903,7 @@
     },
     "stocktwits": {
         "__provider": {
+            "oauth2": true,
             "docs": "http://stocktwits.com/developers"
         },
         "https://api.stocktwits.com": {
@@ -908,6 +927,7 @@
     },
     "stripe": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://connect.stripe.com/oauth/token",
             "docs": "https://stripe.com/docs"
         },
@@ -967,6 +987,7 @@
     },
     "twitch": {
         "__provider": {
+            "oauth2": true,
             "refresh": "https://api.twitch.tv/kraken/oauth2/token",
             "docs": "https://github.com/justintv/twitch-api"
         },
@@ -1016,6 +1037,7 @@
     },
     "vimeo": {
         "__provider": {
+            "oauth2": true,
             "docs": "https://developer.vimeo.com/"
         },
         "https://api.vimeo.com": {
@@ -1062,8 +1084,8 @@
     },
     "yahoo": {
         "__provider": {
-            "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
             "oauth": true,
+            "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
             "docs": "https://developer.yahoo.com/"
         },
         "https://social.yahooapis.com": {
