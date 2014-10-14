@@ -32,6 +32,28 @@ describe('refresh', function () {
         }
     });
 
+    // http://about.me/developer/api/docs/#login
+    describe('aboutme', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.aboutme.refresh(
+                cred.user.aboutme.apikey,
+                cred.user.aboutme.user,
+                cred.user.aboutme.pass,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'status', 'expires_in'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('aboutme', _body.access_token);
+        });
+    });
     // https://github.com/Asana/oauth-examples#token-exchange-endpoint
     describe('asana', function () {
         var _body = null;
