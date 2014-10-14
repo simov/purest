@@ -33,20 +33,24 @@ describe('refresh', function () {
     });
 
     // https://github.com/Asana/oauth-examples#token-exchange-endpoint
-    it('asana', function (done) {
-        p.asana.refresh(
-            cred.app.asana,
-            cred.user.asana.refresh,
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body), [
-                'access_token', 'token_type', 'expires_in', 'data'
-            ]);
-            body.access_token.should.be.type('string');
-            body.token_type.should.equal('bearer');
-            body.expires_in.should.equal(3600);
-            done();
+    describe('asana', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.asana.refresh(
+                cred.app.asana,
+                cred.user.asana.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'token_type', 'expires_in', 'data'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('asana', _body.access_token);
         });
     });
     // https://developers.box.com/docs/#oauth-2-token
@@ -63,9 +67,6 @@ describe('refresh', function () {
                     'access_token', 'expires_in', 'restricted_to',
                     'refresh_token', 'token_type'
                 ]);
-                body.access_token.should.be.type('string');
-                body.refresh_token.should.be.type('string');
-                body.token_type.should.equal('bearer');
                 _body = body;
                 done();
             });
@@ -88,9 +89,6 @@ describe('refresh', function () {
                     'access_token', 'token_type', 'expires_in',
                     'refresh_token', 'scope', 'uid','info'
                 ]);
-                body.access_token.should.be.type('string');
-                body.refresh_token.should.be.type('string');
-                body.token_type.should.equal('bearer');
                 _body = body;
                 done();
             });
@@ -112,9 +110,6 @@ describe('refresh', function () {
                 should.deepEqual(Object.keys(body), [
                     'access_token', 'token_type', 'expires_in', 'id_token'
                 ]);
-                body.access_token.should.be.type('string');
-                body.token_type.should.equal('Bearer');
-                body.expires_in.should.equal(3600);
                 _body = body;
                 done();
             });
@@ -124,22 +119,25 @@ describe('refresh', function () {
         });
     })
     // https://devcenter.heroku.com/articles/oauth#token-refresh
-    it('heroku', function (done) {
-        p.heroku.refresh(
-            cred.app.heroku,
-            cred.user.heroku.refresh,
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body), [
-                'access_token', 'expires_in', 'refresh_token',
-                'token_type', 'user_id', 'session_nonce'
-            ]);
-            body.access_token.should.be.type('string');
-            body.refresh_token.should.be.type('string');
-            body.token_type.should.equal('Bearer');
-            body.expires_in.should.equal(7199);
-            done();
+    describe('heroku', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.heroku.refresh(
+                cred.app.heroku,
+                cred.user.heroku.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'expires_in', 'refresh_token',
+                    'token_type', 'user_id', 'session_nonce'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('heroku', _body.access_token);
         });
     });
     // https://api.imgur.com/oauth2#refresh_tokens
@@ -167,7 +165,7 @@ describe('refresh', function () {
     // http://msdn.microsoft.com/en-us/library/hh243647.aspx
     describe('live', function () {
         var _body = null;
-        it('live', function (done) {
+        it('refresh', function (done) {
             p.live.refresh(
                 cred.app.live,
                 cred.user.live.refresh,
@@ -179,11 +177,6 @@ describe('refresh', function () {
                     'access_token', 'refresh_token', 'authentication_token',
                     'user_id'
                 ]);
-                body.token_type.should.equal('bearer');
-                body.expires_in.should.equal(3600);
-                body.access_token.should.be.type('string');
-                body.refresh_token.should.be.type('string');
-                body.authentication_token.should.be.type('string');
                 _body = body;
                 done();
             });
@@ -204,9 +197,6 @@ describe('refresh', function () {
                 should.deepEqual(Object.keys(body), [
                     'token_type', 'expires_in', 'access_token'
                 ]);
-                body.access_token.should.be.type('string');
-                body.token_type.should.equal('Bearer');
-                body.expires_in.should.equal('28800');
                 _body = body;
                 done();
             });
@@ -249,8 +239,6 @@ describe('refresh', function () {
                 should.deepEqual(Object.keys(body), [
                     'access_token', 'refresh_token', 'scope'
                 ]);
-                body.access_token.should.be.type('string');
-                body.refresh_token.should.be.type('string');
                 _body = body;
                 done();
             });
@@ -260,24 +248,27 @@ describe('refresh', function () {
         });
     });
     // https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
-    it('yahoo', function (done) {
-        p.yahoo.refresh(
-            cred.app.yahoo,
-            cred.user.yahoo,
-            {oauth_session_handle:cred.user.yahoo.session},
-        function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            should.deepEqual(Object.keys(body), [
-                'oauth_token', 'oauth_token_secret', 'oauth_expires_in',
-                'oauth_session_handle', 'oauth_authorization_expires_in',
-                'xoauth_yahoo_guid'
-            ]);
-            body.oauth_token.should.be.type('string');
-            body.oauth_token_secret.should.be.type('string');
-            body.oauth_expires_in.should.equal('3600');
-            body.oauth_session_handle.should.be.type('string');
-            done();
+    describe('yahoo', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.yahoo.refresh(
+                cred.app.yahoo,
+                cred.user.yahoo,
+                {oauth_session_handle:cred.user.yahoo.session},
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'oauth_token', 'oauth_token_secret', 'oauth_expires_in',
+                    'oauth_session_handle', 'oauth_authorization_expires_in',
+                    'xoauth_yahoo_guid'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.storeOAuth1('yahoo', _body.oauth_token, _body.oauth_token_secret);
         });
     });
 });
