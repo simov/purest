@@ -468,6 +468,26 @@
             }
         }
     },
+    "imgur": {
+        "__provider": {
+            "refresh": "https://api.imgur.com/oauth2/token",
+            "docs": "https://api.imgur.com/"
+        },
+        "https://api.imgur.com": {
+            "__domain": {
+                "auth": [
+                    {"auth": {"bearer": "[0]"}},
+                    {"headers": {"Authorization": "Client-ID [0]"}}
+                ]
+            },
+            "[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "3"
+                }
+            }
+        }
+    },
     "instagram": {
         "__provider": {
             "docs": "http://instagram.com/developer"
@@ -629,9 +649,10 @@
         },
         "http://api.openstreetmap.org": {
             "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
+                "auth": [
+                    {"auth": {"user": "[0]", "pass": "[1]"}},
+                    {"oauth": {"token": "[0]", "secret": "[1]"}}
+                ]
             },
             "api/[version]/{endpoint}": {
                 "__path": {

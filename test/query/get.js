@@ -516,6 +516,30 @@ describe('query', function () {
                 });
         });
     });
+    describe('imgur', function () {
+        it('apikey', function (done) {
+            p.imgur.query()
+                .get('account/simov')
+                .auth(cred.app.imgur.key)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.data.url.should.equal('simov');
+                    done();
+                });
+        });
+        it('token', function (done) {
+            p.imgur.query()
+                .get('account/simov')
+                .auth(cred.user.imgur.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.data.url.should.equal('simov');
+                    done();
+                });
+        });
+    });
     it('instagram', function (done) {
         p.instagram.query()
             .select('users/self/feed')

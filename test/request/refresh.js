@@ -142,6 +142,28 @@ describe('refresh', function () {
             done();
         });
     });
+    // https://api.imgur.com/oauth2#refresh_tokens
+    describe('imgur', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.imgur.refresh(
+                cred.app.imgur,
+                cred.user.imgur.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'expires_in', 'token_type',
+                    'scope', 'refresh_token', 'account_username'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('imgur', _body.access_token, _body.refresh_token);
+        });
+    });
     // http://msdn.microsoft.com/en-us/library/hh243647.aspx
     describe('live', function () {
         var _body = null;

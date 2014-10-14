@@ -63,6 +63,27 @@ describe('override', function () {
         });
     });
 
+    describe('imgur', function () {
+        it('use apikey', function () {
+            var provider = new Purest({provider:'imgur'});
+            provider.query().headers({'User-Agent':'Purest'}).auth('b13e265d3ct1de7');
+            provider.before.get('endpoint', provider._query._options);
+            should.deepEqual(provider._query._options,
+                {api:'__default', headers:{
+                    'User-Agent':'Purest',
+                    Authorization:'Client-ID b13e265d3ct1de7'
+                }});
+        });
+        it('use token', function () {
+            var provider = new Purest({provider:'imgur'});
+            provider.query().auth('c47d19b1183g4207d7287b75g4ee63g6f6c9e3a');
+            provider.before.get('endpoint', provider._query._options);
+            should.deepEqual(provider._query._options,
+                {api:'__default', auth:{
+                    bearer:'c47d19b1183g4207d7287b75g4ee63g6f6c9e3a'}});
+        });
+    });
+
     describe('linkedin', function () {
         describe('before post', function () {
             it('send form data as entity body', function () {
@@ -97,7 +118,7 @@ describe('override', function () {
     });
 
     describe('openstreetmap', function () {
-        it('change auth method', function () {
+        it('use basic auth', function () {
             var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
             provider.query().auth('user','pass');
             provider.options.oauth(provider._query._options);
@@ -105,7 +126,7 @@ describe('override', function () {
             should.deepEqual(provider._query._options,
                 {api:'__default', auth:{user:'user', pass:'pass'}});
         });
-        it('keep auth method', function () {
+        it('use oauth', function () {
             var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
             provider.query().auth('0123456789012345678901234567890','pass');
             provider.options.oauth(provider._query._options);

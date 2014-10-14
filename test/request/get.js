@@ -523,6 +523,28 @@ describe('get', function () {
             });
         });
     });
+    describe('imgur', function () {
+        it('apikey', function (done) {
+            p.imgur.get('account/simov', {
+                headers: {Authorization: 'Client-ID '+cred.app.imgur.key}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.data.url.should.equal('simov');
+                done();
+            });
+        });
+        it('token', function (done) {
+            p.imgur.get('account/simov', {
+                auth:{bearer:cred.user.imgur.token}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.data.url.should.equal('simov');
+                done();
+            });
+        });
+    });
     it('instagram', function (done) {
         p.instagram.get('users/self/feed', {
             qs:{access_token:cred.user.instagram.token}
