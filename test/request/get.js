@@ -742,6 +742,28 @@ describe('get', function () {
             });
         });
     });
+    describe('tumblr', function () {
+        it('apikey', function (done) {
+            p.tumblr.get('blog/simovblog.tumblr.com/info', {
+                qs:{api_key:cred.app.tumblr.key}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.response.blog.name.should.equal('simovblog');
+                done();
+            });
+        });
+        it('token', function (done) {
+            p.tumblr.get('blog/simovblog.tumblr.com/followers', {
+                oauth:{token:cred.user.tumblr.token, secret:cred.user.tumblr.secret}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(body.meta, {status:200, msg:'OK'});
+                done();
+            });
+        });
+    });
     it('twitch', function (done) {
         p.twitch.get('user', {
             headers:{Authorization:'OAuth '+cred.user.twitch.token}

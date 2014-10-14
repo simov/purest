@@ -905,6 +905,26 @@
             }
         }
     },
+    "tumblr": {
+        "__provider": {
+            "oauth": true,
+            "docs": "http://www.tumblr.com/docs/en/api/v2"
+        },
+        "http://api.tumblr.com": {
+            "__domain": {
+                "auth": [
+                    {"qs": {"api_key": "[0]"}},
+                    {"oauth": {"token": "[0]", "secret": "[1]"}}
+                ]
+            },
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v2"
+                }
+            }
+        }
+    },
     "twitch": {
         "__provider": {
             "refresh": "https://api.twitch.tv/kraken/oauth2/token",
