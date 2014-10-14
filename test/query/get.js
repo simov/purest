@@ -24,6 +24,30 @@ describe('query', function () {
         done();
     });
 
+    describe('aboutme', function () {
+        it('apikey', function (done) {
+            p.aboutme.query('user')
+                .select('view/simeonv')
+                .auth(cred.user.aboutme.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.user_name.should.equal('simeonv');
+                    done();
+                });
+        });
+        it('token', function (done) {
+            p.aboutme.query('user')
+                .get('directory/simeonv')
+                .auth(cred.user.aboutme.apikey, cred.user.aboutme.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.status.should.equal(200);
+                    done();
+                });
+        });
+    });
     describe('asana', function () {
         var access = {};
         before(function (done) {

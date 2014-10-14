@@ -1,4 +1,44 @@
 {
+    "aboutme": {
+        "__provider": {
+            "docs": "http://about.me/developer/api/docs/"
+        },
+        "https://api.about.me": {
+            "__domain": {
+                "auth": [
+                    {"qs": {"client_id": "[0]"}},
+                    {
+                        "qs": {"client_id": "[0]"},
+                        "headers": {"Authorization": "OAuth [1]"}
+                    }
+                ]
+            },
+            "api/[version]/json/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v2"
+                }
+            },
+            "api/[version]/json/user/{endpoint}": {
+                "__path": {
+                    "alias": ["user"],
+                    "version": "v2"
+                }
+            },
+            "api/[version]/json/users/{endpoint}": {
+                "__path": {
+                    "alias": ["users"],
+                    "version": "v2"
+                }
+            },
+            "api/[version]/json/services/{endpoint}": {
+                "__path": {
+                    "alias": ["services"],
+                    "version": "v2"
+                }
+            }
+        }
+    },
     "asana": {
         "__provider": {
             "refresh": "https://app.asana.com/-/oauth_token",

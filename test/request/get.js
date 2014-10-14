@@ -24,6 +24,31 @@ describe('get', function () {
         done();
     });
 
+    describe('aboutme', function () {
+        it('apikey', function (done) {
+            p.aboutme.get('user/view/simeonv', {
+                headers:{Authorization:'Basic '+cred.user.aboutme.apikey}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.user_name.should.equal('simeonv');
+                done();
+            });
+        });
+        it('token', function (done) {
+            p.aboutme.get('user/directory/simeonv', {
+                qs: {
+                    client_id:cred.user.aboutme.apikey,
+                    token:cred.user.aboutme.token
+                }
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.status.should.equal(200);
+                done();
+            });
+        });
+    });
     describe('asana', function () {
         var access = {};
         before(function (done) {
