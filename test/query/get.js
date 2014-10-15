@@ -594,16 +594,29 @@ describe('query', function () {
                 done();
             });
     });
-    it('openstreetmap', function (done) {
-        p.openstreetmap.query()
-            .select('user/details')
-            .auth(cred.user.openstreetmap.token, cred.user.openstreetmap.secret)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
-                done();
-            });
+    describe('openstreetmap', function () {
+        it('oauth', function (done) {
+            p.openstreetmap.query()
+                .select('user/details')
+                .auth(cred.user.openstreetmap.token, cred.user.openstreetmap.secret)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
+                    done();
+                });
+        });
+        it('basic auth', function (done) {
+            p.openstreetmap.query()
+                .select('user/details')
+                .auth(cred.user.openstreetmap.user, cred.user.openstreetmap.pass)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/);
+                    done();
+                });
+        });
     });
     it('paypal', function (done) {
         p.paypal.query('identity')
