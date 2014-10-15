@@ -66,9 +66,10 @@ describe('override', function () {
     describe('imgur', function () {
         it('use apikey', function () {
             var provider = new Purest({provider:'imgur'});
-            provider.query().headers({'User-Agent':'Purest'}).auth('b13e265d3ct1de7');
-            provider.before.get('endpoint', provider._query._options);
-            should.deepEqual(provider._query._options,
+            var query = provider.query()
+                .headers({'User-Agent':'Purest'}).auth('b13e265d3ct1de7');
+            provider.before.get('endpoint', query._options);
+            should.deepEqual(query._options,
                 {api:'__default', headers:{
                     'User-Agent':'Purest',
                     Authorization:'Client-ID b13e265d3ct1de7'
@@ -76,9 +77,9 @@ describe('override', function () {
         });
         it('use token', function () {
             var provider = new Purest({provider:'imgur'});
-            provider.query().auth('c47d19b1183g4207d7287b75g4ee63g6f6c9e3a');
-            provider.before.get('endpoint', provider._query._options);
-            should.deepEqual(provider._query._options,
+            var query = provider.query().auth('c47d19b1183g4207d7287b75g4ee63g6f6c9e3a');
+            provider.before.get('endpoint', query._options);
+            should.deepEqual(query._options,
                 {api:'__default', auth:{
                     bearer:'c47d19b1183g4207d7287b75g4ee63g6f6c9e3a'}});
         });
@@ -120,18 +121,18 @@ describe('override', function () {
     describe('openstreetmap', function () {
         it('use basic auth', function () {
             var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
-            provider.query().auth('user','pass');
-            provider.options.oauth(provider._query._options);
-            provider.before.get('endpoint', provider._query._options);
-            should.deepEqual(provider._query._options,
+            var query = provider.query().auth('user','pass');
+            provider.options.oauth(query._options);
+            provider.before.get('endpoint', query._options);
+            should.deepEqual(query._options,
                 {api:'__default', auth:{user:'user', pass:'pass'}});
         });
         it('use oauth', function () {
             var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'});
-            provider.query().auth('0123456789012345678901234567890','pass');
-            provider.options.oauth(provider._query._options);
-            provider.before.get('endpoint', provider._query._options);
-            should.deepEqual(provider._query._options,
+            var query = provider.query().auth('0123456789012345678901234567890','pass');
+            provider.options.oauth(query._options);
+            provider.before.get('endpoint', query._options);
+            should.deepEqual(query._options,
                 {api:'__default', oauth:{
                     consumer_key:'key', consumer_secret:'secret',
                     token:'0123456789012345678901234567890', token_secret:'pass'}});

@@ -4,29 +4,28 @@ var Query = require('../../lib/query'),
     Purest = require('../../lib/provider');
 
 
-describe('Query', function () {
+describe('query', function () {
     var provider = null;
     before(function () {
         provider = new Purest({provider:'box'});
     });
     it('config', function () {
-        provider.config().should.be.instanceOf(Query);
+        provider.query().should.be.instanceOf(Query);
     });
     it('qs', function () {
-        provider.config().qs({some:'data'}).should.be.instanceOf(Query);
-        should.deepEqual(provider._query._options, {api:'__default', qs:{some:'data'}});
+        var query = provider.query().qs({some:'data'});
+        should.deepEqual(query._options, {api:'__default', qs:{some:'data'}});
     });
     it('form', function () {
-        provider.config().form({some:'data'}).should.be.instanceOf(Query);
-        should.deepEqual(provider._query._options, {api:'__default', form:{some:'data'}});
+        var query = provider.query().form({some:'data'});
+        should.deepEqual(query._options, {api:'__default', form:{some:'data'}});
     });
     it('override & extend', function () {
-        provider.config()
+        var query = provider.query()
             .form({some:'data1'})
             .qs({some:'data1'})
-            .form({some:'data2', some2:'data3'})
-            .should.be.instanceOf(Query);
-        should.deepEqual(provider._query._options, {
+            .form({some:'data2', some2:'data3'});
+        should.deepEqual(query._options, {
             api:'__default',
             form: {some:'data2', some2:'data3'},
             qs: {some:'data1'}
@@ -108,31 +107,31 @@ describe('auth', function () {
 
     it('__domain auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
-        provider.config().auth('token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query().auth('token');
+        should.deepEqual(query._options,
             {api:'__default', qs:{access_token:'token'}});
-        should.deepEqual(provider._query.api.auth,
+        should.deepEqual(query.api.auth,
             {qs:{access_token:'[0]'}});
     });
     it('__path auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
-        provider.config('alias1').auth('token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias1').auth('token');
+        should.deepEqual(query._options,
             {api:'alias1', headers:{Authorization:'Token token'}});
-        should.deepEqual(provider._query.api.auth,
+        should.deepEqual(query.api.auth,
             {headers:{Authorization:'Token [0]'}});
     });
     it('__endpoint auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
-        provider.config('alias2').get('endpoint').auth('token','secret');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias2').get('endpoint').auth('token','secret');
+        should.deepEqual(query._options,
             {api:'alias2', oauth:{token:'token',secret:'secret'}});
 
-        should.deepEqual(provider._query.api.auth, [
+        should.deepEqual(query.api.auth, [
             {auth:{bearer:'[0]'}}, {auth:{user:'[0]',pass:'[1]'}}
         ]);
 
-        should.deepEqual(provider._query.api.endpoints.str.endpoint.__endpoint, {
+        should.deepEqual(query.api.endpoints.str.endpoint.__endpoint, {
             auth: {oauth:{token:'[0]',secret:'[1]'}}
         });
     });
@@ -140,26 +139,26 @@ describe('auth', function () {
     it('array auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
 
-        provider.config('alias2').auth('token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias2').auth('token');
+        should.deepEqual(query._options,
             {api:'alias2', auth:{bearer:'token'}});
 
-        provider.config('alias2').auth('user', 'pass');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias2').auth('user', 'pass');
+        should.deepEqual(query._options,
             {api:'alias2', auth:{user:'user',pass:'pass'}});
 
-        should.deepEqual(provider._query.api.auth, [
+        should.deepEqual(query.api.auth, [
             {auth:{bearer:'[0]'}}, {auth:{user:'[0]',pass:'[1]'}}
         ]);
     });
     it('objects auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
 
-        provider.config('alias3').auth('apikey', 'token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias3').auth('apikey', 'token');
+        should.deepEqual(query._options,
             {api:'alias3', qs:{api_key:'apikey'}, headers:{Authorization:'Basic token'}});
 
-        should.deepEqual(provider._query.api.auth, {
+        should.deepEqual(query.api.auth, {
             qs: {api_key:'[0]'},
             headers: {Authorization:'Basic [1]'}
         });
@@ -167,15 +166,15 @@ describe('auth', function () {
     it('array and objects auth', function () {
         var provider = new Purest({provider:'custom', config:fixture});
 
-        provider.config('alias4').auth('token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias4').auth('token');
+        should.deepEqual(query._options,
             {api:'alias4', qs:{api_key:'token'}});
 
-        provider.config('alias4').auth('apikey', 'token');
-        should.deepEqual(provider._query._options,
+        var query = provider.query('alias4').auth('apikey', 'token');
+        should.deepEqual(query._options,
             {api:'alias4', qs:{api_key:'apikey'}, headers:{Authorization:'OAuth token'}});
 
-        should.deepEqual(provider._query.api.auth, [
+        should.deepEqual(query.api.auth, [
             {qs:{api_key:'[0]'}}, {qs:{api_key:'[0]'}, headers:{Authorization:'OAuth [1]'}}
         ]);
     });
