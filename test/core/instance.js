@@ -45,7 +45,7 @@ describe('instance', function () {
 
     it('API return data type', function () {
         var p = new Purest({provider:'twitter'});
-        p.type.should.equal('');
+        p.type.should.equal('json');
         var p = new Purest({provider:'twitter',type:'xml'});
         p.type.should.equal('xml');
     });
