@@ -15,7 +15,6 @@ describe('upload', function () {
         app:require('../../config/app'),
         user:require('../../config/user')
     };
-    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {
@@ -27,21 +26,10 @@ describe('upload', function () {
     });
 
     describe('asana', function () {
-        var access = {};
-        before(function (done) {
-            p.asana.refresh(
-                cred.app.asana,
-                cred.user.asana.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('upload', function (done) {
             var id = '16202185639027';
             p.asana.post('tasks/'+id+'/attachments', {
-                auth: {bearer:access.token},
+                auth: {bearer:cred.user.asana.token},
                 upload:'cat.png',
                 form:{
                     file:fs.readFileSync(image)
@@ -56,22 +44,10 @@ describe('upload', function () {
         });
     });
     describe('box content', function () {
-        var access = {}, file = {};
-        before(function (done) {
-            p.box.refresh(
-                cred.app.box,
-                cred.user.box.refresh,
-            function (err, res, body) {
-                debugger;
-                if (err) return done(err);
-                access = {token:body.access_token};
-                refresh.store('box', body.access_token, body.refresh_token);
-                done();
-            });
-        });
+        var file = {};
         it('upload', function (done) {
             p.box.post('files/content', {
-                auth:{bearer:access.token},
+                auth:{bearer:cred.user.box.token},
                 api:'upload',
                 upload:'cat.png',
                 qs:{parent_id:0},
@@ -86,7 +62,7 @@ describe('upload', function () {
         });
         it('download', function (done) {
             p.box.get('files/'+file.id+'/content', {
-                auth:{bearer:access.token}
+                auth:{bearer:cred.user.box.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -97,7 +73,7 @@ describe('upload', function () {
         });
         after(function (done) {
             p.box.del('files/'+file.id, {
-                auth:{bearer:access.token}
+                auth:{bearer:cred.user.box.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);

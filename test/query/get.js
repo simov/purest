@@ -12,7 +12,6 @@ describe('query', function () {
         app:require('../../config/app'),
         user:require('../../config/user')
     };
-    var refresh = require('../utils/refresh');
     var p = {};
     before(function (done) {
         for (var name in providers) {
@@ -49,18 +48,6 @@ describe('query', function () {
         });
     });
     describe('asana', function () {
-        var access = {};
-        before(function (done) {
-            p.asana.refresh(
-                cred.app.asana,
-                cred.user.asana.refresh,
-            function (err, res, body) {
-                debugger;
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('basic auth', function (done) {
             p.asana.config()
                 .get('users/me')
@@ -76,7 +63,7 @@ describe('query', function () {
         it('oauth', function (done) {
             p.asana.config()
                 .get('users/me')
-                .auth(access.token)
+                .auth(cred.user.asana.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -100,23 +87,10 @@ describe('query', function () {
             });
     });
     describe('box', function () {
-        var access = {};
-        before(function (done) {
-            p.box.refresh(
-                cred.app.box,
-                cred.user.box.refresh,
-            function (err, res, body) {
-                debugger;
-                if (err) return done(err);
-                access = {token:body.access_token};
-                refresh.store('box', body.access_token, body.refresh_token);
-                done();
-            });
-        });
         it('content API', function (done) {
             p.box.config()
                 .get('users/me')
-                .auth(access.token)
+                .auth(cred.user.box.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -271,21 +245,10 @@ describe('query', function () {
         });
     });
     describe('google', function () {
-        var access = {};
-        before(function (done) {
-            p.google.refresh(
-                cred.app.google,
-                cred.user.google.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('plus', function (done) {
             p.google.query('plus')
                 .select('people/106189723444098348646')
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -300,7 +263,7 @@ describe('query', function () {
                     forUsername:'RayWilliamJohnson',
                     part:'id, snippet, contentDetails, statistics, status, topicDetails'
                 })
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -317,7 +280,7 @@ describe('query', function () {
                     'start-date':'2014-01-15',
                     'end-date':'2014-02-15'
                 })
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -328,7 +291,7 @@ describe('query', function () {
         it('drive', function (done) {
             p.google.query('drive')
                 .get('about')
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -340,7 +303,7 @@ describe('query', function () {
             p.google.query('freebase')
                 .select('search')
                 .where({query:'Thriftworks'})
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -351,7 +314,7 @@ describe('query', function () {
         it('tasks', function (done) {
             p.google.query('tasks')
                 .select('users/@me/lists')
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -387,7 +350,7 @@ describe('query', function () {
             p.google.query('contacts')
                 .select('contacts/default/full')
                 .where({'max-results':50})
-                .auth(access.token)
+                .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -517,21 +480,10 @@ describe('query', function () {
         });
     });
     describe('heroku', function () {
-        var access = {};
-        before(function (done) {
-            p.heroku.refresh(
-                cred.app.heroku,
-                cred.user.heroku.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('get', function (done) {
             p.heroku.query()
                 .get('account')
-                .auth(access.token)
+                .auth(cred.user.heroku.token)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -861,22 +813,10 @@ describe('query', function () {
             });
     });
     describe('yahoo', function () {
-        var access = {};
-        before(function (done) {
-            p.yahoo.refresh(
-                cred.app.yahoo,
-                cred.user.yahoo,
-                {oauth_session_handle:cred.user.yahoo.session},
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.oauth_token, secret:body.oauth_token_secret};
-                done();
-            });
-        });
         it('social', function (done) {
             p.yahoo.query('social')
                 .select('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile')
-                .auth(access.token, access.secret)
+                .auth(cred.user.yahoo.token, cred.user.yahoo.secret)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
@@ -888,7 +828,7 @@ describe('query', function () {
             p.yahoo.config('yql')
                 .get('yql')
                 .where({q:'SELECT * FROM social.profile WHERE guid=me'})
-                .auth(access.token, access.secret)
+                .auth(cred.user.yahoo.token, cred.user.yahoo.secret)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);

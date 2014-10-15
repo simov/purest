@@ -12,7 +12,6 @@ describe('get', function () {
         app:require('../../config/app'),
         user:require('../../config/user')
     };
-    var refresh = require('../utils/refresh');
     var p = {};
     before(function (done) {
         for (var name in providers) {
@@ -50,18 +49,6 @@ describe('get', function () {
         });
     });
     describe('asana', function () {
-        var access = {};
-        before(function (done) {
-            p.asana.refresh(
-                cred.app.asana,
-                cred.user.asana.refresh,
-            function (err, res, body) {
-                debugger;
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('basic auth', function (done) {
             p.asana.get('users/me', {
                 auth:{user:cred.user.asana.apikey, pass:''}
@@ -75,7 +62,7 @@ describe('get', function () {
         });
         it('oauth', function (done) {
             p.asana.get('users/me', {
-                auth: {bearer:access.token}
+                auth: {bearer:cred.user.asana.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -97,22 +84,9 @@ describe('get', function () {
         });
     });
     describe('box', function () {
-        var access = {};
-        before(function (done) {
-            p.box.refresh(
-                cred.app.box,
-                cred.user.box.refresh,
-            function (err, res, body) {
-                debugger;
-                if (err) return done(err);
-                access = {token:body.access_token};
-                refresh.store('box', body.access_token, body.refresh_token);
-                done();
-            });
-        });
         it('content API', function (done) {
             p.box.get('users/me', {
-                auth:{bearer:access.token}
+                auth:{bearer:cred.user.box.token}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -263,22 +237,11 @@ describe('get', function () {
         });
     });
     describe('google', function () {
-        var access = {};
-        before(function (done) {
-            p.google.refresh(
-                cred.app.google,
-                cred.user.google.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('plus', function (done) {
             p.google.get('people/106189723444098348646', {
                 api:'plus',
                 qs:{
-                    access_token:access.token
+                    access_token:cred.user.google.token
                 }
             }, function (err, res, body) {
                 debugger;
@@ -291,7 +254,7 @@ describe('get', function () {
             p.google.get('channels', {
                 api:'youtube',
                 qs:{
-                    access_token:access.token,
+                    access_token:cred.user.google.token,
                     part:'id, snippet, contentDetails, statistics, status, topicDetails',
                     forUsername:'RayWilliamJohnson'
                 }
@@ -306,7 +269,7 @@ describe('get', function () {
             p.google.get('reports', {
                 api:'youtube/analytics',
                 qs:{
-                    access_token:access.token,
+                    access_token:cred.user.google.token,
                     ids:'channel==UCar6nMFGfuv254zn5vDyVaA',
                     metrics:'views',
                     'start-date':'2014-01-15',
@@ -323,7 +286,7 @@ describe('get', function () {
             p.google.get('about', {
                 api:'drive',
                 qs:{
-                    access_token:access.token
+                    access_token:cred.user.google.token
                 }
             }, function (err, res, body) {
                 debugger;
@@ -336,7 +299,7 @@ describe('get', function () {
             p.google.get('search', {
                 api:'freebase',
                 qs:{
-                    access_token:access.token,
+                    access_token:cred.user.google.token,
                     query:'Thriftworks'
                 }
             }, function (err, res, body) {
@@ -350,7 +313,7 @@ describe('get', function () {
             p.google.get('users/@me/lists', {
                 api:'tasks',
                 qs:{
-                    access_token:access.token
+                    access_token:cred.user.google.token
                 }
             }, function (err, res, body) {
                 debugger;
@@ -391,7 +354,7 @@ describe('get', function () {
             p.google.get('contacts/default/full', {
                 api:'contacts',
                 qs:{
-                    access_token:access.token,
+                    access_token:cred.user.google.token,
                     'max-results':50
                 }
             }, function (err, res, body) {
@@ -524,20 +487,9 @@ describe('get', function () {
         });
     });
     describe('heroku', function () {
-        var access = {};
-        before(function (done) {
-            p.heroku.refresh(
-                cred.app.heroku,
-                cred.user.heroku.refresh,
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.access_token};
-                done();
-            });
-        });
         it('get', function (done) {
             p.heroku.get('account', {
-                auth: {bearer:access.token}
+                auth: {bearer:cred.user.heroku.token}
                 // or
                 // auth: {user:'email', pass:'password'}
             }, function (err, res, body) {
@@ -841,22 +793,10 @@ describe('get', function () {
         });
     });
     describe('yahoo', function () {
-        var access = {};
-        before(function (done) {
-            p.yahoo.refresh(
-                cred.app.yahoo,
-                cred.user.yahoo,
-                {oauth_session_handle:cred.user.yahoo.session},
-            function (err, res, body) {
-                if (err) return done(err);
-                access = {token:body.oauth_token, secret:body.oauth_token_secret};
-                done();
-            });
-        });
         it('social', function (done) {
             p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
                 oauth:{
-                    token:access.token, secret:access.secret
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
                 api:'social'
             }, function (err, res, body) {
@@ -869,7 +809,7 @@ describe('get', function () {
         it('yql', function (done) {
             p.yahoo.get('yql', {
                 oauth:{
-                    token:access.token, secret:access.secret
+                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
                 },
                 api:'yql',
                 qs:{q:'SELECT * FROM social.profile WHERE guid=me'}

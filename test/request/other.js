@@ -9,7 +9,6 @@ describe('verbs', function () {
         app:require('../../config/app'),
         user:require('../../config/user')
     };
-    var refresh = require('../utils/refresh');
     var p = {};
     before(function () {
         for (var name in providers) {
