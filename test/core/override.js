@@ -154,55 +154,6 @@ describe('override', function () {
         });
     });
 
-    describe('sendgrid', function () {
-        describe('multipart file', function () {
-            it('customize content-disposition', function () {
-                var p = new Purest({provider:'sendgrid'});
-                should.deepEqual(p.multipart.file('key','cat.png','data'), {
-                    'content-disposition': 'form-data; name="key[cat.png]"; filename="cat.png"',
-                    'content-type': 'image/png',
-                    'content-transfer-encoding': 'binary',
-                    body: 'data'
-                });
-            });
-        });
-    });
-
-    describe('soundcloud', function () {
-        describe('after multipart', function () {
-            it('remove multipart content-type', function () {
-                var p = new Purest({provider:'soundcloud'});
-                var options = {
-                    upload:'beep.mp3',
-                    form:{'track[title]':'title', 'track[asset_data]':'...'}
-                };
-
-                options = config.options('tracks', options, 'post', p.apis.__default.endpoints);
-                options.multipart = p.multipart.create('tracks', options);
-                should.deepEqual(options.multipart, [{
-                    'content-disposition': 'form-data; name="track[title]"',
-                    'content-type': 'text/plain',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'title' },
-                    { 'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
-                    'content-type': 'audio/mpeg',
-                    'content-transfer-encoding': 'binary',
-                    body: '...'
-                }]);
-
-                p.after.multipart('tracks', options);
-                should.deepEqual(options.multipart, [{
-                    'content-disposition': 'form-data; name="track[title]"',
-                    'content-transfer-encoding': 'utf8',
-                    body: 'title' },
-                    { 'content-disposition': 'form-data; name="track[asset_data]"; filename="beep.mp3"',
-                    'content-transfer-encoding': 'binary',
-                    body: '...'
-                }]);
-            });
-        });
-    });
-
     describe('twitter', function () {
         describe('url qs', function () {
             it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {

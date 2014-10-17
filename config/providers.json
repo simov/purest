@@ -414,6 +414,13 @@
                     "docs": "https://developers.google.com/drive/v2/reference"
                 }
             },
+            "upload/drive/[version]/{endpoint}": {
+                "__path": {
+                    "alias": ["upload-drive"],
+                    "version": "v2",
+                    "docs": "https://developers.google.com/drive/v2/reference"
+                }
+            },
             "freebase/[version]/{endpoint}": {
                 "__path": {
                     "alias": ["freebase"],

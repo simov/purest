@@ -30,9 +30,9 @@ describe('upload', function () {
             var id = '16202185639027';
             p.asana.post('tasks/'+id+'/attachments', {
                 auth: {bearer:cred.user.asana.token},
-                upload:'cat.png',
-                form:{
-                    file:fs.readFileSync(image)
+                headers:{'content-type':'multipart/form-data'},
+                formData:{
+                    file:fs.createReadStream(image)
                 }
             },
             function (err, res, body) {
@@ -47,11 +47,11 @@ describe('upload', function () {
         var file = {};
         it('upload', function (done) {
             p.box.post('files/content', {
-                auth:{bearer:cred.user.box.token},
                 api:'upload',
-                upload:'cat.png',
+                auth:{bearer:cred.user.box.token},
                 qs:{parent_id:0},
-                form:{filename:fs.readFileSync(image)}
+                headers:{'content-type':'multipart/form-data'},
+                formData:{filename:fs.createReadStream(image)}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -86,12 +86,15 @@ describe('upload', function () {
         it.skip('upload', function (done) {
             // works - need to figure out a testing scheme
             p.box.post('documents', {
-                headers: {
-                    'Authorization':'Token '+cred.user.box.viewapikey
-                },
                 api:'view-upload',
-                upload:'coffee.pdf',
-                form:{name:'coffee.pdf', file:fs.readFileSync(pdf)}
+                headers: {
+                    'Authorization':'Token '+cred.user.box.viewapikey,
+                    'content-type':'multipart/form-data'
+                },
+                formData:{
+                    name:'coffee.pdf',
+                    file:fs.readFileSync(pdf)
+                }
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
@@ -103,13 +106,13 @@ describe('upload', function () {
     });
     it('facebook', function (done) {
         p.facebook.post('me/photos', {
-            upload:'cat.png',
             qs:{
                 access_token:cred.user.facebook.token,
                 message:'Sent on '+new Date()
             },
-            form:{
-                source:fs.readFileSync(image)
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
+                source:fs.createReadStream(image)
             }
         },
         function (err, res, body) {
@@ -160,12 +163,13 @@ describe('upload', function () {
     });
     it('foursquare', function (done) {
         p.foursquare.post('users/self/update', {
-            upload:'cat.png',
             qs:{
-                oauth_token:cred.user.foursquare.token, v:'20140503'
+                oauth_token:cred.user.foursquare.token,
+                v:'20140503'
             },
-            form:{
-                photo:fs.readFileSync(image)
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
+                photo:fs.createReadStream(image)
             }
         },
         function (err, res, body) {
@@ -175,20 +179,48 @@ describe('upload', function () {
             done();
         });
     });
+    describe('google', function () {
+        it('drive', function (done) {
+            p.google.post('files', {
+                api:'upload-drive',
+                qs:{
+                    access_token:cred.user.google.token,
+                    uploadType:'multipart'
+                },
+                multipart: [
+                    {
+                        'Content-Type':'application/json',
+                        body: JSON.stringify({
+                            title:'Test.png'
+                        })
+                    },
+                    {
+                        'Content-Type':'image/png',
+                        // streaming is not implemented
+                        body: fs.readFileSync(image)
+                    }
+                ],
+                json:false
+            },
+            function (err, res, body) {
+                // console.log(body);
+                debugger;
+                if (err) return error(err, done);
+                done();
+            });
+        });
+    });
     it('mailgun', function (done) {
         p.mailgun.post(cred.user.mailgun.domain+'/messages', {
             auth:{user:'api',pass:cred.user.mailgun.apikey},
-            upload:['cat.png','beep.mp3'],
-            form:{
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
                 from:'purest@mailinator.com',
                 to:'purest@mailinator.com,purest2@mailinator.com',
                 subject:'Purest is awesome! (mailgun+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
-                attachment:[
-                    fs.readFileSync(image),
-                    fs.readFileSync(audio)
-                ]
+                attachment:[fs.createReadStream(image), fs.createReadStream(audio)]
             }
         },
         function (err, res, body) {
@@ -201,19 +233,17 @@ describe('upload', function () {
     });
     it('sendgrid', function (done) {
         p.sendgrid.post('mail.send', {
-            upload:['cat.png','beep.mp3'],
-            form:{
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
                 api_user:cred.user.sendgrid.user,
                 api_key:cred.user.sendgrid.pass,
-                from:'purest@mailinator.com',
+                from:'purest@gmail.com',
                 to:['purest@mailinator.com','purest2@mailinator.com'],
                 subject:'Purest is awesome! (sendgrid+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
-                files: [
-                    fs.readFileSync(image),
-                    fs.readFileSync(audio)
-                ]
+                'files[cat.png]':fs.createReadStream(image),
+                'files[beep.mp3]':fs.createReadStream(audio)
             }
         },
         function (err, res, body) {
@@ -225,14 +255,14 @@ describe('upload', function () {
     });
     it('slack', function (done) {
         p.slack.post('files.upload', {
-            upload:'cat.png',
             qs:{
                 token:cred.user.slack.token,
                 filename:'cat',
                 title:'Sent on '+new Date()
             },
-            form:{
-                file:fs.readFileSync(image)
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
+                file:fs.createReadStream(image)
             }
         },
         function (err, res, body) {
@@ -245,13 +275,13 @@ describe('upload', function () {
     });
     it('soundcloud', function (done) {
         p.soundcloud.post('tracks', {
-            upload:'beep.mp3',
             qs:{
                 oauth_token:cred.user.soundcloud.token
             },
-            form:{
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
                 'track[title]':'Sent on '+new Date(),
-                'track[asset_data]':fs.readFileSync(audio)
+                'track[asset_data]':fs.createReadStream(audio)
             }
         },
         function (err, res, body) {
@@ -263,13 +293,13 @@ describe('upload', function () {
     });
     it('stocktwits', function (done) {
         p.stocktwits.post('messages/create', {
-            upload:'cat.png',
             qs:{
                 access_token:cred.user.stocktwits.token
             },
-            form:{
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
                 body:'Sent on '+new Date(),
-                chart:fs.readFileSync(image)
+                chart:fs.createReadStream(image)
             }
         },
         function (err, res, body) {
@@ -283,10 +313,10 @@ describe('upload', function () {
     it('twitter', function (done) {
         p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            upload:'cat.png',
-            form:{
+            headers:{'content-type':'multipart/form-data'},
+            formData:{
                 status:'Sent on '+new Date(),
-                'media[]':fs.readFileSync(image)
+                'media[]':fs.createReadStream(image)
             }
         },
         function (err, res, body) {

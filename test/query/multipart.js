@@ -30,10 +30,9 @@ describe('upload', function () {
             var id = '16202185639027';
             p.asana.query()
                 .update('tasks/'+id+'/attachments')
-                .set({
-                    file:fs.readFileSync(image)
+                .upload({
+                    file:fs.createReadStream(image)
                 })
-                .files('cat.png')
                 .auth(cred.user.asana.token)
                 .request(function (err, res, body) {
                     debugger;
@@ -49,10 +48,9 @@ describe('upload', function () {
             p.box.query('upload')
                 .update('files/content')
                 .where({parent_id:0})
-                .set({
-                    filename:fs.readFileSync(image)
+                .upload({
+                    filename:fs.createReadStream(image)
                 })
-                .files('cat.png')
                 .auth(cred.user.box.token)
                 .request(function (err, res, body) {
                     debugger;
@@ -107,11 +105,10 @@ describe('upload', function () {
     it('facebook', function (done) {
         p.facebook.query()
             .update('me/photos')
-            .set({
+            .upload({
                 message:'Sent on '+new Date(),
-                source:fs.readFileSync(image)
+                source:fs.createReadStream(image)
             })
-            .files('cat.png')
             .auth(cred.user.facebook.token)
             .request(function (err, res, body) {
                 debugger;
@@ -160,11 +157,10 @@ describe('upload', function () {
     it('foursquare', function (done) {
         p.foursquare.query()
             .update('users/self/update')
-            .set({
-                photo:fs.readFileSync(image)
-            })
-            .files('cat.png')
             .where({v:'20140503'})
+            .upload({
+                photo:fs.createReadStream(image)
+            })
             .auth(cred.user.foursquare.token)
             .request(function (err, res, body) {
                 debugger;
@@ -173,21 +169,48 @@ describe('upload', function () {
                 done();
             });
     });
+    describe('google', function () {
+        it('drive', function (done) {
+            p.google.query('upload-drive')
+                .update('files')
+                .where({uploadType:'multipart'})
+                .upload([
+                    {
+                        'Content-Type':'application/json',
+                        body:JSON.stringify({
+                            title:'Test.png'
+                        })
+                    },
+                    {
+                        'Content-Type':'image/png',
+                        // streaming is not implemented
+                        body:fs.readFileSync(image)
+                    }
+                ])
+                .options({json:false})
+                .auth(cred.user.google.token)
+                .request(function (err, res, body) {
+                    // console.log(body);
+                    debugger;
+                    if (err) return error(err, done);
+                    done();
+                });
+        });
+    });
     it('mailgun', function (done) {
         p.mailgun.query()
             .update(cred.user.mailgun.domain+'/messages')
-            .set({
+            .upload({
                 from:'purest@mailinator.com',
                 to:'purest@mailinator.com,purest2@mailinator.com',
                 subject:'Purest is awesome! (mailgun+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
                 attachment:[
-                    fs.readFileSync(image),
-                    fs.readFileSync(audio)
+                    fs.createReadStream(image),
+                    fs.createReadStream(audio)
                 ]
             })
-            .files(['cat.png','beep.mp3'])
             .auth('api', cred.user.mailgun.apikey)
             .request(function (err, res, body) {
                 debugger;
@@ -200,17 +223,14 @@ describe('upload', function () {
     it('sendgrid', function (done) {
         p.sendgrid.query()
             .post('mail.send')
-            .files(['cat.png','beep.mp3'])
-            .set({
+            .upload({
                 from:'purest@mailinator.com',
                 to:['purest@mailinator.com','purest2@mailinator.com'],
                 subject:'Purest is awesome! (sendgrid+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
                 text:'True idd!',
-                files: [
-                    fs.readFileSync(image),
-                    fs.readFileSync(audio)
-                ]
+                'files[image.png]': fs.createReadStream(image),
+                'files[beep.mp3]': fs.createReadStream(audio)
             })
             .auth(cred.user.sendgrid.user, cred.user.sendgrid.pass)
             .request(function (err, res, body) {
@@ -223,12 +243,11 @@ describe('upload', function () {
     it('slack', function (done) {
         p.slack.query()
             .update('files.upload')
-            .set({
-                file:fs.readFileSync(image),
+            .upload({
+                title:'Sent on '+new Date(),
                 filename:'cat',
-                title:'Sent on '+new Date()
+                file:fs.createReadStream(image)
             })
-            .files('cat.png')
             .auth(cred.user.slack.token)
             .request(function (err, res, body) {
                 debugger;
@@ -241,11 +260,10 @@ describe('upload', function () {
     it('soundcloud', function (done) {
         p.soundcloud.query()
             .update('tracks')
-            .set({
+            .upload({
                 'track[title]':'Sent on '+new Date(),
-                'track[asset_data]':fs.readFileSync(audio)
+                'track[asset_data]':fs.createReadStream(audio)
             })
-            .files('beep.mp3')
             .auth(cred.user.soundcloud.token)
             .request(function (err, res, body) {
                 debugger;
@@ -257,11 +275,10 @@ describe('upload', function () {
     it('stocktwits', function (done) {
         p.stocktwits.query()
             .update('messages/create')
-            .set({
+            .upload({
                 body:'Sent on '+new Date(),
-                chart:fs.readFileSync(image)
+                chart:fs.createReadStream(image)
             })
-            .files('cat.png')
             .auth(cred.user.stocktwits.token)
             .request(function (err, res, body) {
                 debugger;
@@ -274,11 +291,10 @@ describe('upload', function () {
     it('twitter', function (done) {
         p.twitter.query()
             .update('statuses/update_with_media')
-            .set({
+            .upload({
                 status:'Sent on '+new Date(),
-                'media[]':fs.readFileSync(image)
+                'media[]':fs.createReadStream(image)
             })
-            .files('cat.png')
             .auth(cred.user.twitter.token, cred.user.twitter.secret)
             .request(function (err, res, body) {
                 debugger;

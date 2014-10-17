@@ -48,7 +48,7 @@ describe('multipart', function () {
             body: 'tweet'
         }]);
     });
-    it('array of files to upload & array of text fields', function () {
+    it.skip('array of files to upload & array of text fields', function () {
         var p = new Purest({provider:'sendgrid'});
         var options = {
             upload:['cat.png','beep.mp3'],
