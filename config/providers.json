@@ -56,14 +56,6 @@
                 "__path": {
                     "alias": "__default",
                     "version": "1.0"
-                },
-                "tasks\\/.*\\/attachments": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "post": {
-                        "multipart": "file"
-                    }
                 }
             }
         }
@@ -124,14 +116,6 @@
                 "__path": {
                     "alias": ["upload"],
                     "version": "2.0"
-                },
-                "files\\/(?:.*\\/)?content": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "post": {
-                        "multipart": "filename"
-                    }
                 }
             }
         },
@@ -166,11 +150,6 @@
                 "__path": {
                     "alias": ["view-upload"],
                     "version": "1"
-                },
-                "documents": {
-                    "post": {
-                        "multipart": "file"
-                    }
                 }
             }
         },
@@ -278,11 +257,6 @@
             "{endpoint}": {
                 "__path": {
                     "alias": "__default"
-                },
-                "me/photos": {
-                    "post": {
-                        "multipart": "source"
-                    }
                 }
             }
         }
@@ -354,11 +328,6 @@
                 "__path": {
                     "alias": "__default",
                     "version": "v2"
-                },
-                "users/self/update": {
-                    "post": {
-                        "multipart": "photo"
-                    }
                 }
             }
         }
@@ -673,14 +642,6 @@
                 "__path": {
                     "alias": "__default",
                     "version": "v2"
-                },
-                ".*\\/messages": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "post": {
-                        "multipart": "attachment"
-                    }
                 }
             }
         }
@@ -829,11 +790,6 @@
             "api/{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default"
-                },
-                "mail.send": {
-                    "post": {
-                        "multipart": "files"
-                    }
                 }
             }
         }
@@ -852,11 +808,6 @@
             "api/{endpoint}": {
                 "__path": {
                     "alias": "__default"
-                },
-                "files.upload": {
-                    "post": {
-                        "multipart": "file"
-                    }
                 }
             }
         }
@@ -875,11 +826,6 @@
             "{endpoint}.[type]": {
                 "__path": {
                     "alias": "__default"
-                },
-                "tracks": {
-                    "post": {
-                        "multipart": "track[asset_data]"
-                    }
                 }
             }
         }
@@ -923,11 +869,6 @@
                 "__path": {
                     "alias": "__default",
                     "version": "2"
-                },
-                "messages/create": {
-                    "post": {
-                        "multipart": "chart"
-                    }
                 }
             }
         }
@@ -1033,11 +974,6 @@
                 "__path": {
                     "alias": "__default",
                     "version": "1.1"
-                },
-                "statuses/update_with_media": {
-                    "post": {
-                        "multipart": "media[]"
-                    }
                 }
             }
         }
