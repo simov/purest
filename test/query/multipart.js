@@ -178,13 +178,14 @@ describe('upload', function () {
                     {
                         'Content-Type':'application/json',
                         body:JSON.stringify({
-                            title:'Test.png'
+                            title:'cat.png'
                         })
                     },
                     {
                         'Content-Type':'image/png',
-                        // streaming is not implemented
                         body:fs.readFileSync(image)
+                        // streaming is implemented in the next release
+                        // body: fs.createReadStream(image)
                     }
                 ])
                 .options({json:false})
