@@ -30,7 +30,6 @@ describe('upload', function () {
             var id = '16202185639027';
             p.asana.post('tasks/'+id+'/attachments', {
                 auth: {bearer:cred.user.asana.token},
-                headers:{'content-type':'multipart/form-data'},
                 formData:{
                     file:fs.createReadStream(image)
                 }
@@ -50,7 +49,6 @@ describe('upload', function () {
                 api:'upload',
                 auth:{bearer:cred.user.box.token},
                 qs:{parent_id:0},
-                headers:{'content-type':'multipart/form-data'},
                 formData:{filename:fs.createReadStream(image)}
             }, function (err, res, body) {
                 debugger;
@@ -110,7 +108,6 @@ describe('upload', function () {
                 access_token:cred.user.facebook.token,
                 message:'Sent on '+new Date()
             },
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 source:fs.createReadStream(image)
             }
@@ -167,7 +164,6 @@ describe('upload', function () {
                 oauth_token:cred.user.foursquare.token,
                 v:'20140503'
             },
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 photo:fs.createReadStream(image)
             }
@@ -196,8 +192,9 @@ describe('upload', function () {
                     },
                     {
                         'Content-Type':'image/png',
-                        // streaming is not implemented
                         body: fs.readFileSync(image)
+                        // streaming is implemented in the next release
+                        // body: fs.createReadStream(image)
                     }
                 ],
                 json:false
@@ -213,7 +210,6 @@ describe('upload', function () {
     it('mailgun', function (done) {
         p.mailgun.post(cred.user.mailgun.domain+'/messages', {
             auth:{user:'api',pass:cred.user.mailgun.apikey},
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 from:'purest@mailinator.com',
                 to:'purest@mailinator.com,purest2@mailinator.com',
@@ -233,11 +229,10 @@ describe('upload', function () {
     });
     it('sendgrid', function (done) {
         p.sendgrid.post('mail.send', {
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 api_user:cred.user.sendgrid.user,
                 api_key:cred.user.sendgrid.pass,
-                from:'purest@gmail.com',
+                from:'purest@mailinator.com',
                 to:['purest@mailinator.com','purest2@mailinator.com'],
                 subject:'Purest is awesome! (sendgrid+attachments)',
                 html:'<h1>Purest is awesome!</h1>',
@@ -260,7 +255,6 @@ describe('upload', function () {
                 filename:'cat',
                 title:'Sent on '+new Date()
             },
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 file:fs.createReadStream(image)
             }
@@ -278,7 +272,6 @@ describe('upload', function () {
             qs:{
                 oauth_token:cred.user.soundcloud.token
             },
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 'track[title]':'Sent on '+new Date(),
                 'track[asset_data]':fs.createReadStream(audio)
@@ -296,7 +289,6 @@ describe('upload', function () {
             qs:{
                 access_token:cred.user.stocktwits.token
             },
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 body:'Sent on '+new Date(),
                 chart:fs.createReadStream(image)
@@ -313,7 +305,6 @@ describe('upload', function () {
     it('twitter', function (done) {
         p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
-            headers:{'content-type':'multipart/form-data'},
             formData:{
                 status:'Sent on '+new Date(),
                 'media[]':fs.createReadStream(image)
