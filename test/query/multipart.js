@@ -183,17 +183,16 @@ describe('upload', function () {
                     },
                     {
                         'Content-Type':'image/png',
-                        body:fs.readFileSync(image)
-                        // streaming is implemented in the next release
-                        // body: fs.createReadStream(image)
+                        body:fs.createReadStream(image)
                     }
                 ])
                 .options({json:false})
                 .auth(cred.user.google.token)
                 .request(function (err, res, body) {
-                    // console.log(body);
                     debugger;
                     if (err) return error(err, done);
+                    body.title.should.equal('cat.png');
+                    body.fileSize.should.equal('22025');
                     done();
                 });
         });
