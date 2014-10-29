@@ -539,11 +539,12 @@
             "oauth": true,
             "docs": "http://developer.linkedin.com"
         },
-        "http://api.linkedin.com": {
+        "https://api.linkedin.com": {
             "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
+                "auth": [
+                    {"qs": {"oauth2_access_token": "[0]"}},
+                    {"oauth": {"token": "[0]", "secret": "[1]"}}
+                ]
             },
             "[version]/{endpoint}": {
                 "__path": {

@@ -529,18 +529,33 @@ describe('query', function () {
                 done();
             });
     });
-    it('linkedin', function (done) {
-        p.linkedin.query()
-            .select('companies')
-            .where({'email-domain':'apple.com'})
-            .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.values[0].id.should.equal(162479);
-                body.values[0].name.should.equal('Apple');
-                done();
-            });
+    describe('linkedin', function () {
+        it('oauth1', function (done) {
+            p.linkedin.query()
+                .select('companies')
+                .where({'email-domain':'apple.com'})
+                .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.values[0].id.should.equal(162479);
+                    body.values[0].name.should.equal('Apple');
+                    done();
+                });
+        });
+        it('oauth2', function (done) {
+            p.linkedin.query()
+                .select('companies')
+                .where({'email-domain':'apple.com'})
+                .auth(cred.user.linkedin.oauth2)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.values[0].id.should.equal(162479);
+                    body.values[0].name.should.equal('Apple');
+                    done();
+                });
+        });
     });
     describe('mailchimp', function () {
         it('apikey', function (done) {
