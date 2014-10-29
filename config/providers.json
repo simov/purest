@@ -537,12 +537,13 @@
     "linkedin": {
         "__provider": {
             "oauth": true,
+            "refresh": "https://www.linkedin.com/uas/oauth2/accessToken",
             "docs": "http://developer.linkedin.com"
         },
         "https://api.linkedin.com": {
             "__domain": {
                 "auth": [
-                    {"qs": {"oauth2_access_token": "[0]"}},
+                    {"auth": {"bearer": "[0]"}},
                     {"oauth": {"token": "[0]", "secret": "[1]"}}
                 ]
             },
