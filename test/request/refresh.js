@@ -276,7 +276,7 @@ describe('refresh', function () {
             p.yahoo.refresh(
                 cred.app.yahoo,
                 cred.user.yahoo,
-                {oauth_session_handle:cred.user.yahoo.session},
+                cred.user.yahoo.session,
             function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
