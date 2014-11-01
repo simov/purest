@@ -5,34 +5,6 @@ var Purest = require('../../lib/provider'),
 
 
 describe('override', function () {
-    describe('flickr', function () {
-        describe('before multipart', function () {
-            it('generate OAuth params and add them to form body', function () {
-                var p = new Purest({provider:'flickr', key:'k', secret:'s'});
-                var options = {upload:'cat.jpg', api:'upload', headers:{},
-                    oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
-                p.before.multipart('', options);
-                options.form.oauth_consumer_key.should.equal('k');
-                options.form.oauth_nonce.should.be.instanceOf(String);
-                options.form.oauth_signature_method.should.equal('HMAC-SHA1');
-                options.form.oauth_timestamp.should.be.instanceOf(String);
-                options.form.oauth_token.should.equal('t');
-                options.form.oauth_version.should.equal('1.0');
-                options.form.oauth_signature.should.be.instanceOf(String);
-                options.form.photo.should.equal('');
-            });
-        });
-        describe('after multipart', function () {
-            it('remove oauth options key', function () {
-                var p = new Purest({provider:'flickr', key:'k', secret:'s'});
-                var options = {upload:'cat.jpg', headers:{},
-                    oauth:{token:'t', secret:'s'}, form:{photo:''}, json:true};
-                p.after.multipart('', options);
-                should.not.exist(options.oauth);
-            });
-        });
-    });
-
     describe('google', function () {
         describe('url endpoint', function () {
             it('set json as default return type', function () {

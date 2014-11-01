@@ -294,21 +294,11 @@
             "services/upload/{endpoint}": {
                 "__path": {
                     "alias": ["upload"]
-                },
-                "*": {
-                    "post": {
-                        "multipart": "photo"
-                    }
                 }
             },
             "services/replace/{endpoint}": {
                 "__path": {
                     "alias": ["replace"]
-                },
-                "*": {
-                    "post": {
-                        "multipart": "photo"
-                    }
                 }
             }
         }

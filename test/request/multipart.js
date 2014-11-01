@@ -123,12 +123,17 @@ describe('upload', function () {
     describe('flickr', function () {
         it('upload', function (done) {
             p.flickr.post('', {
-                oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
                 api:'upload',
+                oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+                qs:{
+                    title:'Sent on '+new Date(),
+                    description:'...',
+                    is_public:0
+                },
                 formData: {
                     title:'Sent on '+new Date(),
                     description:'...',
-                    is_public:0, is_friend:1, is_family:1, hidden:2,
+                    is_public:0,
                     photo:fs.createReadStream(image)
                 }
             },
@@ -141,8 +146,11 @@ describe('upload', function () {
         });
         it('replace', function (done) {
             p.flickr.post('', {
-                oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
                 api:'replace',
+                oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+                qs: {
+                    photo_id:'14887285783'
+                },
                 formData: {
                     photo_id:'14887285783',
                     photo:fs.createReadStream(image)

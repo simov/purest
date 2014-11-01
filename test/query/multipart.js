@@ -122,10 +122,15 @@ describe('upload', function () {
         it('upload', function (done) {
             p.flickr.query('upload')
                 .update('')
+                .where({
+                    title:'Sent on '+new Date(),
+                    description:'...',
+                    is_public:0
+                })
                 .upload({
                     title:'Sent on '+new Date(),
                     description:'...',
-                    is_public:0, is_friend:1, is_family:1, hidden:2,
+                    is_public:0,
                     photo:fs.createReadStream(image)
                 })
                 .auth(cred.user.flickr.token, cred.user.flickr.secret)
@@ -139,6 +144,9 @@ describe('upload', function () {
         it('replace', function (done) {
             p.flickr.query('replace')
                 .update('')
+                .where({
+                    photo_id:'14887285783'
+                })
                 .upload({
                     photo_id:'14887285783',
                     photo:fs.createReadStream(image)

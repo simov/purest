@@ -16,26 +16,6 @@ describe('utils', function () {
         });
     });
 
-    describe('sign', function () {
-        it('OAuth request signing', function () {
-            var qs = utils.sign({
-                signature:'plaintext',
-                method:'POST',
-                url:'https://api.login.yahoo.com/oauth/v2/get_token',
-                app:{key:'ck', secret:'cs'},
-                user:{token:'t', secret:'ts'},
-                params:{some:'params'}
-            });
-            qs.oauth_consumer_key.should.equal('ck');
-            qs.oauth_nonce.should.be.instanceOf(String);
-            qs.oauth_signature_method.should.equal('PLAINTEXT');
-            qs.oauth_timestamp.should.be.instanceOf(String);
-            qs.oauth_token.should.equal('t');
-            qs.oauth_version.should.equal('1.0');
-            qs.oauth_signature.should.be.instanceOf(String);
-        });
-    });
-
     describe('user agent', function () {
         it('create headers object', function () {
             var options = {};
