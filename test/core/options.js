@@ -55,37 +55,4 @@ describe('options', function () {
             options.oauth.token_secret.should.equal('ts');
         });
     });
-
-    describe('upload', function () {
-        it('skip on missing upload option', function () {
-            var p = new Purest({provider:'twitter'});
-            var options = {headers:{}};
-            p.options.upload('endpoint', options);
-            should.deepEqual(options.headers, {});
-        });
-        it('skip on missing multipart option', function () {
-            var p = new Purest({provider:'twitter'});
-            var options = {upload:'cat.jpg', headers:{}};
-            p.options.upload('endpoint', options);
-            should.deepEqual(options.headers, {});
-        });
-        it('skip on missing multipart file key', function () {
-            var p = new Purest({provider:'twitter'});
-            var options = {upload:'cat.jpg', multipart:'media[]', form:{}, headers:{}};
-            p.options.upload('upload_image', options);
-            should.deepEqual(options.headers, {});
-        });
-        it('set content-type to multipart/form-data', function () {
-            var p = new Purest({provider:'twitter'});
-            var options = {
-                upload:'cat.jpg', multipart:'media[]',
-                form:{'media[]':'..'}, headers:{}
-            };
-            p.options.upload('statuses/update_with_media', options);
-            should.deepEqual(options.headers, {'content-type':'multipart/form-data'});
-            should.not.exist(options.form);
-            should.not.exist(options.json);
-            should.not.exist(options.upload);
-        });
-    });
 });

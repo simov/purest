@@ -62,14 +62,6 @@ describe('instance', function () {
         var p = new Purest({provider:'google', api:'plus'});
         p.api.should.equal('plus');
     });
-    it.skip('APIs', function () {
-        var p = new Purest({provider:'flickr'});
-        console.log(p.apis);
-        should.deepEqual(p.apis, {
-            upload:{domain:'https://up.flickr.com',format:'path',path:'services/upload'},
-            replace:{domain:'https://up.flickr.com',format:'path',path:'services/replace'}
-        });
-    });
 
     it('provider name, flag', function () {
         var p = new Purest({provider:'facebook'});
