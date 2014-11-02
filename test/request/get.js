@@ -23,6 +23,16 @@ describe('get', function () {
         done();
     });
 
+    it('500px', function (done) {
+        p['500px'].get('users', {
+            oauth:{token:cred.user['500px'].token, secret:cred.user['500px'].secret}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.user.should.be.type('object');
+            done();
+        });
+    });
     describe('aboutme', function () {
         it('apikey', function (done) {
             p.aboutme.get('user/view/simeonv', {

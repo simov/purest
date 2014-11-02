@@ -23,6 +23,17 @@ describe('query', function () {
         done();
     });
 
+    it('500px', function (done) {
+        p['500px'].query()
+            .get('users')
+            .auth(cred.user['500px'].token, cred.user['500px'].secret)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.user.should.be.type('object');
+                done();
+            });
+    });
     describe('aboutme', function () {
         it('apikey', function (done) {
             p.aboutme.query('user')

@@ -1,4 +1,23 @@
 {
+    "500px": {
+        "__provider": {
+            "oauth": true,
+            "docs": "https://developers.500px.com/"
+        },
+        "https://api.500px.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {"token": "[0]", "secret": "[1]"}
+                }
+            },
+            "[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                }
+            }
+        }
+    },
     "aboutme": {
         "__provider": {
             "docs": "http://about.me/developer/api/docs/"
