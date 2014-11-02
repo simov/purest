@@ -889,6 +889,16 @@ describe('get', function () {
             });
         });
     });
+    it('yammer', function (done) {
+        p.yammer.get('users/current', {
+            auth:{bearer:cred.user.yammer.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.type.should.equal('user');
+            done();
+        });
+    });
 });
 
 function error (err, done) {

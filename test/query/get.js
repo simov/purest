@@ -945,6 +945,17 @@ describe('query', function () {
                 });
         });
     });
+    it('yammer', function (done) {
+        p.yammer.query()
+            .get('users/current')
+            .auth(cred.user.yammer.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.type.should.equal('user');
+                done();
+            });
+    });
 });
 
 function error (err, done) {

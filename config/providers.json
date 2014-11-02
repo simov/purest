@@ -1164,5 +1164,24 @@
                 }
             }
         }
+    },
+    "yammer": {
+        "__provider": {
+            "oauth2": true,
+            "docs": "https://developer.yammer.com/"
+        },
+        "https://www.yammer.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
+            "api/[version]/{endpoint}.[type]": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v1"
+                }
+            }
+        }
     }
 }
