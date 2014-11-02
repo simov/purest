@@ -119,6 +119,28 @@ describe('refresh', function () {
             refresh.store('digitalocean', _body.access_token, _body.refresh_token);
         });
     });
+    // https://www.flowdock.com/api/authentication
+    describe('flowdock', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.flowdock.refresh(
+                cred.app.flowdock,
+                cred.user.flowdock.refresh,
+            function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'token_type', 'expires_in',
+                    'refresh_token', 'scope'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('flowdock', _body.access_token, _body.refresh_token);
+        });
+    });
     // https://developers.google.com/accounts/docs/OAuth2WebServer?hl=fr#refresh
     describe('google', function () {
         var _body = null;

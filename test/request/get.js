@@ -215,6 +215,16 @@ describe('get', function () {
             done();
         });
     });
+    it('flowdock', function (done) {
+        p.flowdock.get('users', {
+            auth:{bearer:cred.user.flowdock.token},
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.should.be.instanceOf(Array);
+            done();
+        });
+    });
     it('foursquare', function (done) {
         p.foursquare.get('users/81257627', {
             qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}

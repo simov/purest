@@ -221,6 +221,41 @@ describe('query', function () {
                 done();
             });
     });
+    describe('flowdock', function () {
+        it('oauth2', function (done) {
+            p.flowdock.query()
+                .get('users')
+                .auth(cred.user.flowdock.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+        it('basic', function (done) {
+            p.flowdock.query()
+                .get('users')
+                .auth(cred.user.flowdock.user, cred.user.flowdock.pass)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+        it('api token', function (done) {
+            p.flowdock.query()
+                .get('users')
+                .auth(cred.user.flowdock.apikey)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+    });
     it('foursquare', function (done) {
         p.foursquare.query()
             .get('users/81257627')
