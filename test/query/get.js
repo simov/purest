@@ -670,6 +670,18 @@ describe('query', function () {
                 });
         });
     });
+    it('salesforce', function (done) {
+        p.salesforce.query('sobjects')
+            .get('Account')
+            .options({domain:cred.user.salesforce.domain})
+            .auth(cred.user.salesforce.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), ['objectDescribe', 'recentItems']);
+                done();
+            });
+    });
     it('sendgrid', function (done) {
         p.sendgrid.query()
             .select('profile.get')

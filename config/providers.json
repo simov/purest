@@ -769,6 +769,32 @@
             }
         }
     },
+    "salesforce": {
+        "__provider": {
+            "oauth2": true,
+            "refresh": "https://login.salesforce.com/services/oauth2/token",
+            "docs": "https://www.salesforce.com/us/developer/docs/api_rest"
+        },
+        "https://[domain].salesforce.com": {
+            "__domain": {
+                "auth": {
+                    "auth": {"bearer": "[0]"}
+                }
+            },
+            "services/data/[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "v20.0"
+                }
+            },
+            "services/data/[version]/sobjects/{endpoint}": {
+                "__path": {
+                    "alias": ["sobjects"],
+                    "version": "v20.0"
+                }
+            }
+        }
+    },
     "sendgrid": {
         "__provider": {
             "docs": "http://sendgrid.com/docs/"

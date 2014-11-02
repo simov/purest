@@ -227,6 +227,28 @@ describe('refresh', function () {
             refresh.store('paypal', _body.access_token);
         });
     });
+    // https://www.salesforce.com/us/developer/docs/api_rest/
+    describe('salesforce', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.salesforce.refresh(
+                cred.app.salesforce,
+                cred.user.salesforce.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'id', 'issued_at', 'scope',
+                    'instance_url', 'token_type', 'signature',
+                    'access_token'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('salesforce', _body.access_token);
+        });
+    });
     // https://stripe.com/docs/connect/oauth#test-keys-for-livemode-applications
     describe('stripe', function () {
         var _body = null;

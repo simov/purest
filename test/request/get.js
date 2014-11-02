@@ -648,6 +648,17 @@ describe('get', function () {
             done();
         });
     });
+    it('salesforce', function (done) {
+        p.salesforce.get('sobjects/Account', {
+            domain:cred.user.salesforce.domain,
+            auth:{bearer:cred.user.salesforce.token}
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            should.deepEqual(Object.keys(body), ['objectDescribe', 'recentItems']);
+            done();
+        });
+    });
     it('sendgrid', function (done) {
         p.sendgrid.get('profile.get', {
             qs:{api_user:cred.user.sendgrid.user, api_key:cred.user.sendgrid.pass}
