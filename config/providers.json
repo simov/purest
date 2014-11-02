@@ -517,6 +517,25 @@
             }
         }
     },
+    "hackpad": {
+        "__provider": {
+            "oauth": true,
+            "docs": "https://hackpad.com/Hackpad-API-fQD2DRz22Wf"
+        },
+        "https://hackpad.com": {
+            "__domain": {
+                "auth": {
+                    "oauth": {}
+                }
+            },
+            "api/[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "1.0"
+                }
+            }
+        }
+    },
     "heroku": {
         "__provider": {
             "oauth2": true,

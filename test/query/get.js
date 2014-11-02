@@ -525,6 +525,18 @@ describe('query', function () {
             });
         });
     });
+    it('hackpad', function (done) {
+        p.hackpad.query()
+            .select('search')
+            .where({q:'hackpad'})
+            .auth()
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.should.be.instanceOf(Array);
+                done();
+            });
+    });
     describe('heroku', function () {
         it('get', function (done) {
             p.heroku.query()
