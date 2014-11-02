@@ -249,6 +249,27 @@ describe('refresh', function () {
             refresh.store('paypal', _body.access_token);
         });
     });
+    // https://redbooth.com/api/authentication/
+    describe('redbooth', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.redbooth.refresh(
+                cred.app.redbooth,
+                cred.user.redbooth.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'token_type', 'expires_in',
+                    'refresh_token', 'scope'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('redbooth', _body.access_token, _body.refresh_token);
+        });
+    });
     // https://www.salesforce.com/us/developer/docs/api_rest/
     describe('salesforce', function () {
         var _body = null;

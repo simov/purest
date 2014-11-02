@@ -649,6 +649,16 @@ describe('get', function () {
             done();
         });
     });
+    it('redbooth', function (done) {
+        p.redbooth.get('me', {
+            auth:{bearer:cred.user.redbooth.token},
+        }, function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.id.should.be.type('number');
+            done();
+        });
+    });
     it('rubygems', function (done) {
         p.rubygems.get('gems/rails', function (err, res, body) {
             debugger;

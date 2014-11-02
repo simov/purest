@@ -681,6 +681,17 @@ describe('query', function () {
                 done();
             });
     });
+    it('redbooth', function (done) {
+        p.redbooth.query()
+            .get('me')
+            .auth(cred.user.redbooth.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.id.should.be.type('number');
+                done();
+            });
+    });
     describe('rubygems', function () {
         it('headers auth', function (done) {
             p.rubygems.query()

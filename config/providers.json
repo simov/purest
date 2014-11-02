@@ -778,6 +778,26 @@
             }
         }
     },
+    "redbooth": {
+        "__provider": {
+            "oauth2": true,
+            "refresh": "https://redbooth.com/oauth2/token",
+            "docs": "https://redbooth.com/api/"
+        },
+        "https://redbooth.com": {
+            "__domain": {
+                "auth": {
+                    "auth":{"bearer": "[0]"}
+                }
+            },
+            "api/[version]/{endpoint}": {
+                "__path": {
+                    "alias": "__default",
+                    "version": "3"
+                }
+            }
+        }
+    },
     "rubygems": {
         "__provider": {
             "docs": "http://guides.rubygems.org/rubygems-org-api"
