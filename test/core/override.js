@@ -52,6 +52,16 @@ describe('override', function () {
         });
     });
 
+    describe('hackpad', function () {
+        it('0-legged OAuth', function () {
+            var provider = new Purest({provider:'hackpad', key:'key', secret:'secret'});
+            var query = provider.query();
+            provider.options.oauth(query._options);
+            should.deepEqual(query._options,
+                {api:'__default', oauth:{consumer_key:'key', consumer_secret:'secret'}});
+        });
+    });
+
     describe('imgur', function () {
         it('use apikey', function () {
             var provider = new Purest({provider:'imgur'});
