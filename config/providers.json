@@ -672,7 +672,7 @@
             "oauth2": true,
             "docs": "http://apidocs.mailchimp.com/"
         },
-        "https://[dc].api.mailchimp.com": {
+        "https://[domain].api.mailchimp.com": {
             "__domain": {
                 "auth": {
                     "qs": {"apikey": "[0]"}

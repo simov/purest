@@ -105,14 +105,14 @@ describe('override', function () {
             });
             it('get data center name from option', function () {
                 var provider = new Purest({provider:'mailchimp'});
-                provider.url.get('endpoint', {dc:'us2'})
+                provider.url.get('endpoint', {domain:'us2'})
                     .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json');
             });
             it('throw error on missing data center name', function () {
                 var provider = new Purest({provider:'mailchimp'});
                 (function () {
                     provider.url.get('endpoint', {qs:{apikey:'access_token'}});
-                }).should.throw('Purest: specify data center to use through the dc option!');
+                }).should.throw('Purest: specify domain name to use through the domain option!');
             });
         });
     });
@@ -147,8 +147,25 @@ describe('override', function () {
             });
             it('use sandbox domain', function () {
                 var provider = new Purest({provider:'paypal', api:'payments'});
-                provider.url.get('endpoint', {sandbox:true})
+                provider.url.get('endpoint', {domain:'sandbox'})
                     .should.equal('https://api.sandbox.paypal.com/v1/payments/endpoint');
+            });
+        });
+    });
+
+    describe('salesforce', function () {
+        describe('url domain', function () {
+            it('domain option', function () {
+                var provider = new Purest({provider:'salesforce'});
+                console.log(provider.url.get('endpoint', {domain:'eu3'}));
+                provider.url.get('endpoint', {domain:'eu3'})
+                    .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint');
+            });
+            it('throw error on missing data center name', function () {
+                var provider = new Purest({provider:'salesforce'});
+                (function () {
+                    provider.url.get('endpoint', {qs:{apikey:'access_token'}});
+                }).should.throw('Purest: specify domain name to use through the domain option!');
             });
         });
     });
