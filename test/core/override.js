@@ -90,7 +90,7 @@ describe('override', function () {
                 var p = new Purest({provider:'linkedin', key:'k', secret:'s'});
                 var options = {headers:{}, form:{a:1}, oauth:{token:'t', secret:'ts'}};
                 p.before.post('endpoint', options);
-                options.body.should.equal('{"a":1}');
+                should.deepEqual(options.json, {a:1});
                 should.not.exist(options.form);
             });
         });

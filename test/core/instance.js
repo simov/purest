@@ -73,7 +73,7 @@ describe('instance', function () {
         var p = new Purest({provider:'linkedin'});
         var options = {form:{key:'data'}};
         p.before.post('endpoint',options);
-        should.deepEqual(options, {body:'{"key":"data"}'})
+        should.deepEqual(options, {json:{key:'data'}})
     });
     it('refresh', function () {
         var p = new Purest({provider:'google'});
