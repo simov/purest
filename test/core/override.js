@@ -170,6 +170,15 @@ describe('override', function () {
         });
     });
 
+    describe('stackexchange', function () {
+        it('set gzip option', function () {
+            var provider = new Purest({provider:'stackexchange'});
+            var options = {};
+            provider.before.all('endpoint', options);
+            should.deepEqual(options, {gzip:true});
+        });
+    });
+
     describe('twitter', function () {
         describe('url qs', function () {
             it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {

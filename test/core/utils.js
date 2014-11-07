@@ -102,27 +102,6 @@ describe('utils', function () {
             });
         });
 
-        describe('decompress', function () {
-            it('gzip encoded body', function (done) {
-                zlib.gzip('{"data":"data"}', function (err, encoded) {
-                    utils.response(function (err, res, body) {
-                        if (err) return done(err);
-                        should.deepEqual(body, {data:'data'});
-                        done();
-                    })(null, {statusCode:200,headers:{'content-encoding':'gzip'}}, encoded);
-                });
-            });
-            it('deflate encoded body', function (done) {
-                zlib.deflate('{"data":"data"}', function (err, encoded) {
-                    utils.response(function (err, res, body) {
-                        if (err) return done(err);
-                        should.deepEqual(body, {data:'data'});
-                        done();
-                    })(null, {statusCode:200,headers:{'content-encoding':'deflate'}}, encoded);
-                });
-            });
-        });
-
         it('return error on non successful status code', function (done) {
             utils.response(function (err, res, body) {
                 should.deepEqual(err, {data:'data'});
