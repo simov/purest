@@ -162,14 +162,26 @@ describe('get', function () {
             done();
         });
     });
-    it('digitalocean', function (done) {
-        p.digitalocean.get('actions', {
-            auth:{bearer:cred.user.digitalocean.token}
-        }, function (err, res, body) {
-            debugger;
-            if (err) return error(err, done);
-            body.actions.should.be.instanceOf(Array);
-            done();
+    describe('digitalocean', function () {
+        it('bearer', function (done) {
+            p.digitalocean.get('actions', {
+                auth:{bearer:cred.user.digitalocean.token}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.actions.should.be.instanceOf(Array);
+                done();
+            });
+        });
+        it('basic', function (done) {
+            p.digitalocean.get('actions', {
+                auth:{user:cred.user.digitalocean.apikey, pass:''}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.actions.should.be.instanceOf(Array);
+                done();
+            });
         });
     });
     it('dropbox', function (done) {

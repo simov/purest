@@ -165,16 +165,29 @@ describe('query', function () {
             done();
         });
     });
-    it('digitalocean', function (done) {
-        p.digitalocean.query()
-            .get('actions')
-            .auth(cred.user.digitalocean.token)
-            .request(function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                body.actions.should.be.instanceOf(Array);
-                done();
-            });
+    describe('digitalocean', function () {
+        it('bearer', function (done) {
+            p.digitalocean.query()
+                .get('actions')
+                .auth(cred.user.digitalocean.token)
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.actions.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+        it('basic', function (done) {
+            p.digitalocean.query()
+                .get('actions')
+                .auth(cred.user.digitalocean.apikey, '')
+                .request(function (err, res, body) {
+                    debugger;
+                    if (err) return error(err, done);
+                    body.actions.should.be.instanceOf(Array);
+                    done();
+                });
+        });
     });
     it('dropbox', function (done) {
         p.dropbox.query()
