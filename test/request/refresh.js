@@ -292,6 +292,26 @@ describe('refresh', function () {
             refresh.store('salesforce', _body.access_token);
         });
     });
+    // https://developers.soundcloud.com/docs/api/reference#token
+    describe('soundcloud', function () {
+        var _body = null;
+        it('refresh', function (done) {
+            p.soundcloud.refresh(
+                cred.app.soundcloud,
+                cred.user.soundcloud.refresh,
+            function (err, res, body) {
+                if (err) return error(err, done);
+                should.deepEqual(Object.keys(body), [
+                    'access_token', 'expires_in', 'scope', 'refresh_token'
+                ]);
+                _body = body;
+                done();
+            });
+        });
+        after(function () {
+            refresh.store('soundcloud', _body.access_token, _body.refresh_token);
+        });
+    });
     // https://stripe.com/docs/connect/oauth#test-keys-for-livemode-applications
     describe('stripe', function () {
         var _body = null;
