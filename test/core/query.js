@@ -12,6 +12,10 @@ describe('query', function () {
     it('config', function () {
         provider.query().should.be.instanceOf(Query);
     });
+    it('get', function () {
+        var query = provider.query().get('endpoint');
+        query.endpoint.should.equal('endpoint');
+    });
     it('qs', function () {
         var query = provider.query().qs({some:'data'});
         should.deepEqual(query._options, {api:'__default', qs:{some:'data'}});
