@@ -200,8 +200,7 @@ describe('upload', function () {
                         'Content-Type':'image/png',
                         body:fs.createReadStream(image)
                     }
-                ],
-                json:false
+                ]
             },
             function (err, res, body) {
                 debugger;

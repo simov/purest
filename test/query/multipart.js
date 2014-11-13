@@ -192,7 +192,6 @@ describe('upload', function () {
                         body:fs.createReadStream(image)
                     }
                 ])
-                .options({json:false})
                 .auth(cred.user.google.token)
                 .request(function (err, res, body) {
                     debugger;
