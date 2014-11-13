@@ -960,7 +960,8 @@
                 },
                 "*": {
                     "all": {
-                        "encoding": null
+                        "encoding": null,
+                        "gzip": true
                     }
                 }
             }
