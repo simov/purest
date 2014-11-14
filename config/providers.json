@@ -343,7 +343,7 @@
                 }
             }
         },
-        "https://stream.flickr.com": {
+        "https://stream.flowdock.com": {
             "__domain": {
                 "auth": [
                     {"auth": {"bearer": "[0]"}},

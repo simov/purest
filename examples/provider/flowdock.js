@@ -17,6 +17,17 @@ exports = module.exports = function (p) {
                     if (err) console.log(err);
                     console.log(body);
                 });
+        },
+        // stream messages from a flow (channel)
+        1: function () {
+            p.query('stream')
+                .get('flows')
+                .where({filter:'simeon-velichkov/main'})
+                .auth(cred.user.flowdock.token)
+                .request()
+                .on('data', function (data) {
+                    console.log(data.toString('utf8'));
+                });
         }
     };
 }
