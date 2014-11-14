@@ -164,6 +164,21 @@ describe('upload', function () {
             });
         });
     });
+    it('flowdock', function (done) {
+        p.flowdock.post('messages', {
+            auth:{bearer:cred.user.flowdock.token},
+            qs:{flow:cred.user.flowdock.flow, event:'file'},
+            formData:{
+                content:fs.createReadStream(image)
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.content.file_size.should.equal(22025);
+            done();
+        });
+    });
     it('foursquare', function (done) {
         p.foursquare.post('users/self/update', {
             qs:{

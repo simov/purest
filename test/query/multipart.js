@@ -160,6 +160,21 @@ describe('upload', function () {
                 });
         });
     });
+    it('flowdock', function (done) {
+        p.flowdock.query()
+            .update('messages')
+            .where({flow:cred.user.flowdock.flow, event:'file'})
+            .upload({
+                content:fs.createReadStream(image)
+            })
+            .auth(cred.user.flowdock.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.content.file_size.should.equal(22025);
+                done();
+            });
+    });
     it('foursquare', function (done) {
         p.foursquare.query()
             .update('users/self/update')
