@@ -321,6 +321,20 @@ describe('upload', function () {
             done();
         });
     });
+    it('trello', function (done) {
+        p.trello.post('cards/'+cred.user.trello.card+'/attachments', {
+            qs:{key:cred.app.trello.key, token:cred.user.trello.token},
+            formData:{
+                file:fs.createReadStream(image)
+            }
+        },
+        function (err, res, body) {
+            debugger;
+            if (err) return error(err, done);
+            body.bytes.should.equal(22025);
+            done();
+        });
+    });
     it('twitter', function (done) {
         p.twitter.post('statuses/update_with_media', {
             oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},

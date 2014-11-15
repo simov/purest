@@ -308,6 +308,18 @@ describe('upload', function () {
                 done();
             });
     });
+    it('trello', function (done) {
+        p.trello.query()
+            .update('cards/'+cred.user.trello.card+'/attachments')
+            .upload({file:fs.createReadStream(image)})
+            .auth(cred.app.trello.key, cred.user.trello.token)
+            .request(function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.bytes.should.equal(22025);
+                done();
+            });
+    });
     it('twitter', function (done) {
         p.twitter.query()
             .update('statuses/update_with_media')
