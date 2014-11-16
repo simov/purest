@@ -19,8 +19,21 @@ describe('verbs', function () {
         }
     });
 
+    describe('absolute url', function () {
+        it('aboutme', function (done) {
+            p.aboutme.get('https://api.about.me/api/v2/json/user/view/simeonv', {
+                headers:{Authorization:'Basic '+cred.user.aboutme.apikey}
+            }, function (err, res, body) {
+                debugger;
+                if (err) return error(err, done);
+                body.user_name.should.equal('simeonv');
+                done();
+            });
+        });
+    });
+
     describe('options', function () {
-        it('yahoo yql', function (done) {
+        it('yahoo', function (done) {
             p.yahoo.get('yql', {
                 api:'yql',
                 method:'OPTIONS',
@@ -34,33 +47,10 @@ describe('verbs', function () {
                 done();
             });
         });
-        it('yahoo geo', function (done) {
-            p.yahoo.get("places.q('Central Park, New York')", {
-                api:'geo',
-                method:'OPTIONS'
-            }, function (err, res, body) {
-                if (err) return error(err, done);
-                res.headers.allow.should.equal('GET,HEAD,POST,OPTIONS')
-                done();
-            });
-        });
     });
 
     describe('head', function () {
-        it('yahoo social', function (done) {
-            p.yahoo.get('user/C6YWVTVM24O4SEGIIDLTWA5NUA/profile', {
-                api:'social',
-                method:'HEAD',
-                oauth:{
-                    token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-                }
-            }, function (err, res, body) {
-                debugger;
-                if (err) return error(err, done);
-                // ??
-                done();
-            });
-        });
+        
     });
 
     describe('put', function () {
@@ -68,6 +58,10 @@ describe('verbs', function () {
     });
 
     describe('delete', function () {
+        
+    });
+
+    describe('patch', function () {
         
     });
 });
