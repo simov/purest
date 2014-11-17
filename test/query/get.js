@@ -603,27 +603,25 @@ describe('query', function () {
     describe('linkedin', function () {
         it('oauth1', function (done) {
             p.linkedin.query()
-                .select('companies')
-                .where({'email-domain':'apple.com'})
+                .select('people/~')
                 .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
-                    body.values[0].id.should.equal(162479);
-                    body.values[0].name.should.equal('Apple');
+                    body.firstName.should.be.type('string');
+                    body.lastName.should.be.type('string');
                     done();
                 });
         });
         it('oauth2', function (done) {
             p.linkedin.query()
-                .select('companies')
-                .where({'email-domain':'apple.com'})
+                .select('people/~')
                 .auth(cred.user.linkedin.oauth2)
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);
-                    body.values[0].id.should.equal(162479);
-                    body.values[0].name.should.equal('Apple');
+                    body.firstName.should.be.type('string');
+                    body.lastName.should.be.type('string');
                     done();
                 });
         });
@@ -646,7 +644,7 @@ describe('query', function () {
             p.mailchimp.query()
                 .select('campaigns/list')
                 .auth(cred.user.mailchimp.token)
-                .options({dc:cred.user.mailchimp.dc})
+                .options({domain:cred.user.mailchimp.domain})
                 .request(function (err, res, body) {
                     debugger;
                     if (err) return error(err, done);

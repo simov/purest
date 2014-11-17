@@ -579,28 +579,24 @@ describe('get', function () {
     });
     describe('linkedin', function () {
         it('oauth1', function (done) {
-            p.linkedin.get('companies', {
-                oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
-                qs:{'email-domain':'apple.com'}
+            p.linkedin.get('people/~', {
+                oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                body.values[0].id.should.equal(162479);
-                body.values[0].name.should.equal('Apple');
+                body.firstName.should.be.type('string');
+                body.lastName.should.be.type('string');
                 done();
             });
         });
         it('oauth2', function (done) {
-            p.linkedin.get('companies', {
-                qs:{
-                    oauth2_access_token:cred.user.linkedin.oauth2,
-                    'email-domain':'apple.com'
-                }
+            p.linkedin.get('people/~', {
+                qs:{oauth2_access_token:cred.user.linkedin.oauth2}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
-                body.values[0].id.should.equal(162479);
-                body.values[0].name.should.equal('Apple');
+                body.firstName.should.be.type('string');
+                body.lastName.should.be.type('string');
                 done();
             });
         });
@@ -620,7 +616,7 @@ describe('get', function () {
         });
         it('oauth', function (done) {
             p.mailchimp.get('campaigns/list', {
-                dc:cred.user.mailchimp.dc,
+                domain:cred.user.mailchimp.domain,
                 qs:{apikey:cred.user.mailchimp.token}
             }, function (err, res, body) {
                 debugger;
