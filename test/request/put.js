@@ -3,7 +3,7 @@ var fs = require('fs'),
     path = require('path');
 var purest = require('../../lib/provider'),
     providers = require('../../config/providers');
-var image = fs.readFileSync(path.resolve(__dirname, '../fixtures/cat.png'));
+var image = path.resolve(__dirname, '../fixtures/cat.png');
 
 
 describe('put', function () {
@@ -27,7 +27,7 @@ describe('put', function () {
             p.dropbox.put('files_put/auto/cat.png', {
                 auth: {bearer:cred.user.dropbox.token},
                 api: 'files',
-                body: image
+                body: fs.readFileSync(image)
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);

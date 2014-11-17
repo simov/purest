@@ -26,11 +26,10 @@ describe('del', function () {
         var file = {};
         before(function (done) {
             p.box.post('files/content', {
-                auth:{bearer:cred.user.box.token},
                 api:'upload',
-                upload:'cat.png',
+                auth:{bearer:cred.user.box.token},
                 qs:{parent_id:0},
-                form:{filename:fs.readFileSync(image)}
+                formData:{filename:fs.createReadStream(image)}
             }, function (err, res, body) {
                 debugger;
                 if (err) return error(err, done);
