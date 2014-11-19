@@ -13,6 +13,7 @@ results
 
 npm-debug.log
 node_modules
+coverage
 
 config/credentials.json
 config/app.json
