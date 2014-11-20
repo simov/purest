@@ -1,32 +1,31 @@
 {
-    "name": "purest",
-    "version": "1.1.1",
-    "description": "REST API client library",
-    "keywords": [
-        "rest", "restful", "api", "http", "https", "client"
-    ],
-    "license"   : "MIT",
-    "author": {
-        "name"  : "simo",
-        "email" : "simeonvelichkov@gmail.com"
-    },
-    "repository": {
-        "type"  : "git",
-        "url"   : "git://github.com/simov/purest.git"
-    },
-    "dependencies": {
-        "request"       : "2.48.0",
-        "extend"        : "1.3.0",
-        "caseless"      : "0.7.0"
-    },
-    "devDependencies": {
-        "mocha"         : "1.20.1",
-        "should"        : "4.0.4",
-        "istanbul"      : "0.3.2",
-        "coveralls"     : "2.11.2"
-    },
-    "main": "./lib/provider",
-    "scripts": {
-        "test": "node_modules/mocha/bin/mocha test/core --require should --reporter spec --timeout 10000"
-    }
+  "name": "purest",
+  "version": "1.1.1",
+  "description": "REST API client library",
+  "keywords": [
+    "rest", "restful", "api", "http", "https", "client"
+  ],
+  "license"   : "MIT",
+  "author": {
+    "name"  : "simo",
+    "email" : "simeonvelichkov@gmail.com"
+  },
+  "repository": {
+    "type"  : "git",
+    "url"   : "git://github.com/simov/purest.git"
+  },
+  "dependencies": {
+    "request"       : "2.48.0",
+    "extend"        : "1.3.0"
+  },
+  "devDependencies": {
+    "mocha"         : "1.20.1",
+    "should"        : "4.0.4",
+    "istanbul"      : "0.3.2",
+    "coveralls"     : "2.11.2"
+  },
+  "main": "./lib/provider",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha test/core --require should --reporter spec --timeout 10000"
+  }
 }
