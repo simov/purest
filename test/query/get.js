@@ -901,7 +901,7 @@ describe('query', function () {
                 body.id.should.equal(1504092505);
                 body.screen_name.should.equal('mightymob');
                 done();
-            })
+            });
     });
     it('vimeo', function (done) {
         p.vimeo.query()
