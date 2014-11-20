@@ -1,1209 +1,1209 @@
 {
-    "500px": {
-        "__provider": {
-            "oauth": true,
-            "docs": "https://developers.500px.com/"
-        },
-        "https://api.500px.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                }
-            }
-        }
+  "500px": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://developers.500px.com/"
     },
-    "aboutme": {
-        "__provider": {
-            "docs": "http://about.me/developer/api/docs/"
-        },
-        "https://api.about.me": {
-            "__domain": {
-                "auth": [
-                    {"qs": {"client_id": "[0]"}},
-                    {
-                        "qs": {"client_id": "[0]"},
-                        "headers": {"Authorization": "OAuth [1]"}
-                    }
-                ]
-            },
-            "api/[version]/json/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v2"
-                }
-            },
-            "api/[version]/json/user/{endpoint}": {
-                "__path": {
-                    "alias": ["user"],
-                    "version": "v2"
-                }
-            },
-            "api/[version]/json/users/{endpoint}": {
-                "__path": {
-                    "alias": ["users"],
-                    "version": "v2"
-                }
-            },
-            "api/[version]/json/services/{endpoint}": {
-                "__path": {
-                    "alias": ["services"],
-                    "version": "v2"
-                }
-            }
+    "https://api.500px.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
         }
-    },
-    "asana": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://app.asana.com/-/oauth_token",
-            "docs": "http://developer.asana.com/documentation/"
-        },
-        "https://app.asana.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"auth": {"user":"[0]", "pass":"[1]"}}
-                ]
-            },
-            "api/[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1.0"
-                }
-            }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
         }
-    },
-    "bitly": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "http://dev.bitly.com"
-        },
-        "https://api-ssl.bitly.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v3"
-                }
-            }
-        }
-    },
-    "box": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.box.com/oauth2/token",
-            "docs": "https://developers.box.com/"
-        },
-        "https://api.box.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "2.0"
-                },
-                "files\\/\\d+\\/content": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "get": {
-                        "encoding": null
-                    }
-                }
-            }
-        },
-        "https://upload.box.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["upload"],
-                    "version": "2.0"
-                }
-            }
-        },
-        "https://view-api.box.com": {
-            "__domain": {
-                "auth": {
-                    "headers": {"Authorization": "Token [0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["view", "view-api"],
-                    "version": "1"
-                },
-                "documents\\/.+\\/content\\.(?:pdf|zip)": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "get": {
-                        "encoding": null
-                    }
-                }
-            }
-        },
-        "https://upload.view-api.box.com": {
-            "__domain": {
-                "auth": {
-                    "headers": {"Authorization": "Token [0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["view-upload"],
-                    "version": "1"
-                }
-            }
-        },
-        "https://cloud.box.com": {
-            "__domain": {
-                "auth": {
-                    "headers": {"Authorization": "Token [0]"}
-                }
-            },
-            "shared/static/{endpoint}": {
-                "__path": {
-                    "alias": ["cloud", "download"]
-                },
-                "*": {
-                    "all": {
-                        "encoding": null
-                    }
-                }
-            }
-        }
-    },
-    "coderbits": {
-        "__provider": {
-            "docs": "https://coderbits.com/api"
-        },
-        "https://coderbits.com": {
-            "__domain": {
-                
-            },
-            "{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "digitalocean": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://cloud.digitalocean.com/v1/oauth/token",
-            "docs": "https://developers.digitalocean.com/"
-        },
-        "https://api.digitalocean.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"auth": {"user": "[0]", "pass": "[1]"}}
-                ]
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v2"
-                }
-            }
-        }
-    },
-    "dropbox": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://www.dropbox.com/developers"
-        },
-        "https://api.dropbox.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1"
-                }
-            }
-        },
-        "https://api-content.dropbox.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["files", "api-content"],
-                    "version": "1"
-                },
-                "*": {
-                    "get": {
-                        "encoding": null
-                    }
-                }
-            }
-        }
-    },
-    "facebook": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://developers.facebook.com"
-        },
-        "https://graph.facebook.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "flickr": {
-        "__provider": {
-            "oauth": true,
-            "docs": "https://www.flickr.com/services/api/"
-        },
-        "https://api.flickr.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "services/rest/{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                },
-                "*": {
-                    "all": {
-                        "qs": {
-                            "format": "json"
-                        }
-                    }
-                }
-            }
-        },
-        "https://up.flickr.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "services/upload/{endpoint}": {
-                "__path": {
-                    "alias": ["upload"]
-                }
-            },
-            "services/replace/{endpoint}": {
-                "__path": {
-                    "alias": ["replace"]
-                }
-            }
-        }
-    },
-    "flowdock": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.flowdock.com/oauth/token",
-            "docs": "https://www.flowdock.com/api"
-        },
-        "https://api.flowdock.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"auth": {"user": "[0]", "pass": "[1]"}}
-                ]
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                }
-            }
-        },
-        "https://stream.flowdock.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"auth": {"user": "[0]", "pass": "[1]"}}
-                ]
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": ["stream"]
-                }
-            }
-        }
-    },
-    "foursquare": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://developer.foursquare.com/"
-        },
-        "https://api.foursquare.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"oauth_token": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v2"
-                }
-            }
-        }
-    },
-    "github": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "http://developer.github.com"
-        },
-        "https://api.github.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "google": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://accounts.google.com/o/oauth2/token",
-            "docs": "https://developers.google.com/"
-        },
-        "https://www.googleapis.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "plus/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["plus"],
-                    "version": "v1",
-                    "docs": "https://developers.google.com/+/api"
-                }
-            },
-            "youtube/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["youtube"],
-                    "version": "v3",
-                    "docs": "https://developers.google.com/youtube/v3"
-                }
-            },
-            "drive/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["drive"],
-                    "version": "v2",
-                    "docs": "https://developers.google.com/drive/v2/reference"
-                }
-            },
-            "upload/drive/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["upload-drive"],
-                    "version": "v2",
-                    "docs": "https://developers.google.com/drive/v2/reference"
-                }
-            },
-            "freebase/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["freebase"],
-                    "version": "v1",
-                    "docs": "https://developers.google.com/freebase/v1"
-                }
-            },
-            "tasks/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["tasks"],
-                    "version": "v1",
-                    "docs": "https://developers.google.com/google-apps/tasks/"
-                }
-            },
-            "urlshortener/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["urlshortener"],
-                    "version": "v1",
-                    "auth": {
-                        "qs": {"key": "[0]"}
-                    },
-                    "docs": "https://developers.google.com/url-shortener/"
-                }
-            },
-            "pagespeedonline/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["pagespeedonline", "pagespeed"],
-                    "version": "v1",
-                    "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
-                }
-            },
-            "youtube/analytics/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["youtube/analytics"],
-                    "version": "v1",
-                    "docs": "https://developers.google.com/youtube/analytics"
-                }
-            }
-        },
-        "https://maps.googleapis.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"key": "[0]"}
-                }
-            },
-            "maps/api/{endpoint}": {
-                "__path": {
-                    "alias": ["gmaps"],
-                    "docs": "https://developers.google.com/maps/"
-                },
-                "streetview": {
-                    "get": {
-                        "encoding": null
-                    }
-                },
-                "staticmap": {
-                    "get": {
-                        "encoding": null
-                    }
-                }
-            }
-        },
-        "https://www.google.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "m8/feeds/{endpoint}": {
-                "__path": {
-                    "alias": ["contacts"],
-                    "docs": "https://developers.google.com/google-apps/contacts/v3/"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "GData-Version": "3.0"
-                        },
-                        "qs": {"alt": "json"}
-                    }
-                }
-            }
-        }
-    },
-    "hackpad": {
-        "__provider": {
-            "oauth": true,
-            "docs": "https://hackpad.com/Hackpad-API-fQD2DRz22Wf"
-        },
-        "https://hackpad.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {}
-                }
-            },
-            "api/[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1.0"
-                }
-            }
-        }
-    },
-    "heroku": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://id.heroku.com/oauth/token",
-            "docs": "https://devcenter.heroku.com/categories/platform-api"
-        },
-        "https://api.heroku.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"auth": {"user": "[0]", "pass": "[1]"}}
-                ]
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "imgur": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.imgur.com/oauth2/token",
-            "docs": "https://api.imgur.com/"
-        },
-        "https://api.imgur.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"headers": {"Authorization": "Client-ID [0]"}}
-                ]
-            },
-            "[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "3"
-                }
-            }
-        }
-    },
-    "instagram": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "http://instagram.com/developer"
-        },
-        "https://api.instagram.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                }
-            }
-        }
-    },
-    "linkedin": {
-        "__provider": {
-            "oauth": true,
-            "refresh": "https://www.linkedin.com/uas/oauth2/accessToken",
-            "docs": "http://developer.linkedin.com"
-        },
-        "https://api.linkedin.com": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"bearer": "[0]"}},
-                    {"oauth": {"token": "[0]", "secret": "[1]"}}
-                ]
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "x-li-format": "json"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "live": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://login.live.com/oauth20_token.srf",
-            "docs": "http://msdn.microsoft.com/en-us/library/dn783283.aspx"
-        },
-        "https://apis.live.net": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v5.0"
-                },
-                "me/picture": {
-                    "get": {
-                        "encoding": null
-                    }
-                },
-                ".*\\/skydrive\\/files\\/.*": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "put": {
-                        "headers": {
-                            "Content-Type": "application/json"
-                        }
-                    }
-                },
-                "file\\..*\\/content": {
-                    "__endpoint": {
-                        "regex": true
-                    },
-                    "get": {
-                        "encoding": null
-                    }
-                }
-            }
-        }
-    },
-    "mailchimp": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "http://apidocs.mailchimp.com/"
-        },
-        "https://[domain].api.mailchimp.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"apikey": "[0]"}
-                }
-            },
-            "[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "2.0"
-                }
-            },
-            "export/[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["export"],
-                    "version": "1.0"
-                }
-            }
-        }
-    },
-    "mailgun": {
-        "__provider": {
-            "docs": "http://documentation.mailgun.com/"
-        },
-        "https://api.mailgun.net": {
-            "__domain": {
-                "auth": {
-                    "auth": {"user": "[0]", "pass": "[1]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v2"
-                }
-            }
-        }
-    },
-    "mandrill": {
-        "__provider": {
-            "docs": "https://mandrillapp.com/api/docs/"
-        },
-        "https://mandrillapp.com": {
-            "__domain": {
-                "auth": {
-                    "form": {"key": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1.0"
-                }
-            }
-        }
-    },
-    "openstreetmap": {
-        "__provider": {
-            "oauth": true,
-            "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
-        },
-        "http://api.openstreetmap.org": {
-            "__domain": {
-                "auth": [
-                    {"auth": {"user": "[0]", "pass": "[1]"}},
-                    {"oauth": {"token": "[0]", "secret": "[1]"}}
-                ]
-            },
-            "api/[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "0.6"
-                }
-            }
-        }
-    },
-    "paypal": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
-            "docs": "https://developer.paypal.com/docs/"
-        },
-        "https://api.paypal.com": {
-            "__domain": {
-                "auth": {
-                    "auth":{"bearer": "[0]"}
-                }
-            },
-            "[version]/payments/{endpoint}": {
-                "__path": {
-                    "alias": ["payments"],
-                    "version": "v1"
-                }
-            },
-            "[version]/vault/{endpoint}": {
-                "__path": {
-                    "alias": ["vault"],
-                    "version": "v1"
-                }
-            },
-            "[version]/identity/openidconnect/{endpoint}": {
-                "__path": {
-                    "alias": ["identity"],
-                    "version": "v1"
-                }
-            },
-            "[version]/invoicing/{endpoint}": {
-                "__path": {
-                    "alias": ["invoicing"],
-                    "version": "v1"
-                }
-            },
-            "[version]/payment-experience/{endpoint}": {
-                "__path": {
-                    "alias": ["payment-experience"],
-                    "version": "v1"
-                }
-            },
-            "[version]/notifications/{endpoint}": {
-                "__path": {
-                    "alias": ["notifications"],
-                    "version": "v1"
-                }
-            }
-        }
-    },
-    "pipelinedeals": {
-        "__provider": {
-            "docs": "https://www.pipelinedeals.com/api/docs/introduction"
-        },
-        "https://api.pipelinedeals.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"api_key": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v3"
-                }
-            }
-        }
-    },
-    "redbooth": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://redbooth.com/oauth2/token",
-            "docs": "https://redbooth.com/api/"
-        },
-        "https://redbooth.com": {
-            "__domain": {
-                "auth": {
-                    "auth":{"bearer": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "3"
-                }
-            }
-        }
-    },
-    "rubygems": {
-        "__provider": {
-            "docs": "http://guides.rubygems.org/rubygems-org-api"
-        },
-        "https://rubygems.org": {
-            "__domain": {
-                "auth": {
-                    "headers": {"Authorization": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                },
-                "api_key": {
-                    "__endpoint": {
-                        "auth": {
-                            "auth": {"user":"[0]", "pass":"[1]"}
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "salesforce": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://login.salesforce.com/services/oauth2/token",
-            "docs": "https://www.salesforce.com/us/developer/docs/api_rest"
-        },
-        "https://[domain].salesforce.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "services/data/[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v20.0"
-                }
-            },
-            "services/data/[version]/sobjects/{endpoint}": {
-                "__path": {
-                    "alias": ["sobjects"],
-                    "version": "v20.0"
-                }
-            }
-        }
-    },
-    "sendgrid": {
-        "__provider": {
-            "docs": "http://sendgrid.com/docs/"
-        },
-        "https://api.sendgrid.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"api_user": "[0]", "api_key": "[1]"}
-                }
-            },
-            "api/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "slack": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://api.slack.com/"
-        },
-        "https://slack.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"token": "[0]"}
-                }
-            },
-            "api/{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "soundcloud": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.soundcloud.com/oauth2/token",
-            "docs": "http://developers.soundcloud.com"
-        },
-        "https://api.soundcloud.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"oauth_token": "[0]"}
-                }
-            },
-            "{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default"
-                }
-            }
-        }
-    },
-    "stackexchange": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://api.stackexchange.com"
-        },
-        "https://api.stackexchange.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"key": "[0]", "access_token": "[1]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "2.2"
-                },
-                "*": {
-                    "all": {
-                        "encoding": null,
-                        "gzip": true
-                    }
-                }
-            }
-        }
-    },
-    "stocktwits": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "http://stocktwits.com/developers"
-        },
-        "https://api.stocktwits.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"access_token": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "2"
-                }
-            }
-        }
-    },
-    "stripe": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://connect.stripe.com/oauth/token",
-            "docs": "https://stripe.com/docs"
-        },
-        "https://api.stripe.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"user":"[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                }
-            }
-        }
-    },
-    "trello": {
-        "__provider": {
-            "oauth": true,
-            "docs": "https://trello.com/docs/"
-        },
-        "https://api.trello.com": {
-            "__domain": {
-                "auth": [
-                    {"qs": {"key": "[0]"}},
-                    {"qs": {"key": "[0]", "token": "[1]"}}
-                ]
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1"
-                }
-            }
-        }
-    },
-    "tumblr": {
-        "__provider": {
-            "oauth": true,
-            "docs": "http://www.tumblr.com/docs/en/api/v2"
-        },
-        "http://api.tumblr.com": {
-            "__domain": {
-                "auth": [
-                    {"qs": {"api_key": "[0]"}},
-                    {"oauth": {"token": "[0]", "secret": "[1]"}}
-                ]
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v2"
-                }
-            }
-        }
-    },
-    "twitch": {
-        "__provider": {
-            "oauth2": true,
-            "refresh": "https://api.twitch.tv/kraken/oauth2/token",
-            "docs": "https://github.com/justintv/twitch-api"
-        },
-        "https://api.twitch.tv": {
-            "__domain": {
-                "auth": {
-                    "headers": {"Authorization": "OAuth [0]"}
-                }
-            },
-            "kraken/{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "Accepts": "application/vnd.twitchtv.v2+json"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "twitter": {
-        "__provider": {
-            "oauth": true,
-            "docs": "https://dev.twitter.com"
-        },
-        "https://api.twitter.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "1.1"
-                }
-            }
-        }
-    },
-    "vimeo": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://developer.vimeo.com/"
-        },
-        "https://api.vimeo.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                },
-                "*": {
-                    "all": {
-                        "headers": {
-                            "Accepts": "application/vnd.vimeo.*+json;version=3.2"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "wikimapia": {
-        "__provider": {
-            "docs": "http://wikimapia.org/api"
-        },
-        "http://api.wikimapia.org": {
-            "__domain": {
-                "auth": {
-                    "qs": {"key": "[0]"}
-                }
-            },
-            "{endpoint}": {
-                "__path": {
-                    "alias": "__default"
-                },
-                "*": {
-                    "all": {
-                        "qs": {"format": "json"}
-                    }
-                }
-            }
-        }
-    },
-    "yahoo": {
-        "__provider": {
-            "oauth": true,
-            "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
-            "docs": "https://developer.yahoo.com/"
-        },
-        "https://social.yahooapis.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["social"],
-                    "version": "v1",
-                    "docs": "https://developer.yahoo.com/social"
-                }
-            }
-        },
-        "https://query.yahooapis.com": {
-            "__domain": {
-                "auth": {
-                    "oauth": {"token": "[0]", "secret": "[1]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["query", "yql"],
-                    "version": "v1",
-                    "docs": "https://developer.yahoo.com/yql"
-                }
-            }
-        },
-        "http://where.yahooapis.com": {
-            "__domain": {
-                "auth": {
-                    "qs": {"appid": "[0]"}
-                }
-            },
-            "[version]/{endpoint}": {
-                "__path": {
-                    "alias": ["where", "geo"],
-                    "version": "v1",
-                    "docs": "https://developer.yahoo.com/geo/geoplanet"
-                }
-            }
-        }
-    },
-    "yammer": {
-        "__provider": {
-            "oauth2": true,
-            "docs": "https://developer.yammer.com/"
-        },
-        "https://www.yammer.com": {
-            "__domain": {
-                "auth": {
-                    "auth": {"bearer": "[0]"}
-                }
-            },
-            "api/[version]/{endpoint}.[type]": {
-                "__path": {
-                    "alias": "__default",
-                    "version": "v1"
-                }
-            }
-        }
+      }
     }
+  },
+  "aboutme": {
+    "__provider": {
+      "docs": "http://about.me/developer/api/docs/"
+    },
+    "https://api.about.me": {
+      "__domain": {
+        "auth": [
+          {"qs": {"client_id": "[0]"}},
+          {
+            "qs": {"client_id": "[0]"},
+            "headers": {"Authorization": "OAuth [1]"}
+          }
+        ]
+      },
+      "api/[version]/json/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      },
+      "api/[version]/json/user/{endpoint}": {
+        "__path": {
+          "alias": ["user"],
+          "version": "v2"
+        }
+      },
+      "api/[version]/json/users/{endpoint}": {
+        "__path": {
+          "alias": ["users"],
+          "version": "v2"
+        }
+      },
+      "api/[version]/json/services/{endpoint}": {
+        "__path": {
+          "alias": ["services"],
+          "version": "v2"
+        }
+      }
+    }
+  },
+  "asana": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://app.asana.com/-/oauth_token",
+      "docs": "http://developer.asana.com/documentation/"
+    },
+    "https://app.asana.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user":"[0]", "pass":"[1]"}}
+        ]
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1.0"
+        }
+      }
+    }
+  },
+  "bitly": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://dev.bitly.com"
+    },
+    "https://api-ssl.bitly.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      }
+    }
+  },
+  "box": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.box.com/oauth2/token",
+      "docs": "https://developers.box.com/"
+    },
+    "https://api.box.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "2.0"
+        },
+        "files\\/\\d+\\/content": {
+          "__endpoint": {
+            "regex": true
+          },
+          "get": {
+            "encoding": null
+          }
+        }
+      }
+    },
+    "https://upload.box.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["upload"],
+          "version": "2.0"
+        }
+      }
+    },
+    "https://view-api.box.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "Token [0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["view", "view-api"],
+          "version": "1"
+        },
+        "documents\\/.+\\/content\\.(?:pdf|zip)": {
+          "__endpoint": {
+            "regex": true
+          },
+          "get": {
+            "encoding": null
+          }
+        }
+      }
+    },
+    "https://upload.view-api.box.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "Token [0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["view-upload"],
+          "version": "1"
+        }
+      }
+    },
+    "https://cloud.box.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "Token [0]"}
+        }
+      },
+      "shared/static/{endpoint}": {
+        "__path": {
+          "alias": ["cloud", "download"]
+        },
+        "*": {
+          "all": {
+            "encoding": null
+          }
+        }
+      }
+    }
+  },
+  "coderbits": {
+    "__provider": {
+      "docs": "https://coderbits.com/api"
+    },
+    "https://coderbits.com": {
+      "__domain": {
+        
+      },
+      "{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "digitalocean": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://cloud.digitalocean.com/v1/oauth/token",
+      "docs": "https://developers.digitalocean.com/"
+    },
+    "https://api.digitalocean.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
+  "dropbox": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://www.dropbox.com/developers"
+    },
+    "https://api.dropbox.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    },
+    "https://api-content.dropbox.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["files", "api-content"],
+          "version": "1"
+        },
+        "*": {
+          "get": {
+            "encoding": null
+          }
+        }
+      }
+    }
+  },
+  "facebook": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developers.facebook.com"
+    },
+    "https://graph.facebook.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "flickr": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://www.flickr.com/services/api/"
+    },
+    "https://api.flickr.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "services/rest/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "qs": {
+              "format": "json"
+            }
+          }
+        }
+      }
+    },
+    "https://up.flickr.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "services/upload/{endpoint}": {
+        "__path": {
+          "alias": ["upload"]
+        }
+      },
+      "services/replace/{endpoint}": {
+        "__path": {
+          "alias": ["replace"]
+        }
+      }
+    }
+  },
+  "flowdock": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.flowdock.com/oauth/token",
+      "docs": "https://www.flowdock.com/api"
+    },
+    "https://api.flowdock.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    },
+    "https://stream.flowdock.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": ["stream"]
+        }
+      }
+    }
+  },
+  "foursquare": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developer.foursquare.com/"
+    },
+    "https://api.foursquare.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"oauth_token": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
+  "github": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://developer.github.com"
+    },
+    "https://api.github.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "google": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://accounts.google.com/o/oauth2/token",
+      "docs": "https://developers.google.com/"
+    },
+    "https://www.googleapis.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "plus/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["plus"],
+          "version": "v1",
+          "docs": "https://developers.google.com/+/api"
+        }
+      },
+      "youtube/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["youtube"],
+          "version": "v3",
+          "docs": "https://developers.google.com/youtube/v3"
+        }
+      },
+      "drive/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["drive"],
+          "version": "v2",
+          "docs": "https://developers.google.com/drive/v2/reference"
+        }
+      },
+      "upload/drive/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["upload-drive"],
+          "version": "v2",
+          "docs": "https://developers.google.com/drive/v2/reference"
+        }
+      },
+      "freebase/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["freebase"],
+          "version": "v1",
+          "docs": "https://developers.google.com/freebase/v1"
+        }
+      },
+      "tasks/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["tasks"],
+          "version": "v1",
+          "docs": "https://developers.google.com/google-apps/tasks/"
+        }
+      },
+      "urlshortener/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["urlshortener"],
+          "version": "v1",
+          "auth": {
+            "qs": {"key": "[0]"}
+          },
+          "docs": "https://developers.google.com/url-shortener/"
+        }
+      },
+      "pagespeedonline/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["pagespeedonline", "pagespeed"],
+          "version": "v1",
+          "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
+        }
+      },
+      "youtube/analytics/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["youtube/analytics"],
+          "version": "v1",
+          "docs": "https://developers.google.com/youtube/analytics"
+        }
+      }
+    },
+    "https://maps.googleapis.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"key": "[0]"}
+        }
+      },
+      "maps/api/{endpoint}": {
+        "__path": {
+          "alias": ["gmaps"],
+          "docs": "https://developers.google.com/maps/"
+        },
+        "streetview": {
+          "get": {
+            "encoding": null
+          }
+        },
+        "staticmap": {
+          "get": {
+            "encoding": null
+          }
+        }
+      }
+    },
+    "https://www.google.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "m8/feeds/{endpoint}": {
+        "__path": {
+          "alias": ["contacts"],
+          "docs": "https://developers.google.com/google-apps/contacts/v3/"
+        },
+        "*": {
+          "all": {
+            "headers": {
+              "GData-Version": "3.0"
+            },
+            "qs": {"alt": "json"}
+          }
+        }
+      }
+    }
+  },
+  "hackpad": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://hackpad.com/Hackpad-API-fQD2DRz22Wf"
+    },
+    "https://hackpad.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1.0"
+        }
+      }
+    }
+  },
+  "heroku": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://id.heroku.com/oauth/token",
+      "docs": "https://devcenter.heroku.com/categories/platform-api"
+    },
+    "https://api.heroku.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "imgur": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.imgur.com/oauth2/token",
+      "docs": "https://api.imgur.com/"
+    },
+    "https://api.imgur.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"headers": {"Authorization": "Client-ID [0]"}}
+        ]
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "3"
+        }
+      }
+    }
+  },
+  "instagram": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://instagram.com/developer"
+    },
+    "https://api.instagram.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
+  "linkedin": {
+    "__provider": {
+      "oauth": true,
+      "refresh": "https://www.linkedin.com/uas/oauth2/accessToken",
+      "docs": "http://developer.linkedin.com"
+    },
+    "https://api.linkedin.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"oauth": {"token": "[0]", "secret": "[1]"}}
+        ]
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        },
+        "*": {
+          "all": {
+            "headers": {
+              "x-li-format": "json"
+            }
+          }
+        }
+      }
+    }
+  },
+  "live": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://login.live.com/oauth20_token.srf",
+      "docs": "http://msdn.microsoft.com/en-us/library/dn783283.aspx"
+    },
+    "https://apis.live.net": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v5.0"
+        },
+        "me/picture": {
+          "get": {
+            "encoding": null
+          }
+        },
+        ".*\\/skydrive\\/files\\/.*": {
+          "__endpoint": {
+            "regex": true
+          },
+          "put": {
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          }
+        },
+        "file\\..*\\/content": {
+          "__endpoint": {
+            "regex": true
+          },
+          "get": {
+            "encoding": null
+          }
+        }
+      }
+    }
+  },
+  "mailchimp": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://apidocs.mailchimp.com/"
+    },
+    "https://[domain].api.mailchimp.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"apikey": "[0]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "2.0"
+        }
+      },
+      "export/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["export"],
+          "version": "1.0"
+        }
+      }
+    }
+  },
+  "mailgun": {
+    "__provider": {
+      "docs": "http://documentation.mailgun.com/"
+    },
+    "https://api.mailgun.net": {
+      "__domain": {
+        "auth": {
+          "auth": {"user": "[0]", "pass": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
+  "mandrill": {
+    "__provider": {
+      "docs": "https://mandrillapp.com/api/docs/"
+    },
+    "https://mandrillapp.com": {
+      "__domain": {
+        "auth": {
+          "form": {"key": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "1.0"
+        }
+      }
+    }
+  },
+  "openstreetmap": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+    },
+    "http://api.openstreetmap.org": {
+      "__domain": {
+        "auth": [
+          {"auth": {"user": "[0]", "pass": "[1]"}},
+          {"oauth": {"token": "[0]", "secret": "[1]"}}
+        ]
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "0.6"
+        }
+      }
+    }
+  },
+  "paypal": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
+      "docs": "https://developer.paypal.com/docs/"
+    },
+    "https://api.paypal.com": {
+      "__domain": {
+        "auth": {
+          "auth":{"bearer": "[0]"}
+        }
+      },
+      "[version]/payments/{endpoint}": {
+        "__path": {
+          "alias": ["payments"],
+          "version": "v1"
+        }
+      },
+      "[version]/vault/{endpoint}": {
+        "__path": {
+          "alias": ["vault"],
+          "version": "v1"
+        }
+      },
+      "[version]/identity/openidconnect/{endpoint}": {
+        "__path": {
+          "alias": ["identity"],
+          "version": "v1"
+        }
+      },
+      "[version]/invoicing/{endpoint}": {
+        "__path": {
+          "alias": ["invoicing"],
+          "version": "v1"
+        }
+      },
+      "[version]/payment-experience/{endpoint}": {
+        "__path": {
+          "alias": ["payment-experience"],
+          "version": "v1"
+        }
+      },
+      "[version]/notifications/{endpoint}": {
+        "__path": {
+          "alias": ["notifications"],
+          "version": "v1"
+        }
+      }
+    }
+  },
+  "pipelinedeals": {
+    "__provider": {
+      "docs": "https://www.pipelinedeals.com/api/docs/introduction"
+    },
+    "https://api.pipelinedeals.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"api_key": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      }
+    }
+  },
+  "redbooth": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://redbooth.com/oauth2/token",
+      "docs": "https://redbooth.com/api/"
+    },
+    "https://redbooth.com": {
+      "__domain": {
+        "auth": {
+          "auth":{"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "3"
+        }
+      }
+    }
+  },
+  "rubygems": {
+    "__provider": {
+      "docs": "http://guides.rubygems.org/rubygems-org-api"
+    },
+    "https://rubygems.org": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        },
+        "api_key": {
+          "__endpoint": {
+            "auth": {
+              "auth": {"user":"[0]", "pass":"[1]"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "salesforce": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://login.salesforce.com/services/oauth2/token",
+      "docs": "https://www.salesforce.com/us/developer/docs/api_rest"
+    },
+    "https://[domain].salesforce.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "services/data/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v20.0"
+        }
+      },
+      "services/data/[version]/sobjects/{endpoint}": {
+        "__path": {
+          "alias": ["sobjects"],
+          "version": "v20.0"
+        }
+      }
+    }
+  },
+  "sendgrid": {
+    "__provider": {
+      "docs": "http://sendgrid.com/docs/"
+    },
+    "https://api.sendgrid.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"api_user": "[0]", "api_key": "[1]"}
+        }
+      },
+      "api/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "slack": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://api.slack.com/"
+    },
+    "https://slack.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"token": "[0]"}
+        }
+      },
+      "api/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "soundcloud": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.soundcloud.com/oauth2/token",
+      "docs": "http://developers.soundcloud.com"
+    },
+    "https://api.soundcloud.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"oauth_token": "[0]"}
+        }
+      },
+      "{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "stackexchange": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://api.stackexchange.com"
+    },
+    "https://api.stackexchange.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"key": "[0]", "access_token": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "2.2"
+        },
+        "*": {
+          "all": {
+            "encoding": null,
+            "gzip": true
+          }
+        }
+      }
+    }
+  },
+  "stocktwits": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://stocktwits.com/developers"
+    },
+    "https://api.stocktwits.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "2"
+        }
+      }
+    }
+  },
+  "stripe": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://connect.stripe.com/oauth/token",
+      "docs": "https://stripe.com/docs"
+    },
+    "https://api.stripe.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"user":"[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
+  "trello": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://trello.com/docs/"
+    },
+    "https://api.trello.com": {
+      "__domain": {
+        "auth": [
+          {"qs": {"key": "[0]"}},
+          {"qs": {"key": "[0]", "token": "[1]"}}
+        ]
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  },
+  "tumblr": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://www.tumblr.com/docs/en/api/v2"
+    },
+    "http://api.tumblr.com": {
+      "__domain": {
+        "auth": [
+          {"qs": {"api_key": "[0]"}},
+          {"oauth": {"token": "[0]", "secret": "[1]"}}
+        ]
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
+  "twitch": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.twitch.tv/kraken/oauth2/token",
+      "docs": "https://github.com/justintv/twitch-api"
+    },
+    "https://api.twitch.tv": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "OAuth [0]"}
+        }
+      },
+      "kraken/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "headers": {
+              "Accepts": "application/vnd.twitchtv.v2+json"
+            }
+          }
+        }
+      }
+    }
+  },
+  "twitter": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://dev.twitter.com"
+    },
+    "https://api.twitter.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "1.1"
+        }
+      }
+    }
+  },
+  "vimeo": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developer.vimeo.com/"
+    },
+    "https://api.vimeo.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "headers": {
+              "Accepts": "application/vnd.vimeo.*+json;version=3.2"
+            }
+          }
+        }
+      }
+    }
+  },
+  "wikimapia": {
+    "__provider": {
+      "docs": "http://wikimapia.org/api"
+    },
+    "http://api.wikimapia.org": {
+      "__domain": {
+        "auth": {
+          "qs": {"key": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "qs": {"format": "json"}
+          }
+        }
+      }
+    }
+  },
+  "yahoo": {
+    "__provider": {
+      "oauth": true,
+      "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
+      "docs": "https://developer.yahoo.com/"
+    },
+    "https://social.yahooapis.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["social"],
+          "version": "v1",
+          "docs": "https://developer.yahoo.com/social"
+        }
+      }
+    },
+    "https://query.yahooapis.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["query", "yql"],
+          "version": "v1",
+          "docs": "https://developer.yahoo.com/yql"
+        }
+      }
+    },
+    "http://where.yahooapis.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"appid": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["where", "geo"],
+          "version": "v1",
+          "docs": "https://developer.yahoo.com/geo/geoplanet"
+        }
+      }
+    }
+  },
+  "yammer": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developer.yammer.com/"
+    },
+    "https://www.yammer.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  }
 }
