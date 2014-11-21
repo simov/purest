@@ -24,6 +24,9 @@
     "istanbul"      : "0.3.2",
     "coveralls"     : "2.11.2"
   },
+  "optionalDependencies": {
+    "request-debug" : "0.1.1"
+  },
   "main": "./lib/provider",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha test/core --require should --reporter spec --timeout 10000"
