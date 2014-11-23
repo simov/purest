@@ -391,9 +391,3 @@ describe('refresh', function () {
     })
   })
 })
-
-function error (err, done) {
-  return (err instanceof Error)
-    ? done(err)
-    : (console.log(err) || done(new Error('Network error!')))
-}
