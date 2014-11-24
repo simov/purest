@@ -73,7 +73,7 @@ describe('utils', function () {
       })
       it('return parse error on malformed json', function (done) {
         utils.response(function (err, res, body) {
-          err.message.should.equal('Parse error!')
+          err.message.should.equal('JSON parse error!')
           body.should.equal('<html>')
           done()
         })(
