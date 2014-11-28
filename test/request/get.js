@@ -1669,13 +1669,14 @@ describe('get', function () {
     })
     describe('query', function () {
       it('get', function (done) {
-        p.slack.get('users.list', {
-          qs:{token:cred.user.slack.token}
-        }, function (err, res, body) {
-          if (err) return error(err, done)
-          body.ok.should.equal(true)
-          done()
-        })
+        p.slack.query()
+          .select('users.list')
+          .auth(cred.user.slack.token)
+          .request(function (err, res, body) {
+            if (err) return error(err, done)
+            body.ok.should.equal(true)
+            done()
+          })
       })
     })
   })
