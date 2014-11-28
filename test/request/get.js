@@ -1751,7 +1751,9 @@ describe('get', function () {
   describe('stocktwits', function () {
     describe('request', function () {
       it('get', function (done) {
-        p.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
+        p.stocktwits.get('streams/home', {
+          qs:{access_token:cred.user.stocktwits.token}
+        }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
           body.response.status.should.equal(200)
@@ -1762,13 +1764,16 @@ describe('get', function () {
     })
     describe('query', function () {
       it('get', function (done) {
-        p.stocktwits.get('streams/user/StockTwits', function (err, res, body) {
-          debugger
-          if (err) return error(err, done)
-          body.response.status.should.equal(200)
-          body.messages.length.should.equal(30)
-          done()
-        })
+        p.stocktwits.query()
+          .select('streams/home')
+          .auth(cred.user.stocktwits.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.response.status.should.equal(200)
+            body.messages.length.should.equal(30)
+            done()
+          })
       })
     })
   })
