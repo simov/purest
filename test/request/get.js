@@ -1308,6 +1308,34 @@ describe('get', function () {
     })
   })
 
+  describe('live', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.live.get('me', {
+          qs:{access_token:cred.user.live.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.live.query()
+          .select('me')
+          .auth(cred.user.live.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('mailchimp', function () {
     describe('request', function () {
       it('apikey', function (done) {
