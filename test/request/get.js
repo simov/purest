@@ -422,7 +422,8 @@ describe('get', function () {
     describe('request', function () {
       it('get', function (done) {
         p.facebook.get('me/groups', {
-          qs:{access_token:cred.user.facebook.token, fields:'id,name'}
+          auth:{bearer:cred.user.facebook.token},
+          qs:{fields:'id,name'}
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)

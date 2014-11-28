@@ -271,7 +271,7 @@
     "https://graph.facebook.com": {
       "__domain": {
         "auth": {
-          "qs": {"access_token": "[0]"}
+          "auth": {"bearer": "[0]"}
         }
       },
       "{endpoint}": {
