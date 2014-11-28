@@ -403,7 +403,7 @@
     "https://www.googleapis.com": {
       "__domain": {
         "auth": {
-          "qs": {"access_token": "[0]"}
+          "auth": {"bearer": "[0]"}
         }
       },
       "plus/[version]/{endpoint}": {
@@ -499,7 +499,7 @@
     "https://www.google.com": {
       "__domain": {
         "auth": {
-          "qs": {"access_token": "[0]"}
+          "auth": {"bearer": "[0]"}
         }
       },
       "m8/feeds/{endpoint}": {
