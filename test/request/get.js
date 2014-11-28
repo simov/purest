@@ -612,15 +612,16 @@ describe('get', function () {
     })
     describe('query', function () {
       it('get', function (done) {
-        p.github.get('users/simov', {
-          qs:{access_token:cred.user.github.token}
-        }, function (err, res, body) {
-          debugger
-          if (err) return error(err, done)
-          body.login.should.equal('simov')
-          body.name.should.equal('simo')
-          done()
-        })
+        p.github.query()
+          .get('users/simov')
+          .auth(cred.user.github.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.login.should.equal('simov')
+            body.name.should.equal('simo')
+            done()
+          })
       })
     })
   })
