@@ -394,6 +394,38 @@
       }
     }
   },
+  "gitter": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developer.gitter.im/docs/welcome"
+    },
+    "https://api.gitter.im": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    },
+    "https://stream.gitter.im": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": ["stream"],
+          "version": "v1"
+        }
+      }
+    }
+  },
   "google": {
     "__provider": {
       "oauth2": true,

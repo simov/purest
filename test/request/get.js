@@ -626,6 +626,36 @@ describe('get', function () {
     })
   })
 
+  describe('gitter', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.gitter.get('user', {
+          auth:{bearer:cred.user.gitter.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body[0].id.should.be.type('string')
+          body[0].username.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.gitter.query()
+          .get('user')
+          .auth(cred.user.gitter.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body[0].id.should.be.type('string')
+            body[0].username.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('google', function () {
     describe('request', function () {
       it('plus', function (done) {
