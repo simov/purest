@@ -438,6 +438,13 @@
           "auth": {"bearer": "[0]"}
         }
       },
+      "calendar/[version]/{endpoint}": {
+        "__path": {
+          "alias": ["calendar"],
+          "version": "v3",
+          "docs": "https://developers.google.com/google-apps/calendar/"
+        }
+      },
       "plus/[version]/{endpoint}": {
         "__path": {
           "alias": ["plus"],

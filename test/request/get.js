@@ -658,6 +658,19 @@ describe('get', function () {
 
   describe('google', function () {
     describe('request', function () {
+      it('calendar', function (done) {
+        p.google.get('users/me/calendarList', {
+          api:'calendar',
+          qs:{
+            access_token:cred.user.google.token
+          }
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.items.should.be.instanceOf(Array)
+          done()
+        })
+      })
       it('plus', function (done) {
         p.google.get('people/106189723444098348646', {
           api:'plus',
@@ -908,6 +921,17 @@ describe('get', function () {
       })
     })
     describe('query', function () {
+      it('calendar', function (done) {
+        p.google.query('calendar')
+          .get('users/me/calendarList')
+          .auth(cred.user.google.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.items.should.be.instanceOf(Array)
+            done()
+          })
+      })
       it('plus', function (done) {
         p.google.query('plus')
           .select('people/106189723444098348646')
