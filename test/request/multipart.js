@@ -429,6 +429,27 @@ describe('upload', function () {
           done()
         })
       })
+      it('batch', function (done) {
+        p.google.post('batch', {
+          auth:{bearer:cred.user.google.token},
+          headers:{'content-type':'multipart/mixed'},
+          multipart: [
+            {
+              'Content-Type':'application/http',
+              body:'GET https://www.googleapis.com/calendar/v3/users/me/calendarList\n'
+            }, {
+              'Content-Type':'application/http',
+              body:'GET https://www.googleapis.com/calendar/v3/users/me/settings\n'
+            }
+          ]
+        },
+        function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          (body.match(/HTTP\/1.1 200 OK/g)||[]).length.should.equal(2)
+          done()
+        })
+      })
     })
     describe('query', function () {
       it('drive', function (done) {
@@ -453,6 +474,27 @@ describe('upload', function () {
             if (err) return error(err, done)
             body.title.should.equal('cat.png')
             body.fileSize.should.equal('22025')
+            done()
+          })
+      })
+      it('batch', function (done) {
+        p.google.query()
+          .post('batch')
+          .headers({'content-type':'multipart/mixed'})
+          .multipart([
+            {
+              'Content-Type':'application/http',
+              body:'GET https://www.googleapis.com/calendar/v3/users/me/calendarList\n'
+            }, {
+              'Content-Type':'application/http',
+              body:'GET https://www.googleapis.com/calendar/v3/users/me/settings\n'
+            }
+          ])
+          .auth(cred.user.google.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            (body.match(/HTTP\/1.1 200 OK/g)||[]).length.should.equal(2)
             done()
           })
       })
