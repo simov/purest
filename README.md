@@ -1,7 +1,7 @@
 
 # Purest [![npm-version]][npm] [Documentation][docs]
 
-_**Purest**_ is build on top of [request][request], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
+_**Purest**_ is built on top of [request][request], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
 
 ## Simple Usage
