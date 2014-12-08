@@ -183,3 +183,61 @@ describe('auth', function () {
     ])
   })
 })
+
+describe('all methods', function () {
+  var provider = null
+  before(function () {
+    provider = new Purest({provider:'box'})
+  })
+  describe('http', function () {
+    var http = {
+      verb:['get', 'post', 'put', 'del', 'patch', 'head'],
+      alias:[{get:['select']}, {post:['update']}, {put:['create','insert']}]
+    }
+    it('verb', function () { 
+      http.verb.forEach(function (verb) {
+        var query = provider.query()[verb]('endpoint')
+        query.method.should.equal(verb)
+      })
+    })
+    it('alias', function () {
+      http.alias.forEach(function (aliases) {
+        var verb = Object.keys(aliases)[0]
+        aliases[verb].forEach(function (alias) {
+          var query = provider.query()[alias]('endpoint')
+          query.method.should.equal(verb)
+        })
+      })
+    })
+  })
+  
+  describe('options', function () {
+    var options = {
+      request:['headers', 'qs', 'form', 'formData', 'multipart', 'json', 'body'],
+      alias:[{qs:['where']}, {form:['set']}, {formData:['upload']}, {multipart:['upload']}],
+      generic:['options']
+    }
+    it('request', function () {
+      options.request.forEach(function (option) {
+        var query = provider.query()[option]('value')
+        query._options[option].should.equal('value')
+      })
+    })
+    it('alias', function () {
+      options.alias.forEach(function (aliases) {
+        var option = Object.keys(aliases)[0]
+        aliases[option].forEach(function (alias) {
+          var data = (option == 'multipart') ? [{key:'value'}] : {key:'value'}
+          var query = provider.query()[alias](data)
+          should.deepEqual(query._options[option], data)
+        })
+      })
+    })
+    it('generic', function () {
+      options.generic.forEach(function (option) {
+        var query = provider.query()[option]({timeout:100})
+        query._options.timeout.should.equal(100)
+      })
+    })
+  })
+})
