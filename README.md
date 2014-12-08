@@ -72,6 +72,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   [request]: https://github.com/mikeal/request
   [docs]: http://simov.github.io/purest/html/
   [npm]: https://www.npmjs.org/package/purest
+  [coveralls]: https://coveralls.io/r/simov/purest?branch=master
 
   [npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat (NPM Version)
   [npm-downloads]: http://img.shields.io/npm/dm/purest.svg?style=flat (NPM Downloads)
+  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat (Coveralls Status)
