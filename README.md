@@ -1,5 +1,5 @@
 
-# Purest [![npm-version]][npm] [Documentation][docs]
+# Purest [![npm-version]][npm] [![coveralls-status]][coveralls] [Documentation][docs]
 
 _**Purest**_ is built on top of [request][request], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
