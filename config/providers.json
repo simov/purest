@@ -190,6 +190,25 @@
       }
     }
   },
+  "buffer": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://dev.buffer.com"
+    },
+    "https://api.bufferapp.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  },
   "coderbits": {
     "__provider": {
       "docs": "https://coderbits.com/api"

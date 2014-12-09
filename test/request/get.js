@@ -318,6 +318,34 @@ describe('get', function () {
     })
   })
 
+  describe('buffer', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.buffer.get('user', {
+          qs:{access_token:cred.user.buffer.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.buffer.query()
+          .get('user')
+          .auth(cred.user.buffer.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('coderbits', function () {
     describe('request', function () {
       it('get', function (done) {
