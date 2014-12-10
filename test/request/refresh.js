@@ -208,7 +208,8 @@ describe('refresh', function () {
         if (err) return error(err, done)
         should.deepEqual(Object.keys(body), [
           'access_token', 'expires_in', 'token_type',
-          'scope', 'refresh_token', 'account_username'
+          'scope', 'refresh_token', 'account_id',
+          'account_username'
         ])
         _body = body
         done()
