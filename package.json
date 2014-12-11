@@ -22,7 +22,8 @@
     "mocha"         : "1.20.1",
     "should"        : "4.0.4",
     "istanbul"      : "0.3.2",
-    "coveralls"     : "2.11.2"
+    "coveralls"     : "2.11.2",
+    "base64-url"    : "1.0.0"
   },
   "optionalDependencies": {
     "request-debug" : "0.1.1"

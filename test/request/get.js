@@ -699,6 +699,18 @@ describe('get', function () {
           done()
         })
       })
+      it('gmail', function (done) {
+        p.google.get('users/me/profile', {
+          api:'gmail',
+          auth:{bearer:cred.user.google.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.emailAddress.should.be.type('string')
+          body.messagesTotal.should.be.type('number')
+          done()
+        })
+      })
       it('plus', function (done) {
         p.google.get('people/106189723444098348646', {
           api:'plus',
@@ -957,6 +969,18 @@ describe('get', function () {
             debugger
             if (err) return error(err, done)
             body.items.should.be.instanceOf(Array)
+            done()
+          })
+      })
+      it('gmail', function (done) {
+        p.google.query('gmail')
+          .select('users/me/profile')
+          .auth(cred.user.google.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.emailAddress.should.be.type('string')
+            body.messagesTotal.should.be.type('number')
             done()
           })
       })

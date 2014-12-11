@@ -2,6 +2,7 @@
 var fs = require('fs')
 var path = require('path')
 var should = require('should')
+var base64url = require('base64-url')
 var Purest = require('../../lib/provider')
 var providers = require('../../config/providers')
 var image = path.resolve(__dirname, '../fixtures/cat.png')
@@ -47,6 +48,37 @@ describe('post', function () {
           debugger
           if (err) return error(err, done)
           body.id.should.match(/\d+_\d+/)
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      
+    })
+  })
+
+  describe('google', function () {
+    describe('request', function () {
+      it('post', function (done) {
+        var message = 
+          'From: John Doe <purest@mailinator.com>\n'+
+          'To: Mailinator 1 <purest1@mailinator.com>,'+
+              'Mailinator 2 <purest2@mailinator.com>\n'+
+          'Cc: Mailinator 3 <purest3@mailinator.com>\n'+
+          'Bcc: Mailinator 4 <purest4@mailinator.com>\n'+
+          'Subject: Purest is awesome! (gmail)\n'+
+          'Date: '+(new Date())+'\n\n'+
+          '<h1>True idd!</h1>'
+
+        p.google.post('users/me/messages/send', {
+          api:'gmail',
+          auth:{bearer:cred.user.google.token},
+          json:{raw:base64url.encode(message)}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          should.deepEqual(body.labelIds, ['SENT'])
           done()
         })
       })
