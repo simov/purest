@@ -1,5 +1,6 @@
 
-# Purest [![npm-version]][npm] [![coveralls-status]][coveralls] [Documentation][docs]
+# Purest
+[![npm-version]][npm] [![coveralls-status]][coveralls]
 
 _**Purest**_ is built on top of [request][request], adding just as needed configuration to ensure seamless communication with any REST API provider in a consistent and straightforward way
 
@@ -53,7 +54,7 @@ box.query()
 ```
 
 
-## [Documentation][docs]
+# [Documentation][docs]
 
 
 ## License
@@ -74,6 +75,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   [npm]: https://www.npmjs.org/package/purest
   [coveralls]: https://coveralls.io/r/simov/purest?branch=master
 
-  [npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat (NPM Version)
-  [npm-downloads]: http://img.shields.io/npm/dm/purest.svg?style=flat (NPM Downloads)
-  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat (Coveralls Status)
+  [npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Version)
+  [npm-downloads]: http://img.shields.io/npm/dm/purest.svg?style=flat-square (NPM Downloads)
+  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Coveralls Status)
