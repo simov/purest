@@ -59,15 +59,22 @@ describe('post', function () {
 
   describe('google', function () {
     describe('request', function () {
-      it('post', function (done) {
+      it('gmail', function (done) {
+        // 'Message-ID: <1234869991.499a9ee7f1d5e@purest.generated>\n'+
+        // 'Date: '+(new Date())+'\n'+
+        // 'MIME-Version: 1.0\n'+
+        // 'Content-Transfer-Encoding: quoted-printable\n'+
+        // 'Content-Disposition: attachment; filename*=utf-8''report%E2%80%93may.pdf\n'+
+        // 'Return-Path: <person@example.org>\n'+
         var message = 
-          'From: John Doe <purest@mailinator.com>\n'+
+          'From: Purest <purest@mailinator.com>\n'+
           'To: Mailinator 1 <purest1@mailinator.com>,'+
               'Mailinator 2 <purest2@mailinator.com>\n'+
           'Cc: Mailinator 3 <purest3@mailinator.com>\n'+
           'Bcc: Mailinator 4 <purest4@mailinator.com>\n'+
           'Subject: Purest is awesome! (gmail)\n'+
-          'Date: '+(new Date())+'\n\n'+
+          'Content-Type: text/html; charset=utf-8\n'+
+          '\n'+
           '<h1>True idd!</h1>'
 
         p.google.post('users/me/messages/send', {
