@@ -499,14 +499,14 @@
       },
       "upload/drive/[version]/{endpoint}": {
         "__path": {
-          "alias": ["upload-drive"],
+          "alias": ["upload-drive", "drive-upload"],
           "version": "v2",
           "docs": "https://developers.google.com/drive/v2/reference"
         }
       },
       "upload/gmail/[version]/{endpoint}": {
         "__path": {
-          "alias": ["upload-gmail"],
+          "alias": ["upload-gmail", "gmail-upload"],
           "version": "v1",
           "docs": "https://developers.google.com/gmail/api/v1/reference"
         }
