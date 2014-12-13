@@ -268,7 +268,7 @@ describe('post', function () {
     })
   })
 
-  describe('', function () {
+  describe('twitter', function () {
     describe('request', function () {
       it('post', function (done) {
         p.twitter.post('statuses/update', {
