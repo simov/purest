@@ -1019,6 +1019,26 @@
       }
     }
   },
+  "spotify": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://accounts.spotify.com/api/token",
+      "docs": "https://developer.spotify.com"
+    },
+    "https://api.spotify.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "stackexchange": {
     "__provider": {
       "oauth2": true,

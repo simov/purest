@@ -1816,6 +1816,34 @@ describe('get', function () {
     })
   })
 
+  describe('spotify', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.spotify.get('me', {
+          auth:{bearer:cred.user.spotify.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.spotify.query()
+          .get('me')
+          .auth(cred.user.spotify.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('stackexchange', function () {
     describe('request', function () {
       it('get', function (done) {
