@@ -369,6 +369,34 @@ describe('get', function () {
     })
   })
 
+  describe('deviantart', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.deviantart.get('user/whoami', {
+          auth:{bearer:cred.user.deviantart.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.userid.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.deviantart.query()
+          .select('user/whoami')
+          .auth(cred.user.deviantart.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.userid.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('digitalocean', function () {
     describe('request', function () {
       it('bearer', function (done) {

@@ -224,6 +224,26 @@
       }
     }
   },
+  "deviantart": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://www.deviantart.com/oauth2/token",
+      "docs": "https://www.deviantart.com/developers/"
+    },
+    "https://www.deviantart.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "digitalocean": {
     "__provider": {
       "oauth2": true,
