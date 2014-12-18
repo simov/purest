@@ -265,6 +265,27 @@
       }
     }
   },
+  "disqus": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://disqus.com/api/oauth/2.0/access_token/",
+      "docs": "https://disqus.com/api/docs/"
+    },
+    "https://disqus.com": {
+      "__domain": {
+        "auth": {
+          "qs":{"api_key":"[0]"},
+          "auth":{"bearer":"[1]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "3.0"
+        }
+      }
+    }
+  },
   "dropbox": {
     "__provider": {
       "oauth2": true,

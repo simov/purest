@@ -153,6 +153,28 @@ describe('refresh', function () {
       refresh.store('digitalocean', _body.access_token, _body.refresh_token)
     })
   })
+  // https://disqus.com/api/docs/auth/
+  describe('disqus', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.disqus.refresh(
+        cred.app.disqus,
+        cred.user.disqus.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'username', 'user_id', 'access_token', 'expires_in',
+          'token_type', 'state', 'scope', 'refresh_token'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('disqus', _body.access_token, _body.refresh_token)
+    })
+  })
   // https://www.flowdock.com/api/authentication
   describe('flowdock', function () {
     var _body = null

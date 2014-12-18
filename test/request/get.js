@@ -446,6 +446,37 @@ describe('get', function () {
     })
   })
 
+  describe('disqus', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.disqus.get('users/details', {
+          qs:{
+            api_key:cred.app.disqus.key,
+            access_token:cred.user.disqus.token
+          },
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.response.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.disqus.query()
+          .get('users/details')
+          .auth(cred.app.disqus.key, cred.user.disqus.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.response.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('dropbox', function () {
     describe('request', function () {
       it('get', function (done) {
