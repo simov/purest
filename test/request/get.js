@@ -1618,6 +1618,38 @@ describe('get', function () {
     })
   })
 
+  describe('odesk', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.odesk.get('info', {
+          api:'auth',
+          oauth:{
+            token:cred.user.odesk.token,
+            secret:cred.user.odesk.secret
+          }
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.info.ref.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.odesk.query('auth')
+          .select('info')
+          .auth(cred.user.odesk.token, cred.user.odesk.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.info.ref.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('openstreetmap', function () {
     describe('request', function () {
       it('get', function (done) {

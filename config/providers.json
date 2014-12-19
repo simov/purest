@@ -847,6 +847,42 @@
       }
     }
   },
+  "odesk": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://developers.odesk.com"
+    },
+    "https://www.odesk.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "api/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "api/auth/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["auth"],
+          "version": "v1"
+        }
+      },
+      "api/profiles/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["profiles"],
+          "version": "v2"
+        }
+      },
+      "api/hr/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["hr"],
+          "version": "v2"
+        }
+      }
+    }
+  },
   "openstreetmap": {
     "__provider": {
       "oauth": true,
