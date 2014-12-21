@@ -198,6 +198,33 @@ describe('get', function () {
     })
   })
 
+  describe('bitbucket', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.bitbucket.get('users/simovelichkov', {
+          
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.username.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.bitbucket.query()
+          .select('users/simovelichkov')
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.username.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('box', function () {
     describe('request', function () {
       it('content API', function (done) {

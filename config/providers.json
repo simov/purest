@@ -98,6 +98,25 @@
       }
     }
   },
+  "bitbucket": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://confluence.atlassian.com/display/BITBUCKET"
+    },
+    "https://api.bitbucket.org": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "2.0"
+        }
+      }
+    }
+  },
   "box": {
     "__provider": {
       "oauth2": true,
