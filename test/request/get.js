@@ -1783,6 +1783,24 @@ describe('get', function () {
     })
   })
 
+  describe('reddit', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.reddit.get('user/simov/about.json', {
+        
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.data.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      
+    })
+  })
+
   describe('rubygems', function () {
     describe('request', function () {
       it('get', function (done) {

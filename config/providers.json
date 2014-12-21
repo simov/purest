@@ -1010,6 +1010,24 @@
       }
     }
   },
+  "reddit": {
+    "__provider": {
+      "refresh": "https://ssl.reddit.com/api/v1/access_token",
+      "docs": "http://www.reddit.com/dev/api"
+    },
+    "https://api.reddit.com": {
+      "__domain": {
+        "auth": {
+          "auth":{"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "rubygems": {
     "__provider": {
       "docs": "http://guides.rubygems.org/rubygems-org-api"
