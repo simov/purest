@@ -1012,6 +1012,7 @@
   },
   "reddit": {
     "__provider": {
+      "oauth2": true,
       "refresh": "https://ssl.reddit.com/api/v1/access_token",
       "docs": "http://www.reddit.com/dev/api"
     },
