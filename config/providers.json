@@ -20,6 +20,7 @@
   },
   "aboutme": {
     "__provider": {
+      "refresh": "https://api.about.me/api/v2/json/user/login/",
       "docs": "http://about.me/developer/api/docs/"
     },
     "https://api.about.me": {

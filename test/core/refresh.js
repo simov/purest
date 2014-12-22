@@ -72,8 +72,15 @@ describe('refresh', function () {
     })
   })
 
-  it.skip('aboutme', function (done) {
-    
+  it('aboutme', function (done) {
+    var aboutme = new Purest({provider:'aboutme'})
+    aboutme._refresh = 'http://localhost:3000/'
+    aboutme.refresh(cred.user.aboutme.apikey, cred.user.aboutme.user, cred.user.aboutme.pass,
+    function (err, res, body) {
+      should.deepEqual(Object.keys(qs.parse(body)),
+        ['client_id', 'grant_type', 'password'])
+      done()
+    })
   })
 
   after(function () {
