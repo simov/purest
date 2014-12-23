@@ -1645,6 +1645,34 @@ describe('get', function () {
     })
   })
 
+  describe('mixcloud', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.mixcloud.get('me', {
+          qs:{access_token:cred.user.mixcloud.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.username.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.mixcloud.query()
+          .get('me')
+          .auth(cred.user.mixcloud.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.username.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('odesk', function () {
     describe('request', function () {
       it('get', function (done) {

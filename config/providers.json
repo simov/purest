@@ -867,6 +867,23 @@
       }
     }
   },
+  "mixcloud": {
+    "__provider": {
+      "docs": "http://www.mixcloud.com/developers/"
+    },
+    "https://api.mixcloud.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "odesk": {
     "__provider": {
       "oauth": true,
