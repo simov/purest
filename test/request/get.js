@@ -1336,6 +1336,48 @@ describe('get', function () {
     })
   })
 
+  describe('harvest', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.harvest.get('account/who_am_i', {
+          domain:cred.user.harvest.domain,
+          auth:{bearer:cred.user.harvest.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.user.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('bearer', function (done) {
+        p.harvest.query()
+          .get('account/who_am_i')
+          .options({domain:cred.user.harvest.domain})
+          .auth(cred.user.harvest.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user.id.should.be.type('number')
+            done()
+          })
+      })
+      it('basic', function (done) {
+        p.harvest.query()
+          .get('account/who_am_i')
+          .options({domain:cred.user.harvest.domain})
+          .auth(cred.user.harvest.user, cred.user.harvest.pass)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('heroku', function () {
     describe('request', function () {
       it('get', function (done) {

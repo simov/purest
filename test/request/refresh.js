@@ -218,6 +218,27 @@ describe('refresh', function () {
       refresh.store('google', _body.access_token)
     })
   })
+  // https://github.com/harvesthq/api/blob/master/Authentication/OAuth%202.0.md
+  describe('harvest', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.harvest.refresh(
+        cred.app.harvest,
+        cred.user.harvest.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'refresh_token', 'token_type', 'expires_in'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('harvest', _body.access_token)
+    })
+  })
   // https://devcenter.heroku.com/articles/oauth#token-refresh
   describe('heroku', function () {
     var _body = null

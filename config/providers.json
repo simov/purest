@@ -675,6 +675,26 @@
       }
     }
   },
+  "harvest": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.harvestapp.com/oauth2/token",
+      "docs": "https://github.com/harvesthq/api"
+    },
+    "https://[domain].harvestapp.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "heroku": {
     "__provider": {
       "oauth2": true,
