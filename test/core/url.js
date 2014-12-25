@@ -53,4 +53,18 @@ describe('url', function () {
         .should.equal(api.domain+'/drive/v3/endpoint')
     })
   })
+
+  describe('domain', function () {
+    it('domain option', function () {
+      var provider = new Purest({provider:'salesforce'})
+      provider.url.get('endpoint', {domain:'eu3'})
+        .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
+    })
+    it('throw error on missing domain name', function () {
+      var provider = new Purest({provider:'salesforce'})
+      ;(function () {
+        provider.url.get('endpoint', {qs:{apikey:'access_token'}})
+      }).should.throw('Purest: specify domain name to use through the domain option!')
+    })
+  })
 })

@@ -153,23 +153,6 @@ describe('override', function () {
     })
   })
 
-  describe('salesforce', function () {
-    describe('url domain', function () {
-      it('domain option', function () {
-        var provider = new Purest({provider:'salesforce'})
-        console.log(provider.url.get('endpoint', {domain:'eu3'}))
-        provider.url.get('endpoint', {domain:'eu3'})
-          .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
-      })
-      it('throw error on missing data center name', function () {
-        var provider = new Purest({provider:'salesforce'})
-        ;(function () {
-          provider.url.get('endpoint', {qs:{apikey:'access_token'}})
-        }).should.throw('Purest: specify domain name to use through the domain option!')
-      })
-    })
-  })
-
   describe('twitter', function () {
     describe('url qs', function () {
       it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {
