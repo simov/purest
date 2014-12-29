@@ -87,6 +87,27 @@ describe('refresh', function () {
       refresh.store('asana', _body.access_token)
     })
   })
+  // https://github.com/basecamp/api/blob/master/sections/authentication.md
+  describe('basecamp', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.basecamp.refresh(
+        cred.app.basecamp,
+        cred.user.basecamp.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'expires_in', 'access_token'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('basecamp', _body.access_token)
+    })
+  })
   // https://developers.box.com/docs/#oauth-2-token
   describe('box', function () {
     var _body = null

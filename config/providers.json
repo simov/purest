@@ -80,6 +80,39 @@
       }
     }
   },
+  "basecamp": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://launchpad.37signals.com/authorization/token",
+      "docs": "https://github.com/basecamp/bcx-api/"
+    },
+    "https://basecamp.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]", "pass": "[1]"}}
+        ]
+      },
+      "[path]/api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    },
+    "https://launchpad.37signals.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}.[type]": {
+        "__path": {
+          "alias": ["id"]
+        }
+      }
+    }
+  },
   "bitly": {
     "__provider": {
       "oauth2": true,

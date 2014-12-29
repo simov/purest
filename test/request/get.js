@@ -167,6 +167,47 @@ describe('get', function () {
     })
   })
 
+  describe('basecamp', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.basecamp.get('authorization', {
+          api:'id',
+          auth:{bearer:cred.user.basecamp.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.accounts.should.be.instanceOf(Array)
+          done()
+        })
+      })
+      it('get', function (done) {
+        p.basecamp.get('people/me', {
+          path:cred.user.basecamp.id,
+          auth:{bearer:cred.user.basecamp.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.basecamp.query()
+          .select('people/me')
+          .options({path:cred.user.basecamp.id})
+          .auth(cred.user.basecamp.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('bitly', function () {
     describe('request', function () {
       it('get', function (done) {
