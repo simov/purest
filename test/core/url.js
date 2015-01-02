@@ -54,6 +54,23 @@ describe('url', function () {
     })
   })
 
+  describe('path', function () {
+    it('set in ctor', function () {
+      var provider = new Purest({provider:'basecamp', path:'purest'}),
+        api = provider.apis.__default,
+        options = {}
+      provider.url.get('endpoint', options)
+        .should.equal(api.domain+'/purest/api/v1/endpoint.json')
+    })
+    it('set in request', function () {
+      var provider = new Purest({provider:'basecamp'}),
+        api = provider.apis.__default,
+        options = {path:'purest'}
+      provider.url.get('endpoint', options)
+        .should.equal(api.domain+'/purest/api/v1/endpoint.json')
+    })
+  })
+
   describe('domain', function () {
     it('domain option', function () {
       var provider = new Purest({provider:'salesforce'})
