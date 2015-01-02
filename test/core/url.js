@@ -32,23 +32,42 @@ describe('url', function () {
   })
 
   describe('version', function () {
-    it('set in request for __default', function () {
+    it('set in ctor for all apis', function () {
       var provider = new Purest({provider:'twitter'}),
         api = provider.apis.__default,
         options = {}
       provider.url.get('endpoint', options)
         .should.equal(api.domain+'/1.1/endpoint.json')
-      var options = {version:'2'}
+
+      provider = new Purest({provider:'twitter', version:'2'}),
+        api = provider.apis.__default,
+        options = {}
       provider.url.get('endpoint', options)
         .should.equal(api.domain+'/2/endpoint.json')
     })
+
+    it('set in request for __default api', function () {
+      var provider = new Purest({provider:'twitter'}),
+        api = provider.apis.__default,
+        options = {}
+
+      provider.url.get('endpoint', options)
+        .should.equal(api.domain+'/1.1/endpoint.json')
+
+      options = {version:'2'}
+      provider.url.get('endpoint', options)
+        .should.equal(api.domain+'/2/endpoint.json')
+    })
+
     it('set in request for other api', function () {
       var provider = new Purest({provider:'google'}),
         api = provider.apis.drive,
         options = {api:'drive'}
+
       provider.url.get('endpoint', options)
         .should.equal(api.domain+'/drive/v2/endpoint')
-      var options = {api:'drive', version:'v3'}
+
+      options = {api:'drive', version:'v3'}
       provider.url.get('endpoint', options)
         .should.equal(api.domain+'/drive/v3/endpoint')
     })
@@ -72,12 +91,17 @@ describe('url', function () {
   })
 
   describe('domain', function () {
-    it('domain option', function () {
+    it('set in ctor', function () {
+      var provider = new Purest({provider:'salesforce', domain:'eu3'})
+      provider.url.get('endpoint', {})
+        .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
+    })
+    it('set in request', function () {
       var provider = new Purest({provider:'salesforce'})
       provider.url.get('endpoint', {domain:'eu3'})
         .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
     })
-    it('throw error on missing domain name', function () {
+    it('throw error on missing domain option', function () {
       var provider = new Purest({provider:'salesforce'})
       ;(function () {
         provider.url.get('endpoint', {qs:{apikey:'access_token'}})
