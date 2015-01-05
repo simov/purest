@@ -1168,6 +1168,24 @@
       }
     }
   },
+  "shopify": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://docs.shopify.com/api"
+    },
+    "https://[domain].myshopify.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"X-Shopify-Access-Token": "[0]"}
+        }
+      },
+      "{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "slack": {
     "__provider": {
       "oauth2": true,

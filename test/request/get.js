@@ -2008,6 +2008,36 @@ describe('get', function () {
     })
   })
 
+  describe('shopify', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.shopify.get('admin/shop', {
+          domain:cred.user.shopify.domain,
+          headers:{'X-Shopify-Access-Token':cred.user.shopify.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.shop.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.shopify.query()
+          .get('admin/shop')
+          .options({domain:cred.user.shopify.domain})
+          .auth(cred.user.shopify.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.shop.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('slack', function () {
     describe('request', function () {
       it('get', function (done) {
