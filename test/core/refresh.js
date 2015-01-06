@@ -4,10 +4,6 @@ var http = require('http'),
 var should = require('should')
 var Purest = require('../../lib/provider'),
   refresh = require('../../lib/refresh')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
 
 
 describe('refresh', function () {
@@ -41,7 +37,7 @@ describe('refresh', function () {
   it('oauth', function (done) {
     var yahoo = new Purest({provider:'yahoo'})
     yahoo._refresh = 'http://localhost:3000/'
-    yahoo.refresh(cred.app.yahoo, cred.user.yahoo, cred.user.yahoo.session,
+    yahoo.refresh({key:'key',secret:'secret'}, {token:'token',secret:'secret'}, 'session',
     function (err, res, body) {
       should.deepEqual(Object.keys(body), [
         'oauth_consumer_key', 'oauth_nonce', 'oauth_session_handle',
@@ -55,7 +51,7 @@ describe('refresh', function () {
   it('oauth2', function (done) {
     var google = new Purest({provider:'google'})
     google._refresh = 'http://localhost:3000/'
-    google.refresh(cred.app.google, cred.user.google.refresh, function (err, res, body) {
+    google.refresh({key:'key',secret:'secret'}, 'refresh', function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),
         ['grant_type', 'client_id', 'client_secret', 'refresh_token'])
       done()
@@ -65,7 +61,7 @@ describe('refresh', function () {
   it('reddit', function (done) {
     var reddit = new Purest({provider:'reddit'})
     reddit._refresh = 'http://localhost:3000/'
-    reddit.refresh(cred.app.reddit, cred.user.reddit.refresh, function (err, res, body) {
+    reddit.refresh({key:'key',secret:'secret'}, 'refresh', function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),
         ['grant_type', 'refresh_token', 'basic'])
       done()
@@ -75,7 +71,7 @@ describe('refresh', function () {
   it('aboutme', function (done) {
     var aboutme = new Purest({provider:'aboutme'})
     aboutme._refresh = 'http://localhost:3000/'
-    aboutme.refresh(cred.user.aboutme.apikey, cred.user.aboutme.user, cred.user.aboutme.pass,
+    aboutme.refresh('apikey', 'user', 'pass',
     function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),
         ['client_id', 'grant_type', 'password'])
