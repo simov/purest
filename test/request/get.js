@@ -2556,4 +2556,34 @@ describe('get', function () {
       })
     })
   })
+
+  describe('zendesk', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.zendesk.get('users/me', {
+          domain:cred.user.zendesk.domain,
+          auth:{bearer:cred.user.zendesk.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.user.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.zendesk.query()
+          .get('users/me')
+          .options({domain:cred.user.zendesk.domain})
+          .auth(cred.user.zendesk.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
 })

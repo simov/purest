@@ -1506,5 +1506,24 @@
         }
       }
     }
+  },
+  "zendesk": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://developer.zendesk.com"
+    },
+    "https://[domain].zendesk.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
   }
 }
