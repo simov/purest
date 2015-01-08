@@ -114,6 +114,34 @@ describe('get', function () {
     })
   })
 
+  describe('angellist', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.angellist.get('me', {
+          auth:{bearer:cred.user.angellist.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.angellist.query()
+          .select('me')
+          .auth(cred.user.angellist.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('asana', function () {
     describe('request', function () {
       it('basic auth', function (done) {

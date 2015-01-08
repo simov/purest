@@ -59,6 +59,25 @@
       }
     }
   },
+  "angellist": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://angel.co/api"
+    },
+    "https://api.angel.co": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  },
   "asana": {
     "__provider": {
       "oauth2": true,
