@@ -395,6 +395,25 @@
       }
     }
   },
+  "eventbrite": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://developer.eventbrite.com/"
+    },
+    "https://www.eventbriteapi.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      }
+    }
+  },
   "facebook": {
     "__provider": {
       "oauth2": true,

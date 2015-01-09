@@ -601,6 +601,34 @@ describe('get', function () {
     })
   })
 
+  describe('eventbrite', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.eventbrite.get('users/me', {
+          auth:{bearer:cred.user.eventbrite.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.eventbrite.query()
+          .get('users/me')
+          .auth(cred.user.eventbrite.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('facebook', function () {
     describe('request', function () {
       it('get', function (done) {
