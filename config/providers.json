@@ -296,6 +296,26 @@
       }
     }
   },
+  "coinbase": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://www.coinbase.com/oauth/token",
+      "docs": "https://www.coinbase.com/docs/api/overview"
+    },
+    "https://api.coinbase.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "deviantart": {
     "__provider": {
       "oauth2": true,

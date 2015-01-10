@@ -465,6 +465,34 @@ describe('get', function () {
     })
   })
 
+  describe('coinbase', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.coinbase.get('users/self', {
+          auth:{bearer:cred.user.coinbase.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.user.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.coinbase.query()
+          .select('users/self')
+          .auth(cred.user.coinbase.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('deviantart', function () {
     describe('request', function () {
       it('get', function (done) {

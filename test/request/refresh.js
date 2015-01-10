@@ -130,6 +130,28 @@ describe('refresh', function () {
       refresh.store('box', _body.access_token, _body.refresh_token)
     })
   })
+  // https://api.coinbase.com
+  describe('coinbase', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.coinbase.refresh(
+        cred.app.coinbase,
+        cred.user.coinbase.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'token_type', 'expires_in',
+          'refresh_token', 'scope'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('coinbase', _body.access_token, _body.refresh_token)
+    })
+  })
   // https://www.deviantart.com/developers/authentication
   describe('deviantart', function () {
     var _body = null
