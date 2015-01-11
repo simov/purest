@@ -2534,6 +2534,36 @@ describe('get', function () {
     })
   })
 
+  describe.skip('withings', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.withings.get('measure', {
+          oauth:{token:cred.user.withings.token, secret:cred.user.withings.secret},
+          qs:{userid:cred.user.withings.userid, action:'getactivity'}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.body.activities.should.be.instanceOf(Array)
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.withings.query()
+          .get('measure')
+          .where({userid:cred.user.withings.userid, action:'getactivity'})
+          .auth(cred.user.withings.token, cred.user.withings.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.body.activities.should.be.instanceOf(Array)
+            done()
+          })
+      })
+    })
+  })
+
   describe('yahoo', function () {
     describe('request', function () {
       it('social', function (done) {

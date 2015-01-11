@@ -1497,6 +1497,30 @@
       }
     }
   },
+  "withings": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://oauth.withings.com/api"
+    },
+    "https://wbsapi.withings.net": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        },
+        "*": {
+          "all": {
+            "oauth": {"transport_method": "query"}
+          }
+        }
+      }
+    }
+  },
   "yahoo": {
     "__provider": {
       "oauth": true,
