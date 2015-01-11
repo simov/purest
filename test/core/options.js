@@ -12,19 +12,19 @@ describe('options', function () {
       ;(function () {
         var p = new Purest({provider:'twitter', secret:'s'})
         p.options.oauth({token:'t', secret:'ts'})
-      }).should.throw('Missing OAuth credentials!')
+      }).should.throw('Purest: Missing OAuth credentials!')
       ;(function () {
         var p = new Purest({provider:'twitter', key:'k'})
         p.options.oauth({token:'t', secret:'ts'})
-      }).should.throw('Missing OAuth credentials!')
+      }).should.throw('Purest: Missing OAuth credentials!')
       ;(function () {
         var p = new Purest({provider:'twitter', key:'k', secret:'s'})
         p.options.oauth({secret:'ts'})
-      }).should.throw('Missing OAuth credentials!')
+      }).should.throw('Purest: Missing OAuth credentials!')
       ;(function () {
         var p = new Purest({provider:'twitter', key:'k', secret:'s'})
         p.options.oauth({token:'ts'})
-      }).should.throw('Missing OAuth credentials!')
+      }).should.throw('Purest: Missing OAuth credentials!')
     })
     it('use consumer key/secret provided from the ctor', function () {
       var p = new Purest({provider:'twitter', key:'k', secret:'s'}),
