@@ -1119,6 +1119,25 @@
       }
     }
   },
+  "podio": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://podio.com/oauth/token",
+      "docs": "https://developers.podio.com/"
+    },
+    "https://api.podio.com": {
+      "__domain": {
+        "auth": {
+          "headers":{"Authorization": "OAuth2 [0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "redbooth": {
     "__provider": {
       "oauth2": true,

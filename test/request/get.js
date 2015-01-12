@@ -1950,6 +1950,34 @@ describe('get', function () {
     })
   })
 
+  describe('podio', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.podio.get('user', {
+          headers:{Authorization:'OAuth2 '+cred.user.podio.token},
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.user_id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.podio.query()
+          .select('user')
+          .auth(cred.user.podio.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user_id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('redbooth', function () {
     describe('request', function () {
       it('get', function (done) {

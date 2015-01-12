@@ -370,6 +370,26 @@ describe('refresh', function () {
       refresh.store('paypal', _body.access_token)
     })
   })
+  // https://developers.podio.com/authentication
+  describe('podio', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.podio.refresh(
+        cred.app.podio,
+        cred.user.podio.refresh,
+      function (err, res, body) {
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'token_type', 'ref', 'expires_in', 'refresh_token'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('podio', _body.access_token)
+    })
+  })
   // https://redbooth.com/api/authentication/
   describe('redbooth', function () {
     var _body = null
