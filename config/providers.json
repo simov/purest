@@ -547,6 +547,32 @@
       }
     }
   },
+  "getpocket": {
+    "__provider": {
+      "docs": "http://getpocket.com/developer/"
+    },
+    "https://getpocket.com": {
+      "__domain": {
+        "auth": {
+          "body": {"consumer_key": "[0]", "access_token": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        },
+        "*": {
+          "all": {
+            "headers": {
+              "content-type": "application/json"
+            },
+            "json": false
+          }
+        }
+      }
+    }
+  },
   "github": {
     "__provider": {
       "oauth2": true,

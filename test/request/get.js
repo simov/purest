@@ -835,6 +835,37 @@ describe('get', function () {
     })
   })
 
+  describe('getpocket', function () {
+    describe('request', function () {
+      it('post', function (done) {
+        p.getpocket.post('get', {
+          body: {
+            consumer_key:cred.app.getpocket.key,
+            access_token:cred.user.getpocket.token
+          }
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.list.should.be.instanceOf(Array)
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.getpocket.query()
+          .get('get')
+          .auth(cred.app.getpocket.key, cred.user.getpocket.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.list.should.be.instanceOf(Array)
+            done()
+          })
+      })
+    })
+  })
+
   describe('github', function () {
     describe('request', function () {
       it('get', function (done) {
