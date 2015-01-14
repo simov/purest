@@ -717,6 +717,34 @@ describe('get', function () {
     })
   })
 
+  describe('flattr', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.flattr.get('users/me', {
+          auth:{bearer:cred.user.flattr.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.flattr.query()
+          .select('users/me')
+          .auth(cred.user.flattr.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('flickr', function () {
     describe('request', function () {
       it('get', function (done) {

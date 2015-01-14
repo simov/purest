@@ -452,6 +452,25 @@
       }
     }
   },
+  "flattr": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://developers.flattr.net/"
+    },
+    "https://api.flattr.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "rest/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
   "flickr": {
     "__provider": {
       "oauth": true,
