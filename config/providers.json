@@ -1183,6 +1183,25 @@
       }
     }
   },
+  "rdio": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://www.rdio.com/developers/"
+    },
+    "http://api.rdio.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  },
   "redbooth": {
     "__provider": {
       "oauth2": true,

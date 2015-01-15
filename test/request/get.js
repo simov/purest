@@ -2037,6 +2037,36 @@ describe('get', function () {
     })
   })
 
+  describe('rdio', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.rdio.post('', {
+          oauth:{token:cred.user.rdio.token, secret:cred.user.rdio.secret},
+          form:{method:'currentUser'}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.result.key.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.rdio.query()
+          .post('')
+          .form({method:'currentUser'})
+          .auth(cred.user.rdio.token, cred.user.rdio.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.result.key.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('redbooth', function () {
     describe('request', function () {
       it('get', function (done) {
