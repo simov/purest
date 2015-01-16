@@ -195,6 +195,34 @@ describe('get', function () {
     })
   })
 
+  describe('assembla', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.assembla.get('user', {
+          auth:{bearer:cred.user.assembla.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.assembla.query()
+          .select('user')
+          .auth(cred.user.assembla.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('basecamp', function () {
     describe('request', function () {
       it('get', function (done) {

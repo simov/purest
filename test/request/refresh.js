@@ -87,6 +87,27 @@ describe('refresh', function () {
       refresh.store('asana', _body.access_token)
     })
   })
+  // http://api-doc.assembla.com/content/authentication.html#refresh_tokens
+  describe('assembla', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.assembla.refresh(
+        cred.app.assembla,
+        cred.user.assembla.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'token_type', 'expires_in'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('assembla', _body.access_token)
+    })
+  })
   // https://github.com/basecamp/api/blob/master/sections/authentication.md
   describe('basecamp', function () {
     var _body = null

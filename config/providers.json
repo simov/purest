@@ -99,6 +99,26 @@
       }
     }
   },
+  "assembla": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.assembla.com/token",
+      "docs": "http://api-doc.assembla.com/"
+    },
+    "https://api.assembla.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "basecamp": {
     "__provider": {
       "oauth2": true,
