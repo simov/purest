@@ -3,7 +3,7 @@ var Purest = require('../../lib/provider')
 var providers = require('../../config/providers')
 
 
-describe('verbs', function () {
+describe('misc', function () {
   function error (err, done) {
     return (err instanceof Error)
       ? done(err)
