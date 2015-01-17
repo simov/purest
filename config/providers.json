@@ -1468,6 +1468,26 @@
       }
     }
   },
+  "traxo": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://www.traxo.com/oauth/token",
+      "docs": "https://developer.traxo.com/"
+    },
+    "https://api.traxo.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
   "trello": {
     "__provider": {
       "oauth": true,

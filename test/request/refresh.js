@@ -536,6 +536,27 @@ describe('refresh', function () {
       refresh.store('stripe', _body.access_token)
     })
   })
+  // https://developer.traxo.com/docs/connecting
+  describe('traxo', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.traxo.refresh(
+        cred.app.traxo,
+        cred.user.traxo.refresh,
+      function (err, res, body) {
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'expires_in', 'token_type',
+          'scope', 'refresh_token'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('traxo', _body.access_token, _body.refresh_token)
+    })
+  })
   // https://github.com/justintv/Twitch-API/blob/master/authentication.md
   describe('twitch', function () {
     var _body = null

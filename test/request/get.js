@@ -2448,6 +2448,32 @@ describe('get', function () {
     })
   })
 
+  describe('traxo', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.traxo.get('me', {
+          auth:{bearer:cred.user.traxo.token}
+        }, function (err, res, body) {
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.traxo.query()
+          .select('me')
+          .auth(cred.user.traxo.token)
+          .request(function (err, res, body) {
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('trello', function () {
     describe('request', function () {
       it('public', function (done) {
