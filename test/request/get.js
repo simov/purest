@@ -521,6 +521,34 @@ describe('get', function () {
     })
   })
 
+  describe('dailymile', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.dailymile.get('people/me', {
+          qs:{oauth_token:cred.user.dailymile.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.username.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.dailymile.query()
+          .select('people/me')
+          .auth(cred.user.dailymile.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.username.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('deviantart', function () {
     describe('request', function () {
       it('get', function (done) {

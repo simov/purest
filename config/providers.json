@@ -336,6 +336,24 @@
       }
     }
   },
+  "dailymile": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://www.dailymile.com/api/documentation"
+    },
+    "https://api.dailymile.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"oauth_token": "[0]"}
+        }
+      },
+      "{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "deviantart": {
     "__provider": {
       "oauth2": true,
