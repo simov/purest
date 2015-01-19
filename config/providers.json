@@ -354,6 +354,24 @@
       }
     }
   },
+  "deezer": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://developers.deezer.com/"
+    },
+    "http://api.deezer.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "deviantart": {
     "__provider": {
       "oauth2": true,

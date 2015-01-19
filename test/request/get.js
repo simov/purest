@@ -549,6 +549,34 @@ describe('get', function () {
     })
   })
 
+  describe('deezer', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.deezer.get('user/me', {
+          qs:{access_token:cred.user.deezer.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.deezer.query()
+          .select('user/me')
+          .auth(cred.user.deezer.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('deviantart', function () {
     describe('request', function () {
       it('get', function (done) {
