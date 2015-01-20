@@ -2235,6 +2235,35 @@ describe('get', function () {
     })
   })
 
+  describe('runkeeper', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.runkeeper.get('user', {
+          headers:{'accept':'application/vnd.com.runkeeper.User+json'},
+          auth:{bearer:cred.user.runkeeper.token},
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.userID.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.runkeeper.query()
+          .select('user')
+          .auth(cred.user.runkeeper.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.userID.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('salesforce', function () {
     describe('request', function () {
       it('get', function (done) {

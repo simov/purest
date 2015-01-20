@@ -1322,6 +1322,29 @@
       }
     }
   },
+  "runkeeper": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://developer.runkeeper.com/"
+    },
+    "https://api.runkeeper.com": {
+      "__domain": {
+        "auth": {
+          "auth":{"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "user": {
+          "get": {
+            "headers": {"accept": "application/vnd.com.runkeeper.User+json"}
+          }
+        }
+      }
+    }
+  },
   "salesforce": {
     "__provider": {
       "oauth2": true,
