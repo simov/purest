@@ -1657,6 +1657,24 @@
       }
     }
   },
+  "vk": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://vk.com/dev"
+    },
+    "https://api.vk.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "method/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "wikimapia": {
     "__provider": {
       "docs": "http://wikimapia.org/api"

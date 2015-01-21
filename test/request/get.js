@@ -2749,6 +2749,34 @@ describe('get', function () {
     })
   })
 
+  describe('vk', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.vk.get('status.get', {
+          qs:{access_token:cred.user.vk.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.response.text.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.vk.query()
+          .get('status.get')
+          .auth(cred.user.vk.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.response.text.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('wikimapia', function () {
     describe('request', function () {
       it('get', function (done) {
