@@ -470,6 +470,34 @@ describe('get', function () {
     })
   })
 
+  describe('cheddar', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.cheddar.get('me', {
+          auth:{bearer:cred.user.cheddar.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.cheddar.query()
+          .get('me')
+          .auth(cred.user.cheddar.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('coderbits', function () {
     describe('request', function () {
       it('get', function (done) {

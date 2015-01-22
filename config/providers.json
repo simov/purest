@@ -301,6 +301,25 @@
       }
     }
   },
+  "cheddar": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "https://cheddarapp.com/developer/"
+    },
+    "https://api.cheddarapp.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "coderbits": {
     "__provider": {
       "docs": "https://coderbits.com/api"
