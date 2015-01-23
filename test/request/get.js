@@ -2636,6 +2636,34 @@ describe('get', function () {
     })
   })
 
+  describe('tripit', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.tripit.get('get/profile/id/simovelichkov/format/json', {
+          oauth:{token:cred.user.tripit.token, secret:cred.user.tripit.secret}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.Profile.profile_url.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.tripit.query()
+          .get('get/profile/id/simovelichkov/format/json')
+          .auth(cred.user.tripit.token, cred.user.tripit.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.Profile.profile_url.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('tumblr', function () {
     describe('request', function () {
       it('apikey', function (done) {

@@ -1586,6 +1586,25 @@
       }
     }
   },
+  "tripit": {
+    "__provider": {
+      "oauth": true,
+      "docs": "https://www.tripit.com/developer"
+    },
+    "https://api.tripit.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "tumblr": {
     "__provider": {
       "oauth": true,
