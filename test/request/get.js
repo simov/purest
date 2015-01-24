@@ -741,6 +741,34 @@ describe('get', function () {
     })
   })
 
+  describe('edmodo', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.edmodo.get('users/me', {
+          auth:{bearer:cred.user.edmodo.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.edmodo.query()
+          .get('users/me')
+          .auth(cred.user.edmodo.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('eventbrite', function () {
     describe('request', function () {
       it('get', function (done) {

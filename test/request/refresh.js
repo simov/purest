@@ -239,6 +239,27 @@ describe('refresh', function () {
       refresh.store('disqus', _body.access_token, _body.refresh_token)
     })
   })
+  // https://developers.edmodo.com/edmodo-connect/docs/#connecting-your-application
+  describe('edmodo', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.edmodo.refresh(
+        cred.app.edmodo,
+        cred.user.edmodo.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'token_type', 'expires_in', 'refresh_token', 'scope'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('edmodo', _body.access_token, _body.refresh_token)
+    })
+  })
   // https://www.flowdock.com/api/authentication
   describe('flowdock', function () {
     var _body = null

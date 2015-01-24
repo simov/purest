@@ -490,6 +490,25 @@
       }
     }
   },
+  "edmodo": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.edmodo.com/oauth/token",
+      "docs": "https://developers.edmodo.com/"
+    },
+    "https://api.edmodo.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "eventbrite": {
     "__provider": {
       "oauth2": true,
