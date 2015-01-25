@@ -2559,6 +2559,34 @@ describe('get', function () {
     })
   })
 
+  describe('strava', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.strava.get('athlete', {
+          auth:{bearer:cred.user.strava.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.strava.query()
+          .get('athlete')
+          .auth(cred.user.strava.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('stripe', function () {
     describe('request', function () {
       it('get', function (done) {

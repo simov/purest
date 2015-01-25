@@ -1545,6 +1545,25 @@
       }
     }
   },
+  "strava": {
+    "__provider": {
+      "oauth2": true,
+      "docs": "http://strava.github.io/api/"
+    },
+    "https://www.strava.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer":"[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      }
+    }
+  },
   "stripe": {
     "__provider": {
       "oauth2": true,
