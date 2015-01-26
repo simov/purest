@@ -577,6 +577,34 @@ describe('get', function () {
     })
   })
 
+  describe('dailymotion', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.dailymotion.get('user/me', {
+          auth:{bearer:cred.user.dailymotion.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.dailymotion.query()
+          .select('user/me')
+          .auth(cred.user.dailymotion.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('deezer', function () {
     describe('request', function () {
       it('get', function (done) {

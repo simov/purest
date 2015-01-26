@@ -373,6 +373,25 @@
       }
     }
   },
+  "dailymotion": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://api.dailymotion.com/oauth/token",
+      "docs": "https://developer.dailymotion.com/documentation#graph-api"
+    },
+    "https://api.dailymotion.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "deezer": {
     "__provider": {
       "oauth2": true,
