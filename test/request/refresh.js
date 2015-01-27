@@ -391,6 +391,27 @@ describe('refresh', function () {
       refresh.store('imgur', _body.access_token, _body.refresh_token)
     })
   })
+  // https://jawbone.com/up/developer/authentication
+  describe('jawbone', function () {
+    var _body = null
+    it('refresh', function (done) {
+      p.jawbone.refresh(
+        cred.app.jawbone,
+        cred.user.jawbone.refresh,
+      function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        should.deepEqual(Object.keys(body), [
+          'access_token', 'token_type', 'expires_in', 'refresh_token'
+        ])
+        _body = body
+        done()
+      })
+    })
+    after(function () {
+      refresh.store('jawbone', _body.access_token, _body.refresh_token)
+    })
+  })
   // http://msdn.microsoft.com/en-us/library/hh243647.aspx
   describe('live', function () {
     var _body = null

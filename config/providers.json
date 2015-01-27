@@ -1004,6 +1004,26 @@
       }
     }
   },
+  "jawbone": {
+    "__provider": {
+      "oauth2": true,
+      "refresh": "https://jawbone.com/auth/oauth2/token",
+      "docs": "https://jawbone.com/up/developer/"
+    },
+    "https://jawbone.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "nudge/api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v.1.1"
+        }
+      }
+    }
+  },
   "linkedin": {
     "__provider": {
       "oauth": true,

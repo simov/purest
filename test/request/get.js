@@ -1841,6 +1841,34 @@ describe('get', function () {
     })
   })
 
+  describe('jawbone', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.jawbone.get('users/@me', {
+          auth:{bearer:cred.user.jawbone.token}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.meta.user_xid.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.jawbone.query()
+          .select('users/@me')
+          .auth(cred.user.jawbone.token)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.meta.user_xid.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('linkedin', function () {
     describe('request', function () {
       it('oauth1', function (done) {
