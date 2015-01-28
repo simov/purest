@@ -2464,6 +2464,34 @@ describe('get', function () {
     })
   })
 
+  describe('skyrock', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.skyrock.get('user/get', {
+          oauth:{token:cred.user.skyrock.token, secret:cred.user.skyrock.secret}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.id_user.should.be.type('number')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.skyrock.query()
+          .select('user/get')
+          .auth(cred.user.skyrock.token, cred.user.skyrock.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.id_user.should.be.type('number')
+            done()
+          })
+      })
+    })
+  })
+
   describe('slack', function () {
     describe('request', function () {
       it('get', function (done) {

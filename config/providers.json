@@ -1483,6 +1483,25 @@
       }
     }
   },
+  "skyrock": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://www.skyrock.com/developer/documentation/"
+    },
+    "https://api.skyrock.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
   "slack": {
     "__provider": {
       "oauth2": true,
