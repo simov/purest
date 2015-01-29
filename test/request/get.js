@@ -885,6 +885,34 @@ describe('get', function () {
     })
   })
 
+  describe('fitbit', function () {
+    describe('request', function () {
+      it('get', function (done) {
+        p.fitbit.get('user/-/profile', {
+          oauth:{token:cred.user.fitbit.token, secret:cred.user.fitbit.secret}
+        }, function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          body.user.encodedId.should.be.type('string')
+          done()
+        })
+      })
+    })
+    describe('query', function () {
+      it('get', function (done) {
+        p.fitbit.query()
+          .select('user/-/profile')
+          .auth(cred.user.fitbit.token, cred.user.fitbit.secret)
+          .request(function (err, res, body) {
+            debugger
+            if (err) return error(err, done)
+            body.user.encodedId.should.be.type('string')
+            done()
+          })
+      })
+    })
+  })
+
   describe('flattr', function () {
     describe('request', function () {
       it('get', function (done) {

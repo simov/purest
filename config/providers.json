@@ -565,6 +565,25 @@
       }
     }
   },
+  "fitbit": {
+    "__provider": {
+      "oauth": true,
+      "docs": "http://dev.fitbit.com/"
+    },
+    "https://api.fitbit.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  },
   "flattr": {
     "__provider": {
       "oauth2": true,
