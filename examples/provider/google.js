@@ -7,6 +7,9 @@ var cred = {
 
 exports = module.exports = function (p) {
   return {
+
+    // Contacts
+
     // get all google contact's groups
     0: function () {
       p.get('groups/default/full', {
@@ -37,7 +40,7 @@ exports = module.exports = function (p) {
     // pagination
     2: function () {
       function next (link) {
-        for (var i=0 i < link.length i++) {
+        for (var i=0; i < link.length; i++) {
           if (link[i].rel == 'next') {
             return parseInt(
               link[i].href.replace(/.*start-index=(\d+).*/,'$1')
@@ -69,6 +72,31 @@ exports = module.exports = function (p) {
         if (err) throw err
         console.log(contacts.length)
       }))
+    },
+
+    // GMail
+
+    // get a single message
+    3: function () {
+      p.query('gmail')
+        .select('users/me/messages/14b2d0a9cd8a439f')
+        .auth(cred.user.google.token)
+        .request(function (err, res, body) {
+          debugger
+          if (err) console.log(err)
+          console.log(body)
+        })
+    },
+    // get a single thread
+    4: function () {
+      p.query('gmail')
+        .select('users/me/threads/14b2d0a9cd8a439f')
+        .auth(cred.user.google.token)
+        .request(function (err, res, body) {
+          debugger
+          if (err) console.log(err)
+          console.log(body)
+        })
     }
   }
 }
