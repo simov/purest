@@ -146,7 +146,7 @@ describe('get', function () {
     describe('request', function () {
       it('basic auth', function (done) {
         p.asana.get('users/me', {
-          auth:{user:cred.user.asana.apikey, pass:''}
+          auth:{user:cred.user.asana.apikey}
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -299,7 +299,7 @@ describe('get', function () {
     describe('request', function () {
       it('get', function (done) {
         p.bitbucket.get('users/simovelichkov', {
-          
+
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -675,7 +675,7 @@ describe('get', function () {
       })
       it('basic', function (done) {
         p.digitalocean.get('actions', {
-          auth:{user:cred.user.digitalocean.apikey, pass:''}
+          auth:{user:cred.user.digitalocean.apikey}
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -2323,7 +2323,7 @@ describe('get', function () {
     describe('request', function () {
       it('get', function (done) {
         p.reddit.get('user/simov/about.json', {
-        
+
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -2333,7 +2333,7 @@ describe('get', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
