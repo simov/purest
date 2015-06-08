@@ -152,22 +152,4 @@ describe('override', function () {
       })
     })
   })
-
-  describe('twitter', function () {
-    describe('url qs', function () {
-      it('on POST request escape !*()\' (RFC3986 URI symbols) and send them as qs', function () {
-        var provider = new Purest({provider:'twitter'}),
-          options = {form:{one:"!*()'",two:2}}
-        provider.url.get('endpoint', options).should.equal(
-          'https://api.twitter.com/1.1/endpoint.json?one=%21%2a%28%29%27&two=2'
-        )
-        should.not.exist(options.form)
-      })
-      it('use default url on GET request', function () {
-        var provider = new Purest({provider:'twitter'})
-        provider.url.get('endpoint',{})
-          .should.equal('https://api.twitter.com/1.1/endpoint.json')
-      })
-    })
-  })
 })

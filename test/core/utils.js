@@ -6,16 +6,6 @@ var purest = require('../../lib/provider'),
 
 
 describe('utils', function () {
-  describe('uri', function () {
-    it('escape RFC3986 characters', function () {
-      utils.uri.rfc3986("!*()'").should.equal('%21%2a%28%29%27')
-    })
-    it('create qs', function () {
-      utils.uri.qs({a:"!*()'",b:2})
-        .should.equal('a=%21%2a%28%29%27&b=2')
-    })
-  })
-
   describe('response', function () {
     it('don\'t throw error on missing callback', function () {
       utils.response()(null, {}, {})
