@@ -1,5 +1,6 @@
 
 var should = require('should')
+var providers = require('../../config/providers')
 var config = require('../../lib/config')
 var Purest = require('../../lib/provider')
 
@@ -28,11 +29,12 @@ var fixture = {
               }
             }
           },
-          'documents': {
-            get: {
-              encoding: null
-            }
-          },
+          // added dynamically below
+          // 'documents': {
+          //   get: {
+          //     encoding: null
+          //   }
+          // },
           'files\\/\\d+\\/content': {
             __endpoint: {
               regex: true
@@ -83,13 +85,38 @@ var fixture = {
 
 
 describe('config', function () {
-  it('extend', function () {
+  it('extend with new provider', function () {
     var provider = new Purest({provider:'custom1', config:fixture.provider})
     provider.name.should.equal('custom1')
+    should.deepEqual(providers.custom1, fixture.provider.custom1)
   })
+
+  it('extend existing provider', function () {
+    var extend = {
+      custom1: {
+        'https://domain.com': {
+          'api/[version]/{endpoint}.[type]': {
+            'documents': {
+              get: {
+                encoding: null
+              }
+            }
+          }
+        }
+      }
+    }
+    var provider = new Purest({provider:'custom1', config:extend})
+    fixture.provider.custom1
+      ['https://domain.com']
+      ['api/[version]/{endpoint}.[type]']
+      ['documents'] = {get: {encoding: null}}
+    should.deepEqual(providers.custom1, fixture.provider.custom1)
+  })
+
   it('aliases', function () {
     should.deepEqual(config.aliases(fixture.provider.custom1), fixture.alias)
   })
+
   it('options', function () {
     var endpoints = fixture.alias.__default.endpoints
 
