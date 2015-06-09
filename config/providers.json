@@ -1,8 +1,7 @@
 {
   "500px": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://developers.500px.com/"
+      "oauth": true
     },
     "https://api.500px.com": {
       "__domain": {
@@ -20,8 +19,7 @@
   },
   "aboutme": {
     "__provider": {
-      "refresh": "https://api.about.me/api/v2/json/user/login/",
-      "docs": "http://about.me/developer/api/docs/"
+      "refresh": "https://api.about.me/api/v2/json/user/login/"
     },
     "https://api.about.me": {
       "__domain": {
@@ -61,8 +59,7 @@
   },
   "angellist": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://angel.co/api"
+      "oauth2": true
     },
     "https://api.angel.co": {
       "__domain": {
@@ -81,8 +78,7 @@
   "asana": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://app.asana.com/-/oauth_token",
-      "docs": "http://developer.asana.com/documentation/"
+      "refresh": "https://app.asana.com/-/oauth_token"
     },
     "https://app.asana.com": {
       "__domain": {
@@ -102,8 +98,7 @@
   "assembla": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.assembla.com/token",
-      "docs": "http://api-doc.assembla.com/"
+      "refresh": "https://api.assembla.com/token"
     },
     "https://api.assembla.com": {
       "__domain": {
@@ -122,8 +117,7 @@
   "basecamp": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://launchpad.37signals.com/authorization/token",
-      "docs": "https://github.com/basecamp/bcx-api/"
+      "refresh": "https://launchpad.37signals.com/authorization/token"
     },
     "https://basecamp.com": {
       "__domain": {
@@ -154,8 +148,7 @@
   },
   "bitly": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://dev.bitly.com"
+      "oauth2": true
     },
     "https://api-ssl.bitly.com": {
       "__domain": {
@@ -173,8 +166,7 @@
   },
   "bitbucket": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://confluence.atlassian.com/display/BITBUCKET"
+      "oauth": true
     },
     "https://api.bitbucket.org": {
       "__domain": {
@@ -193,8 +185,7 @@
   "box": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.box.com/oauth2/token",
-      "docs": "https://developers.box.com/"
+      "refresh": "https://api.box.com/oauth2/token"
     },
     "https://api.box.com": {
       "__domain": {
@@ -284,8 +275,7 @@
   },
   "buffer": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://dev.buffer.com"
+      "oauth2": true
     },
     "https://api.bufferapp.com": {
       "__domain": {
@@ -303,8 +293,7 @@
   },
   "cheddar": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://cheddarapp.com/developer/"
+      "oauth2": true
     },
     "https://api.cheddarapp.com": {
       "__domain": {
@@ -321,12 +310,10 @@
     }
   },
   "coderbits": {
-    "__provider": {
-      "docs": "https://coderbits.com/api"
-    },
+    "__provider": {},
     "https://coderbits.com": {
       "__domain": {
-        
+
       },
       "{endpoint}.[type]": {
         "__path": {
@@ -338,8 +325,7 @@
   "coinbase": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.coinbase.com/oauth/token",
-      "docs": "https://www.coinbase.com/docs/api/overview"
+      "refresh": "https://www.coinbase.com/oauth/token"
     },
     "https://api.coinbase.com": {
       "__domain": {
@@ -357,8 +343,7 @@
   },
   "dailymile": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://www.dailymile.com/api/documentation"
+      "oauth2": true
     },
     "https://api.dailymile.com": {
       "__domain": {
@@ -376,8 +361,7 @@
   "dailymotion": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.dailymotion.com/oauth/token",
-      "docs": "https://developer.dailymotion.com/documentation#graph-api"
+      "refresh": "https://api.dailymotion.com/oauth/token"
     },
     "https://api.dailymotion.com": {
       "__domain": {
@@ -394,8 +378,7 @@
   },
   "deezer": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://developers.deezer.com/"
+      "oauth2": true
     },
     "http://api.deezer.com": {
       "__domain": {
@@ -413,8 +396,7 @@
   "deviantart": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.deviantart.com/oauth2/token",
-      "docs": "https://www.deviantart.com/developers/"
+      "refresh": "https://www.deviantart.com/oauth2/token"
     },
     "https://www.deviantart.com": {
       "__domain": {
@@ -433,8 +415,7 @@
   "digitalocean": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://cloud.digitalocean.com/v1/oauth/token",
-      "docs": "https://developers.digitalocean.com/"
+      "refresh": "https://cloud.digitalocean.com/v1/oauth/token"
     },
     "https://api.digitalocean.com": {
       "__domain": {
@@ -454,8 +435,7 @@
   "disqus": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://disqus.com/api/oauth/2.0/access_token/",
-      "docs": "https://disqus.com/api/docs/"
+      "refresh": "https://disqus.com/api/oauth/2.0/access_token/"
     },
     "https://disqus.com": {
       "__domain": {
@@ -474,8 +454,7 @@
   },
   "dropbox": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://www.dropbox.com/developers"
+      "oauth2": true
     },
     "https://api.dropbox.com": {
       "__domain": {
@@ -512,8 +491,7 @@
   "edmodo": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.edmodo.com/oauth/token",
-      "docs": "https://developers.edmodo.com/"
+      "refresh": "https://api.edmodo.com/oauth/token"
     },
     "https://api.edmodo.com": {
       "__domain": {
@@ -530,8 +508,7 @@
   },
   "eventbrite": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://developer.eventbrite.com/"
+      "oauth2": true
     },
     "https://www.eventbriteapi.com": {
       "__domain": {
@@ -549,8 +526,7 @@
   },
   "facebook": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developers.facebook.com"
+      "oauth2": true
     },
     "https://graph.facebook.com": {
       "__domain": {
@@ -567,8 +543,7 @@
   },
   "fitbit": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://dev.fitbit.com/"
+      "oauth": true
     },
     "https://api.fitbit.com": {
       "__domain": {
@@ -586,8 +561,7 @@
   },
   "flattr": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://developers.flattr.net/"
+      "oauth2": true
     },
     "https://api.flattr.com": {
       "__domain": {
@@ -605,8 +579,7 @@
   },
   "flickr": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://www.flickr.com/services/api/"
+      "oauth": true
     },
     "https://api.flickr.com": {
       "__domain": {
@@ -648,8 +621,7 @@
   "flowdock": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.flowdock.com/oauth/token",
-      "docs": "https://www.flowdock.com/api"
+      "refresh": "https://api.flowdock.com/oauth/token"
     },
     "https://api.flowdock.com": {
       "__domain": {
@@ -681,8 +653,7 @@
   },
   "foursquare": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developer.foursquare.com/"
+      "oauth2": true
     },
     "https://api.foursquare.com": {
       "__domain": {
@@ -699,9 +670,7 @@
     }
   },
   "getpocket": {
-    "__provider": {
-      "docs": "http://getpocket.com/developer/"
-    },
+    "__provider": {},
     "https://getpocket.com": {
       "__domain": {
         "auth": {
@@ -726,8 +695,7 @@
   },
   "github": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://developer.github.com"
+      "oauth2": true
     },
     "https://api.github.com": {
       "__domain": {
@@ -744,8 +712,7 @@
   },
   "gitter": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developer.gitter.im/docs/welcome"
+      "oauth2": true
     },
     "https://api.gitter.im": {
       "__domain": {
@@ -777,8 +744,7 @@
   "google": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://accounts.google.com/o/oauth2/token",
-      "docs": "https://developers.google.com/"
+      "refresh": "https://accounts.google.com/o/oauth2/token"
     },
     "https://www.googleapis.com": {
       "__domain": {
@@ -794,64 +760,55 @@
       "calendar/[version]/{endpoint}": {
         "__path": {
           "alias": ["calendar"],
-          "version": "v3",
-          "docs": "https://developers.google.com/google-apps/calendar/"
+          "version": "v3"
         }
       },
       "plus/[version]/{endpoint}": {
         "__path": {
           "alias": ["plus"],
-          "version": "v1",
-          "docs": "https://developers.google.com/+/api"
+          "version": "v1"
         }
       },
       "youtube/[version]/{endpoint}": {
         "__path": {
           "alias": ["youtube"],
-          "version": "v3",
-          "docs": "https://developers.google.com/youtube/v3"
+          "version": "v3"
         }
       },
       "drive/[version]/{endpoint}": {
         "__path": {
           "alias": ["drive"],
-          "version": "v2",
-          "docs": "https://developers.google.com/drive/v2/reference"
+          "version": "v2"
         }
       },
       "gmail/[version]/{endpoint}": {
         "__path": {
           "alias": ["gmail"],
-          "version": "v1",
-          "docs": "https://developers.google.com/gmail/api/v1/reference"
+          "version": "v1"
         }
       },
       "upload/drive/[version]/{endpoint}": {
         "__path": {
           "alias": ["upload-drive", "drive-upload"],
-          "version": "v2",
-          "docs": "https://developers.google.com/drive/v2/reference"
+          "version": "v2"
         }
       },
       "upload/gmail/[version]/{endpoint}": {
         "__path": {
           "alias": ["upload-gmail", "gmail-upload"],
-          "version": "v1",
-          "docs": "https://developers.google.com/gmail/api/v1/reference"
+          "version": "v1"
         }
       },
       "freebase/[version]/{endpoint}": {
         "__path": {
           "alias": ["freebase"],
-          "version": "v1",
-          "docs": "https://developers.google.com/freebase/v1"
+          "version": "v1"
         }
       },
       "tasks/[version]/{endpoint}": {
         "__path": {
           "alias": ["tasks"],
-          "version": "v1",
-          "docs": "https://developers.google.com/google-apps/tasks/"
+          "version": "v1"
         }
       },
       "urlshortener/[version]/{endpoint}": {
@@ -860,22 +817,19 @@
           "version": "v1",
           "auth": {
             "qs": {"key": "[0]"}
-          },
-          "docs": "https://developers.google.com/url-shortener/"
+          }
         }
       },
       "pagespeedonline/[version]/{endpoint}": {
         "__path": {
           "alias": ["pagespeedonline", "pagespeed"],
-          "version": "v1",
-          "docs": "https://developers.google.com/speed/docs/insights/v1/getting_started"
+          "version": "v1"
         }
       },
       "youtube/analytics/[version]/{endpoint}": {
         "__path": {
           "alias": ["youtube/analytics"],
-          "version": "v1",
-          "docs": "https://developers.google.com/youtube/analytics"
+          "version": "v1"
         }
       }
     },
@@ -887,8 +841,7 @@
       },
       "maps/api/{endpoint}": {
         "__path": {
-          "alias": ["gmaps"],
-          "docs": "https://developers.google.com/maps/"
+          "alias": ["gmaps"]
         },
         "streetview": {
           "get": {
@@ -910,8 +863,7 @@
       },
       "m8/feeds/{endpoint}": {
         "__path": {
-          "alias": ["contacts"],
-          "docs": "https://developers.google.com/google-apps/contacts/v3/"
+          "alias": ["contacts"]
         },
         "*": {
           "all": {
@@ -926,8 +878,7 @@
   },
   "hackpad": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://hackpad.com/Hackpad-API-fQD2DRz22Wf"
+      "oauth": true
     },
     "https://hackpad.com": {
       "__domain": {
@@ -946,8 +897,7 @@
   "harvest": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.harvestapp.com/oauth2/token",
-      "docs": "https://github.com/harvesthq/api"
+      "refresh": "https://api.harvestapp.com/oauth2/token"
     },
     "https://[domain].harvestapp.com": {
       "__domain": {
@@ -966,8 +916,7 @@
   "heroku": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://id.heroku.com/oauth/token",
-      "docs": "https://devcenter.heroku.com/categories/platform-api"
+      "refresh": "https://id.heroku.com/oauth/token"
     },
     "https://api.heroku.com": {
       "__domain": {
@@ -986,8 +935,7 @@
   "imgur": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.imgur.com/oauth2/token",
-      "docs": "https://api.imgur.com/"
+      "refresh": "https://api.imgur.com/oauth2/token"
     },
     "https://api.imgur.com": {
       "__domain": {
@@ -1006,8 +954,7 @@
   },
   "instagram": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://instagram.com/developer"
+      "oauth2": true
     },
     "https://api.instagram.com": {
       "__domain": {
@@ -1026,8 +973,7 @@
   "jawbone": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://jawbone.com/auth/oauth2/token",
-      "docs": "https://jawbone.com/up/developer/"
+      "refresh": "https://jawbone.com/auth/oauth2/token"
     },
     "https://jawbone.com": {
       "__domain": {
@@ -1046,8 +992,7 @@
   "linkedin": {
     "__provider": {
       "oauth": true,
-      "refresh": "https://www.linkedin.com/uas/oauth2/accessToken",
-      "docs": "http://developer.linkedin.com"
+      "refresh": "https://www.linkedin.com/uas/oauth2/accessToken"
     },
     "https://api.linkedin.com": {
       "__domain": {
@@ -1074,8 +1019,7 @@
   "live": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://login.live.com/oauth20_token.srf",
-      "docs": "http://msdn.microsoft.com/en-us/library/dn783283.aspx"
+      "refresh": "https://login.live.com/oauth20_token.srf"
     },
     "https://apis.live.net": {
       "__domain": {
@@ -1116,8 +1060,7 @@
   },
   "mailchimp": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://apidocs.mailchimp.com/"
+      "oauth2": true
     },
     "https://[domain].api.mailchimp.com": {
       "__domain": {
@@ -1140,9 +1083,7 @@
     }
   },
   "mailgun": {
-    "__provider": {
-      "docs": "http://documentation.mailgun.com/"
-    },
+    "__provider": {},
     "https://api.mailgun.net": {
       "__domain": {
         "auth": {
@@ -1158,9 +1099,7 @@
     }
   },
   "mandrill": {
-    "__provider": {
-      "docs": "https://mandrillapp.com/api/docs/"
-    },
+    "__provider": {},
     "https://mandrillapp.com": {
       "__domain": {
         "auth": {
@@ -1176,9 +1115,7 @@
     }
   },
   "mixcloud": {
-    "__provider": {
-      "docs": "http://www.mixcloud.com/developers/"
-    },
+    "__provider": {},
     "https://api.mixcloud.com": {
       "__domain": {
         "auth": {
@@ -1194,8 +1131,7 @@
   },
   "odesk": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://developers.odesk.com"
+      "oauth": true
     },
     "https://www.odesk.com": {
       "__domain": {
@@ -1230,8 +1166,7 @@
   },
   "openstreetmap": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://wiki.openstreetmap.org/wiki/API_v0.6"
+      "oauth": true
     },
     "http://api.openstreetmap.org": {
       "__domain": {
@@ -1251,8 +1186,7 @@
   "paypal": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
-      "docs": "https://developer.paypal.com/docs/"
+      "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice"
     },
     "https://api.paypal.com": {
       "__domain": {
@@ -1299,9 +1233,7 @@
     }
   },
   "pipelinedeals": {
-    "__provider": {
-      "docs": "https://www.pipelinedeals.com/api/docs/introduction"
-    },
+    "__provider": {},
     "https://api.pipelinedeals.com": {
       "__domain": {
         "auth": {
@@ -1319,8 +1251,7 @@
   "podio": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://podio.com/oauth/token",
-      "docs": "https://developers.podio.com/"
+      "refresh": "https://podio.com/oauth/token"
     },
     "https://api.podio.com": {
       "__domain": {
@@ -1337,8 +1268,7 @@
   },
   "rdio": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://www.rdio.com/developers/"
+      "oauth": true
     },
     "http://api.rdio.com": {
       "__domain": {
@@ -1357,8 +1287,7 @@
   "redbooth": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://redbooth.com/oauth2/token",
-      "docs": "https://redbooth.com/api/"
+      "refresh": "https://redbooth.com/oauth2/token"
     },
     "https://redbooth.com": {
       "__domain": {
@@ -1377,8 +1306,7 @@
   "reddit": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://ssl.reddit.com/api/v1/access_token",
-      "docs": "http://www.reddit.com/dev/api"
+      "refresh": "https://ssl.reddit.com/api/v1/access_token"
     },
     "https://api.reddit.com": {
       "__domain": {
@@ -1394,9 +1322,7 @@
     }
   },
   "rubygems": {
-    "__provider": {
-      "docs": "http://guides.rubygems.org/rubygems-org-api"
-    },
+    "__provider": {},
     "https://rubygems.org": {
       "__domain": {
         "auth": {
@@ -1420,8 +1346,7 @@
   },
   "runkeeper": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://developer.runkeeper.com/"
+      "oauth2": true
     },
     "https://api.runkeeper.com": {
       "__domain": {
@@ -1444,8 +1369,7 @@
   "salesforce": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://login.salesforce.com/services/oauth2/token",
-      "docs": "https://www.salesforce.com/us/developer/docs/api_rest"
+      "refresh": "https://login.salesforce.com/services/oauth2/token"
     },
     "https://[domain].salesforce.com": {
       "__domain": {
@@ -1468,9 +1392,7 @@
     }
   },
   "sendgrid": {
-    "__provider": {
-      "docs": "http://sendgrid.com/docs/"
-    },
+    "__provider": {},
     "https://api.sendgrid.com": {
       "__domain": {
         "auth": {
@@ -1486,8 +1408,7 @@
   },
   "shopify": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://docs.shopify.com/api"
+      "oauth2": true
     },
     "https://[domain].myshopify.com": {
       "__domain": {
@@ -1504,8 +1425,7 @@
   },
   "skyrock": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://www.skyrock.com/developer/documentation/"
+      "oauth": true
     },
     "https://api.skyrock.com": {
       "__domain": {
@@ -1523,8 +1443,7 @@
   },
   "slack": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://api.slack.com/"
+      "oauth2": true
     },
     "https://slack.com": {
       "__domain": {
@@ -1542,8 +1461,7 @@
   "soundcloud": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.soundcloud.com/oauth2/token",
-      "docs": "http://developers.soundcloud.com"
+      "refresh": "https://api.soundcloud.com/oauth2/token"
     },
     "https://api.soundcloud.com": {
       "__domain": {
@@ -1561,8 +1479,7 @@
   "spotify": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://accounts.spotify.com/api/token",
-      "docs": "https://developer.spotify.com"
+      "refresh": "https://accounts.spotify.com/api/token"
     },
     "https://api.spotify.com": {
       "__domain": {
@@ -1580,8 +1497,7 @@
   },
   "stackexchange": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://api.stackexchange.com"
+      "oauth2": true
     },
     "https://api.stackexchange.com": {
       "__domain": {
@@ -1605,8 +1521,7 @@
   },
   "stocktwits": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://stocktwits.com/developers"
+      "oauth2": true
     },
     "https://api.stocktwits.com": {
       "__domain": {
@@ -1624,8 +1539,7 @@
   },
   "strava": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://strava.github.io/api/"
+      "oauth2": true
     },
     "https://www.strava.com": {
       "__domain": {
@@ -1644,8 +1558,7 @@
   "stripe": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://connect.stripe.com/oauth/token",
-      "docs": "https://stripe.com/docs"
+      "refresh": "https://connect.stripe.com/oauth/token"
     },
     "https://api.stripe.com": {
       "__domain": {
@@ -1664,8 +1577,7 @@
   "traxo": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.traxo.com/oauth/token",
-      "docs": "https://developer.traxo.com/"
+      "refresh": "https://www.traxo.com/oauth/token"
     },
     "https://api.traxo.com": {
       "__domain": {
@@ -1683,8 +1595,7 @@
   },
   "trello": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://trello.com/docs/"
+      "oauth": true
     },
     "https://api.trello.com": {
       "__domain": {
@@ -1703,8 +1614,7 @@
   },
   "tripit": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://www.tripit.com/developer"
+      "oauth": true
     },
     "https://api.tripit.com": {
       "__domain": {
@@ -1722,8 +1632,7 @@
   },
   "tumblr": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://www.tumblr.com/docs/en/api/v2"
+      "oauth": true
     },
     "http://api.tumblr.com": {
       "__domain": {
@@ -1743,8 +1652,7 @@
   "twitch": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.twitch.tv/kraken/oauth2/token",
-      "docs": "https://github.com/justintv/twitch-api"
+      "refresh": "https://api.twitch.tv/kraken/oauth2/token"
     },
     "https://api.twitch.tv": {
       "__domain": {
@@ -1768,8 +1676,7 @@
   },
   "twitter": {
     "__provider": {
-      "oauth": true,
-      "docs": "https://dev.twitter.com"
+      "oauth": true
     },
     "https://api.twitter.com": {
       "__domain": {
@@ -1787,8 +1694,7 @@
   },
   "vimeo": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developer.vimeo.com/"
+      "oauth2": true
     },
     "https://api.vimeo.com": {
       "__domain": {
@@ -1812,8 +1718,7 @@
   },
   "vk": {
     "__provider": {
-      "oauth2": true,
-      "docs": "http://vk.com/dev"
+      "oauth2": true
     },
     "https://api.vk.com": {
       "__domain": {
@@ -1829,9 +1734,7 @@
     }
   },
   "wikimapia": {
-    "__provider": {
-      "docs": "http://wikimapia.org/api"
-    },
+    "__provider": {},
     "http://api.wikimapia.org": {
       "__domain": {
         "auth": {
@@ -1852,8 +1755,7 @@
   },
   "withings": {
     "__provider": {
-      "oauth": true,
-      "docs": "http://oauth.withings.com/api"
+      "oauth": true
     },
     "https://wbsapi.withings.net": {
       "__domain": {
@@ -1877,8 +1779,7 @@
   "yahoo": {
     "__provider": {
       "oauth": true,
-      "refresh": "https://api.login.yahoo.com/oauth/v2/get_token",
-      "docs": "https://developer.yahoo.com/"
+      "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
     },
     "https://social.yahooapis.com": {
       "__domain": {
@@ -1889,8 +1790,7 @@
       "[version]/{endpoint}": {
         "__path": {
           "alias": ["social"],
-          "version": "v1",
-          "docs": "https://developer.yahoo.com/social"
+          "version": "v1"
         }
       }
     },
@@ -1903,8 +1803,7 @@
       "[version]/{endpoint}": {
         "__path": {
           "alias": ["query", "yql"],
-          "version": "v1",
-          "docs": "https://developer.yahoo.com/yql"
+          "version": "v1"
         }
       }
     },
@@ -1917,16 +1816,14 @@
       "[version]/{endpoint}": {
         "__path": {
           "alias": ["where", "geo"],
-          "version": "v1",
-          "docs": "https://developer.yahoo.com/geo/geoplanet"
+          "version": "v1"
         }
       }
     }
   },
   "yammer": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developer.yammer.com/"
+      "oauth2": true
     },
     "https://www.yammer.com": {
       "__domain": {
@@ -1944,8 +1841,7 @@
   },
   "zendesk": {
     "__provider": {
-      "oauth2": true,
-      "docs": "https://developer.zendesk.com"
+      "oauth2": true
     },
     "https://[domain].zendesk.com": {
       "__domain": {
