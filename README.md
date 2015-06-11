@@ -38,7 +38,7 @@ google.get('channels', {
 }, function (err, res, body) {})
 ```
 
-In this example we are requesting the [channels][channels-endpoint] endpoint of the YouTube API. Here is how the related portion of the Google's configuration in [config/providers.json][purest-config] looks like:
+In this example we are requesting the [channels][youtube-channels] endpoint of the YouTube API. Here is how the related portion of the Google's configuration in [config/providers.json][purest-config] looks like:
 
 ```js
 "google": {
@@ -69,7 +69,7 @@ In this example we are requesting the [channels][channels-endpoint] endpoint of 
 
 > Refer to the [provider configuration][provider-configuration] section for a full list of all available configuration options
 
-Using the above configuration Purest knows how to construct the absolute URL `https://www.googleapis.com/youtube/v3/channels` for the [channels][channels-endpoint] endpoint.
+Using the above configuration Purest knows how to construct the absolute URL `https://www.googleapis.com/youtube/v3/channels` for the [channels][youtube-channels] endpoint.
 
 Given the above configuration you can use the so called `__default` path as well:
 
