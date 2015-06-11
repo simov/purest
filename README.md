@@ -175,7 +175,11 @@ new Purest({
   // OPTIONAL:
   // extend the providers config with your own provider configuration
   // or extend existing one (refer to the provider configuration section)
-  config:require('./path/to/custom/config.json')
+  config:require('./path/to/custom/config.json'),
+
+  // OPTIONAL:
+  // enable the request-debug module
+  debug:true
 })
 ```
 
@@ -200,9 +204,9 @@ google.query('youtube')
 
 ```js
 // use the __default path configuration
-google.query()
+.query()
 // specify (API/alias) path configuration to use
-google.query('youtube')
+.query('youtube')
 ```
 
 
