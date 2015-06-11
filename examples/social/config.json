@@ -1,0 +1,30 @@
+{
+  "app": {
+    "facebook": {
+      "key": "[APP_ID]",
+      "secret": "[APP_SECRET]"
+    },
+    "linkedin": {
+      "key": "[CONSUMER_KEY]",
+      "secret": "[CONSUMER_SECRET]"
+    },
+    "twitter": {
+      "key": "[CONSUMER_KEY]",
+      "secret": "[CONSUMER_SECRET]"
+    }
+  },
+  "user": {
+    "facebook": {
+      "token": "[ACCESS_TOKEN]"
+    },
+    "linkedin": {
+      "token": "[ACCESS_TOKEN]",
+      "secret": "[ACCESS_SECRET]"
+    },
+    "twitter": {
+      "token": "[ACCESS_TOKEN]",
+      "secret": "[ACCESS_SECRET]",
+      "id": "[USER_ID]"
+    }
+  }
+}

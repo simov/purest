@@ -1,0 +1,25 @@
+{
+  "name": "purest-social-example",
+  "version": "0.0.0",
+  "description": "Purest Social Network Example",
+  "private": true,
+
+  "keywords": [],
+
+  "license": "MIT",
+  "homepage": "https://github.com/simov/grant",
+
+  "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (http://simov.github.io)",
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/simov/grant.git"
+  },
+
+  "dependencies": {
+    "purest"    : "1.1.5",
+    "async"     : "1.2.1"
+  },
+
+  "main": "index.js"
+}
