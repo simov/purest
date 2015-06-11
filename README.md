@@ -22,10 +22,7 @@ Purest is a thin wrapper around the [request][request] module, adding [expressiv
   - [Refresh Tokens][refresh-tokens]
   - [Multipart Uploads][multipart-uploads]
   - [Specific Purest Options][specific-purest-options]
-  - ~ Providers
-
-
----
+  - [Providers][purest-providers]
 
 
 ## Basics
@@ -126,9 +123,6 @@ youtube.query()
 ```
 
 
----
-
-
 ## Basic API
 
 The basic API resembles the one found in the [request][request-simple] module:
@@ -152,9 +146,6 @@ The third argument is the [request's callback][request-simple] function. These a
 3. The third is the `response` body (`String` or `Buffer`, or JSON object if the `json` option is supplied)
 
 Purest sets `json:true` for all of your requests by default, so `body` is always a JSON object.
-
-
----
 
 
 ## Constructor
@@ -187,9 +178,6 @@ new Purest({
   config:require('./path/to/custom/config.json')
 })
 ```
-
-
----
 
 
 ## Query API
@@ -295,9 +283,6 @@ Finally initiate the request:
 This method returns the underlying [request][request] object, so [streaming][streaming] works as usual. The callback is the same you'll find in [request][request-simple]. The only difference is that Purest passes `json:true` by default, so you don't need to, and therefore `body` is always a parsed JSON object.
 
 
----
-
-
 ## Streaming
 
 Purest always returns a [request][request] object, so [streaming][request-streaming] works as usual:
@@ -338,9 +323,6 @@ mailchimp.query('export')
     done()
   }))
 ```
-
-
----
 
 
 ## Provider Configuration
@@ -566,9 +548,6 @@ var myapi = new Purest({provider:'google', config:require('./google-config.json'
 ```
 
 
----
-
-
 ## Refresh Tokens
 
 Purest have a built-in method for refreshing OAuth2 tokens.
@@ -600,9 +579,6 @@ yahoo.refresh(
 ```js
 aboutme.refresh('apikey', 'user', 'pass', function (err, res, body) {})
 ```
-
-
----
 
 
 ## Multipart Uploads
@@ -672,9 +648,6 @@ google.query('upload-drive')
   .auth('[ACCESS_TOKEN]')
   .request(function (err, res, body) {})
 ```
-
-
----
 
 
 ## Specific Purest Options
@@ -802,7 +775,7 @@ MIT
   [specific-purest-options]: #specific-purest-options
 
   [purest-config]: https://github.com/simov/purest/blob/master/config/providers.json
-  [purest-providers]: #
+  [purest-providers]: https://github.com/simov/purest/wiki/Providers
 
   [request]: https://github.com/request/request
   [request-options]: https://github.com/request/request#requestoptions-callback
