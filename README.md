@@ -6,6 +6,18 @@
 Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and [configuration data structure][provider-configuration] to ensure seamless communication with **any** REST API provider in a consistent and straightforward way
 
 
+```js
+var Purest = require('purest')
+  , google = new Purest({provider:'google'})
+
+google.query('youtube')
+  .select('channels')
+  .where({forUsername:'RayWilliamJohnson'})
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+
 ## Table of Contents
 
 - API
@@ -106,6 +118,7 @@ You can use the more expressive [query API][query-api] as well:
 
 ```js
 youtube.query()
+  .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
   .auth('[ACCESS_TOKEN]')
   .request(function (err, res, body) {})
@@ -118,6 +131,7 @@ var youtube = new Purest({provider:'google', api:'youtube',
   defaults:{auth:{bearer:'[ACCESS_TOKEN]'}}})
 // then just
 youtube.query()
+  .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
   .request(function (err, res, body) {})
 ```
