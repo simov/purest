@@ -1,30 +1,32 @@
 
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+if (!process.argv[2]) return console.log('Specify example to run')
+
+var app = require('../../config/app').soundcloud || {}
+  , user = require('../../config/user').soundcloud || {}
+var p = new (require('../../lib/provider'))({provider:'soundcloud'})
 
 
-exports = module.exports = function (t) {
-  return {
-    0: function () {
-      t.get('me', {
-        qs:{oauth_token:cred.user.soundcloud.token}
-      }, function (err, res, body) {
+var examples = {
+  0: function () {
+    p.query()
+      .get('me')
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    1: function () {
-      t.get('tracks', {
-        qs:{
-          oauth_token:cred.user.soundcloud.token,
-          q:'dnb'
-        }
-      }, function (err, res, body) {
+  },
+  1: function () {
+    p.query()
+      .select('tracks')
+      .where({q:'dnb'})
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    }
   }
 }
+
+examples[process.argv[2]]()

@@ -1,53 +1,59 @@
 
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+if (!process.argv[2]) return console.log('Specify example to run')
+
+var app = require('../../config/app').stackexchange || {}
+  , user = require('../../config/user').stackexchange || {}
+var p = new (require('../../lib/provider'))({provider:'stackexchange'})
 
 
-exports = module.exports = function (t) {
-  return {
-    0: function () {
-      t.get('users', {
-        qs:{
-          // anonymous
-          site:'stackoverflow',
-          sort:'reputation',
-          order:'desc'
-        }
-      }, function (err, res, body) {
+var examples = {
+  // anonymous
+  0: function () {
+    p.query()
+      .select('users')
+      .where({
+        site:'stackoverflow',
+        sort:'reputation',
+        order:'desc'
+      })
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    1: function () {
-      t.get('users', {
-        qs:{
-          // app limited
-          key:cred.app.stackexchange.req_key,
-          site:'stackoverflow',
-          sort:'reputation',
-          order:'desc'
-        }
-      }, function (err, res, body) {
+  },
+  // app limited
+  1: function () {
+    p.query()
+      .select('users')
+      .where({
+        site:'stackoverflow',
+        sort:'reputation',
+        order:'desc'
+      })
+      .auth(user.apikey)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    2: function () {
-      t.get('users', {
-        qs:{
-          // app/user pair limited
-          key:cred.app.stackexchange.req_key,
-          access_token:cred.user.stackexchange.token,
-          site:'stackoverflow',
-          sort:'reputation',
-          order:'desc'
-        }
-      }, function (err, res, body) {
+  },
+  // app/user pair limited
+  2: function () {
+    p.query()
+      .select('users')
+      .where({
+        site:'stackoverflow',
+        sort:'reputation',
+        order:'desc'
+      })
+      .auth(user.apikey, user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    } 
   }
 }
+
+examples[process.argv[2]]()

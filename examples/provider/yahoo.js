@@ -1,71 +1,82 @@
 
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+if (!process.argv[2]) return console.log('Specify example to run')
+var id = process.argv[3]
+
+var app = require('../../config/app').yahoo || {}
+  , user = require('../../config/user').yahoo || {}
+var p = new (require('../../lib/provider'))({provider:'yahoo',
+  key:app.key, secret:app.secret})
 
 
-exports = module.exports = function (t) {
-  return {
-    0: function () {
-      t.get('me/guid', {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'social'
-      }, function (err, res, body) {
+var examples = {
+  // get user's GUID
+  0: function () {
+    p.query('social')
+      .select('me/guid')
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    1: function (id) {
-      t.get('user/'+id+'/profile', {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'social'
-      }, function (err, res, body) {
+  },
+  // get user's profile
+  1: function () {
+    p.query('social')
+      .select('user/'+id+'/profile')
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    2: function (id) {
-      t.get('yql', {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'query',
-        params:{q: 'SELECT * FROM social.profile WHERE guid='+
-                      (id ? "'"+id+"'" : 'me')}
-      }, function (err, res, body) {
+  },
+  // get full user profile
+  2: function () {
+    p.query('query')
+      .select('yql')
+      .where({
+        q: 'SELECT * FROM social.profile WHERE guid='+(id ? "'"+id+"'" : 'me')
+      })
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    // accepts multiple ids
-    3: function (id) {
-      t.get('users.guid('+id+')/profile', {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'social'
-      }, function (err, res, body) {
+  },
+  // accepts multiple ids
+  3: function () {
+    p.query('social')
+      .select('users.guid('+id+')/profile')
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    4: function (id) {
-      t.get('user/'+(id||'me')+'/connections', {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'social'
-      }, function (err, res, body) {
+  },
+  4: function () {
+    p.query('social')
+      .select('user/'+(id||'me')+'/connections')
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    5: function () {
-      t.get("places.q('Central Park, New York')", {
-        oauth:{token:cred.user.yahoo.token, secret:cred.user.yahoo.secret},
-        api:'where',
-        params:{
-          appid:cred.app.yahoo.req_key
-        }
-      }, function (err, res, body) {
+  },
+  5: function () {
+    p.query('where')
+      .select("places.q('Central Park, New York')")
+      .qs({appid:app.apikey})
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    }
   }
 }
+
+examples[process.argv[2]]()

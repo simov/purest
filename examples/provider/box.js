@@ -1,34 +1,34 @@
 
-var fs = require('fs'),
-var path = require('path')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
-var fpath = path.resolve(__dirname,'../../test/fixtures/cat.png')
+if (!process.argv[2]) return console.log('Specify example to run')
+
+var app = require('../../config/app').box || {}
+  , user = require('../../config/user').box || {}
+var p = new (require('../../lib/provider'))({provider:'box'})
 
 
-exports = module.exports = function (p) {
-  return {
-    // get root folder metadata
-    0: function () {
-      p.get('folders/0', {
-        auth: {bearer:cred.user.box.token}
-      }, function (err, res, body) {
+var examples = {
+  // get root folder metadata
+  0: function () {
+    p.query()
+      .get('folders/0')
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
         if (err) console.log(err)
         console.log(body)
       })
-    },
-    // get root folder items
-    1: function () {
-      p.get('folders/0/items', {
-        auth: {bearer:cred.user.box.token}
-      }, function (err, res, body) {
+  },
+  // get root folder items
+  1: function () {
+    p.query()
+      .select('folders/0/items')
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
         if (err) console.log(err)
         console.log(body)
       })
-    }
   }
 }
+
+examples[process.argv[2]]()

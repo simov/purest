@@ -1,95 +1,107 @@
 
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+if (!process.argv[2]) return console.log('Specify example to run')
+var id = process.argv[3]
+
+var app = require('../../config/app').facebook || {}
+  , user = require('../../config/user').facebook || {}
+var p = new (require('../../lib/provider'))({provider:'facebook'})
 
 
-exports = module.exports = function (t) {
-  return {
-    0: function (id) {
-      t.get(id||'me', {
-        qs:{access_token:cred.user.facebook.token}
-      }, function (err, res, body) {
+var examples = {
+  // get user's profile
+  0: function (id) {
+    p.query()
+      .get(id || 'me')
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    1: function (id) {
-      t.get((id||'me')+'/feed', {
-        qs:{access_token:cred.user.facebook.token}
-      }, function (err, res, body) {
+  },
+  // get user's timeline
+  1: function (id) {
+    p.query()
+      .get((id || 'me') + '/feed')
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    2: function () {
-      t.get('me/accounts', {
-        qs:{
-          access_token:cred.user.facebook.token,
-          fields:'id,name,picture,access_token'
-        }
-      }, function (err, res, body) {
+  },
+  // get user's accounts
+  2: function () {
+    p.query()
+      .select('me/accounts')
+      .where({fields:'id,name,picture,access_token'})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    3: function () {
-      t.get('me/groups', {
-        qs:{
-          access_token:cred.user.facebook.token,
-          fields:'id,name,picture,administrator,cover,icon'
-        }
-      }, function (err, res, body) {
+  },
+  // get user's groups
+  3: function () {
+    p.query()
+      .select('me/groups')
+      .where({fields:'id,name,picture,administrator,cover,icon'})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    4: function (id) {
-      t.get('fql', {
-        qs:{
-          access_token:cred.user.facebook.token,
-          q:'SELECT icon34 FROM group WHERE gid IN ('+id+')'
-        }
-      }, function (err, res, body) {
+  },
+  // get group's avatar
+  4: function () {
+    p.query()
+      .select('fql')
+      .where({q:'SELECT icon34 FROM group WHERE gid IN ('+id+')'})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    5: function (id) {
-      t.get('fql', {
-        qs:{
-          access_token:cred.user.facebook.token,
-          q:'SELECT friend_count FROM user WHERE uid = ' + id
-        }
-      }, function (err, res, body) {
+  },
+  // get friends count
+  5: function () {
+    p.query()
+      .select('fql')
+      .where({q:'SELECT friend_count FROM user WHERE uid = ' + id})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    6: function (id) {
-      t.get('fql', {
-        qs:{
-          access_token:cred.user.facebook.token,
-          q:'SELECT uid FROM group_member WHERE gid = ' + id
-        }
-      }, function (err, res, body) {
+  },
+  // get the memebers of a group
+  6: function () {
+    p.query()
+      .select('fql')
+      .where({q:'SELECT uid FROM group_member WHERE gid = ' + id})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    7: function (id) {
-      t.post((id||'me')+'/feed', {
-        qs:{
-          access_token:cred.user.facebook.token
-        },
-        form: {
-          message:'Publish message on ' + new Date()
-        }
-      }, function (err, res, body) {
+  },
+  // post message to user's feed
+  7: function () {
+    p.query()
+      .update((id || 'me') + '/feed')
+      .set({message:'Publish message on ' + new Date()})
+      .auth(user.token)
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    }
   }
 }
+
+examples[process.argv[2]]()

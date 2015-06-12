@@ -1,63 +1,62 @@
 
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+if (!process.argv[2]) return console.log('Specify example to run')
+
+var app = require('../../config/app').bitly || {}
+  , user = require('../../config/user').bitly || {}
+var p = new (require('../../lib/provider'))({provider:'bitly',
+  defaults:{qs:{access_token:user.token}}})
 
 
-exports = module.exports = function (t) {
-  return {
-    0: function () {
-      t.get('user/info', {
-        qs:{access_token:cred.user.bitly.token}
-      }, function (err, res, body) {
+var examples = {
+  0: function () {
+    p.query()
+      .select('user/info')
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    1: function () {
-      t.get('shorten', {
-        qs:{
-          access_token:cred.user.bitly.token,
-          longUrl:'http://simov.github.io'
-        }
-      }, function (err, res, body) {
+  },
+  1: function () {
+    p.query()
+      .get('shorten')
+      .where({longUrl:'http://simov.github.io'})
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    2: function () {
-      t.get('bitly_pro_domain', {
-        qs:{
-          access_token:cred.user.bitly.token,
-          domain:'buswk.co'
-        }
-      }, function (err, res, body) {
+  },
+  2: function () {
+    p.query()
+      .get('bitly_pro_domain')
+      .where({domain:'buswk.co'})
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    3: function () {
-      t.get('link/clicks', {
-        qs:{
-          access_token:cred.user.bitly.token,
-          link:'http://nyti.ms/ItXWMo'
-        }
-      }, function (err, res, body) {
+  },
+  3: function () {
+    p.query()
+      .select('link/clicks')
+      .where({link:'http://nyti.ms/ItXWMo'})
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    },
-    4: function () {
-      t.get('info', {
-        qs:{
-          access_token:cred.user.bitly.token,
-          shortUrl:'http://nyti.ms/ItXWMo'
-        }
-      }, function (err, res, body) {
+  },
+  4: function () {
+    p.query()
+      .get('info')
+      .where({shortUrl:'http://nyti.ms/ItXWMo'})
+      .request(function (err, res, body) {
         debugger
+        if (err) console.log(err)
         console.log(body)
       })
-    }
   }
 }
+
+examples[process.argv[2]]()
