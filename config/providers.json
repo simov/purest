@@ -1501,9 +1501,10 @@
     },
     "https://api.stackexchange.com": {
       "__domain": {
-        "auth": {
-          "qs": {"key": "[0]", "access_token": "[1]"}
-        }
+        "auth": [
+          {"qs": {"key": "[0]"}},
+          {"qs": {"key": "[0]", "access_token": "[1]"}}
+        ]
       },
       "[version]/{endpoint}": {
         "__path": {
