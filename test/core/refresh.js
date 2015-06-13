@@ -36,7 +36,7 @@ describe('refresh', function () {
 
   it('oauth', function (done) {
     var yahoo = new Purest({provider:'yahoo'})
-    yahoo._refresh = 'http://localhost:3000/'
+    yahoo.token_url = 'http://localhost:3000/'
     yahoo.refresh({key:'key',secret:'secret'}, {token:'token',secret:'secret'}, 'session',
     function (err, res, body) {
       should.deepEqual(Object.keys(body), [
@@ -50,7 +50,7 @@ describe('refresh', function () {
 
   it('oauth2', function (done) {
     var google = new Purest({provider:'google'})
-    google._refresh = 'http://localhost:3000/'
+    google.token_url = 'http://localhost:3000/'
     google.refresh({key:'key',secret:'secret'}, 'refresh', function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),
         ['grant_type', 'client_id', 'client_secret', 'refresh_token'])
@@ -60,7 +60,7 @@ describe('refresh', function () {
 
   it('reddit', function (done) {
     var reddit = new Purest({provider:'reddit'})
-    reddit._refresh = 'http://localhost:3000/'
+    reddit.token_url = 'http://localhost:3000/'
     reddit.refresh({key:'key',secret:'secret'}, 'refresh', function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),
         ['grant_type', 'refresh_token', 'basic'])
@@ -70,7 +70,7 @@ describe('refresh', function () {
 
   it('aboutme', function (done) {
     var aboutme = new Purest({provider:'aboutme'})
-    aboutme._refresh = 'http://localhost:3000/'
+    aboutme.token_url = 'http://localhost:3000/'
     aboutme.refresh('apikey', 'user', 'pass',
     function (err, res, body) {
       should.deepEqual(Object.keys(qs.parse(body)),

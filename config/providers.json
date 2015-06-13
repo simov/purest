@@ -19,7 +19,7 @@
   },
   "aboutme": {
     "__provider": {
-      "refresh": "https://api.about.me/api/v2/json/user/login/"
+      "token_url": "https://api.about.me/api/v2/json/user/login/"
     },
     "https://api.about.me": {
       "__domain": {
@@ -78,7 +78,7 @@
   "asana": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://app.asana.com/-/oauth_token"
+      "token_url": "https://app.asana.com/-/oauth_token"
     },
     "https://app.asana.com": {
       "__domain": {
@@ -98,7 +98,7 @@
   "assembla": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.assembla.com/token"
+      "token_url": "https://api.assembla.com/token"
     },
     "https://api.assembla.com": {
       "__domain": {
@@ -117,7 +117,7 @@
   "basecamp": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://launchpad.37signals.com/authorization/token"
+      "token_url": "https://launchpad.37signals.com/authorization/token"
     },
     "https://basecamp.com": {
       "__domain": {
@@ -185,7 +185,7 @@
   "box": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.box.com/oauth2/token"
+      "token_url": "https://api.box.com/oauth2/token"
     },
     "https://api.box.com": {
       "__domain": {
@@ -325,7 +325,7 @@
   "coinbase": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.coinbase.com/oauth/token"
+      "token_url": "https://www.coinbase.com/oauth/token"
     },
     "https://api.coinbase.com": {
       "__domain": {
@@ -361,7 +361,7 @@
   "dailymotion": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.dailymotion.com/oauth/token"
+      "token_url": "https://api.dailymotion.com/oauth/token"
     },
     "https://api.dailymotion.com": {
       "__domain": {
@@ -396,7 +396,7 @@
   "deviantart": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.deviantart.com/oauth2/token"
+      "token_url": "https://www.deviantart.com/oauth2/token"
     },
     "https://www.deviantart.com": {
       "__domain": {
@@ -415,7 +415,7 @@
   "digitalocean": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://cloud.digitalocean.com/v1/oauth/token"
+      "token_url": "https://cloud.digitalocean.com/v1/oauth/token"
     },
     "https://api.digitalocean.com": {
       "__domain": {
@@ -435,7 +435,7 @@
   "disqus": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://disqus.com/api/oauth/2.0/access_token/"
+      "token_url": "https://disqus.com/api/oauth/2.0/access_token/"
     },
     "https://disqus.com": {
       "__domain": {
@@ -491,7 +491,7 @@
   "edmodo": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.edmodo.com/oauth/token"
+      "token_url": "https://api.edmodo.com/oauth/token"
     },
     "https://api.edmodo.com": {
       "__domain": {
@@ -621,7 +621,7 @@
   "flowdock": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.flowdock.com/oauth/token"
+      "token_url": "https://api.flowdock.com/oauth/token"
     },
     "https://api.flowdock.com": {
       "__domain": {
@@ -744,7 +744,7 @@
   "google": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://accounts.google.com/o/oauth2/token"
+      "token_url": "https://accounts.google.com/o/oauth2/token"
     },
     "https://www.googleapis.com": {
       "__domain": {
@@ -897,7 +897,7 @@
   "harvest": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.harvestapp.com/oauth2/token"
+      "token_url": "https://api.harvestapp.com/oauth2/token"
     },
     "https://[domain].harvestapp.com": {
       "__domain": {
@@ -916,7 +916,7 @@
   "heroku": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://id.heroku.com/oauth/token"
+      "token_url": "https://id.heroku.com/oauth/token"
     },
     "https://api.heroku.com": {
       "__domain": {
@@ -935,7 +935,7 @@
   "imgur": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.imgur.com/oauth2/token"
+      "token_url": "https://api.imgur.com/oauth2/token"
     },
     "https://api.imgur.com": {
       "__domain": {
@@ -973,7 +973,7 @@
   "jawbone": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://jawbone.com/auth/oauth2/token"
+      "token_url": "https://jawbone.com/auth/oauth2/token"
     },
     "https://jawbone.com": {
       "__domain": {
@@ -992,7 +992,7 @@
   "linkedin": {
     "__provider": {
       "oauth": true,
-      "refresh": "https://www.linkedin.com/uas/oauth2/accessToken"
+      "token_url": "https://www.linkedin.com/uas/oauth2/accessToken"
     },
     "https://api.linkedin.com": {
       "__domain": {
@@ -1019,7 +1019,7 @@
   "live": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://login.live.com/oauth20_token.srf"
+      "token_url": "https://login.live.com/oauth20_token.srf"
     },
     "https://apis.live.net": {
       "__domain": {
@@ -1186,7 +1186,7 @@
   "paypal": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.paypal.com/v1/identity/openidconnect/tokenservice"
+      "token_url": "https://api.paypal.com/v1/identity/openidconnect/tokenservice"
     },
     "https://api.paypal.com": {
       "__domain": {
@@ -1251,7 +1251,7 @@
   "podio": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://podio.com/oauth/token"
+      "token_url": "https://podio.com/oauth/token"
     },
     "https://api.podio.com": {
       "__domain": {
@@ -1287,7 +1287,7 @@
   "redbooth": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://redbooth.com/oauth2/token"
+      "token_url": "https://redbooth.com/oauth2/token"
     },
     "https://redbooth.com": {
       "__domain": {
@@ -1306,7 +1306,7 @@
   "reddit": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://ssl.reddit.com/api/v1/access_token"
+      "token_url": "https://ssl.reddit.com/api/v1/access_token"
     },
     "https://api.reddit.com": {
       "__domain": {
@@ -1369,7 +1369,7 @@
   "salesforce": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://login.salesforce.com/services/oauth2/token"
+      "token_url": "https://login.salesforce.com/services/oauth2/token"
     },
     "https://[domain].salesforce.com": {
       "__domain": {
@@ -1461,7 +1461,7 @@
   "soundcloud": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.soundcloud.com/oauth2/token"
+      "token_url": "https://api.soundcloud.com/oauth2/token"
     },
     "https://api.soundcloud.com": {
       "__domain": {
@@ -1479,7 +1479,7 @@
   "spotify": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://accounts.spotify.com/api/token"
+      "token_url": "https://accounts.spotify.com/api/token"
     },
     "https://api.spotify.com": {
       "__domain": {
@@ -1559,7 +1559,7 @@
   "stripe": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://connect.stripe.com/oauth/token"
+      "token_url": "https://connect.stripe.com/oauth/token"
     },
     "https://api.stripe.com": {
       "__domain": {
@@ -1578,7 +1578,7 @@
   "traxo": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://www.traxo.com/oauth/token"
+      "token_url": "https://www.traxo.com/oauth/token"
     },
     "https://api.traxo.com": {
       "__domain": {
@@ -1653,7 +1653,7 @@
   "twitch": {
     "__provider": {
       "oauth2": true,
-      "refresh": "https://api.twitch.tv/kraken/oauth2/token"
+      "token_url": "https://api.twitch.tv/kraken/oauth2/token"
     },
     "https://api.twitch.tv": {
       "__domain": {
@@ -1780,7 +1780,7 @@
   "yahoo": {
     "__provider": {
       "oauth": true,
-      "refresh": "https://api.login.yahoo.com/oauth/v2/get_token"
+      "token_url": "https://api.login.yahoo.com/oauth/v2/get_token"
     },
     "https://social.yahooapis.com": {
       "__domain": {

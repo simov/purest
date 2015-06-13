@@ -56,7 +56,7 @@ In this example we are requesting the [channels][youtube-channels] endpoint of t
 "google": {
   "__provider": {
     "oauth2": true,
-    "refresh": "https://accounts.google.com/o/oauth2/token"
+    "token_url": "https://accounts.google.com/o/oauth2/token"
   },
   "https://www.googleapis.com": {
     "__domain": {
@@ -380,8 +380,8 @@ That's about the bare minimum configuration you want to have for a provider. How
       "oauth": true,
       // OPTIONAL: indicates that this provider is using OAuth2
       "oauth2": true,
-      // OPTIONAL: API absolute URL for refreshing the OAuth2 access token
-      "refresh": "https://..."
+      // OPTIONAL: absolute URL to the token url for OAuth2 providers
+      "token_url": "https://..."
     },
     // REQUIRED: at least one domain is required
     "https://graph.facebook.com": {
@@ -519,7 +519,7 @@ You can even extend or override existing provider. For example if we have the fo
 "google": {
   "__provider": {
     "oauth2": true,
-    "refresh": "https://accounts.google.com/o/oauth2/token"
+    "token_url": "https://accounts.google.com/o/oauth2/token"
   },
   "https://www.googleapis.com": {
     "__domain": {

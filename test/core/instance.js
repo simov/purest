@@ -40,7 +40,7 @@ describe('instance', function () {
   })
   it('refresh token uri', function () {
     var p = new Purest({provider:'google'})
-    p._refresh.should.equal('https://accounts.google.com/o/oauth2/token')
+    p.token_url.should.equal('https://accounts.google.com/o/oauth2/token')
   })
 
   it('API return data type', function () {
@@ -94,7 +94,7 @@ describe('instance', function () {
     sendgrid.before.upload('endpoint', options).should.equal(true)
   })
   it.skip('config & query methods', function () {
-    
+
   })
   it('expose the default request method', function () {
     Purest.request.should.be.type('function')
