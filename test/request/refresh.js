@@ -35,53 +35,79 @@ describe('refresh', function () {
     }
   })
 
-  it('no refresh method', function () {
-    try {
-      p.twitter.refresh()
-    } catch (err) {
-      err.message.should.equal(
-        "Property 'refresh' of object #<Provider> is not a function")
-    }
-  })
-
   // http://about.me/developer/api/docs/#login
   describe('aboutme', function () {
     var _body = null
     it('refresh', function (done) {
-      p.aboutme.refresh(
-        cred.user.aboutme.apikey,
-        cred.user.aboutme.user,
-        cred.user.aboutme.pass,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'status', 'expires_in'
-        ])
-        _body = body
-        done()
-      })
+      p.aboutme.query('user')
+        .update('login/' + cred.user.aboutme.user)
+        .set({
+          grant_type:'password',
+          client_id:cred.user.aboutme.apikey,
+          password:cred.user.aboutme.pass
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'status', 'expires_in'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('aboutme', _body.access_token)
     })
   })
+  // https://developer.act-on.com/documentation/oauth/
+  describe.skip('acton', function () {
+    // needs user credentials first
+    var _body = null
+    it('refresh', function (done) {
+      p.acton.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.acton.refresh,
+          client_id:cred.app.acton.key,
+          client_secret:cred.app.acton.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          // should.deepEqual(Object.keys(body), [
+
+          // ])
+          _body = body
+          done()
+        })
+    })
+    // after(function () {
+    //   refresh.store('aboutme', _body.access_token)
+    // })
+  })
   // https://github.com/Asana/oauth-examples#token-exchange-endpoint
   describe('asana', function () {
     var _body = null
     it('refresh', function (done) {
-      p.asana.refresh(
-        cred.app.asana,
-        cred.user.asana.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in', 'data'
-        ])
-        _body = body
-        done()
-      })
+      p.asana.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.asana.refresh,
+          client_id:cred.app.asana.key,
+          client_secret:cred.app.asana.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in', 'data'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('asana', _body.access_token)
@@ -91,18 +117,23 @@ describe('refresh', function () {
   describe('assembla', function () {
     var _body = null
     it('refresh', function (done) {
-      p.assembla.refresh(
-        cred.app.assembla,
-        cred.user.assembla.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in'
-        ])
-        _body = body
-        done()
-      })
+      p.assembla.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.assembla.refresh,
+          client_id:cred.app.assembla.key,
+          client_secret:cred.app.assembla.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('assembla', _body.access_token)
@@ -112,18 +143,23 @@ describe('refresh', function () {
   describe('basecamp', function () {
     var _body = null
     it('refresh', function (done) {
-      p.basecamp.refresh(
-        cred.app.basecamp,
-        cred.user.basecamp.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'expires_in', 'access_token'
-        ])
-        _body = body
-        done()
-      })
+      p.basecamp.query('oauth')
+        .update('token')
+        .set({
+          type:'refresh',
+          refresh_token:cred.user.basecamp.refresh,
+          client_id:cred.app.basecamp.key,
+          client_secret:cred.app.basecamp.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'expires_in', 'access_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('basecamp', _body.access_token)
@@ -133,19 +169,24 @@ describe('refresh', function () {
   describe('box', function () {
     var _body = null
     it('refresh', function (done) {
-      p.box.refresh(
-        cred.app.box,
-        cred.user.box.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'expires_in', 'restricted_to',
-          'refresh_token', 'token_type'
-        ])
-        _body = body
-        done()
-      })
+      p.box.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.box.refresh,
+          client_id:cred.app.box.key,
+          client_secret:cred.app.box.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'expires_in', 'restricted_to',
+            'refresh_token', 'token_type'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('box', _body.access_token, _body.refresh_token)
@@ -155,19 +196,24 @@ describe('refresh', function () {
   describe('coinbase', function () {
     var _body = null
     it('refresh', function (done) {
-      p.coinbase.refresh(
-        cred.app.coinbase,
-        cred.user.coinbase.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.coinbase.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.coinbase.refresh,
+          client_id:cred.app.coinbase.key,
+          client_secret:cred.app.coinbase.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('coinbase', _body.access_token, _body.refresh_token)
@@ -177,19 +223,24 @@ describe('refresh', function () {
   describe('dailymotion', function () {
     var _body = null
     it('refresh', function (done) {
-      p.dailymotion.refresh(
-        cred.app.dailymotion,
-        cred.user.dailymotion.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope', 'uid'
-        ])
-        _body = body
-        done()
-      })
+      p.dailymotion.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.dailymotion.refresh,
+          client_id:cred.app.dailymotion.key,
+          client_secret:cred.app.dailymotion.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope', 'uid'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('dailymotion', _body.access_token)
@@ -199,19 +250,24 @@ describe('refresh', function () {
   describe('deviantart', function () {
     var _body = null
     it('refresh', function (done) {
-      p.deviantart.refresh(
-        cred.app.deviantart,
-        cred.user.deviantart.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope', 'status'
-        ])
-        _body = body
-        done()
-      })
+      p.deviantart.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.deviantart.refresh,
+          client_id:cred.app.deviantart.key,
+          client_secret:cred.app.deviantart.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope', 'status'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('deviantart', _body.access_token, _body.refresh_token)
@@ -221,19 +277,24 @@ describe('refresh', function () {
   describe('digitalocean', function () {
     var _body = null
     it('refresh', function (done) {
-      p.digitalocean.refresh(
-        cred.app.digitalocean,
-        cred.user.digitalocean.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope', 'uid','info'
-        ])
-        _body = body
-        done()
-      })
+      p.digitalocean.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.digitalocean.refresh,
+          client_id:cred.app.digitalocean.key,
+          client_secret:cred.app.digitalocean.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope', 'uid','info'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('digitalocean', _body.access_token, _body.refresh_token)
@@ -243,19 +304,24 @@ describe('refresh', function () {
   describe('disqus', function () {
     var _body = null
     it('refresh', function (done) {
-      p.disqus.refresh(
-        cred.app.disqus,
-        cred.user.disqus.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'username', 'user_id', 'access_token', 'expires_in',
-          'token_type', 'state', 'scope', 'refresh_token'
-        ])
-        _body = body
-        done()
-      })
+      p.disqus.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.disqus.refresh,
+          client_id:cred.app.disqus.key,
+          client_secret:cred.app.disqus.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'username', 'user_id', 'access_token', 'expires_in',
+            'token_type', 'state', 'scope', 'refresh_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('disqus', _body.access_token, _body.refresh_token)
@@ -265,18 +331,23 @@ describe('refresh', function () {
   describe('edmodo', function () {
     var _body = null
     it('refresh', function (done) {
-      p.edmodo.refresh(
-        cred.app.edmodo,
-        cred.user.edmodo.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in', 'refresh_token', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.edmodo.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.edmodo.refresh,
+          client_id:cred.app.edmodo.key,
+          client_secret:cred.app.edmodo.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in', 'refresh_token', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('edmodo', _body.access_token, _body.refresh_token)
@@ -286,19 +357,24 @@ describe('refresh', function () {
   describe('flowdock', function () {
     var _body = null
     it('refresh', function (done) {
-      p.flowdock.refresh(
-        cred.app.flowdock,
-        cred.user.flowdock.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.flowdock.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.flowdock.refresh,
+          client_id:cred.app.flowdock.key,
+          client_secret:cred.app.flowdock.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('flowdock', _body.access_token, _body.refresh_token)
@@ -308,18 +384,23 @@ describe('refresh', function () {
   describe('google', function () {
     var _body = null
     it('refresh', function (done) {
-      p.google.refresh(
-        cred.app.google,
-        cred.user.google.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in', 'id_token'
-        ])
-        _body = body
-        done()
-      })
+      p.google.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.google.refresh,
+          client_id:cred.app.google.key,
+          client_secret:cred.app.google.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in', 'id_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('google', _body.access_token)
