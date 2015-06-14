@@ -31,7 +31,7 @@ google.query('youtube')
   - [Create Custom Provider][create-custom-provider]
   - [Extend Existing Provider][extend-existing-provider]
 - Misc
-  - [Refresh Tokens][refresh-tokens]
+  - [OAuth][oauth]
   - [Multipart Uploads][multipart-uploads]
   - [Specific Purest Options][specific-purest-options]
   - [Providers][purest-providers]
@@ -379,9 +379,7 @@ That's about the bare minimum configuration you want to have for a provider. How
       // OPTIONAL: indicates that this provider is using OAuth1
       "oauth": true,
       // OPTIONAL: indicates that this provider is using OAuth2
-      "oauth2": true,
-      // OPTIONAL: absolute URL to the token url for OAuth2 providers
-      "token_url": "https://..."
+      "oauth2": true
     },
     // REQUIRED: at least one domain is required
     "https://graph.facebook.com": {
@@ -566,37 +564,124 @@ var myapi = new Purest({provider:'google', config:require('./google-config.json'
 ```
 
 
-## Refresh Tokens
+## OAuth
 
-Purest have a built-in method for refreshing OAuth2 tokens.
-
-In case you don't have access/refresh tokens already, you can use the **_[Grant OAuth middleware][grant]_** in your web app to get them (alternatively you can use the [OAuth Playground][grant-oauth] for testing).
-
-
-### OAuth2
+You can configure Purest to make your code more expressive for using various OAuth grant types. For example this is how the configuration for [acton][acton-oauth] looks like:
 
 ```js
-google.refresh({key:'[APP_ID]', secret:'[APP_SECRET]'}, '[REFRESH_TOKEN]',
-  function (err, res, body) {})
+"acton": {
+  "__provider": {
+    "oauth2": true
+  },
+  "https://restapi.actonsoftware.com": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    },
+    "api/[version]/{endpoint}": {
+      "__path": {
+        "alias": "__default",
+        "version": "1"
+      }
+    },
+    "{endpoint}": {
+      "__path": {
+        "alias": ["oauth"]
+      }
+    }
+  }
+}
 ```
 
-
-### OAuth1.0
+### [Client Credentials Grant][grant-client-credentials]
 
 ```js
-yahoo.refresh(
-  {key:'[CONSUMER_KEY]', secret:'[CONSUMER_SECRET]'},
-  {token:'[ACCESS_TOKEN]', secret:'[ACCESS_SECRET]'},
-  '[SESSION_HANDLE]',
-  function (err, res, body) {})
+acton.query('oauth')
+  .update('token')
+  .set({
+    grant_type:'client_credentials',
+    client_id:'[APP_ID]',
+    client_secret:'[APP_SECRET]'
+  })
+  .request(function (err, res, body) {})
 ```
 
-
-### about.me
+### [Resource Owner Password Credentials Grant][grant-password]
 
 ```js
-aboutme.refresh('apikey', 'user', 'pass', function (err, res, body) {})
+acton.query('oauth')
+  .update('token')
+  .set({
+    grant_type:'password',
+    username:'[USERNAME]',
+    password:'[PASSWORD]',
+    client_id:'[APP_ID]',
+    client_secret:'[APP_SECRET]'
+  })
+  .request(function (err, res, body) {})
 ```
+
+### [Refresh Token][grant-refresh]
+
+```js
+acton.query('oauth')
+  .update('token')
+  .set({
+    grant_type:'refresh_token',
+    refresh_token:'[REFRESH_TOKEN]',
+    client_id:'[APP_ID]',
+    client_secret:'[APP_SECRET]'
+  })
+  .request(function (err, res, body) {})
+```
+
+Alternatively you can send the app credentials via basic auth:
+
+```js
+"acton": {
+  "https://restapi.actonsoftware.com": {
+    "{endpoint}": {
+      "__path": {
+        "alias": ["oauth"],
+        "auth": {"auth":{"user": "[0]", "pass": "[1]"}}
+      }
+    }
+  }
+}
+```
+
+```js
+acton.query('oauth')
+  .update('token')
+  .set({grant_type:'client_credentials'})
+  .auth('[APP_ID]', '[APP_SECRET]')
+  .request(function (err, res, body) {})
+```
+
+### [Consumer Requests to Update Access Token - OAuth1][refresh-oauth1]
+
+```js
+yahoo.query('oauth')
+  .update('token')
+  .options({
+    oauth: {
+      consumer_key:'...',
+      consumer_secret:'...',
+      token:'...',
+      token_secret:'...',
+      session_handle:'...'
+    }
+  })
+  .request(function (err, res, body) {})
+```
+
+Take a look at how OAuth token paths are configured for various providers in [config/providers.json][purest-config].
+
+
+### [Authorization Code Grant][grant-authorization-code]
+
+This grant type is implemented by **_[Grant][grant]_** which is OAuth middleware for Express, Koa and Hapi. Alternatively you can use the [OAuth Playground][grant-oauth] for testing.
 
 
 ## Multipart Uploads
@@ -788,7 +873,7 @@ MIT
   [provider-configuration]: #provider-configuration
   [create-custom-provider]: #create-custom-provider
   [extend-existing-provider]: #extend-existing-provider
-  [refresh-tokens]: #refresh-tokens
+  [oauth]: #oauth
   [multipart-uploads]: #multipart-uploads
   [specific-purest-options]: #specific-purest-options
 
@@ -807,3 +892,10 @@ MIT
 
   [youtube-channels]: https://developers.google.com/youtube/v3/docs/channels/list
   [event-stream]: https://github.com/dominictarr/event-stream
+
+  [acton-oauth]: https://developer.act-on.com/documentation/oauth/
+  [grant-authorization-code]: https://tools.ietf.org/html/rfc6749#section-4.1
+  [grant-password]: https://tools.ietf.org/html/rfc6749#section-4.3
+  [grant-client-credentials]: https://tools.ietf.org/html/rfc6749#section-4.4
+  [grant-refresh]: https://tools.ietf.org/html/rfc6749#section-6
+  [refresh-oauth1]: http://oauth.googlecode.com/svn/spec/ext/session/1.0/drafts/1/spec.html#update_access_token
