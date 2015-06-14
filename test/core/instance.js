@@ -38,10 +38,6 @@ describe('instance', function () {
     var p = new Purest({provider:'facebook'})
     p.oauth2.should.equal(true)
   })
-  it('refresh token uri', function () {
-    var p = new Purest({provider:'google'})
-    p.token_url.should.equal('https://accounts.google.com/o/oauth2/token')
-  })
 
   it('API return data type', function () {
     var p = new Purest({provider:'twitter'})
@@ -74,10 +70,6 @@ describe('instance', function () {
     var options = {form:{key:'data'}}
     p.before.post('endpoint',options)
     should.deepEqual(options, {json:{key:'data'}})
-  })
-  it('refresh', function () {
-    var p = new Purest({provider:'google'})
-    p.refresh.should.be.type('function')
   })
 
   it.skip('support multiple instances', function () {
