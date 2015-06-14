@@ -18,9 +18,7 @@
     }
   },
   "aboutme": {
-    "__provider": {
-      "token_url": "https://api.about.me/api/v2/json/user/login/"
-    },
+    "__provider": {},
     "https://api.about.me": {
       "__domain": {
         "auth": [
@@ -57,6 +55,30 @@
       }
     }
   },
+  "acton": {
+    "__provider": {
+      "oauth2": true
+    },
+    "https://restapi.actonsoftware.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": ["oauth"],
+          "auth": {"auth":{"user": "[0]", "pass": "[1]"}}
+        }
+      }
+    }
+  },
   "angellist": {
     "__provider": {
       "oauth2": true
@@ -77,8 +99,7 @@
   },
   "asana": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://app.asana.com/-/oauth_token"
+      "oauth2": true
     },
     "https://app.asana.com": {
       "__domain": {
@@ -92,13 +113,17 @@
           "alias": "__default",
           "version": "1.0"
         }
+      },
+      "-/oauth_{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "assembla": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.assembla.com/token"
+      "oauth2": true
     },
     "https://api.assembla.com": {
       "__domain": {
@@ -111,13 +136,17 @@
           "alias": "__default",
           "version": "v1"
         }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "basecamp": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://launchpad.37signals.com/authorization/token"
+      "oauth2": true
     },
     "https://basecamp.com": {
       "__domain": {
@@ -142,6 +171,11 @@
       "{endpoint}.[type]": {
         "__path": {
           "alias": ["id"]
+        }
+      },
+      "authorization/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -184,8 +218,7 @@
   },
   "box": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.box.com/oauth2/token"
+      "oauth2": true
     },
     "https://api.box.com": {
       "__domain": {
@@ -205,6 +238,11 @@
           "get": {
             "encoding": null
           }
+        }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     },
@@ -324,8 +362,7 @@
   },
   "coinbase": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://www.coinbase.com/oauth/token"
+      "oauth2": true
     },
     "https://api.coinbase.com": {
       "__domain": {
@@ -337,6 +374,14 @@
         "__path": {
           "alias": "__default",
           "version": "v1"
+        }
+      }
+    },
+    "https://www.coinbase.com": {
+      "__domain": {},
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -360,8 +405,7 @@
   },
   "dailymotion": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.dailymotion.com/oauth/token"
+      "oauth2": true
     },
     "https://api.dailymotion.com": {
       "__domain": {
@@ -372,6 +416,11 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -395,8 +444,7 @@
   },
   "deviantart": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://www.deviantart.com/oauth2/token"
+      "oauth2": true
     },
     "https://www.deviantart.com": {
       "__domain": {
@@ -409,13 +457,17 @@
           "alias": "__default",
           "version": "v1"
         }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "digitalocean": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://cloud.digitalocean.com/v1/oauth/token"
+      "oauth2": true
     },
     "https://api.digitalocean.com": {
       "__domain": {
@@ -430,12 +482,20 @@
           "version": "v2"
         }
       }
+    },
+    "https://cloud.digitalocean.com": {
+      "__domain": {},
+      "[version]/oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v1"
+        }
+      }
     }
   },
   "disqus": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://disqus.com/api/oauth/2.0/access_token/"
+      "oauth2": true
     },
     "https://disqus.com": {
       "__domain": {
@@ -448,6 +508,12 @@
         "__path": {
           "alias": "__default",
           "version": "3.0"
+        }
+      },
+      "api/oauth/[version]/access_{endpoint}/": {
+        "__path": {
+          "alias": "oauth",
+          "version": "2.0"
         }
       }
     }
@@ -490,8 +556,7 @@
   },
   "edmodo": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.edmodo.com/oauth/token"
+      "oauth2": true
     },
     "https://api.edmodo.com": {
       "__domain": {
@@ -502,6 +567,11 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -537,6 +607,11 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      },
+      "oauth/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -620,8 +695,7 @@
   },
   "flowdock": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.flowdock.com/oauth/token"
+      "oauth2": true
     },
     "https://api.flowdock.com": {
       "__domain": {
@@ -634,6 +708,11 @@
         "__path": {
           "alias": "__default",
           "version": "v1"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     },
@@ -743,8 +822,7 @@
   },
   "google": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://accounts.google.com/o/oauth2/token"
+      "oauth2": true
     },
     "https://www.googleapis.com": {
       "__domain": {
@@ -874,6 +952,18 @@
           }
         }
       }
+    },
+    "https://accounts.google.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"user": "[0]", "pass": "[1]"}
+        }
+      },
+      "o/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
     }
   },
   "hackpad": {
@@ -896,8 +986,7 @@
   },
   "harvest": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.harvestapp.com/oauth2/token"
+      "oauth2": true
     },
     "https://[domain].harvestapp.com": {
       "__domain": {
@@ -911,12 +1000,19 @@
           "alias": "__default"
         }
       }
+    },
+    "https://api.harvestapp.com": {
+      "__domain": {},
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
     }
   },
   "heroku": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://id.heroku.com/oauth/token"
+      "oauth2": true
     },
     "https://api.heroku.com": {
       "__domain": {
@@ -930,12 +1026,19 @@
           "alias": "__default"
         }
       }
+    },
+    "https://id.heroku.com": {
+      "__domain": {},
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
     }
   },
   "imgur": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.imgur.com/oauth2/token"
+      "oauth2": true
     },
     "https://api.imgur.com": {
       "__domain": {
@@ -948,6 +1051,11 @@
         "__path": {
           "alias": "__default",
           "version": "3"
+        }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -972,8 +1080,7 @@
   },
   "jawbone": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://jawbone.com/auth/oauth2/token"
+      "oauth2": true
     },
     "https://jawbone.com": {
       "__domain": {
@@ -986,13 +1093,17 @@
           "alias": "__default",
           "version": "v.1.1"
         }
+      },
+      "auth/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "linkedin": {
     "__provider": {
-      "oauth": true,
-      "token_url": "https://www.linkedin.com/uas/oauth2/accessToken"
+      "oauth": true
     },
     "https://api.linkedin.com": {
       "__domain": {
@@ -1018,8 +1129,7 @@
   },
   "live": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://login.live.com/oauth20_token.srf"
+      "oauth2": true
     },
     "https://apis.live.net": {
       "__domain": {
@@ -1054,6 +1164,14 @@
           "get": {
             "encoding": null
           }
+        }
+      }
+    },
+    "https://login.live.com": {
+      "__domain": {},
+      "oauth20_{endpoint}.srf": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1183,10 +1301,31 @@
       }
     }
   },
+  "organisedminds": {
+    "__provider": {
+      "oauth2": true
+    },
+    "https://app.organisedminds.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "paypal": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.paypal.com/v1/identity/openidconnect/tokenservice"
+      "oauth2": true
     },
     "https://api.paypal.com": {
       "__domain": {
@@ -1209,6 +1348,12 @@
       "[version]/identity/openidconnect/{endpoint}": {
         "__path": {
           "alias": ["identity"],
+          "version": "v1"
+        }
+      },
+      "[version]/identity/openidconnect/{endpoint}service": {
+        "__path": {
+          "alias": "oauth",
           "version": "v1"
         }
       },
@@ -1250,8 +1395,7 @@
   },
   "podio": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://podio.com/oauth/token"
+      "oauth2": true
     },
     "https://api.podio.com": {
       "__domain": {
@@ -1262,6 +1406,14 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      }
+    },
+    "https://podio.com": {
+      "__domain": {},
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1286,8 +1438,7 @@
   },
   "redbooth": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://redbooth.com/oauth2/token"
+      "oauth2": true
     },
     "https://redbooth.com": {
       "__domain": {
@@ -1300,13 +1451,17 @@
           "alias": "__default",
           "version": "3"
         }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "reddit": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://ssl.reddit.com/api/v1/access_token"
+      "oauth2": true
     },
     "https://api.reddit.com": {
       "__domain": {
@@ -1317,6 +1472,15 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      }
+    },
+    "https://ssl.reddit.com": {
+      "__domain": {},
+      "api/[version]/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v1"
         }
       }
     }
@@ -1368,8 +1532,7 @@
   },
   "salesforce": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://login.salesforce.com/services/oauth2/token"
+      "oauth2": true
     },
     "https://[domain].salesforce.com": {
       "__domain": {
@@ -1387,6 +1550,14 @@
         "__path": {
           "alias": ["sobjects"],
           "version": "v20.0"
+        }
+      }
+    },
+    "https://login.salesforce.com": {
+      "__domain": {},
+      "services/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1460,8 +1631,7 @@
   },
   "soundcloud": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.soundcloud.com/oauth2/token"
+      "oauth2": true
     },
     "https://api.soundcloud.com": {
       "__domain": {
@@ -1473,13 +1643,17 @@
         "__path": {
           "alias": "__default"
         }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
   "spotify": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://accounts.spotify.com/api/token"
+      "oauth2": true
     },
     "https://api.spotify.com": {
       "__domain": {
@@ -1491,6 +1665,14 @@
         "__path": {
           "alias": "__default",
           "version": "v1"
+        }
+      }
+    },
+    "https://accounts.spotify.com": {
+      "__domain": {},
+      "api/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1558,8 +1740,7 @@
   },
   "stripe": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://connect.stripe.com/oauth/token"
+      "oauth2": true
     },
     "https://api.stripe.com": {
       "__domain": {
@@ -1573,12 +1754,19 @@
           "version": "v1"
         }
       }
+    },
+    "https://connect.stripe.com": {
+      "__domain": {},
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
     }
   },
   "traxo": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://www.traxo.com/oauth/token"
+      "oauth2": true
     },
     "https://api.traxo.com": {
       "__domain": {
@@ -1590,6 +1778,14 @@
         "__path": {
           "alias": "__default",
           "version": "v2"
+        }
+      }
+    },
+    "https://www.traxo.com": {
+      "__domain": {},
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1652,8 +1848,7 @@
   },
   "twitch": {
     "__provider": {
-      "oauth2": true,
-      "token_url": "https://api.twitch.tv/kraken/oauth2/token"
+      "oauth2": true
     },
     "https://api.twitch.tv": {
       "__domain": {
@@ -1672,6 +1867,11 @@
             }
           }
         }
+      },
+      "kraken/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
       }
     }
   },
@@ -1689,6 +1889,11 @@
         "__path": {
           "alias": "__default",
           "version": "1.1"
+        }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -1779,8 +1984,7 @@
   },
   "yahoo": {
     "__provider": {
-      "oauth": true,
-      "token_url": "https://api.login.yahoo.com/oauth/v2/get_token"
+      "oauth": true
     },
     "https://social.yahooapis.com": {
       "__domain": {
@@ -1818,6 +2022,15 @@
         "__path": {
           "alias": ["where", "geo"],
           "version": "v1"
+        }
+      }
+    },
+    "https://api.login.yahoo.com": {
+      "__domain": {},
+      "oauth/[version]/get_{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v2"
         }
       }
     }
