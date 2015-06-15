@@ -55,8 +55,7 @@ In this example we are requesting the [channels][youtube-channels] endpoint of t
 ```js
 "google": {
   "__provider": {
-    "oauth2": true,
-    "token_url": "https://accounts.google.com/o/oauth2/token"
+    "oauth2": true
   },
   "https://www.googleapis.com": {
     "__domain": {
@@ -516,8 +515,7 @@ You can even extend or override existing provider. For example if we have the fo
 ```js
 "google": {
   "__provider": {
-    "oauth2": true,
-    "token_url": "https://accounts.google.com/o/oauth2/token"
+    "oauth2": true
   },
   "https://www.googleapis.com": {
     "__domain": {
