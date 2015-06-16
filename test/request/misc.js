@@ -23,7 +23,7 @@ describe('misc', function () {
         provider:name,
         defaults:{headers:{'User-Agent':'Purest'}}
       }
-      if (providers[name].__provider.oauth) {
+      if (providers[name].__provider && providers[name].__provider.oauth) {
         options.key = cred.app[name].key
         options.secret = cred.app[name].secret
       }
@@ -77,7 +77,7 @@ describe('misc', function () {
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
-          
+
           done()
         })
     })

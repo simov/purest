@@ -18,7 +18,6 @@
     }
   },
   "aboutme": {
-    "__provider": {},
     "https://api.about.me": {
       "__domain": {
         "auth": [
@@ -348,7 +347,6 @@
     }
   },
   "coderbits": {
-    "__provider": {},
     "https://coderbits.com": {
       "__domain": {
 
@@ -749,7 +747,6 @@
     }
   },
   "getpocket": {
-    "__provider": {},
     "https://getpocket.com": {
       "__domain": {
         "auth": {
@@ -1201,7 +1198,6 @@
     }
   },
   "mailgun": {
-    "__provider": {},
     "https://api.mailgun.net": {
       "__domain": {
         "auth": {
@@ -1217,7 +1213,6 @@
     }
   },
   "mandrill": {
-    "__provider": {},
     "https://mandrillapp.com": {
       "__domain": {
         "auth": {
@@ -1233,7 +1228,6 @@
     }
   },
   "mixcloud": {
-    "__provider": {},
     "https://api.mixcloud.com": {
       "__domain": {
         "auth": {
@@ -1378,7 +1372,6 @@
     }
   },
   "pipelinedeals": {
-    "__provider": {},
     "https://api.pipelinedeals.com": {
       "__domain": {
         "auth": {
@@ -1486,7 +1479,6 @@
     }
   },
   "rubygems": {
-    "__provider": {},
     "https://rubygems.org": {
       "__domain": {
         "auth": {
@@ -1563,7 +1555,6 @@
     }
   },
   "sendgrid": {
-    "__provider": {},
     "https://api.sendgrid.com": {
       "__domain": {
         "auth": {
@@ -1940,7 +1931,6 @@
     }
   },
   "wikimapia": {
-    "__provider": {},
     "http://api.wikimapia.org": {
       "__domain": {
         "auth": {
