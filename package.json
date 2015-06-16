@@ -51,6 +51,6 @@
   "scripts": {
     "test"     : "npm run test-ci",
     "test-ci"  : "mocha test/core --require should --reporter spec --timeout 10000",
-    "test-cov" : "istanbul cover _mocha test/core --report lcovonly -- -R spec"
+    "test-cov" : "istanbul cover _mocha test/core"
   }
 }
