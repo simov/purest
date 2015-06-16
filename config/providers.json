@@ -376,7 +376,6 @@
       }
     },
     "https://www.coinbase.com": {
-      "__domain": {},
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -482,7 +481,6 @@
       }
     },
     "https://cloud.digitalocean.com": {
-      "__domain": {},
       "[version]/oauth/{endpoint}": {
         "__path": {
           "alias": "oauth",
@@ -999,7 +997,6 @@
       }
     },
     "https://api.harvestapp.com": {
-      "__domain": {},
       "oauth2/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1025,7 +1022,6 @@
       }
     },
     "https://id.heroku.com": {
-      "__domain": {},
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1165,7 +1161,6 @@
       }
     },
     "https://login.live.com": {
-      "__domain": {},
       "oauth20_{endpoint}.srf": {
         "__path": {
           "alias": "oauth"
@@ -1403,7 +1398,6 @@
       }
     },
     "https://podio.com": {
-      "__domain": {},
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1469,7 +1463,6 @@
       }
     },
     "https://ssl.reddit.com": {
-      "__domain": {},
       "api/[version]/access_{endpoint}": {
         "__path": {
           "alias": "oauth",
@@ -1546,7 +1539,6 @@
       }
     },
     "https://login.salesforce.com": {
-      "__domain": {},
       "services/oauth2/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1660,7 +1652,6 @@
       }
     },
     "https://accounts.spotify.com": {
-      "__domain": {},
       "api/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1747,7 +1738,6 @@
       }
     },
     "https://connect.stripe.com": {
-      "__domain": {},
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -1773,7 +1763,6 @@
       }
     },
     "https://www.traxo.com": {
-      "__domain": {},
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
@@ -2016,7 +2005,6 @@
       }
     },
     "https://api.login.yahoo.com": {
-      "__domain": {},
       "oauth/[version]/get_{endpoint}": {
         "__path": {
           "alias": "oauth",
