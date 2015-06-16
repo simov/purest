@@ -1,0 +1,13 @@
+{
+  "sendgrid": {
+    "user": "",
+    "pass": ""
+  },
+  "mandrill": {
+    "apikey": ""
+  },
+  "mailgun": {
+    "apikey": "",
+    "domain": ""
+  }
+}
