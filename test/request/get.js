@@ -3042,7 +3042,7 @@ describe('get', function () {
     })
   })
 
-  describe.skip('withings', function () {
+  describe('withings', function () {
     describe('request', function () {
       it('get', function (done) {
         p.withings.get('measure', {
