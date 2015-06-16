@@ -2071,7 +2071,7 @@ describe('get', function () {
     describe('request', function () {
       it('get', function (done) {
         p.mandrill.post('users/info', {
-          form:{key:cred.user.mandrill.key}
+          form:{key:cred.user.mandrill.apikey}
         }, function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -2084,7 +2084,7 @@ describe('get', function () {
       it('get', function (done) {
         p.mandrill.query()
           .post('users/info')
-          .auth(cred.user.mandrill.key)
+          .auth(cred.user.mandrill.apikey)
           .request(function (err, res, body) {
             debugger
             if (err) return error(err, done)

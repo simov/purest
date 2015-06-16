@@ -53,7 +53,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -66,7 +66,7 @@ describe('post', function () {
         // 'Content-Transfer-Encoding: quoted-printable\n'+
         // 'Content-Disposition: attachment; filename*=utf-8''report%E2%80%93may.pdf\n'+
         // 'Return-Path: <person@example.org>\n'+
-        var message = 
+        var message =
           'From: Purest <purest@mailinator.com>\n'+
           'To: Mailinator 1 <purest1@mailinator.com>,'+
               'Mailinator 2 <purest2@mailinator.com>\n'+
@@ -91,7 +91,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -157,7 +157,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -166,7 +166,7 @@ describe('post', function () {
       it('send', function (done) {
         p.mandrill.post('messages/send', {
           form:{
-            key:cred.user.mandrill.key,
+            key:cred.user.mandrill.apikey,
             message: {
               from_email:'purest@mailinator.com',
               to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
@@ -188,7 +188,7 @@ describe('post', function () {
         // uses base64 instead of multipart
         p.mandrill.post('messages/send', {
           form:{
-            key:cred.user.mandrill.key,
+            key:cred.user.mandrill.apikey,
             message: {
               from_email:'purest@mailinator.com',
               to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
@@ -215,7 +215,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -242,7 +242,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -264,7 +264,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
   })
 
@@ -285,7 +285,7 @@ describe('post', function () {
       })
     })
     describe('query', function () {
-      
+
     })
-  })  
+  })
 })
