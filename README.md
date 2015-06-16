@@ -70,7 +70,7 @@ In this example we are requesting the [channels][youtube-channels] endpoint of t
     },
     "youtube/[version]/{endpoint}": {
       "__path": {
-        "alias": ["youtube"],
+        "alias": "youtube",
         "version": "v3"
       }
     }
@@ -283,9 +283,11 @@ If properly configured Purest knows exactly how to pass your credentials to the 
 .auth('..', '..')
 ```
 
+> Note that unlike most of the query methods this one is **not** an alias for the `auth` option in [request][request-options]
+
 For example that may be `.auth('user','pass')`, `.auth('bearerToken')`, `.auth('token','secret')`, `.auth('apikey')`, `.auth('anything', 'else')`.
 
-Refer to the [config/providers.json][purest-config] file to see how various providers are configured.
+> Search for `"auth"` in [config/providers.json][purest-config] to see how various auth schemes are configured
 
 
 ### Request
@@ -373,16 +375,16 @@ That's about the bare minimum configuration you want to have for a provider. How
 {
   // provider name
   "facebook": {
-    // REQUIRED: meta data about this provider
+    // OPTIONAL: meta data about this provider
     "__provider": {
-      // OPTIONAL: indicates that this provider is using OAuth1
+      // OPTIONAL: required if the provider is using OAuth1
       "oauth": true,
-      // OPTIONAL: indicates that this provider is using OAuth2
+      // OPTIONAL: required if the provider is using OAuth2
       "oauth2": true
     },
     // REQUIRED: at least one domain is required
     "https://graph.facebook.com": {
-      // REQUIRED: meta data about this domain
+      // OPTIONAL: meta data about this domain
       "__domain": {
         // OPTIONAL:
         // specify authentication scheme to use for this domain
@@ -445,7 +447,7 @@ That's about the bare minimum configuration you want to have for a provider. How
         // Example: given the path and domain set above, this will match
         // https://graph.facebook.com/api/v3/documents.json
         "documents": {
-          // meta data about this endpoint
+          // OPTIONAL: meta data about this endpoint
           "__endpoint": {
             // OPTIONAL: specify auth scheme to use for this endpoint only
             // (overrides the one specified for the path and for the domain)
@@ -462,6 +464,7 @@ That's about the bare minimum configuration you want to have for a provider. How
         // Example: given the path and domain set above, this will match
         // https://graph.facebook.com/api/v3/files/[NUMBER-ID]/content.json
         "files\\/\\d+\\/content": {
+          // REQUIRED: in case of a regex endpoint
           "__endpoint": {
             // REQUIRED: for regex endpoints
             "regex": true
@@ -539,13 +542,13 @@ This is how we can extend the `https://www.googleapis.com` domain with two more 
   "https://www.googleapis.com": {
     "youtube/[version]/{endpoint}": {
       "__path": {
-        "alias": ["youtube"],
+        "alias": "youtube",
         "version": "v3"
       }
     },
     "drive/[version]/{endpoint}": {
       "__path": {
-        "alias": ["drive"],
+        "alias": "drive",
         "version": "v2"
       }
     }
@@ -564,7 +567,7 @@ var myapi = new Purest({provider:'google', config:require('./google-config.json'
 
 ## OAuth
 
-You can configure Purest to make your code more expressive for using various OAuth grant types. For example this is how the configuration for [acton][acton-oauth] looks like:
+You can configure Purest to make your code more expressive using various OAuth grant types. For example this is how the configuration for [act-on][acton-oauth] looks like:
 
 ```js
 "acton": {
@@ -585,12 +588,13 @@ You can configure Purest to make your code more expressive for using various OAu
     },
     "{endpoint}": {
       "__path": {
-        "alias": ["oauth"]
+        "alias": "oauth"
       }
     }
   }
 }
 ```
+
 
 ### [Client Credentials Grant][grant-client-credentials]
 
@@ -604,6 +608,7 @@ acton.query('oauth')
   })
   .request(function (err, res, body) {})
 ```
+
 
 ### [Resource Owner Password Credentials Grant][grant-password]
 
@@ -620,6 +625,7 @@ acton.query('oauth')
   .request(function (err, res, body) {})
 ```
 
+
 ### [Refresh Token][grant-refresh]
 
 ```js
@@ -634,6 +640,9 @@ acton.query('oauth')
   .request(function (err, res, body) {})
 ```
 
+
+### Basic Auth
+
 Alternatively you can send the app credentials via basic auth:
 
 ```js
@@ -641,7 +650,7 @@ Alternatively you can send the app credentials via basic auth:
   "https://restapi.actonsoftware.com": {
     "{endpoint}": {
       "__path": {
-        "alias": ["oauth"],
+        "alias": "oauth",
         "auth": {"auth":{"user": "[0]", "pass": "[1]"}}
       }
     }
@@ -652,10 +661,16 @@ Alternatively you can send the app credentials via basic auth:
 ```js
 acton.query('oauth')
   .update('token')
-  .set({grant_type:'client_credentials'})
+  .set({grant_type:'client_credentials|password|refresh_token'})
   .auth('[APP_ID]', '[APP_SECRET]')
   .request(function (err, res, body) {})
 ```
+
+
+### [Authorization Code Grant][grant-authorization-code]
+
+This grant type is implemented by **_[Grant][grant]_** which is OAuth middleware for Express, Koa and Hapi. Alternatively you can use the [OAuth Playground][grant-oauth] for testing.
+
 
 ### [Consumer Requests to Update Access Token - OAuth1][refresh-oauth1]
 
@@ -674,12 +689,7 @@ yahoo.query('oauth')
   .request(function (err, res, body) {})
 ```
 
-Take a look at how OAuth token paths are configured for various providers in [config/providers.json][purest-config].
-
-
-### [Authorization Code Grant][grant-authorization-code]
-
-This grant type is implemented by **_[Grant][grant]_** which is OAuth middleware for Express, Koa and Hapi. Alternatively you can use the [OAuth Playground][grant-oauth] for testing.
+> Search for `"alias": "oauth"` in [config/providers.json][purest-config] to see how various OAuth token paths are configured for different providers.
 
 
 ## Multipart Uploads
