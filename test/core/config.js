@@ -2,7 +2,7 @@
 var should = require('should')
 var providers = require('../../config/providers')
 var config = require('../../lib/config')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 
 
 var fixture = {

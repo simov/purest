@@ -2,7 +2,7 @@
 var fs = require('fs')
 var path = require('path')
 var should = require('should')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 var providers = require('../../config/providers')
 
 

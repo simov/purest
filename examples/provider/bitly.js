@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').bitly || {}
   , user = require('../../config/user').bitly || {}
-var p = new (require('../../lib/provider'))({provider:'bitly',
+var p = new (require('../../'))({provider:'bitly',
   defaults:{qs:{access_token:user.token}}})
 
 

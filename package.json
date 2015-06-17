@@ -39,7 +39,7 @@
     "request-debug" : "0.2.0"
   },
 
-  "main": "./lib/provider",
+  "main": "./index",
 
   "files": [
     "config/",

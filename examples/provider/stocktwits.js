@@ -4,7 +4,7 @@ var id = process.argv[3]
 
 var app = require('../../config/app').stocktwits || {}
   , user = require('../../config/user').stocktwits || {}
-var p = new (require('../../lib/provider'))({provider:'stocktwits'})
+var p = new (require('../../'))({provider:'stocktwits'})
 
 
 var examples = {

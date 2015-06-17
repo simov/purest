@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').trello || {}
   , user = require('../../config/user').trello || {}
-var p = new (require('../../lib/provider'))({provider:'trello'})
+var p = new (require('../../'))({provider:'trello'})
 
 
 var examples = {

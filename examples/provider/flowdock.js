@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').flowdock || {}
   , user = require('../../config/user').flowdock || {}
-var p = new (require('../../lib/provider'))({provider:'flowdock'})
+var p = new (require('../../'))({provider:'flowdock'})
 
 
 var examples = {

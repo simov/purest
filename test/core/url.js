@@ -1,6 +1,6 @@
 
 var should = require('should')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 
 
 describe('url', function () {

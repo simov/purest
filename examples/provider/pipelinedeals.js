@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').pipelinedeals || {}
   , user = require('../../config/user').pipelinedeals || {}
-var p = new (require('../../lib/provider'))({provider:'pipelinedeals'})
+var p = new (require('../../'))({provider:'pipelinedeals'})
 
 
 var examples = {

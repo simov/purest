@@ -4,7 +4,7 @@ var id = process.argv[3]
 
 var app = require('../../config/app').twitter || {}
   , user = require('../../config/user').twitter || {}
-var p = new (require('../../lib/provider'))({provider:'twitter',
+var p = new (require('../../'))({provider:'twitter',
   key:app.key, secret:app.secret})
 
 

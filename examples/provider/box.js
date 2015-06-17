@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').box || {}
   , user = require('../../config/user').box || {}
-var p = new (require('../../lib/provider'))({provider:'box'})
+var p = new (require('../../'))({provider:'box'})
 
 
 var examples = {

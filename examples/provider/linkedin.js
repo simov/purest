@@ -4,7 +4,7 @@ var id = process.argv[3]
 
 var app = require('../../config/app').linkedin || {}
   , user = require('../../config/user').linkedin || {}
-var p = new (require('../../lib/provider'))({provider:'linkedin',
+var p = new (require('../../'))({provider:'linkedin',
   key:app.key, secret:app.secret,
   /*defaults:{oauth:{token:user.token, token_secret:user.secret}},*/})
 

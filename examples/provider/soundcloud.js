@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').soundcloud || {}
   , user = require('../../config/user').soundcloud || {}
-var p = new (require('../../lib/provider'))({provider:'soundcloud'})
+var p = new (require('../../'))({provider:'soundcloud'})
 
 
 var examples = {

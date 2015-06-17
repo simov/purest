@@ -1,5 +1,5 @@
 
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 var providers = require('../../config/providers')
 
 

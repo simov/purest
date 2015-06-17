@@ -4,7 +4,7 @@ var id = process.argv[3]
 
 var app = require('../../config/app').facebook || {}
   , user = require('../../config/user').facebook || {}
-var p = new (require('../../lib/provider'))({provider:'facebook'})
+var p = new (require('../../'))({provider:'facebook'})
 
 
 var examples = {

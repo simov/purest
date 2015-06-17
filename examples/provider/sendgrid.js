@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').sendgrid || {}
   , user = require('../../config/user').sendgrid || {}
-var p = new (require('../../lib/provider'))({provider:'sendgrid'})
+var p = new (require('../../'))({provider:'sendgrid'})
 
 
 var examples = {

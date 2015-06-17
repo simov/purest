@@ -1,7 +1,7 @@
 
 var fs = require('fs')
 var path = require('path')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 var providers = require('../../config/providers')
 var image = path.resolve(__dirname, '../fixtures/cat.png')
 

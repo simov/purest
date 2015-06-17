@@ -1,7 +1,7 @@
 
 var should = require('should')
 var Query = require('../../lib/query')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
 
 
 describe('query', function () {
@@ -194,7 +194,7 @@ describe('all methods', function () {
       verb:['get', 'post', 'put', 'del', 'patch', 'head'],
       alias:[{get:['select']}, {post:['update']}, {put:['create','insert']}]
     }
-    it('verb', function () { 
+    it('verb', function () {
       http.verb.forEach(function (verb) {
         var query = provider.query()[verb]('endpoint')
         query.method.should.equal(verb)
@@ -210,7 +210,7 @@ describe('all methods', function () {
       })
     })
   })
-  
+
   describe('options', function () {
     var options = {
       request:['headers', 'qs', 'form', 'formData', 'multipart', 'json', 'body'],

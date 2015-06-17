@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').stackexchange || {}
   , user = require('../../config/user').stackexchange || {}
-var p = new (require('../../lib/provider'))({provider:'stackexchange'})
+var p = new (require('../../'))({provider:'stackexchange'})
 
 
 var examples = {

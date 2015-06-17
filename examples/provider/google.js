@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').google || {}
   , user = require('../../config/user').google || {}
-var p = new (require('../../lib/provider'))({provider:'google'})
+var p = new (require('../../'))({provider:'google'})
 
 
 var examples = {

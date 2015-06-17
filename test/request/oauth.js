@@ -3,7 +3,7 @@ var fs = require('fs')
   , path = require('path')
   , should = require('should')
   , qs = require('qs')
-var Purest = require('../../lib/provider')
+var Purest = require('../../')
   , providers = require('../../config/providers')
 
 

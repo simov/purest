@@ -4,7 +4,7 @@ var id = process.argv[3]
 
 var app = require('../../config/app').yahoo || {}
   , user = require('../../config/user').yahoo || {}
-var p = new (require('../../lib/provider'))({provider:'yahoo',
+var p = new (require('../../'))({provider:'yahoo',
   key:app.key, secret:app.secret})
 
 

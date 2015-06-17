@@ -7,7 +7,7 @@ var fs = require('fs')
 
 var app = require('../../config/app').dropbox || {}
   , user = require('../../config/user').dropbox || {}
-var p = new (require('../../lib/provider'))({provider:'dropbox'})
+var p = new (require('../../'))({provider:'dropbox'})
 
 var fpath = path.resolve(__dirname,'../../test/fixtures/cat.png')
 

@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').live || {}
   , user = require('../../config/user').live || {}
-var p = new (require('../../lib/provider'))({provider:'live'})
+var p = new (require('../../'))({provider:'live'})
 
 var fs = require('fs')
   , path = require('path')

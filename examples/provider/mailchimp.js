@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').mailchimp || {}
   , user = require('../../config/user').mailchimp || {}
-var p = new (require('../../lib/provider'))({provider:'mailchimp'})
+var p = new (require('../../'))({provider:'mailchimp'})
 
 var es = require('event-stream')
 

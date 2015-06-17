@@ -1,7 +1,7 @@
 
 var should = require('should'),
   zlib = require('zlib')
-var purest = require('../../lib/provider'),
+var purest = require('../../'),
   utils = require('../../lib/utils')
 
 

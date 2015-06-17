@@ -3,7 +3,7 @@ if (!process.argv[2]) return console.log('Specify example to run')
 
 var app = require('../../config/app').github || {}
   , user = require('../../config/user').github || {}
-var p = new (require('../../lib/provider'))({provider:'github',
+var p = new (require('../../'))({provider:'github',
   defaults:{headers:{'user-agent':'purest'}}})
 
 
