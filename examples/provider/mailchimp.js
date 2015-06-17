@@ -9,8 +9,19 @@ var es = require('event-stream')
 
 
 var examples = {
-  // retrieve all of the lists defined for your user account
+  // get metadata about the user
   0: function () {
+    p.query('oauth')
+      .get('metadata')
+      .auth(user.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) console.log(err)
+        console.log(body)
+      })
+  },
+  // retrieve all of the lists defined for your user account
+  1: function () {
     p.query()
       .select('lists/list')
       .auth(user.apikey)
@@ -21,7 +32,7 @@ var examples = {
       })
   },
   // export contacts from a list
-  1: function () {
+  2: function () {
     p.query('export')
       .select('list')
       .where({id:'bd0b216f1c'})
@@ -33,7 +44,7 @@ var examples = {
       })
   },
   // stream contacts from a list
-  2: function () {
+  3: function () {
     p.query('export')
       .select('list')
       .where({id:'bd0b216f1c'})

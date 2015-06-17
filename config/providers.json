@@ -697,7 +697,7 @@
       "__domain": {
         "auth": [
           {"auth": {"bearer": "[0]"}},
-          {"auth": {"user": "[0]", "pass": "[1]"}}
+          {"auth": {"user": "[0]"}}
         ]
       },
       "[version]/{endpoint}": {
@@ -1188,6 +1188,18 @@
         "__path": {
           "alias": ["export"],
           "version": "1.0"
+        }
+      }
+    },
+    "https://login.mailchimp.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"Authorization": "OAuth [0]"}
+        }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }

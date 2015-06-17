@@ -832,20 +832,22 @@ Some domain configurations have a `[domain]` variable embedded into them. For ex
 
 ```js
 // make request to https://us2.api.mailchimp.com
-mailchimp.get('campaigns/list', {
-  domain:'us2',
-  qs:{apikey:'access_token'}
-}, function (err, res, body) {})
+mailchimp.query()
+  .select('campaigns/list')
+  .options({domain:'us2'})
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
 ```
 
 > Mailchimp's data center name can be obtained like this
 
 ```js
-mailchimp.get('https://login.mailchimp.com/oauth2/metadata', {
-  headers: {'Authorization': 'OAuth '+'[ACCESS_TOKEN]'}
-}, function (err, res, body) {
-  // body.dc - contains the data center name
-})
+mailchimp.query('oauth')
+  .get('metadata')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {
+    // body.dc - contains the data center name
+  })
 ```
 
 
