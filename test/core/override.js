@@ -1,7 +1,7 @@
 
 var should = require('should')
-var Purest = require('../../lib/provider'),
-  config = require('../../lib/config')
+var Purest = require('../../lib/provider')
+  , config = require('../../lib/config')
 
 
 describe('override', function () {
@@ -71,7 +71,7 @@ describe('override', function () {
       should.deepEqual(query._options,
         {api:'__default', headers:{
           'User-Agent':'Purest',
-          Authorization:'Client-ID b13e265d3ct1de7'
+          authorization:'Client-ID b13e265d3ct1de7'
         }})
     })
     it('use token', function () {
