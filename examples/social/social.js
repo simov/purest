@@ -1,8 +1,8 @@
 
 var provider = {
-  facebook: require('./facebook'),
-  linkedin: require('./linkedin'),
-  twitter: require('./twitter')
+  facebook: require('./provider/facebook'),
+  linkedin: require('./provider/linkedin'),
+  twitter: require('./provider/twitter')
 }
 
 function Social (options) {
