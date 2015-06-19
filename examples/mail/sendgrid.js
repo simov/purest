@@ -39,10 +39,7 @@ SendGrid.prototype.send = function (args, done) {
     .post('mail.send')
     .upload(email)
     .auth(args.auth.user, args.auth.pass)
-    .request(function (err, res, body) {
-      if (err) return done(err)
-      done(null, res, body)
-    })
+    .request(done)
 }
 
 exports = module.exports = SendGrid

@@ -45,10 +45,7 @@ MailGun.prototype.send = function (args, done) {
     .post(args.auth.domain + '/messages')
     .upload(email)
     .auth('api', args.auth.apikey)
-    .request(function (err, res, body) {
-      if (err) return done(err)
-      done(null, res, body)
-    })
+    .request(done)
 }
 
 exports = module.exports = MailGun

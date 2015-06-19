@@ -52,10 +52,7 @@ Mandrill.prototype.send = function (args, done) {
     .post('messages/send')
     .set(email)
     .auth(args.auth.apikey)
-    .request(function (err, res, body) {
-      if (err) return done(err)
-      done(null, res, body)
-    })
+    .request(done)
 }
 
 exports = module.exports = Mandrill
