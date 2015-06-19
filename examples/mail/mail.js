@@ -1,8 +1,8 @@
 
 var provider = {
-  sendgrid: require('./sendgrid'),
-  mandrill: require('./mandrill'),
-  mailgun: require('./mailgun')
+  sendgrid: require('./provider/sendgrid'),
+  mandrill: require('./provider/mandrill'),
+  mailgun: require('./provider/mailgun')
 }
 
 function Mail (options) {
