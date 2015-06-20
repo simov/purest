@@ -1,0 +1,14 @@
+{
+  "box": {
+    "token": ""
+  },
+  "dropbox": {
+    "token": ""
+  },
+  "google": {
+    "token": ""
+  },
+  "live": {
+    "token": ""
+  }
+}
