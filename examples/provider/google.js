@@ -92,6 +92,19 @@ var examples = {
         if (err) console.log(err)
         console.log(body)
       })
+  },
+
+  // search for a file
+  5: function () {
+    p.query('drive')
+      .select('files')
+      .where({q:"title = 'cat.png' and trashed = false"})
+      .auth(user.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) console.log(err)
+        console.log(body)
+      })
   }
 }
 
