@@ -5,13 +5,13 @@ if (!provider) {
   throw new Error('Specify provider!')
 }
 
-var social = require('./social')
+var Social = require('./social')
 
 var config = require('./config')
   , app = config.app[provider]
   , user = config.user[provider]
 
-var network = social({
+var network = new Social({
   provider:provider,
   key:app.key,
   secret:app.secret

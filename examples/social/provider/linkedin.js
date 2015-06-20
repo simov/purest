@@ -1,5 +1,5 @@
 
-var Purest = require('purest')
+var Purest = require('../../../')
 
 
 function LinkedIn (options) {

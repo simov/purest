@@ -1,8 +1,11 @@
 
+# Social Network
+
+
 ## Install
 
 ```bash
-npm install
+$ npm install
 ```
 
 ## Configure
@@ -16,9 +19,9 @@ npm install
 ## Run
 
 ```bash
-node index.js facebook
-node index.js linkedin
-node index.js twitter
+$ node index.js facebook
+$ node index.js linkedin
+$ node index.js twitter
 ```
 
 

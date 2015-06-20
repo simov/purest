@@ -1,7 +1,7 @@
 {
   "name": "purest-social-example",
   "version": "0.0.0",
-  "description": "Purest Social Network Example",
+  "description": "Social Network Example",
   "private": true,
 
   "keywords": [],
@@ -17,7 +17,6 @@
   },
 
   "dependencies": {
-    "purest"    : "1.1.5",
     "async"     : "1.2.1"
   },
 
