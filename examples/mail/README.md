@@ -1,8 +1,11 @@
 
+# Email Provider
+
+
 ## Install
 
 ```bash
-npm install
+$ npm install
 ```
 
 ## Configure
@@ -13,9 +16,9 @@ Add your user credentials in the `config.json` file
 ## Run
 
 ```bash
-node index.js sendgrid
-node index.js mandrill
-node index.js mailgun
+$ node index.js sendgrid
+$ node index.js mandrill
+$ node index.js mailgun
 ```
 
 

@@ -1,5 +1,5 @@
 
-var Purest = require('purest')
+var Purest = require('../../../')
   , mime = require('mime-types').lookup
 
 

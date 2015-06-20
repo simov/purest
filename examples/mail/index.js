@@ -7,7 +7,7 @@ if (!provider) {
 
 var fs = require('fs')
   , path = require('path')
-var mail = require('./mail')
+var Mail = require('./mail')
 
 var config = require('./config')
   , app = config.app[provider]
@@ -15,7 +15,7 @@ var config = require('./config')
   , image = path.resolve(__dirname, '../../test/fixtures/cat.png')
   , audio = path.resolve(__dirname, '../../test/fixtures/beep.mp3')
 
-var client = mail({provider:provider})
+var client = new Mail({provider:provider})
 
 /* Send Data Structure
 {

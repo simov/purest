@@ -1,7 +1,7 @@
 {
   "name": "purest-mail-example",
   "version": "0.0.0",
-  "description": "Purest Email Provider Example",
+  "description": "Email Provider Example",
   "private": true,
 
   "keywords": [],
