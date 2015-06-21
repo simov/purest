@@ -6,8 +6,6 @@ function SendGrid (options) {
   this.purest = new Purest(options)
 }
 
-// https://sendgrid.com/docs/API_Reference/Web_API/mail.html
-
 SendGrid.prototype.send = function (args, done) {
   args.to = (args.to instanceof Array) ? args.to : [args.to]
   args.cc = (args.cc instanceof Array) ? args.cc : [args.cc]

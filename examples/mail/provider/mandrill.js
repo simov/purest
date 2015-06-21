@@ -7,8 +7,6 @@ function Mandrill (options) {
   this.purest = new Purest(options)
 }
 
-// https://mandrillapp.com/api/docs/messages.JSON.html#method=send
-
 Mandrill.prototype.send = function (args, done) {
   args.to = (args.to instanceof Array) ? args.to : [args.to]
   args.cc = (args.cc instanceof Array) ? args.cc : [args.cc]

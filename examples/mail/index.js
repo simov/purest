@@ -2,7 +2,8 @@
 var provider = process.argv[2]
 
 if (!provider) {
-  throw new Error('Specify provider!')
+  console.log('Specify provider!')
+  process.exit()
 }
 
 var fs = require('fs')
@@ -12,7 +13,7 @@ var Mail = require('./mail')
 var config = require('./config')
   , app = config.app[provider]
   , user = config.user[provider]
-  , image = path.resolve(__dirname, '../../test/fixtures/cat.png')
+var image = path.resolve(__dirname, '../../test/fixtures/cat.png')
   , audio = path.resolve(__dirname, '../../test/fixtures/beep.mp3')
 
 var client = new Mail({provider:provider})

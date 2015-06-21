@@ -6,8 +6,6 @@ function MailGun (options) {
   this.purest = new Purest(options)
 }
 
-// https://documentation.mailgun.com/api-sending.html#sending
-
 MailGun.prototype.send = function (args, done) {
   args.to = (args.to instanceof Array) ? args.to : [args.to]
   args.cc = (args.cc instanceof Array) ? args.cc : [args.cc]
