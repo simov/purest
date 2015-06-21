@@ -7,12 +7,13 @@ function LinkedIn (options) {
 }
 
 LinkedIn.prototype.user = function (options, done) {
-  var fields =
-    ':(id,first-name,last-name,formatted-name,headline,picture-url,'+
-    'auth-token,distance,num-connections)'
+  var fields = [
+    'id', 'first-name', 'last-name', 'formatted-name', 'headline',
+    'picture-url', 'auth-token', 'distance', 'num-connections'
+  ]
   this.purest.query()
-    .select('people/~'+fields)
-    .auth(options.auth.token, options.auth.secret)
+    .select('people/~'+':('+fields.join()+')')
+    .auth(options.token, options.secret)
     .request(function (err, res, body) {
       if (err) return done(err)
       var data = {

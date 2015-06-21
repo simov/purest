@@ -23,8 +23,7 @@
     },
     "twitter": {
       "token": "[ACCESS_TOKEN]",
-      "secret": "[ACCESS_SECRET]",
-      "id": "[USER_ID]"
+      "secret": "[ACCESS_SECRET]"
     }
   }
 }

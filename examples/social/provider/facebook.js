@@ -14,32 +14,33 @@ Facebook.prototype.user = function (options, done) {
     me: function (done) {
       self.purest.query()
         .get('me')
-        .auth(options.auth.token)
-        .request(function (err, res, body) {
-          if (err) return done(err)
-          done(null, err, res, body)
-        })
+        .auth(options.token)
+        .request(done)
     },
-    avatar: ['me', function (done, res) {
+    avatar: ['me', function (done, result) {
       self.purest.query()
-        .select(res.me[2].id+'/picture')
+        .select(result.me[1].id+'/picture')
         .where({redirect:false})
-        .auth(options.auth.token)
-        .request(function (err, res, body) {
-          if (err) return done(err)
-          done(null, body)
-        })
+        .auth(options.token)
+        .request(done)
     }]
-  }, function (err, res) {
+  }, function (err, result) {
     if (err) return done(err)
+
+    var me = result.me[1]
+      , avatar = result.avatar[1]
+
     var data = {
-      id:res.me.id,
-      username:res.me.username,
-      name:res.me.name,
-      avatar:res.avatar.data.url,
+      id:me.id,
+      username:undefined,
+      name:me.name,
+      avatar:avatar.data.url,
       type:'facebook'
     }
-    done(null, res.me[1], res.me[2], data)
+
+    var res = [result.me[0], result.avatar[0]]
+      , body = [me, avatar]
+    done(null, res, body, data)
   })
 }
 

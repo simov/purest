@@ -9,8 +9,8 @@ function Twitter (options) {
 Twitter.prototype.user = function (options, done) {
   this.purest.query()
     .get('users/show')
-    .where({user_id:options.id})
-    .auth(options.auth.token, options.auth.secret)
+    .where({screen_name:options.name})
+    .auth(options.token, options.secret)
     .request(function (err, res, body) {
       if (err) return done(err)
       var data = {

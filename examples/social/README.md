@@ -21,7 +21,7 @@ $ npm install
 ```bash
 $ node index.js facebook
 $ node index.js linkedin
-$ node index.js twitter
+$ node index.js twitter [screen_name]
 ```
 
 
