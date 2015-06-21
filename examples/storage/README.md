@@ -35,10 +35,10 @@ $ node index.js [provider] [example_index] [item_id] [file_name]
 Lists the contents of a directory. The following example shows you how to list the contents of the root folder, but you can pass any valid `folder_id`
 
 ```bash
-$ node index.js box 0 [folder_id] # 0
-$ node index.js dropbox 0 [folder_id] # /
+$ node index.js box 0 [folder_id] # '0'
+$ node index.js dropbox 0 [folder_id] # '/'
 $ node index.js drive 0
-$ node index.js onedrive 0 [folder_id] # me
+$ node index.js onedrive 0 [folder_id] # 'me'
 ```
 
 
@@ -47,8 +47,8 @@ $ node index.js onedrive 0 [folder_id] # me
 Get folder's metadata
 
 ```bash
-$ node index.js box 1 [folder_id] # 0
-$ node index.js dropbox 1 [folder_id] # /
+$ node index.js box 1 [folder_id] # '0'
+$ node index.js dropbox 1 [folder_id] # '/'
 $ node index.js drive 1 [folder_id] # '1_nMwZ7s6qw0t6NUP4IEP8Ijh_YLmowGfnwp-3eCi'
 $ node index.js onedrive 1 [folder_id] # 'folder.e8e0202776d99ad4.E8E02027D99AD4!103'
 ```

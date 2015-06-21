@@ -30,7 +30,7 @@ var examples = {
   // list
   0: function () {
     storage.list({
-      id:id, // box - 0, dropbox - /, onedrive - me
+      id:id, // box - '0', dropbox - '/', onedrive - 'me'
       type:'folder',
       token:token
     }, function (err, res, body) {
@@ -41,7 +41,7 @@ var examples = {
   // stats folder
   1: function () {
     storage.stats({
-      id:id, // box - 0, dropbox - /, onedrive - me
+      id:id, // box - '0', dropbox - '/', onedrive - 'me'
       type:'folder',
       token:token
     }, function (err, res, body) {
