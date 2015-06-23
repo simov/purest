@@ -13,7 +13,7 @@ var examples = {
   0: function () {
     p.query()
       .select('users/show')
-      .where({user_id:id})
+      .where({screen_name:id})
       .auth(user.token, user.secret)
       .request(function (err, res, body) {
         debugger
