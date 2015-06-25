@@ -3,7 +3,7 @@ var Purest = require('../../../')
 
 
 function SendGrid (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 SendGrid.prototype.send = function (args, done) {
@@ -33,7 +33,7 @@ SendGrid.prototype.send = function (args, done) {
     email['files['+item.name+']'] = item.data
   })
 
-  this.purest.query()
+  this.client.query()
     .post('mail.send')
     .upload(email)
     .auth(args.auth.user, args.auth.pass)

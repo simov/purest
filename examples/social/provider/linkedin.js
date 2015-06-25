@@ -3,7 +3,7 @@ var Purest = require('../../../')
 
 
 function LinkedIn (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 LinkedIn.prototype.user = function (options, done) {
@@ -11,7 +11,7 @@ LinkedIn.prototype.user = function (options, done) {
     'id', 'first-name', 'last-name', 'formatted-name', 'headline',
     'picture-url', 'auth-token', 'distance', 'num-connections'
   ]
-  this.purest.query()
+  this.client.query()
     .select('people/~'+':('+fields.join()+')')
     .auth(options.token, options.secret)
     .request(function (err, res, body) {

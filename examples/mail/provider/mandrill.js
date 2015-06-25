@@ -4,7 +4,7 @@ var Purest = require('../../../')
 
 
 function Mandrill (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 Mandrill.prototype.send = function (args, done) {
@@ -46,7 +46,7 @@ Mandrill.prototype.send = function (args, done) {
   }
 
   // uses base64 instead of multipart
-  this.purest.query()
+  this.client.query()
     .post('messages/send')
     .set(email)
     .auth(args.auth.apikey)

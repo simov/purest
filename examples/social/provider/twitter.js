@@ -3,11 +3,11 @@ var Purest = require('../../../')
 
 
 function Twitter (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 Twitter.prototype.user = function (options, done) {
-  this.purest.query()
+  this.client.query()
     .get('users/show')
     .where({screen_name:options.name})
     .auth(options.token, options.secret)

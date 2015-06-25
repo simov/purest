@@ -4,7 +4,7 @@ var Purest = require('../../../')
 
 
 function Facebook (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 Facebook.prototype.user = function (options, done) {
@@ -12,13 +12,13 @@ Facebook.prototype.user = function (options, done) {
 
   async.auto({
     me: function (done) {
-      self.purest.query()
+      self.client.query()
         .get('me')
         .auth(options.token)
         .request(done)
     },
     avatar: ['me', function (done, result) {
-      self.purest.query()
+      self.client.query()
         .select(result.me[1].id+'/picture')
         .where({redirect:false})
         .auth(options.token)

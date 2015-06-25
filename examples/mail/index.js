@@ -25,9 +25,9 @@ var client = new Mail({provider:provider})
     from:{name:'',email:''},
 
     // can be array as well
-    to:{name:'', email},
-    cc:{name:'', email},
-    bcc:{name:'', email},
+    to:{name:'', email:''},
+    cc:{name:'', email:''},
+    bcc:{name:'', email:''},
 
     subject:'',
     html:'',
@@ -62,7 +62,7 @@ client.send({
     {name:'Liolio6', email:'liolio6@mailinator.com'}
   ],
   subject:'Purest is awesome!',
-  html:'<h1>True indeed!</h1>',
+  html:'<h1>Purest is awesome!</h1><p>True indeed!</p>',
   text:'True indeed!',
   attachments:[
     {name:'cat.png', data:fs[provider == 'mandrill' ? 'readFileSync' : 'createReadStream'](image)},

@@ -3,7 +3,7 @@ var Purest = require('../../../')
 
 
 function MailGun (options) {
-  this.purest = new Purest(options)
+  this.client = new Purest(options)
 }
 
 MailGun.prototype.send = function (args, done) {
@@ -39,7 +39,7 @@ MailGun.prototype.send = function (args, done) {
     })
   }
 
-  this.purest.query()
+  this.client.query()
     .post(args.auth.domain + '/messages')
     .upload(email)
     .auth('api', args.auth.apikey)
