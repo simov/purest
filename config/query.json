@@ -1,0 +1,29 @@
+{
+  "verbs": {
+    "get"      : ["select", "read"],
+    "post"     : ["update", "send", "submit"],
+    "put"      : ["create", "insert", "write"],
+    "patch"    : [],
+    "head"     : [],
+    "trace"    : [],
+    "options"  : [],
+    "delete"   : ["del", "remove"]
+  },
+  "options": {
+    "qs"       : ["where"],
+    "form"     : ["set"],
+    "formData" : ["upload"],
+    "multipart": ["upload"],
+    "headers"  : [],
+    "json"     : [],
+    "body"     : [],
+    "auth"     : [],
+    "oauth"    : [],
+
+    "options"  : []
+  },
+  "custom": {
+    "auth"     : [],
+    "request"  : []
+  }
+}

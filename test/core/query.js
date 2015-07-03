@@ -2,7 +2,42 @@
 var should = require('should')
 var Query = require('../../lib/query')
 var Purest = require('../../')
+var query = require('../../config/query')
 
+
+describe('aliases', function () {
+  var provider = null
+  before(function () {
+    provider = new Purest({provider:'box'})
+  })
+  it('verbs', function () {
+    function assert (method, alias) {
+      var q = provider.query()[alias]('endpoint')
+      q.method.should.equal((method == 'delete') ? 'del' : method)
+    }
+    Object.keys(query.verbs).forEach(function (verb) {
+      assert(verb, verb)
+      query.verbs[verb].forEach(function (alias) {
+        assert(verb, alias)
+      })
+    })
+  })
+  it('options', function () {
+    function assert (method, option) {
+      var data = (option == 'multipart') ? [{key:'value'}] : {key:'value'}
+      var q = provider.query()[method](data)
+      ;(option == 'options')
+        ? q._options.key.should.equal('value')
+        : should.deepEqual(q._options[option], data)
+    }
+    Object.keys(query.options).forEach(function (option) {
+      assert(option, option)
+      query.options[option].forEach(function (alias) {
+        assert(alias, option)
+      })
+    })
+  })
+})
 
 describe('query', function () {
   var provider = null
@@ -181,63 +216,5 @@ describe('auth', function () {
     should.deepEqual(query.api.auth, [
       {qs:{api_key:'[0]'}}, {qs:{api_key:'[0]'}, headers:{Authorization:'OAuth [1]'}}
     ])
-  })
-})
-
-describe('all methods', function () {
-  var provider = null
-  before(function () {
-    provider = new Purest({provider:'box'})
-  })
-  describe('http', function () {
-    var http = {
-      verb:['get', 'post', 'put', 'del', 'patch', 'head'],
-      alias:[{get:['select']}, {post:['update']}, {put:['create','insert']}]
-    }
-    it('verb', function () {
-      http.verb.forEach(function (verb) {
-        var query = provider.query()[verb]('endpoint')
-        query.method.should.equal(verb)
-      })
-    })
-    it('alias', function () {
-      http.alias.forEach(function (aliases) {
-        var verb = Object.keys(aliases)[0]
-        aliases[verb].forEach(function (alias) {
-          var query = provider.query()[alias]('endpoint')
-          query.method.should.equal(verb)
-        })
-      })
-    })
-  })
-
-  describe('options', function () {
-    var options = {
-      request:['headers', 'qs', 'form', 'formData', 'multipart', 'json', 'body'],
-      alias:[{qs:['where']}, {form:['set']}, {formData:['upload']}, {multipart:['upload']}],
-      generic:['options']
-    }
-    it('request', function () {
-      options.request.forEach(function (option) {
-        var query = provider.query()[option]('value')
-        query._options[option].should.equal('value')
-      })
-    })
-    it('alias', function () {
-      options.alias.forEach(function (aliases) {
-        var option = Object.keys(aliases)[0]
-        aliases[option].forEach(function (alias) {
-          var data = (option == 'multipart') ? [{key:'value'}] : {key:'value'}
-          var query = provider.query()[alias](data)
-          should.deepEqual(query._options[option], data)
-        })
-      })
-    })
-    it('generic', function () {
-      options.generic.forEach(function (option) {
-        var query = provider.query()[option]({timeout:100})
-        query._options.timeout.should.equal(100)
-      })
-    })
   })
 })
