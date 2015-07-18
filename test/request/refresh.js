@@ -1,9 +1,10 @@
 
 var fs = require('fs')
-var path = require('path')
-var should = require('should')
-var Purest = require('../../')
-var providers = require('../../config/providers')
+  , path = require('path')
+  , qs = require('qs')
+  , should = require('should')
+  , Purest = require('../../')
+  , providers = require('../../config/providers')
 
 
 describe('refresh', function () {
@@ -410,18 +411,23 @@ describe('refresh', function () {
   describe('harvest', function () {
     var _body = null
     it('refresh', function (done) {
-      p.harvest.refresh(
-        cred.app.harvest,
-        cred.user.harvest.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'refresh_token', 'token_type', 'expires_in'
-        ])
-        _body = body
-        done()
-      })
+      p.harvest.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.harvest.refresh,
+          client_id:cred.app.harvest.key,
+          client_secret:cred.app.harvest.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'refresh_token', 'token_type', 'expires_in'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('harvest', _body.access_token)
@@ -431,19 +437,24 @@ describe('refresh', function () {
   describe('heroku', function () {
     var _body = null
     it('refresh', function (done) {
-      p.heroku.refresh(
-        cred.app.heroku,
-        cred.user.heroku.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'expires_in', 'refresh_token',
-          'token_type', 'user_id', 'session_nonce'
-        ])
-        _body = body
-        done()
-      })
+      p.heroku.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.heroku.refresh,
+          client_id:cred.app.heroku.key,
+          client_secret:cred.app.heroku.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'expires_in', 'refresh_token',
+            'token_type', 'user_id', 'session_nonce'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('heroku', _body.access_token)
@@ -453,20 +464,25 @@ describe('refresh', function () {
   describe('imgur', function () {
     var _body = null
     it('refresh', function (done) {
-      p.imgur.refresh(
-        cred.app.imgur,
-        cred.user.imgur.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'expires_in', 'token_type',
-          'scope', 'refresh_token', 'account_id',
-          'account_username'
-        ])
-        _body = body
-        done()
-      })
+      p.imgur.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.imgur.refresh,
+          client_id:cred.app.imgur.key,
+          client_secret:cred.app.imgur.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'expires_in', 'token_type',
+            'scope', 'refresh_token', 'account_id',
+            'account_username'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('imgur', _body.access_token, _body.refresh_token)
@@ -476,18 +492,23 @@ describe('refresh', function () {
   describe('jawbone', function () {
     var _body = null
     it('refresh', function (done) {
-      p.jawbone.refresh(
-        cred.app.jawbone,
-        cred.user.jawbone.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in', 'refresh_token'
-        ])
-        _body = body
-        done()
-      })
+      p.jawbone.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.jawbone.refresh,
+          client_id:cred.app.jawbone.key,
+          client_secret:cred.app.jawbone.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in', 'refresh_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('jawbone', _body.access_token, _body.refresh_token)
@@ -497,20 +518,25 @@ describe('refresh', function () {
   describe('live', function () {
     var _body = null
     it('refresh', function (done) {
-      p.live.refresh(
-        cred.app.live,
-        cred.user.live.refresh,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'token_type', 'expires_in', 'scope',
-          'access_token', 'refresh_token', 'authentication_token',
-          'user_id'
-        ])
-        _body = body
-        done()
-      })
+      p.live.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.live.refresh,
+          client_id:cred.app.live.key,
+          client_secret:cred.app.live.secret
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'token_type', 'expires_in', 'scope',
+            'access_token', 'refresh_token', 'authentication_token',
+            'user_id'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('live', _body.access_token, _body.refresh_token)
@@ -520,17 +546,22 @@ describe('refresh', function () {
   describe('paypal', function () {
     var _body = null
     it('refresh', function (done) {
-      p.paypal.refresh(
-        cred.app.paypal,
-        cred.user.paypal.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'token_type', 'expires_in', 'access_token'
-        ])
-        _body = body
-        done()
-      })
+      p.paypal.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.paypal.refresh,
+          client_id:cred.app.paypal.key,
+          client_secret:cred.app.paypal.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'token_type', 'expires_in', 'access_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('paypal', _body.access_token)
@@ -540,17 +571,22 @@ describe('refresh', function () {
   describe('podio', function () {
     var _body = null
     it('refresh', function (done) {
-      p.podio.refresh(
-        cred.app.podio,
-        cred.user.podio.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'ref', 'expires_in', 'refresh_token'
-        ])
-        _body = body
-        done()
-      })
+      p.podio.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.podio.refresh,
+          client_id:cred.app.podio.key,
+          client_secret:cred.app.podio.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'ref', 'expires_in', 'refresh_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('podio', _body.access_token)
@@ -560,18 +596,23 @@ describe('refresh', function () {
   describe('redbooth', function () {
     var _body = null
     it('refresh', function (done) {
-      p.redbooth.refresh(
-        cred.app.redbooth,
-        cred.user.redbooth.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in',
-          'refresh_token', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.redbooth.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.redbooth.refresh,
+          client_id:cred.app.redbooth.key,
+          client_secret:cred.app.redbooth.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in',
+            'refresh_token', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('redbooth', _body.access_token, _body.refresh_token)
@@ -581,17 +622,22 @@ describe('refresh', function () {
   describe('reddit', function () {
     var _body = null
     it('refresh', function (done) {
-      p.reddit.refresh(
-        cred.app.reddit,
-        cred.user.reddit.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.reddit.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.reddit.refresh,
+          client_id:cred.app.reddit.key,
+          client_secret:cred.app.reddit.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('reddit', _body.access_token)
@@ -601,19 +647,24 @@ describe('refresh', function () {
   describe('salesforce', function () {
     var _body = null
     it('refresh', function (done) {
-      p.salesforce.refresh(
-        cred.app.salesforce,
-        cred.user.salesforce.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'id', 'issued_at', 'scope',
-          'instance_url', 'token_type', 'signature',
-          'access_token'
-        ])
-        _body = body
-        done()
-      })
+      p.salesforce.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.salesforce.refresh,
+          client_id:cred.app.salesforce.key,
+          client_secret:cred.app.salesforce.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'id', 'issued_at', 'scope',
+            'instance_url', 'token_type', 'signature',
+            'access_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('salesforce', _body.access_token)
@@ -623,17 +674,22 @@ describe('refresh', function () {
   describe('soundcloud', function () {
     var _body = null
     it('refresh', function (done) {
-      p.soundcloud.refresh(
-        cred.app.soundcloud,
-        cred.user.soundcloud.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'expires_in', 'scope', 'refresh_token'
-        ])
-        _body = body
-        done()
-      })
+      p.soundcloud.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.soundcloud.refresh,
+          client_id:cred.app.soundcloud.key,
+          client_secret:cred.app.soundcloud.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'expires_in', 'scope', 'refresh_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('soundcloud', _body.access_token, _body.refresh_token)
@@ -643,17 +699,22 @@ describe('refresh', function () {
   describe('spotify', function () {
     var _body = null
     it('refresh', function (done) {
-      p.spotify.refresh(
-        cred.app.spotify,
-        cred.user.spotify.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'token_type', 'expires_in'
-        ])
-        _body = body
-        done()
-      })
+      p.spotify.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.spotify.refresh,
+          client_id:cred.app.spotify.key,
+          client_secret:cred.app.spotify.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'token_type', 'expires_in'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('spotify', _body.access_token)
@@ -663,19 +724,24 @@ describe('refresh', function () {
   describe('stripe', function () {
     var _body = null
     it('refresh', function (done) {
-      p.stripe.refresh(
-        cred.app.stripe,
-        cred.user.stripe.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'livemode', 'refresh_token',
-          'token_type',
-          'stripe_publishable_key', 'stripe_user_id', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.stripe.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.stripe.refresh,
+          client_id:cred.app.stripe.key,
+          client_secret:cred.app.stripe.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'livemode', 'refresh_token',
+            'token_type',
+            'stripe_publishable_key', 'stripe_user_id', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('stripe', _body.access_token)
@@ -685,18 +751,23 @@ describe('refresh', function () {
   describe('traxo', function () {
     var _body = null
     it('refresh', function (done) {
-      p.traxo.refresh(
-        cred.app.traxo,
-        cred.user.traxo.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'expires_in', 'token_type',
-          'scope', 'refresh_token'
-        ])
-        _body = body
-        done()
-      })
+      p.traxo.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.traxo.refresh,
+          client_id:cred.app.traxo.key,
+          client_secret:cred.app.traxo.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'expires_in', 'token_type',
+            'scope', 'refresh_token'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('traxo', _body.access_token, _body.refresh_token)
@@ -706,17 +777,22 @@ describe('refresh', function () {
   describe('twitch', function () {
     var _body = null
     it('refresh', function (done) {
-      p.twitch.refresh(
-        cred.app.twitch,
-        cred.user.twitch.refresh,
-      function (err, res, body) {
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'access_token', 'refresh_token', 'scope'
-        ])
-        _body = body
-        done()
-      })
+      p.twitch.query('oauth')
+        .update('token')
+        .set({
+          grant_type:'refresh_token',
+          refresh_token:cred.user.twitch.refresh,
+          client_id:cred.app.twitch.key,
+          client_secret:cred.app.twitch.secret
+        })
+        .request(function (err, res, body) {
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(body), [
+            'access_token', 'refresh_token', 'scope'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.store('twitch', _body.access_token)
@@ -726,21 +802,26 @@ describe('refresh', function () {
   describe('yahoo', function () {
     var _body = null
     it('refresh', function (done) {
-      p.yahoo.refresh(
-        cred.app.yahoo,
-        cred.user.yahoo,
-        cred.user.yahoo.session,
-      function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), [
-          'oauth_token', 'oauth_token_secret', 'oauth_expires_in',
-          'oauth_session_handle', 'oauth_authorization_expires_in',
-          'xoauth_yahoo_guid'
-        ])
-        _body = body
-        done()
-      })
+      p.yahoo.query('oauth')
+        .update('token')
+        .oauth({
+          consumer_key:cred.app.yahoo.key,
+          consumer_secret:cred.app.yahoo.secret,
+          token:cred.user.yahoo.token,
+          token_secret:cred.user.yahoo.secret,
+          session_handle:cred.user.yahoo.session
+        })
+        .request(function (err, res, body) {
+          debugger
+          if (err) return error(err, done)
+          should.deepEqual(Object.keys(qs.parse(body)), [
+            'oauth_token', 'oauth_token_secret', 'oauth_expires_in',
+            'oauth_session_handle', 'oauth_authorization_expires_in',
+            'xoauth_yahoo_guid'
+          ])
+          _body = body
+          done()
+        })
     })
     after(function () {
       refresh.storeOAuth1('yahoo', _body.oauth_token, _body.oauth_token_secret)
