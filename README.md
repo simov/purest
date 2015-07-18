@@ -677,14 +677,12 @@ This grant type is implemented by **_[Grant][grant]_** which is OAuth middleware
 ```js
 yahoo.query('oauth')
   .update('token')
-  .options({
-    oauth: {
-      consumer_key:'...',
-      consumer_secret:'...',
-      token:'...',
-      token_secret:'...',
-      session_handle:'...'
-    }
+  .oauth({
+    consumer_key:'...',
+    consumer_secret:'...',
+    token:'...',
+    token_secret:'...',
+    session_handle:'...'
   })
   .request(function (err, res, body) {})
 ```
