@@ -37,7 +37,7 @@ describe('refresh', function () {
   })
 
   // OAuth2
-  var config = require('../../config/refresh')
+  var config = require('../config/refresh-token')
 
   Object.keys(config).forEach(function (provider) {
     var options = {}
