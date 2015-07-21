@@ -1,7 +1,5 @@
 
-var fs = require('fs')
-  , path = require('path')
-  , qs = require('qs')
+var qs = require('qs')
   , should = require('should')
 var Purest = require('../../')
   , providers = require('../../config/providers')
