@@ -3,40 +3,38 @@ var qs = require('qs')
   , should = require('should')
 var Purest = require('../../')
   , providers = require('../../config/providers')
+var config = require('../config/refresh-token')
+
+
+function error (err, done) {
+  return (err instanceof Error)
+    ? done(err)
+    : (console.log(err) || done(new Error('Network error!')))
+}
+
+require('../utils/credentials')
+var cred = {
+  app:require('../../config/app'),
+  user:require('../../config/user')
+}
+var store = require('../utils/store')
+
+var p = {}
+for (var name in providers) {
+  var options = {
+    provider:name,
+    defaults:{headers:{'User-Agent':'Purest'}}
+  }
+  if (providers[name].__provider && providers[name].__provider.oauth) {
+    options.key = cred.app[name].key
+    options.secret = cred.app[name].secret
+  }
+  p[name] = new Purest(options)
+}
 
 
 describe('refresh', function () {
-  function error (err, done) {
-    return (err instanceof Error)
-      ? done(err)
-      : (console.log(err) || done(new Error('Network error!')))
-  }
-
-  require('../utils/credentials')
-  var cred = {
-    app:require('../../config/app'),
-    user:require('../../config/user')
-  }
-  var refresh = require('../utils/refresh')
-
-  var p = {}
-  before(function () {
-    for (var name in providers) {
-      var options = {
-        provider:name,
-        defaults:{headers:{'User-Agent':'Purest'}}
-      }
-      if (providers[name].__provider && providers[name].__provider.oauth) {
-        options.key = cred.app[name].key
-        options.secret = cred.app[name].secret
-      }
-      p[name] = new Purest(options)
-    }
-  })
-
   // OAuth2
-  var config = require('../config/refresh-token')
-
   Object.keys(config).forEach(function (provider) {
     var options = {}
     var params = {
@@ -67,9 +65,9 @@ describe('refresh', function () {
           should.deepEqual(Object.keys(body), config[provider].fields)
 
           if (config[provider].update.length == 2) {
-            refresh.store(provider, body.access_token, body.refresh_token)
+            store.oauth2(provider, body.access_token, body.refresh_token)
           } else {
-            refresh.store(provider, body.access_token)
+            store.oauth2(provider, body.access_token)
           }
 
           done()
@@ -92,7 +90,7 @@ describe('refresh', function () {
         should.deepEqual(Object.keys(body), [
           'access_token', 'status', 'expires_in'
         ])
-        refresh.store('aboutme', body.access_token)
+        store.oauth2('aboutme', body.access_token)
         done()
       })
   })
@@ -117,7 +115,7 @@ describe('refresh', function () {
           'oauth_session_handle', 'oauth_authorization_expires_in',
           'xoauth_yahoo_guid'
         ])
-        refresh.storeOAuth1('yahoo', body.oauth_token, body.oauth_token_secret)
+        store.oauth1('yahoo', body.oauth_token, body.oauth_token_secret)
         done()
       })
   })
