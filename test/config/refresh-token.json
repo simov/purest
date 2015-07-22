@@ -57,7 +57,7 @@
   },
   "flowdock": {
     "docs": "https://www.flowdock.com/api/authentication",
-    "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope"],
+    "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope", "created_at"],
     "update": ["access", "refresh"]
   },
   "google": {
