@@ -8,5 +8,3 @@ config/credentials.json
 config/app.json
 config/user.json
 config/examples.json
-
-test/fixtures/coffee.jpg
