@@ -40,11 +40,11 @@ describe('oauth2', function () {
       client_id:app[provider].key,
       client_secret:app[provider].secret
     }
-    if (provider == 'basecamp') {
+    if (/basecamp/.test(provider)) {
       params.type = 'refresh'
       delete params.grant_type
     }
-    if (provider == 'reddit') {
+    if (/reddit/.test(provider)) {
       options.auth = {user:params.client_id, pass:params.client_secret}
       delete params.client_id
       delete params.client_secret

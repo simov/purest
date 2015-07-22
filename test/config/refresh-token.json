@@ -100,6 +100,11 @@
     "fields": ["access_token", "token_type", "ref", "expires_in", "refresh_token"],
     "update": ["access"]
   },
+  "rdio": {
+    "docs": "http://www.rdio.com/developers/docs/web-service/oauth2/overview/ref-using-a-refresh-token",
+    "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope"],
+    "update": ["access", "refresh"]
+  },
   "redbooth": {
     "docs": "https://redbooth.com/api/authentication/",
     "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope"],

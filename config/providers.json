@@ -169,7 +169,7 @@
       },
       "{endpoint}.[type]": {
         "__path": {
-          "alias": ["id"]
+          "alias": "id"
         }
       },
       "authorization/{endpoint}": {
@@ -697,7 +697,7 @@
       "__domain": {
         "auth": [
           {"auth": {"bearer": "[0]"}},
-          {"auth": {"user": "[0]"}}
+          {"auth": {"user": "[0]", "pass": "[1]"}}
         ]
       },
       "[version]/{endpoint}": {
@@ -1419,18 +1419,23 @@
   },
   "rdio": {
     "__provider": {
-      "oauth": true
+      "oauth2": true
     },
-    "http://api.rdio.com": {
+    "https://services.rdio.com": {
       "__domain": {
         "auth": {
-          "oauth": {"token": "[0]", "secret": "[1]"}
+          "auth": {"bearer": "[0]"}
         }
       },
-      "[version]/{endpoint}": {
+      "api/[version]/{endpoint}": {
         "__path": {
           "alias": "__default",
           "version": "1"
+        }
+      },
+      "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }

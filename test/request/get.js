@@ -205,11 +205,11 @@ describe('basecamp', function () {
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.accounts.should.be.instanceOf(Array)
+      body.identity.id.should.be.type('number')
       done()
     })
   })
-  it.skip('options', function (done) {
+  it('options', function (done) {
     p.basecamp.get('people/me', {
       path:user.basecamp.id,
       auth:{bearer:user.basecamp.token}
@@ -220,7 +220,7 @@ describe('basecamp', function () {
       done()
     })
   })
-  it.skip('query', function (done) {
+  it('query', function (done) {
     p.basecamp.query()
       .select('people/me')
       .options({path:user.basecamp.id})
@@ -740,13 +740,13 @@ describe('flickr', function () {
 })
 
 describe('flowdock', function () {
-  it('options get', function (done) {
+  it('options', function (done) {
     p.flowdock.get('users', {
       auth:{bearer:user.flowdock.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.should.be.instanceOf(Array)
+      body[0].id.should.be.type('number')
       done()
     })
   })
@@ -757,7 +757,7 @@ describe('flowdock', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.should.be.instanceOf(Array)
+        body[0].id.should.be.type('number')
         done()
       })
   })
@@ -768,18 +768,18 @@ describe('flowdock', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.should.be.instanceOf(Array)
+        body[0].id.should.be.type('number')
         done()
       })
   })
-  it('query api token', function (done) {
+  it('query apikey', function (done) {
     p.flowdock.query()
       .get('users')
       .auth(user.flowdock.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.should.be.instanceOf(Array)
+        body[0].id.should.be.type('number')
         done()
       })
   })
@@ -1481,7 +1481,7 @@ describe('podio', function () {
 describe('rdio', function () {
   it('options', function (done) {
     p.rdio.post('', {
-      oauth:{token:user.rdio.token, secret:user.rdio.secret},
+      auth:{bearer:user.rdio.token},
       form:{method:'currentUser'}
     }, function (err, res, body) {
       debugger
@@ -1494,7 +1494,7 @@ describe('rdio', function () {
     p.rdio.query()
       .post('')
       .form({method:'currentUser'})
-      .auth(user.rdio.token, user.rdio.secret)
+      .auth(user.rdio.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
