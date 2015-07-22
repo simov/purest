@@ -49,10 +49,8 @@ exports = module.exports = {
   imgur: function () {
     this.before.all = function (endpoint, options) {
       if (options.auth && options.auth.bearer.length < 20) {
+        options.headers = options.headers || {}
         options.headers['authorization'] = 'Client-ID '+options.auth.bearer
-        // extend(true, options.headers, {
-        //   Authorization: 'Client-ID '+options.auth.bearer
-        // })
         delete options.auth
       }
     }
