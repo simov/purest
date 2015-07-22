@@ -13,10 +13,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -25,8 +23,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -37,7 +35,7 @@ describe('box', function () {
   before(function (done) {
     p.box.post('files/content', {
       api:'upload',
-      auth:{bearer:cred.user.box.token},
+      auth:{bearer:user.box.token},
       qs:{parent_id:0},
       formData:{filename:fs.createReadStream(image)}
     }, function (err, res, body) {
@@ -49,7 +47,7 @@ describe('box', function () {
   })
   it('query', function (done) {
     p.box.del('files/'+file.id, {
-      auth:{bearer:cred.user.box.token}
+      auth:{bearer:user.box.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)

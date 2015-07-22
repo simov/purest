@@ -10,10 +10,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -22,8 +20,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }

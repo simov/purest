@@ -13,10 +13,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 before(function () {
@@ -26,8 +24,8 @@ before(function () {
       defaults:{headers:{'User-Agent':'Purest'}}
     }
     if (providers[name].__provider && providers[name].__provider.oauth) {
-      options.key = cred.app[name].key
-      options.secret = cred.app[name].secret
+      options.key = app[name].key
+      options.secret = app[name].secret
     }
     p[name] = new Purest(options)
   }
@@ -38,7 +36,7 @@ describe('dropbox', function () {
   describe('options', function () {
     it('upload', function (done) {
       p.dropbox.put('files_put/auto/cat.png', {
-        auth: {bearer:cred.user.dropbox.token},
+        auth: {bearer:user.dropbox.token},
         api: 'files',
         body: fs.readFileSync(image)
       }, function (err, res, body) {
@@ -50,7 +48,7 @@ describe('dropbox', function () {
     })
     it('download', function (done) {
       p.dropbox.get('files/auto/cat.png', {
-        auth: {bearer:cred.user.dropbox.token},
+        auth: {bearer:user.dropbox.token},
         api: 'files'
       }, function (err, res, body) {
         debugger
@@ -71,7 +69,7 @@ describe('dropbox', function () {
       p.dropbox.query('files')
         .create('files_put/auto/cat.png')
         .body(fs.readFileSync(image))
-        .auth(cred.user.dropbox.token)
+        .auth(user.dropbox.token)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -82,7 +80,7 @@ describe('dropbox', function () {
     it('download', function (done) {
       p.dropbox.query('files')
         .get('files/auto/cat.png')
-        .auth(cred.user.dropbox.token)
+        .auth(user.dropbox.token)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)

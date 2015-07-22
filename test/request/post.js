@@ -16,10 +16,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -28,8 +26,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -38,7 +36,7 @@ for (var name in providers) {
 describe('facebook', function () {
   it('options', function (done) {
     p.facebook.post('me/feed', {
-      qs:{access_token:cred.user.facebook.token},
+      qs:{access_token:user.facebook.token},
       form:{message:'Sent on '+new Date()}
     },
     function (err, res, body) {
@@ -71,7 +69,7 @@ describe('google', function () {
 
     p.google.post('users/me/messages/send', {
       api:'gmail',
-      auth:{bearer:cred.user.google.token},
+      auth:{bearer:user.google.token},
       json:{raw:base64url.encode(message)}
     }, function (err, res, body) {
       debugger
@@ -86,7 +84,7 @@ describe('google', function () {
 describe('linkedin', function () {
   it('options', function (done) {
     p.linkedin.post('people/~/shares', {
-      oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret},
+      oauth:{token:user.linkedin.token, secret:user.linkedin.secret},
       form:{
         comment:'Sent on '+new Date(),
         visibility:{code:'anyone'}
@@ -107,7 +105,7 @@ describe('linkedin', function () {
         comment:'Sent on '+new Date(),
         visibility:{code:'anyone'}
       })
-      .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
+      .auth(user.linkedin.token, user.linkedin.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -120,8 +118,8 @@ describe('linkedin', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.post(cred.user.mailgun.domain+'/messages', {
-      auth:{user:'api',pass:cred.user.mailgun.apikey},
+    p.mailgun.post(user.mailgun.domain+'/messages', {
+      auth:{user:'api',pass:user.mailgun.apikey},
       form:{
         from:'purest@mailinator.com',
         to:'purest@mailinator.com,purest2@mailinator.com',
@@ -144,7 +142,7 @@ describe('mandrill', function () {
   it('send', function (done) {
     p.mandrill.post('messages/send', {
       form:{
-        key:cred.user.mandrill.apikey,
+        key:user.mandrill.apikey,
         message: {
           from_email:'purest@mailinator.com',
           to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
@@ -166,7 +164,7 @@ describe('mandrill', function () {
     // uses base64 instead of multipart
     p.mandrill.post('messages/send', {
       form:{
-        key:cred.user.mandrill.apikey,
+        key:user.mandrill.apikey,
         message: {
           from_email:'purest@mailinator.com',
           to:[{email:'purest@mailinator.com'}, {email:'purest2@mailinator.com'}],
@@ -197,8 +195,8 @@ describe('sendgrid', function () {
   it('options', function (done) {
     p.sendgrid.post('mail.send', {
       form:{
-        api_user:cred.user.sendgrid.user,
-        api_key:cred.user.sendgrid.pass,
+        api_user:user.sendgrid.user,
+        api_key:user.sendgrid.pass,
         from:'purest@mailinator.com',
         to:['purest@mailinator.com','purest2@mailinator.com'],
         subject:'Purest is awesome! (sendgrid)',
@@ -218,7 +216,7 @@ describe('sendgrid', function () {
 describe('stocktwits', function () {
   it('options', function (done) {
     p.stocktwits.post('messages/create', {
-      qs:{access_token:cred.user.stocktwits.token},
+      qs:{access_token:user.stocktwits.token},
       form:{body:'Sent on '+new Date()}
     },
     function (err, res, body) {
@@ -235,7 +233,7 @@ describe('stocktwits', function () {
 describe('twitter', function () {
   it('options', function (done) {
     p.twitter.post('statuses/update', {
-      oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+      oauth:{token:user.twitter.token, secret:user.twitter.secret},
       form:{status:'Sent on '+new Date()}
     },
     function (err, res, body) {

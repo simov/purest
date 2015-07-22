@@ -12,10 +12,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 var refresh = require('../utils/refresh')
 
 var p = {}
@@ -25,8 +23,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -38,8 +36,8 @@ describe('client_credentials', function () {
       .update('token')
       .set({
         grant_type:'client_credentials',
-        client_id:cred.app.acton.key,
-        client_secret:cred.app.acton.secret
+        client_id:app.acton.key,
+        client_secret:app.acton.secret
       })
       .request(function (err, res, body) {
         debugger
@@ -54,7 +52,7 @@ describe('client_credentials', function () {
     p.acton.query('oauth')
       .update('token')
       .set({grant_type:'client_credentials'})
-      .auth(cred.app.acton.key, cred.app.acton.secret)
+      .auth(app.acton.key, app.acton.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -69,8 +67,8 @@ describe('client_credentials', function () {
       .update('token')
       .set({
         grant_type:'client_credentials',
-        client_id:cred.app.facebook.key,
-        client_secret:cred.app.facebook.secret
+        client_id:app.facebook.key,
+        client_secret:app.facebook.secret
       })
       .request(function (err, res, body) {
         debugger
@@ -87,8 +85,8 @@ describe('client_credentials', function () {
       .update('token')
       .set({
         grant_type:'client_credentials',
-        client_id:cred.app.organisedminds.key,
-        client_secret:cred.app.organisedminds.secret,
+        client_id:app.organisedminds.key,
+        client_secret:app.organisedminds.secret,
         scope: 'write'
       })
       .request(function (err, res, body) {
@@ -105,8 +103,8 @@ describe('client_credentials', function () {
       .update('token')
       .set({
         grant_type:'client_credentials',
-        client_id:cred.app.twitter.key,
-        client_secret:cred.app.twitter.secret
+        client_id:app.twitter.key,
+        client_secret:app.twitter.secret
       })
       .request(function (err, res, body) {
         debugger
@@ -126,10 +124,10 @@ describe('password', function () {
       .update('token')
       .set({
         grant_type:'password',
-        username:cred.user.acton.user,
-        password:cred.user.acton.pass,
-        client_id:cred.app.acton.key,
-        client_secret:cred.app.acton.secret
+        username:user.acton.user,
+        password:user.acton.pass,
+        client_id:app.acton.key,
+        client_secret:app.acton.secret
       })
       .request(function (err, res, body) {
         debugger
@@ -145,10 +143,10 @@ describe('password', function () {
       .update('token')
       .set({
         grant_type:'password',
-        username:cred.user.acton.user,
-        password:cred.user.acton.pass
+        username:user.acton.user,
+        password:user.acton.pass
       })
-      .auth({user:cred.app.acton.key, pass:cred.app.acton.secret})
+      .auth({user:app.acton.key, pass:app.acton.secret})
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -160,11 +158,11 @@ describe('password', function () {
   })
   it('aboutme - custom', function (done) {
     p.aboutme.query('user')
-      .update('login/' + cred.user.aboutme.user)
+      .update('login/' + user.aboutme.user)
       .set({
         grant_type:'password',
-        client_id:cred.user.aboutme.apikey,
-        password:cred.user.aboutme.pass
+        client_id:user.aboutme.apikey,
+        password:user.aboutme.pass
       })
       .request(function (err, res, body) {
         debugger

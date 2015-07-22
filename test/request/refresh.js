@@ -13,10 +13,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 var store = require('../utils/store')
 
 var p = {}
@@ -26,8 +24,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -39,9 +37,9 @@ describe('refresh', function () {
     var options = {}
     var params = {
       grant_type:'refresh_token',
-      refresh_token:cred.user[provider].refresh,
-      client_id:cred.app[provider].key,
-      client_secret:cred.app[provider].secret
+      refresh_token:user[provider].refresh,
+      client_id:app[provider].key,
+      client_secret:app[provider].secret
     }
     if (provider == 'basecamp') {
       params.type = 'refresh'
@@ -78,11 +76,11 @@ describe('refresh', function () {
   // http://about.me/developer/api/docs/#login
   it('aboutme', function (done) {
     p.aboutme.query('user')
-      .update('login/' + cred.user.aboutme.user)
+      .update('login/' + user.aboutme.user)
       .set({
         grant_type:'password',
-        client_id:cred.user.aboutme.apikey,
-        password:cred.user.aboutme.pass
+        client_id:user.aboutme.apikey,
+        password:user.aboutme.pass
       })
       .request(function (err, res, body) {
         debugger
@@ -100,11 +98,11 @@ describe('refresh', function () {
     p.yahoo.query('oauth')
       .update('token')
       .oauth({
-        consumer_key:cred.app.yahoo.key,
-        consumer_secret:cred.app.yahoo.secret,
-        token:cred.user.yahoo.token,
-        token_secret:cred.user.yahoo.secret,
-        session_handle:cred.user.yahoo.session
+        consumer_key:app.yahoo.key,
+        consumer_secret:app.yahoo.secret,
+        token:user.yahoo.token,
+        token_secret:user.yahoo.secret,
+        session_handle:user.yahoo.session
       })
       .request(function (err, res, body) {
         debugger

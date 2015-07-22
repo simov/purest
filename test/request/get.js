@@ -11,10 +11,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -23,8 +21,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -33,7 +31,7 @@ for (var name in providers) {
 describe('500px', function () {
   it('options', function (done) {
     p['500px'].get('users', {
-      oauth:{token:cred.user['500px'].token, secret:cred.user['500px'].secret}
+      oauth:{token:user['500px'].token, secret:user['500px'].secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -44,7 +42,7 @@ describe('500px', function () {
   it('query', function (done) {
     p['500px'].query()
       .get('users')
-      .auth(cred.user['500px'].token, cred.user['500px'].secret)
+      .auth(user['500px'].token, user['500px'].secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -57,7 +55,7 @@ describe('500px', function () {
 describe('aboutme', function () {
   it('options apikey', function (done) {
     p.aboutme.get('user/view/simeonv', {
-      headers:{Authorization:'Basic '+cred.user.aboutme.apikey}
+      headers:{Authorization:'Basic '+user.aboutme.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -68,8 +66,8 @@ describe('aboutme', function () {
   it('options token', function (done) {
     p.aboutme.get('user/directory/simeonv', {
       qs: {
-        client_id:cred.user.aboutme.apikey,
-        token:cred.user.aboutme.token
+        client_id:user.aboutme.apikey,
+        token:user.aboutme.token
       }
     }, function (err, res, body) {
       debugger
@@ -81,7 +79,7 @@ describe('aboutme', function () {
   it('query apikey', function (done) {
     p.aboutme.query('user')
       .select('view/simeonv')
-      .auth(cred.user.aboutme.apikey)
+      .auth(user.aboutme.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -92,7 +90,7 @@ describe('aboutme', function () {
   it('query token', function (done) {
     p.aboutme.query('user')
       .get('directory/simeonv')
-      .auth(cred.user.aboutme.apikey, cred.user.aboutme.token)
+      .auth(user.aboutme.apikey, user.aboutme.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -105,7 +103,7 @@ describe('aboutme', function () {
 describe('angellist', function () {
   it('options', function (done) {
     p.angellist.get('me', {
-      auth:{bearer:cred.user.angellist.token}
+      auth:{bearer:user.angellist.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -116,7 +114,7 @@ describe('angellist', function () {
   it('query', function (done) {
     p.angellist.query()
       .select('me')
-      .auth(cred.user.angellist.token)
+      .auth(user.angellist.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -129,7 +127,7 @@ describe('angellist', function () {
 describe('asana', function () {
   it('options basic', function (done) {
     p.asana.get('users/me', {
-      auth:{user:cred.user.asana.apikey}
+      auth:{user:user.asana.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -140,7 +138,7 @@ describe('asana', function () {
   })
   it('options oauth', function (done) {
     p.asana.get('users/me', {
-      auth: {bearer:cred.user.asana.token}
+      auth: {bearer:user.asana.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -152,7 +150,7 @@ describe('asana', function () {
   it('query basic', function (done) {
     p.asana.config()
       .get('users/me')
-      .auth(cred.user.asana.apikey,'')
+      .auth(user.asana.apikey,'')
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -164,7 +162,7 @@ describe('asana', function () {
   it('query oauth', function (done) {
     p.asana.config()
       .get('users/me')
-      .auth(cred.user.asana.token)
+      .auth(user.asana.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -178,7 +176,7 @@ describe('asana', function () {
 describe('assembla', function () {
   it('options', function (done) {
     p.assembla.get('user', {
-      auth:{bearer:cred.user.assembla.token}
+      auth:{bearer:user.assembla.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -189,7 +187,7 @@ describe('assembla', function () {
   it('query', function (done) {
     p.assembla.query()
       .select('user')
-      .auth(cred.user.assembla.token)
+      .auth(user.assembla.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -203,7 +201,7 @@ describe('basecamp', function () {
   it('auth', function (done) {
     p.basecamp.get('authorization', {
       api:'id',
-      auth:{bearer:cred.user.basecamp.token}
+      auth:{bearer:user.basecamp.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -213,8 +211,8 @@ describe('basecamp', function () {
   })
   it.skip('options', function (done) {
     p.basecamp.get('people/me', {
-      path:cred.user.basecamp.id,
-      auth:{bearer:cred.user.basecamp.token}
+      path:user.basecamp.id,
+      auth:{bearer:user.basecamp.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -225,8 +223,8 @@ describe('basecamp', function () {
   it.skip('query', function (done) {
     p.basecamp.query()
       .select('people/me')
-      .options({path:cred.user.basecamp.id})
-      .auth(cred.user.basecamp.token)
+      .options({path:user.basecamp.id})
+      .auth(user.basecamp.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -239,7 +237,7 @@ describe('basecamp', function () {
 describe('bitly', function () {
   it('options', function (done) {
     p.bitly.get('user/info', {
-      qs:{access_token:cred.user.bitly.token}
+      qs:{access_token:user.bitly.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -250,7 +248,7 @@ describe('bitly', function () {
   it('query', function (done) {
     p.bitly.query()
       .select('user/info')
-      .auth(cred.user.bitly.token)
+      .auth(user.bitly.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -286,7 +284,7 @@ describe('bitbucket', function () {
 describe('box', function () {
   it('options', function (done) {
     p.box.get('users/me', {
-      auth:{bearer:cred.user.box.token}
+      auth:{bearer:user.box.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -297,7 +295,7 @@ describe('box', function () {
   it('query', function (done) {
     p.box.config()
       .get('users/me')
-      .auth(cred.user.box.token)
+      .auth(user.box.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -310,7 +308,7 @@ describe('box', function () {
 describe('buffer', function () {
   it('options', function (done) {
     p.buffer.get('user', {
-      qs:{access_token:cred.user.buffer.token}
+      qs:{access_token:user.buffer.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -321,7 +319,7 @@ describe('buffer', function () {
   it('query', function (done) {
     p.buffer.query()
       .get('user')
-      .auth(cred.user.buffer.token)
+      .auth(user.buffer.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -334,7 +332,7 @@ describe('buffer', function () {
 describe('cheddar', function () {
   it('options', function (done) {
     p.cheddar.get('me', {
-      auth:{bearer:cred.user.cheddar.token}
+      auth:{bearer:user.cheddar.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -345,7 +343,7 @@ describe('cheddar', function () {
   it('query', function (done) {
     p.cheddar.query()
       .get('me')
-      .auth(cred.user.cheddar.token)
+      .auth(user.cheddar.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -379,7 +377,7 @@ describe('coderbits', function () {
 describe('coinbase', function () {
   it('options', function (done) {
     p.coinbase.get('users/self', {
-      auth:{bearer:cred.user.coinbase.token}
+      auth:{bearer:user.coinbase.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -390,7 +388,7 @@ describe('coinbase', function () {
   it('query', function (done) {
     p.coinbase.query()
       .select('users/self')
-      .auth(cred.user.coinbase.token)
+      .auth(user.coinbase.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -403,7 +401,7 @@ describe('coinbase', function () {
 describe('dailymile', function () {
   it('options', function (done) {
     p.dailymile.get('people/me', {
-      qs:{oauth_token:cred.user.dailymile.token}
+      qs:{oauth_token:user.dailymile.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -414,7 +412,7 @@ describe('dailymile', function () {
   it('query', function (done) {
     p.dailymile.query()
       .select('people/me')
-      .auth(cred.user.dailymile.token)
+      .auth(user.dailymile.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -427,7 +425,7 @@ describe('dailymile', function () {
 describe('dailymotion', function () {
   it('options', function (done) {
     p.dailymotion.get('user/me', {
-      auth:{bearer:cred.user.dailymotion.token}
+      auth:{bearer:user.dailymotion.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -438,7 +436,7 @@ describe('dailymotion', function () {
   it('query', function (done) {
     p.dailymotion.query()
       .select('user/me')
-      .auth(cred.user.dailymotion.token)
+      .auth(user.dailymotion.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -451,7 +449,7 @@ describe('dailymotion', function () {
 describe('deezer', function () {
   it('options', function (done) {
     p.deezer.get('user/me', {
-      qs:{access_token:cred.user.deezer.token}
+      qs:{access_token:user.deezer.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -462,7 +460,7 @@ describe('deezer', function () {
   it('query', function (done) {
     p.deezer.query()
       .select('user/me')
-      .auth(cred.user.deezer.token)
+      .auth(user.deezer.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -475,7 +473,7 @@ describe('deezer', function () {
 describe('deviantart', function () {
   it('options', function (done) {
     p.deviantart.get('user/whoami', {
-      auth:{bearer:cred.user.deviantart.token}
+      auth:{bearer:user.deviantart.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -486,7 +484,7 @@ describe('deviantart', function () {
   it('query', function (done) {
     p.deviantart.query()
       .select('user/whoami')
-      .auth(cred.user.deviantart.token)
+      .auth(user.deviantart.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -499,7 +497,7 @@ describe('deviantart', function () {
 describe('digitalocean', function () {
   it('options bearer', function (done) {
     p.digitalocean.get('account', {
-      auth:{bearer:cred.user.digitalocean.token}
+      auth:{bearer:user.digitalocean.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -509,7 +507,7 @@ describe('digitalocean', function () {
   })
   it('options basic', function (done) {
     p.digitalocean.get('account', {
-      auth:{user:cred.user.digitalocean.apikey}
+      auth:{user:user.digitalocean.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -520,7 +518,7 @@ describe('digitalocean', function () {
   it('query bearer', function (done) {
     p.digitalocean.query()
       .get('account')
-      .auth(cred.user.digitalocean.token)
+      .auth(user.digitalocean.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -531,7 +529,7 @@ describe('digitalocean', function () {
   it('query basic', function (done) {
     p.digitalocean.query()
       .get('account')
-      .auth(cred.user.digitalocean.apikey, '')
+      .auth(user.digitalocean.apikey, '')
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -544,7 +542,7 @@ describe('digitalocean', function () {
 describe('disqus', function () {
   it('options', function (done) {
     p.disqus.get('users/details', {
-      qs:{api_key:cred.app.disqus.key, access_token:cred.user.disqus.token},
+      qs:{api_key:app.disqus.key, access_token:user.disqus.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -555,7 +553,7 @@ describe('disqus', function () {
   it('query', function (done) {
     p.disqus.query()
       .get('users/details')
-      .auth(cred.app.disqus.key, cred.user.disqus.token)
+      .auth(app.disqus.key, user.disqus.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -568,7 +566,7 @@ describe('disqus', function () {
 describe('dropbox', function () {
   it('options', function (done) {
     p.dropbox.get('account/info', {
-      auth: {bearer:cred.user.dropbox.token}
+      auth: {bearer:user.dropbox.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -579,7 +577,7 @@ describe('dropbox', function () {
   it('query', function (done) {
     p.dropbox.query()
       .get('account/info')
-      .auth(cred.user.dropbox.token)
+      .auth(user.dropbox.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -592,7 +590,7 @@ describe('dropbox', function () {
 describe('edmodo', function () {
   it('options', function (done) {
     p.edmodo.get('users/me', {
-      auth:{bearer:cred.user.edmodo.token}
+      auth:{bearer:user.edmodo.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -603,7 +601,7 @@ describe('edmodo', function () {
   it('query', function (done) {
     p.edmodo.query()
       .get('users/me')
-      .auth(cred.user.edmodo.token)
+      .auth(user.edmodo.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -616,7 +614,7 @@ describe('edmodo', function () {
 describe('eventbrite', function () {
   it('options', function (done) {
     p.eventbrite.get('users/me', {
-      auth:{bearer:cred.user.eventbrite.token}
+      auth:{bearer:user.eventbrite.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -627,7 +625,7 @@ describe('eventbrite', function () {
   it('query', function (done) {
     p.eventbrite.query()
       .get('users/me')
-      .auth(cred.user.eventbrite.token)
+      .auth(user.eventbrite.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -640,7 +638,7 @@ describe('eventbrite', function () {
 describe('facebook', function () {
   it('options', function (done) {
     p.facebook.get('me', {
-      auth:{bearer:cred.user.facebook.token}
+      auth:{bearer:user.facebook.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -651,7 +649,7 @@ describe('facebook', function () {
   it('query', function (done) {
     p.facebook.query()
       .get('me')
-      .auth(cred.user.facebook.token)
+      .auth(user.facebook.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -664,7 +662,7 @@ describe('facebook', function () {
 describe('fitbit', function () {
   it('options', function (done) {
     p.fitbit.get('user/-/profile', {
-      oauth:{token:cred.user.fitbit.token, secret:cred.user.fitbit.secret}
+      oauth:{token:user.fitbit.token, secret:user.fitbit.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -675,7 +673,7 @@ describe('fitbit', function () {
   it('query', function (done) {
     p.fitbit.query()
       .select('user/-/profile')
-      .auth(cred.user.fitbit.token, cred.user.fitbit.secret)
+      .auth(user.fitbit.token, user.fitbit.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -688,7 +686,7 @@ describe('fitbit', function () {
 describe('flattr', function () {
   it('options', function (done) {
     p.flattr.get('users/me', {
-      auth:{bearer:cred.user.flattr.token}
+      auth:{bearer:user.flattr.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -699,7 +697,7 @@ describe('flattr', function () {
   it('query', function (done) {
     p.flattr.query()
       .select('users/me')
-      .auth(cred.user.flattr.token)
+      .auth(user.flattr.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -712,10 +710,10 @@ describe('flattr', function () {
 describe('flickr', function () {
   it('options', function (done) {
     p.flickr.get('', {
-      oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+      oauth:{token:user.flickr.token, secret:user.flickr.secret},
       qs:{
         method: 'flickr.urls.getUserProfile',
-        api_key:cred.app.flickr.key
+        api_key:app.flickr.key
       }
     }, function (err, res, body) {
       debugger
@@ -729,9 +727,9 @@ describe('flickr', function () {
       .select('')
       .where({
         method: 'flickr.urls.getUserProfile',
-        api_key:cred.app.flickr.key
+        api_key:app.flickr.key
       })
-      .auth(cred.user.flickr.token, cred.user.flickr.secret)
+      .auth(user.flickr.token, user.flickr.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -744,7 +742,7 @@ describe('flickr', function () {
 describe('flowdock', function () {
   it('options get', function (done) {
     p.flowdock.get('users', {
-      auth:{bearer:cred.user.flowdock.token},
+      auth:{bearer:user.flowdock.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -755,7 +753,7 @@ describe('flowdock', function () {
   it('query oauth2', function (done) {
     p.flowdock.query()
       .get('users')
-      .auth(cred.user.flowdock.token)
+      .auth(user.flowdock.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -766,7 +764,7 @@ describe('flowdock', function () {
   it('query basic', function (done) {
     p.flowdock.query()
       .get('users')
-      .auth(cred.user.flowdock.user, cred.user.flowdock.pass)
+      .auth(user.flowdock.user, user.flowdock.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -777,7 +775,7 @@ describe('flowdock', function () {
   it('query api token', function (done) {
     p.flowdock.query()
       .get('users')
-      .auth(cred.user.flowdock.apikey)
+      .auth(user.flowdock.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -790,7 +788,7 @@ describe('flowdock', function () {
 describe('foursquare', function () {
   it('options', function (done) {
     p.foursquare.get('users/81257627', {
-      qs:{oauth_token:cred.user.foursquare.token, v:'20140503'}
+      qs:{oauth_token:user.foursquare.token, v:'20140503'}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -802,7 +800,7 @@ describe('foursquare', function () {
     p.foursquare.query()
       .get('users/81257627')
       .where({v:'20140503'})
-      .auth(cred.user.foursquare.token)
+      .auth(user.foursquare.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -816,8 +814,8 @@ describe('getpocket', function () {
   it('options', function (done) {
     p.getpocket.post('get', {
       body: {
-        consumer_key:cred.app.getpocket.key,
-        access_token:cred.user.getpocket.token
+        consumer_key:app.getpocket.key,
+        access_token:user.getpocket.token
       }
     }, function (err, res, body) {
       debugger
@@ -829,7 +827,7 @@ describe('getpocket', function () {
   it('query', function (done) {
     p.getpocket.query()
       .get('get')
-      .auth(cred.app.getpocket.key, cred.user.getpocket.token)
+      .auth(app.getpocket.key, user.getpocket.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -842,7 +840,7 @@ describe('getpocket', function () {
 describe('github', function () {
   it('options', function (done) {
     p.github.get('users/simov', {
-      qs:{access_token:cred.user.github.token}
+      qs:{access_token:user.github.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -853,7 +851,7 @@ describe('github', function () {
   it('query', function (done) {
     p.github.query()
       .get('users/simov')
-      .auth(cred.user.github.token)
+      .auth(user.github.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -866,7 +864,7 @@ describe('github', function () {
 describe('gitter', function () {
   it('options', function (done) {
     p.gitter.get('user', {
-      auth:{bearer:cred.user.gitter.token}
+      auth:{bearer:user.gitter.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -877,7 +875,7 @@ describe('gitter', function () {
   it('query', function (done) {
     p.gitter.query()
       .get('user')
-      .auth(cred.user.gitter.token)
+      .auth(user.gitter.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -891,7 +889,7 @@ describe('google', function () {
   it('options plus', function (done) {
     p.google.get('people/me', {
       api:'plus',
-      qs:{access_token:cred.user.google.token}
+      qs:{access_token:user.google.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -902,7 +900,7 @@ describe('google', function () {
   it('options gmail', function (done) {
     p.google.get('users/me/profile', {
       api:'gmail',
-      auth:{bearer:cred.user.google.token}
+      auth:{bearer:user.google.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -914,7 +912,7 @@ describe('google', function () {
     p.google.get('channels', {
       api:'youtube',
       qs:{
-        access_token:cred.user.google.token,
+        access_token:user.google.token,
         part:'id, snippet, contentDetails, statistics, status, topicDetails',
         forUsername:'RayWilliamJohnson'
       }
@@ -929,7 +927,7 @@ describe('google', function () {
     p.google.get('about', {
       api:'drive',
       qs:{
-        access_token:cred.user.google.token
+        access_token:user.google.token
       }
     }, function (err, res, body) {
       debugger
@@ -942,7 +940,7 @@ describe('google', function () {
   it('query plus', function (done) {
     p.google.query('plus')
       .select('people/me')
-      .auth(cred.user.google.token)
+      .auth(user.google.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -953,7 +951,7 @@ describe('google', function () {
   it('query gmail', function (done) {
     p.google.query('gmail')
       .select('users/me/profile')
-      .auth(cred.user.google.token)
+      .auth(user.google.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -968,7 +966,7 @@ describe('google', function () {
         forUsername:'RayWilliamJohnson',
         part:'id, snippet, contentDetails, statistics, status, topicDetails'
       })
-      .auth(cred.user.google.token)
+      .auth(user.google.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -979,7 +977,7 @@ describe('google', function () {
   it('query drive', function (done) {
     p.google.query('drive')
       .get('about')
-      .auth(cred.user.google.token)
+      .auth(user.google.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1018,8 +1016,8 @@ describe('hackpad', function () {
 describe('harvest', function () {
   it('options', function (done) {
     p.harvest.get('account/who_am_i', {
-      domain:cred.user.harvest.domain,
-      auth:{bearer:cred.user.harvest.token}
+      domain:user.harvest.domain,
+      auth:{bearer:user.harvest.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1030,8 +1028,8 @@ describe('harvest', function () {
   it('query bearer', function (done) {
     p.harvest.query()
       .get('account/who_am_i')
-      .options({domain:cred.user.harvest.domain})
-      .auth(cred.user.harvest.token)
+      .options({domain:user.harvest.domain})
+      .auth(user.harvest.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1042,8 +1040,8 @@ describe('harvest', function () {
   it('query basic', function (done) {
     p.harvest.query()
       .get('account/who_am_i')
-      .options({domain:cred.user.harvest.domain})
-      .auth(cred.user.harvest.user, cred.user.harvest.pass)
+      .options({domain:user.harvest.domain})
+      .auth(user.harvest.user, user.harvest.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1056,7 +1054,7 @@ describe('harvest', function () {
 describe('heroku', function () {
   it('options', function (done) {
     p.heroku.get('account', {
-      auth: {bearer:cred.user.heroku.token}
+      auth: {bearer:user.heroku.token}
       // or
       // auth: {user:'email', pass:'password'}
     }, function (err, res, body) {
@@ -1069,7 +1067,7 @@ describe('heroku', function () {
   it('query', function (done) {
     p.heroku.query()
       .get('account')
-      .auth(cred.user.heroku.token)
+      .auth(user.heroku.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1082,7 +1080,7 @@ describe('heroku', function () {
 describe('imgur', function () {
   it('options apikey', function (done) {
     p.imgur.get('account/simov', {
-      headers: {Authorization: 'Client-ID '+cred.app.imgur.key}
+      headers: {Authorization: 'Client-ID '+app.imgur.key}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1092,7 +1090,7 @@ describe('imgur', function () {
   })
   it('options token', function (done) {
     p.imgur.get('account/simov', {
-      auth:{bearer:cred.user.imgur.token}
+      auth:{bearer:user.imgur.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1103,7 +1101,7 @@ describe('imgur', function () {
   it('query apikey', function (done) {
     p.imgur.query()
       .get('account/simov')
-      .auth(cred.app.imgur.key)
+      .auth(app.imgur.key)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1114,7 +1112,7 @@ describe('imgur', function () {
   it('query token', function (done) {
     p.imgur.query()
       .get('account/simov')
-      .auth(cred.user.imgur.token)
+      .auth(user.imgur.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1127,7 +1125,7 @@ describe('imgur', function () {
 describe('instagram', function () {
   it('options', function (done) {
     p.instagram.get('users/self', {
-      qs:{access_token:cred.user.instagram.token}
+      qs:{access_token:user.instagram.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1138,7 +1136,7 @@ describe('instagram', function () {
   it('query', function (done) {
     p.instagram.query()
       .select('users/self')
-      .auth(cred.user.instagram.token)
+      .auth(user.instagram.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1151,7 +1149,7 @@ describe('instagram', function () {
 describe('jawbone', function () {
   it('options', function (done) {
     p.jawbone.get('users/@me', {
-      auth:{bearer:cred.user.jawbone.token}
+      auth:{bearer:user.jawbone.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1162,7 +1160,7 @@ describe('jawbone', function () {
   it('query', function (done) {
     p.jawbone.query()
       .select('users/@me')
-      .auth(cred.user.jawbone.token)
+      .auth(user.jawbone.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1175,7 +1173,7 @@ describe('jawbone', function () {
 describe('linkedin', function () {
   it('options oauth1', function (done) {
     p.linkedin.get('people/~', {
-      oauth:{token:cred.user.linkedin.token, secret:cred.user.linkedin.secret}
+      oauth:{token:user.linkedin.token, secret:user.linkedin.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1185,7 +1183,7 @@ describe('linkedin', function () {
   })
   it('options oauth2', function (done) {
     p.linkedin.get('people/~', {
-      qs:{oauth2_access_token:cred.user.linkedin.oauth2}
+      qs:{oauth2_access_token:user.linkedin.oauth2}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1196,7 +1194,7 @@ describe('linkedin', function () {
   it('query oauth1', function (done) {
     p.linkedin.query()
       .select('people/~')
-      .auth(cred.user.linkedin.token, cred.user.linkedin.secret)
+      .auth(user.linkedin.token, user.linkedin.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1207,7 +1205,7 @@ describe('linkedin', function () {
   it('query oauth2', function (done) {
     p.linkedin.query()
       .select('people/~')
-      .auth(cred.user.linkedin.oauth2)
+      .auth(user.linkedin.oauth2)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1220,7 +1218,7 @@ describe('linkedin', function () {
 describe('live', function () {
   it('options', function (done) {
     p.live.get('me', {
-      qs:{access_token:cred.user.live.token}
+      qs:{access_token:user.live.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1231,7 +1229,7 @@ describe('live', function () {
   it('query', function (done) {
     p.live.query()
       .select('me')
-      .auth(cred.user.live.token)
+      .auth(user.live.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1244,7 +1242,7 @@ describe('live', function () {
 describe('mailchimp', function () {
   it('options apikey', function (done) {
     p.mailchimp.get('campaigns/list', {
-      qs:{apikey:cred.user.mailchimp.apikey}
+      qs:{apikey:user.mailchimp.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1254,8 +1252,8 @@ describe('mailchimp', function () {
   })
   it('options oauth', function (done) {
     p.mailchimp.get('campaigns/list', {
-      domain:cred.user.mailchimp.domain,
-      qs:{apikey:cred.user.mailchimp.token}
+      domain:user.mailchimp.domain,
+      qs:{apikey:user.mailchimp.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1266,7 +1264,7 @@ describe('mailchimp', function () {
   it('query apikey', function (done) {
     p.mailchimp.query()
       .select('campaigns/list')
-      .auth(cred.user.mailchimp.apikey)
+      .auth(user.mailchimp.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1277,8 +1275,8 @@ describe('mailchimp', function () {
   it('query oauth', function (done) {
     p.mailchimp.query()
       .select('campaigns/list')
-      .auth(cred.user.mailchimp.token)
-      .options({domain:cred.user.mailchimp.domain})
+      .auth(user.mailchimp.token)
+      .options({domain:user.mailchimp.domain})
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1290,8 +1288,8 @@ describe('mailchimp', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.get(cred.user.mailgun.domain+'/stats', {
-      auth:{user:'api',pass:cred.user.mailgun.apikey}
+    p.mailgun.get(user.mailgun.domain+'/stats', {
+      auth:{user:'api',pass:user.mailgun.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1301,8 +1299,8 @@ describe('mailgun', function () {
   })
   it('query', function (done) {
     p.mailgun.query()
-      .select(cred.user.mailgun.domain+'/stats')
-      .auth('api', cred.user.mailgun.apikey)
+      .select(user.mailgun.domain+'/stats')
+      .auth('api', user.mailgun.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1315,7 +1313,7 @@ describe('mailgun', function () {
 describe('mandrill', function () {
   it('options', function (done) {
     p.mandrill.post('users/info', {
-      form:{key:cred.user.mandrill.apikey}
+      form:{key:user.mandrill.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1326,7 +1324,7 @@ describe('mandrill', function () {
   it('query', function (done) {
     p.mandrill.query()
       .post('users/info')
-      .auth(cred.user.mandrill.apikey)
+      .auth(user.mandrill.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1339,7 +1337,7 @@ describe('mandrill', function () {
 describe('mixcloud', function () {
   it('options', function (done) {
     p.mixcloud.get('me', {
-      qs:{access_token:cred.user.mixcloud.token}
+      qs:{access_token:user.mixcloud.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1350,7 +1348,7 @@ describe('mixcloud', function () {
   it('query', function (done) {
     p.mixcloud.query()
       .get('me')
-      .auth(cred.user.mixcloud.token)
+      .auth(user.mixcloud.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1365,8 +1363,8 @@ describe('odesk', function () {
     p.odesk.get('info', {
       api:'auth',
       oauth:{
-        token:cred.user.odesk.token,
-        secret:cred.user.odesk.secret
+        token:user.odesk.token,
+        secret:user.odesk.secret
       }
     }, function (err, res, body) {
       debugger
@@ -1378,7 +1376,7 @@ describe('odesk', function () {
   it('query', function (done) {
     p.odesk.query('auth')
       .select('info')
-      .auth(cred.user.odesk.token, cred.user.odesk.secret)
+      .auth(user.odesk.token, user.odesk.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1393,8 +1391,8 @@ describe('openstreetmap', function () {
     p.openstreetmap.get('user/details', {
       // oauth for writing to the database
       oauth:{
-        token:cred.user.openstreetmap.token,
-        secret:cred.user.openstreetmap.secret
+        token:user.openstreetmap.token,
+        secret:user.openstreetmap.secret
       }
       // or basic auth for reading user details
       // auth: {user:'email', pass:'password'}
@@ -1408,7 +1406,7 @@ describe('openstreetmap', function () {
   it('query oauth', function (done) {
     p.openstreetmap.query()
       .select('user/details')
-      .auth(cred.user.openstreetmap.token, cred.user.openstreetmap.secret)
+      .auth(user.openstreetmap.token, user.openstreetmap.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1419,7 +1417,7 @@ describe('openstreetmap', function () {
   it('query basic', function (done) {
     p.openstreetmap.query()
       .select('user/details')
-      .auth(cred.user.openstreetmap.user, cred.user.openstreetmap.pass)
+      .auth(user.openstreetmap.user, user.openstreetmap.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1433,7 +1431,7 @@ describe('paypal', function () {
   it('options', function (done) {
     p.paypal.get('userinfo', {
       api:'identity',
-      auth:{bearer:cred.user.paypal.token},
+      auth:{bearer:user.paypal.token},
       qs: {schema:'openid'}
     }, function (err, res, body) {
       debugger
@@ -1446,7 +1444,7 @@ describe('paypal', function () {
     p.paypal.query('identity')
       .get('userinfo')
       .where({schema:'openid'})
-      .auth(cred.user.paypal.token)
+      .auth(user.paypal.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1459,7 +1457,7 @@ describe('paypal', function () {
 describe('podio', function () {
   it('options', function (done) {
     p.podio.get('user', {
-      headers:{Authorization:'OAuth2 '+cred.user.podio.token},
+      headers:{Authorization:'OAuth2 '+user.podio.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1470,7 +1468,7 @@ describe('podio', function () {
   it('query', function (done) {
     p.podio.query()
       .select('user')
-      .auth(cred.user.podio.token)
+      .auth(user.podio.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1483,7 +1481,7 @@ describe('podio', function () {
 describe('rdio', function () {
   it('options', function (done) {
     p.rdio.post('', {
-      oauth:{token:cred.user.rdio.token, secret:cred.user.rdio.secret},
+      oauth:{token:user.rdio.token, secret:user.rdio.secret},
       form:{method:'currentUser'}
     }, function (err, res, body) {
       debugger
@@ -1496,7 +1494,7 @@ describe('rdio', function () {
     p.rdio.query()
       .post('')
       .form({method:'currentUser'})
-      .auth(cred.user.rdio.token, cred.user.rdio.secret)
+      .auth(user.rdio.token, user.rdio.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1509,7 +1507,7 @@ describe('rdio', function () {
 describe('redbooth', function () {
   it('options', function (done) {
     p.redbooth.get('me', {
-      auth:{bearer:cred.user.redbooth.token},
+      auth:{bearer:user.redbooth.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1520,7 +1518,7 @@ describe('redbooth', function () {
   it('query', function (done) {
     p.redbooth.query()
       .get('me')
-      .auth(cred.user.redbooth.token)
+      .auth(user.redbooth.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1566,7 +1564,7 @@ describe('rubygems', function () {
   it('query headers auth', function (done) {
     p.rubygems.query()
       .get('gems')
-      .auth(cred.user.rubygems.apikey)
+      .auth(user.rubygems.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1577,7 +1575,7 @@ describe('rubygems', function () {
   it('query basic auth', function (done) {
     p.rubygems.query()
       .get('api_key')
-      .auth(cred.user.rubygems.user, cred.user.rubygems.pass)
+      .auth(user.rubygems.user, user.rubygems.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1591,7 +1589,7 @@ describe('runkeeper', function () {
   it('options', function (done) {
     p.runkeeper.get('user', {
       headers:{'accept':'application/vnd.com.runkeeper.User+json'},
-      auth:{bearer:cred.user.runkeeper.token},
+      auth:{bearer:user.runkeeper.token},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1602,7 +1600,7 @@ describe('runkeeper', function () {
   it('query', function (done) {
     p.runkeeper.query()
       .select('user')
-      .auth(cred.user.runkeeper.token)
+      .auth(user.runkeeper.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1615,8 +1613,8 @@ describe('runkeeper', function () {
 describe('salesforce', function () {
   it('options', function (done) {
     p.salesforce.get('sobjects/Account', {
-      domain:cred.user.salesforce.domain,
-      auth:{bearer:cred.user.salesforce.token}
+      domain:user.salesforce.domain,
+      auth:{bearer:user.salesforce.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1627,8 +1625,8 @@ describe('salesforce', function () {
   it('query', function (done) {
     p.salesforce.query('sobjects')
       .get('Account')
-      .options({domain:cred.user.salesforce.domain})
-      .auth(cred.user.salesforce.token)
+      .options({domain:user.salesforce.domain})
+      .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1641,7 +1639,7 @@ describe('salesforce', function () {
 describe('sendgrid', function () {
   it('options', function (done) {
     p.sendgrid.get('profile.get', {
-      qs:{api_user:cred.user.sendgrid.user, api_key:cred.user.sendgrid.pass}
+      qs:{api_user:user.sendgrid.user, api_key:user.sendgrid.pass}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1652,7 +1650,7 @@ describe('sendgrid', function () {
   it('query', function (done) {
     p.sendgrid.query()
       .select('profile.get')
-      .auth(cred.user.sendgrid.user, cred.user.sendgrid.pass)
+      .auth(user.sendgrid.user, user.sendgrid.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1665,8 +1663,8 @@ describe('sendgrid', function () {
 describe('shopify', function () {
   it('options', function (done) {
     p.shopify.get('admin/shop', {
-      domain:cred.user.shopify.domain,
-      headers:{'X-Shopify-Access-Token':cred.user.shopify.token}
+      domain:user.shopify.domain,
+      headers:{'X-Shopify-Access-Token':user.shopify.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1677,8 +1675,8 @@ describe('shopify', function () {
   it('query', function (done) {
     p.shopify.query()
       .get('admin/shop')
-      .options({domain:cred.user.shopify.domain})
-      .auth(cred.user.shopify.token)
+      .options({domain:user.shopify.domain})
+      .auth(user.shopify.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1691,7 +1689,7 @@ describe('shopify', function () {
 describe('skyrock', function () {
   it('options', function (done) {
     p.skyrock.get('user/get', {
-      oauth:{token:cred.user.skyrock.token, secret:cred.user.skyrock.secret}
+      oauth:{token:user.skyrock.token, secret:user.skyrock.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1702,7 +1700,7 @@ describe('skyrock', function () {
   it('query', function (done) {
     p.skyrock.query()
       .select('user/get')
-      .auth(cred.user.skyrock.token, cred.user.skyrock.secret)
+      .auth(user.skyrock.token, user.skyrock.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1715,7 +1713,7 @@ describe('skyrock', function () {
 describe('slack', function () {
   it('options', function (done) {
     p.slack.get('users.list', {
-      qs:{token:cred.user.slack.token}
+      qs:{token:user.slack.token}
     }, function (err, res, body) {
       if (err) return error(err, done)
       body.members[0].id.should.be.type('string')
@@ -1725,7 +1723,7 @@ describe('slack', function () {
   it('query', function (done) {
     p.slack.query()
       .select('users.list')
-      .auth(cred.user.slack.token)
+      .auth(user.slack.token)
       .request(function (err, res, body) {
         if (err) return error(err, done)
         body.members[0].id.should.be.type('string')
@@ -1737,7 +1735,7 @@ describe('slack', function () {
 describe('soundcloud', function () {
   it('options', function (done) {
     p.soundcloud.get('users', {
-      qs:{oauth_token:cred.user.soundcloud.token, q:'thriftworks'}
+      qs:{oauth_token:user.soundcloud.token, q:'thriftworks'}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1749,7 +1747,7 @@ describe('soundcloud', function () {
     p.soundcloud.query()
       .select('users')
       .where({q:'thriftworks'})
-      .auth(cred.user.soundcloud.token)
+      .auth(user.soundcloud.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1762,7 +1760,7 @@ describe('soundcloud', function () {
 describe('spotify', function () {
   it('options', function (done) {
     p.spotify.get('me', {
-      auth:{bearer:cred.user.spotify.token}
+      auth:{bearer:user.spotify.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1773,7 +1771,7 @@ describe('spotify', function () {
   it('query', function (done) {
     p.spotify.query()
       .get('me')
-      .auth(cred.user.spotify.token)
+      .auth(user.spotify.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1787,8 +1785,8 @@ describe('stackexchange', function () {
   it('options', function (done) {
     p.stackexchange.get('users', {
       qs:{
-        key:cred.user.stackexchange.apikey,
-        access_token:cred.user.stackexchange.token,
+        key:user.stackexchange.apikey,
+        access_token:user.stackexchange.token,
         site:'stackoverflow',
         sort:'reputation',
         order:'desc'
@@ -1808,7 +1806,7 @@ describe('stackexchange', function () {
         sort:'reputation',
         order:'desc'
       })
-      .auth(cred.user.stackexchange.apikey, cred.user.stackexchange.token)
+      .auth(user.stackexchange.apikey, user.stackexchange.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1821,7 +1819,7 @@ describe('stackexchange', function () {
 describe('stocktwits', function () {
   it('options', function (done) {
     p.stocktwits.get('account/verify', {
-      qs:{access_token:cred.user.stocktwits.token}
+      qs:{access_token:user.stocktwits.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1832,7 +1830,7 @@ describe('stocktwits', function () {
   it('query', function (done) {
     p.stocktwits.query()
       .select('account/verify')
-      .auth(cred.user.stocktwits.token)
+      .auth(user.stocktwits.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1845,7 +1843,7 @@ describe('stocktwits', function () {
 describe('strava', function () {
   it('options', function (done) {
     p.strava.get('athlete', {
-      auth:{bearer:cred.user.strava.token}
+      auth:{bearer:user.strava.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1856,7 +1854,7 @@ describe('strava', function () {
   it('query', function (done) {
     p.strava.query()
       .get('athlete')
-      .auth(cred.user.strava.token)
+      .auth(user.strava.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1869,7 +1867,7 @@ describe('strava', function () {
 describe('stripe', function () {
   it('options', function (done) {
     p.stripe.get('account', {
-      auth:{user:cred.user.stripe.token}
+      auth:{user:user.stripe.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1880,7 +1878,7 @@ describe('stripe', function () {
   it('query', function (done) {
     p.stripe.query()
       .get('account')
-      .auth(cred.user.stripe.token)
+      .auth(user.stripe.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1893,7 +1891,7 @@ describe('stripe', function () {
 describe('traxo', function () {
   it('options', function (done) {
     p.traxo.get('me', {
-      auth:{bearer:cred.user.traxo.token}
+      auth:{bearer:user.traxo.token}
     }, function (err, res, body) {
       if (err) return error(err, done)
       body.id.should.be.type('string')
@@ -1903,7 +1901,7 @@ describe('traxo', function () {
   it('query', function (done) {
     p.traxo.query()
       .select('me')
-      .auth(cred.user.traxo.token)
+      .auth(user.traxo.token)
       .request(function (err, res, body) {
         if (err) return error(err, done)
         body.id.should.be.type('string')
@@ -1915,7 +1913,7 @@ describe('traxo', function () {
 describe('trello', function () {
   it('options apikey', function (done) {
     p.trello.get('boards/4d5ea62fd76aa1136000000c', {
-      qs:{key:cred.app.trello.key}
+      qs:{key:app.trello.key}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1925,7 +1923,7 @@ describe('trello', function () {
   })
   it('options oauth', function (done) {
     p.trello.get('members/me', {
-      qs:{key:cred.app.trello.key, token:cred.user.trello.token}
+      qs:{key:app.trello.key, token:user.trello.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1936,7 +1934,7 @@ describe('trello', function () {
   it('query apikey', function (done) {
     p.trello.query()
       .get('boards/4d5ea62fd76aa1136000000c')
-      .auth(cred.app.trello.key)
+      .auth(app.trello.key)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1947,7 +1945,7 @@ describe('trello', function () {
   it('query oauth', function (done) {
     p.trello.query()
       .get('members/me')
-      .auth(cred.app.trello.key, cred.user.trello.token)
+      .auth(app.trello.key, user.trello.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1960,7 +1958,7 @@ describe('trello', function () {
 describe('tripit', function () {
   it('options', function (done) {
     p.tripit.get('get/profile/id/simovelichkov/format/json', {
-      oauth:{token:cred.user.tripit.token, secret:cred.user.tripit.secret}
+      oauth:{token:user.tripit.token, secret:user.tripit.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1971,7 +1969,7 @@ describe('tripit', function () {
   it('query', function (done) {
     p.tripit.query()
       .get('get/profile/id/simovelichkov/format/json')
-      .auth(cred.user.tripit.token, cred.user.tripit.secret)
+      .auth(user.tripit.token, user.tripit.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1984,7 +1982,7 @@ describe('tripit', function () {
 describe('tumblr', function () {
   it('options apikey', function (done) {
     p.tumblr.get('blog/nodejsreactions.tumblr.com/info', {
-      qs:{api_key:cred.app.tumblr.key}
+      qs:{api_key:app.tumblr.key}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1994,7 +1992,7 @@ describe('tumblr', function () {
   })
   it('options oauth', function (done) {
     p.tumblr.get('user/info', {
-      oauth:{token:cred.user.tumblr.token, secret:cred.user.tumblr.secret}
+      oauth:{token:user.tumblr.token, secret:user.tumblr.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2005,7 +2003,7 @@ describe('tumblr', function () {
   it('query apikey', function (done) {
     p.tumblr.query()
       .get('blog/nodejsreactions.tumblr.com/info')
-      .auth(cred.app.tumblr.key)
+      .auth(app.tumblr.key)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2016,7 +2014,7 @@ describe('tumblr', function () {
   it('query oauth', function (done) {
     p.tumblr.query()
       .get('user/info')
-      .auth(cred.user.tumblr.token, cred.user.tumblr.secret)
+      .auth(user.tumblr.token, user.tumblr.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2029,7 +2027,7 @@ describe('tumblr', function () {
 describe('twitch', function () {
   it('options', function (done) {
     p.twitch.get('user', {
-      headers:{Authorization:'OAuth '+cred.user.twitch.token}
+      headers:{Authorization:'OAuth '+user.twitch.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2040,7 +2038,7 @@ describe('twitch', function () {
   it('query', function (done) {
     p.twitch.query()
       .get('user')
-      .auth(cred.user.twitch.token)
+      .auth(user.twitch.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2053,7 +2051,7 @@ describe('twitch', function () {
 describe('twitter', function () {
   it('options', function (done) {
     p.twitter.get('users/show', {
-      oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+      oauth:{token:user.twitter.token, secret:user.twitter.secret},
       qs:{screen_name:'nodejs'}
     }, function (err, res, body) {
       debugger
@@ -2066,7 +2064,7 @@ describe('twitter', function () {
     p.twitter.query()
       .select('users/show')
       .where({screen_name:'nodejs'})
-      .auth(cred.user.twitter.token, cred.user.twitter.secret)
+      .auth(user.twitter.token, user.twitter.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2079,7 +2077,7 @@ describe('twitter', function () {
 describe('vimeo', function () {
   it('options', function (done) {
     p.vimeo.get('me', {
-      auth:{bearer:cred.user.vimeo.token}
+      auth:{bearer:user.vimeo.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2090,7 +2088,7 @@ describe('vimeo', function () {
   it('query', function (done) {
     p.vimeo.query()
       .get('me')
-      .auth(cred.user.vimeo.token)
+      .auth(user.vimeo.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2103,7 +2101,7 @@ describe('vimeo', function () {
 describe('vk', function () {
   it('options', function (done) {
     p.vk.get('users.get', {
-      qs:{access_token:cred.user.vk.token}
+      qs:{access_token:user.vk.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2114,7 +2112,7 @@ describe('vk', function () {
   it('query', function (done) {
     p.vk.query()
       .get('users.get')
-      .auth(cred.user.vk.token)
+      .auth(user.vk.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2128,7 +2126,7 @@ describe('wikimapia', function () {
   it('options', function (done) {
     p.wikimapia.get('', {
       qs: {
-        key:cred.user.wikimapia.apikey,
+        key:user.wikimapia.apikey,
         function:'place.search',
         q:'Central Park, New York, NY',
         lat:'40.7629025',
@@ -2151,7 +2149,7 @@ describe('wikimapia', function () {
         lat:'40.7629025',
         lon:'-73.9826439'
       })
-      .auth(cred.user.wikimapia.apikey)
+      .auth(user.wikimapia.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2164,8 +2162,8 @@ describe('wikimapia', function () {
 describe('withings', function () {
   it('options', function (done) {
     p.withings.get('measure', {
-      oauth:{token:cred.user.withings.token, secret:cred.user.withings.secret},
-      qs:{userid:cred.user.withings.userid, action:'getactivity'}
+      oauth:{token:user.withings.token, secret:user.withings.secret},
+      qs:{userid:user.withings.userid, action:'getactivity'}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2176,8 +2174,8 @@ describe('withings', function () {
   it('query', function (done) {
     p.withings.query()
       .get('measure')
-      .where({userid:cred.user.withings.userid, action:'getactivity'})
-      .auth(cred.user.withings.token, cred.user.withings.secret)
+      .where({userid:user.withings.userid, action:'getactivity'})
+      .auth(user.withings.token, user.withings.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2190,10 +2188,8 @@ describe('withings', function () {
 describe('yahoo', function () {
   it('options', function (done) {
     p.yahoo.get('user/me/profile', {
-      oauth:{
-        token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
-      },
-      api:'social'
+      api:'social',
+      oauth:{token:user.yahoo.token, secret:user.yahoo.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2204,7 +2200,7 @@ describe('yahoo', function () {
   it('query', function (done) {
     p.yahoo.query('social')
       .select('user/me/profile')
-      .auth(cred.user.yahoo.token, cred.user.yahoo.secret)
+      .auth(user.yahoo.token, user.yahoo.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2217,7 +2213,7 @@ describe('yahoo', function () {
 describe('yammer', function () {
   it('options', function (done) {
     p.yammer.get('users/current', {
-      auth:{bearer:cred.user.yammer.token}
+      auth:{bearer:user.yammer.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2228,7 +2224,7 @@ describe('yammer', function () {
   it('query', function (done) {
     p.yammer.query()
       .get('users/current')
-      .auth(cred.user.yammer.token)
+      .auth(user.yammer.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2241,8 +2237,8 @@ describe('yammer', function () {
 describe('zendesk', function () {
   it('options', function (done) {
     p.zendesk.get('users/me', {
-      domain:cred.user.zendesk.domain,
-      auth:{bearer:cred.user.zendesk.token}
+      domain:user.zendesk.domain,
+      auth:{bearer:user.zendesk.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2253,8 +2249,8 @@ describe('zendesk', function () {
   it('query', function (done) {
     p.zendesk.query()
       .get('users/me')
-      .options({domain:cred.user.zendesk.domain})
-      .auth(cred.user.zendesk.token)
+      .options({domain:user.zendesk.domain})
+      .auth(user.zendesk.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)

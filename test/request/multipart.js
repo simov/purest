@@ -16,10 +16,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -28,8 +26,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -39,7 +37,7 @@ describe('asana', function () {
   it('options', function (done) {
     var id = '16202185639027'
     p.asana.post('tasks/'+id+'/attachments', {
-      auth: {bearer:cred.user.asana.token},
+      auth: {bearer:user.asana.token},
       formData:{
         file:fs.createReadStream(image)
       }
@@ -58,7 +56,7 @@ describe('asana', function () {
       .upload({
         file:fs.createReadStream(image)
       })
-      .auth(cred.user.asana.token)
+      .auth(user.asana.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -73,7 +71,7 @@ describe('box', function () {
     it('content API upload', function (done) {
       p.box.post('files/content', {
         api:'upload',
-        auth:{bearer:cred.user.box.token},
+        auth:{bearer:user.box.token},
         qs:{parent_id:0},
         formData:{filename:fs.createReadStream(image)}
       }, function (err, res, body) {
@@ -92,7 +90,7 @@ describe('box', function () {
         .upload({
           filename:fs.createReadStream(image)
         })
-        .auth(cred.user.box.token)
+        .auth(user.box.token)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -107,7 +105,7 @@ describe('facebook', function () {
   it('options', function (done) {
     p.facebook.post('me/photos', {
       qs:{
-        access_token:cred.user.facebook.token,
+        access_token:user.facebook.token,
         message:'Sent on '+new Date()
       },
       formData:{
@@ -129,7 +127,7 @@ describe('facebook', function () {
         message:'Sent on '+new Date(),
         source:fs.createReadStream(image)
       })
-      .auth(cred.user.facebook.token)
+      .auth(user.facebook.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -145,7 +143,7 @@ describe('flickr', function () {
     it('upload', function (done) {
       p.flickr.post('', {
         api:'upload',
-        oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+        oauth:{token:user.flickr.token, secret:user.flickr.secret},
         qs:{
           title:'Sent on '+new Date(),
           description:'...',
@@ -168,7 +166,7 @@ describe('flickr', function () {
     it('replace', function (done) {
       p.flickr.post('', {
         api:'replace',
-        oauth:{token:cred.user.flickr.token, secret:cred.user.flickr.secret},
+        oauth:{token:user.flickr.token, secret:user.flickr.secret},
         qs: {
           photo_id:'14887285783'
         },
@@ -200,7 +198,7 @@ describe('flickr', function () {
           is_public:0,
           photo:fs.createReadStream(image)
         })
-        .auth(cred.user.flickr.token, cred.user.flickr.secret)
+        .auth(user.flickr.token, user.flickr.secret)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -218,7 +216,7 @@ describe('flickr', function () {
           photo_id:'14887285783',
           photo:fs.createReadStream(image)
         })
-        .auth(cred.user.flickr.token, cred.user.flickr.secret)
+        .auth(user.flickr.token, user.flickr.secret)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -232,8 +230,8 @@ describe('flickr', function () {
 describe('flowdock', function () {
   it('options', function (done) {
     p.flowdock.post('messages', {
-      auth:{bearer:cred.user.flowdock.token},
-      qs:{flow:cred.user.flowdock.flow, event:'file'},
+      auth:{bearer:user.flowdock.token},
+      qs:{flow:user.flowdock.flow, event:'file'},
       formData:{
         content:fs.createReadStream(image)
       }
@@ -248,11 +246,11 @@ describe('flowdock', function () {
   it('query', function (done) {
     p.flowdock.query()
       .update('messages')
-      .where({flow:cred.user.flowdock.flow, event:'file'})
+      .where({flow:user.flowdock.flow, event:'file'})
       .upload({
         content:fs.createReadStream(image)
       })
-      .auth(cred.user.flowdock.token)
+      .auth(user.flowdock.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -266,7 +264,7 @@ describe('foursquare', function () {
   it('options', function (done) {
     p.foursquare.post('users/self/update', {
       qs:{
-        oauth_token:cred.user.foursquare.token,
+        oauth_token:user.foursquare.token,
         v:'20140503'
       },
       formData:{
@@ -287,7 +285,7 @@ describe('foursquare', function () {
       .upload({
         photo:fs.createReadStream(image)
       })
-      .auth(cred.user.foursquare.token)
+      .auth(user.foursquare.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -303,7 +301,7 @@ describe('google', function () {
       p.google.post('files', {
         api:'upload-drive',
         qs:{
-          access_token:cred.user.google.token,
+          access_token:user.google.token,
           uploadType:'multipart'
         },
         multipart: [
@@ -329,7 +327,7 @@ describe('google', function () {
     })
     it('batch', function (done) {
       p.google.post('batch', {
-        auth:{bearer:cred.user.google.token},
+        auth:{bearer:user.google.token},
         headers:{'content-type':'multipart/mixed'},
         multipart: [
           {
@@ -366,7 +364,7 @@ describe('google', function () {
             body:fs.createReadStream(image)
           }
         ])
-        .auth(cred.user.google.token)
+        .auth(user.google.token)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -388,7 +386,7 @@ describe('google', function () {
             body:'GET https://www.googleapis.com/calendar/v3/users/me/settings\n'
           }
         ])
-        .auth(cred.user.google.token)
+        .auth(user.google.token)
         .request(function (err, res, body) {
           debugger
           if (err) return error(err, done)
@@ -401,8 +399,8 @@ describe('google', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.post(cred.user.mailgun.domain+'/messages', {
-      auth:{user:'api',pass:cred.user.mailgun.apikey},
+    p.mailgun.post(user.mailgun.domain+'/messages', {
+      auth:{user:'api',pass:user.mailgun.apikey},
       formData:{
         from:'purest@mailinator.com',
         to:'purest@mailinator.com,purest2@mailinator.com',
@@ -422,7 +420,7 @@ describe('mailgun', function () {
   })
   it('query', function (done) {
     p.mailgun.query()
-      .update(cred.user.mailgun.domain+'/messages')
+      .update(user.mailgun.domain+'/messages')
       .upload({
         from:'purest@mailinator.com',
         to:'purest@mailinator.com,purest2@mailinator.com',
@@ -434,7 +432,7 @@ describe('mailgun', function () {
           fs.createReadStream(audio)
         ]
       })
-      .auth('api', cred.user.mailgun.apikey)
+      .auth('api', user.mailgun.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -449,8 +447,8 @@ describe('sendgrid', function () {
   it('options', function (done) {
     p.sendgrid.post('mail.send', {
       formData:{
-        api_user:cred.user.sendgrid.user,
-        api_key:cred.user.sendgrid.pass,
+        api_user:user.sendgrid.user,
+        api_key:user.sendgrid.pass,
         from:'purest@mailinator.com',
         to:['purest@mailinator.com','purest2@mailinator.com'],
         subject:'Purest is awesome! (sendgrid+attachments)',
@@ -479,7 +477,7 @@ describe('sendgrid', function () {
         'files[image.png]': fs.createReadStream(image),
         'files[beep.mp3]': fs.createReadStream(audio)
       })
-      .auth(cred.user.sendgrid.user, cred.user.sendgrid.pass)
+      .auth(user.sendgrid.user, user.sendgrid.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -493,7 +491,7 @@ describe('slack', function () {
   it('options', function (done) {
     p.slack.post('files.upload', {
       qs:{
-        token:cred.user.slack.token,
+        token:user.slack.token,
         filename:'cat',
         title:'Sent on '+new Date()
       },
@@ -517,7 +515,7 @@ describe('slack', function () {
         filename:'cat',
         file:fs.createReadStream(image)
       })
-      .auth(cred.user.slack.token)
+      .auth(user.slack.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -532,7 +530,7 @@ describe('soundcloud', function () {
   it('options', function (done) {
     p.soundcloud.post('tracks', {
       qs:{
-        oauth_token:cred.user.soundcloud.token
+        oauth_token:user.soundcloud.token
       },
       formData:{
         'track[title]':'Sent on '+new Date(),
@@ -553,7 +551,7 @@ describe('soundcloud', function () {
         'track[title]':'Sent on '+new Date(),
         'track[asset_data]':fs.createReadStream(audio)
       })
-      .auth(cred.user.soundcloud.token)
+      .auth(user.soundcloud.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -567,7 +565,7 @@ describe('stocktwits', function () {
   it('options', function (done) {
     p.stocktwits.post('messages/create', {
       qs:{
-        access_token:cred.user.stocktwits.token
+        access_token:user.stocktwits.token
       },
       formData:{
         body:'Sent on '+new Date(),
@@ -589,7 +587,7 @@ describe('stocktwits', function () {
         body:'Sent on '+new Date(),
         chart:fs.createReadStream(image)
       })
-      .auth(cred.user.stocktwits.token)
+      .auth(user.stocktwits.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -602,8 +600,8 @@ describe('stocktwits', function () {
 
 describe('trello', function () {
   it('options', function (done) {
-    p.trello.post('cards/'+cred.user.trello.card+'/attachments', {
-      qs:{key:cred.app.trello.key, token:cred.user.trello.token},
+    p.trello.post('cards/'+user.trello.card+'/attachments', {
+      qs:{key:app.trello.key, token:user.trello.token},
       formData:{
         file:fs.createReadStream(image)
       }
@@ -617,9 +615,9 @@ describe('trello', function () {
   })
   it('query', function (done) {
     p.trello.query()
-      .update('cards/'+cred.user.trello.card+'/attachments')
+      .update('cards/'+user.trello.card+'/attachments')
       .upload({file:fs.createReadStream(image)})
-      .auth(cred.app.trello.key, cred.user.trello.token)
+      .auth(app.trello.key, user.trello.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -632,7 +630,7 @@ describe('trello', function () {
 describe('twitter', function () {
   it('options', function (done) {
     p.twitter.post('statuses/update_with_media', {
-      oauth:{token:cred.user.twitter.token, secret:cred.user.twitter.secret},
+      oauth:{token:user.twitter.token, secret:user.twitter.secret},
       formData:{
         status:'Sent on '+new Date(),
         'media[]':fs.createReadStream(image)
@@ -652,7 +650,7 @@ describe('twitter', function () {
         status:'Sent on '+new Date(),
         'media[]':fs.createReadStream(image)
       })
-      .auth(cred.user.twitter.token, cred.user.twitter.secret)
+      .auth(user.twitter.token, user.twitter.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)

@@ -10,10 +10,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -22,8 +20,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -35,12 +33,12 @@ describe('salesforce', function () {
     // POST
     p.salesforce.query('sobjects')
       .post('Lead')
-      .options({domain:cred.user.salesforce.domain})
+      .options({domain:user.salesforce.domain})
       .json({
         email:'purest@mailinator.com',
         FirstName:'Unkown', LastName:'Unknown', Company:'Unknown'
       })
-      .auth(cred.user.salesforce.token)
+      .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -52,9 +50,9 @@ describe('salesforce', function () {
   it('patch', function (done) {
     p.salesforce.query('sobjects')
       .patch('Lead/'+id)
-      .options({domain:cred.user.salesforce.domain})
+      .options({domain:user.salesforce.domain})
       .json({FirstName:'First', LastName:'Last'})
-      .auth(cred.user.salesforce.token)
+      .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -62,8 +60,8 @@ describe('salesforce', function () {
         // GET
         p.salesforce.query('sobjects')
           .get('Lead/'+id)
-          .options({domain:cred.user.salesforce.domain})
-          .auth(cred.user.salesforce.token)
+          .options({domain:user.salesforce.domain})
+          .auth(user.salesforce.token)
           .request(function (err, res, body) {
             debugger
             if (err) return error(err, done)
@@ -77,8 +75,8 @@ describe('salesforce', function () {
     // DELETE
     p.salesforce.query('sobjects')
       .del('Lead/'+id)
-      .options({domain:cred.user.salesforce.domain})
-      .auth(cred.user.salesforce.token)
+      .options({domain:user.salesforce.domain})
+      .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)

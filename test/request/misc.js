@@ -10,10 +10,8 @@ function error (err, done) {
 }
 
 require('../utils/credentials')
-var cred = {
-  app:require('../../config/app'),
-  user:require('../../config/user')
-}
+var app = require('../../config/app')
+  , user = require('../../config/user')
 
 var p = {}
 for (var name in providers) {
@@ -22,8 +20,8 @@ for (var name in providers) {
     defaults:{headers:{'User-Agent':'Purest'}}
   }
   if (providers[name].__provider && providers[name].__provider.oauth) {
-    options.key = cred.app[name].key
-    options.secret = cred.app[name].secret
+    options.key = app[name].key
+    options.secret = app[name].secret
   }
   p[name] = new Purest(options)
 }
@@ -32,7 +30,7 @@ for (var name in providers) {
 describe('absolute url', function () {
   it('...', function (done) {
     p.aboutme.get('https://api.about.me/api/v2/json/user/view/simeonv', {
-      headers:{Authorization:'Basic '+cred.user.aboutme.apikey}
+      headers:{Authorization:'Basic '+user.aboutme.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -46,10 +44,10 @@ describe('request defaults', function () {
   it('...', function (done) {
     var defaults = {
       oauth: {
-        consumer_key:cred.app.twitter.key,
-        consumer_secret:cred.app.twitter.secret,
-        token:cred.user.twitter.token,
-        token_secret:cred.user.twitter.secret
+        consumer_key:app.twitter.key,
+        consumer_secret:app.twitter.secret,
+        token:user.twitter.token,
+        token_secret:user.twitter.secret
       }
     }
     var twitter = new Purest({provider:'twitter', defaults:defaults})
@@ -71,7 +69,7 @@ describe('request debug', function () {
     var facebook = new Purest({provider:'facebook', debug:true})
     facebook.query()
       .select('me')
-      .auth(cred.user.facebook.token)
+      .auth(user.facebook.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -87,7 +85,7 @@ describe('http options request', function () {
       api:'yql',
       method:'OPTIONS',
       oauth:{
-        token:cred.user.yahoo.token, secret:cred.user.yahoo.secret
+        token:user.yahoo.token, secret:user.yahoo.secret
       }
     }, function (err, res, body) {
       if (err) return error(err, done)
