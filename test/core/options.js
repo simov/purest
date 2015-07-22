@@ -1,8 +1,8 @@
 
 var should = require('should')
 var Purest = require('../../')
-var Options = require('../../lib/options')
-var config = require('../../lib/config')
+  , Options = require('../../lib/options')
+  , config = require('../../lib/config')
 
 
 describe('options', function () {

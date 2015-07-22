@@ -1,8 +1,8 @@
 
 var should = require('should')
-var providers = require('../../config/providers')
-var config = require('../../lib/config')
 var Purest = require('../../')
+  , config = require('../../lib/config')
+var providers = require('../../config/providers')
 
 
 var fixture = {

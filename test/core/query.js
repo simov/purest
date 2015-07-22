@@ -1,7 +1,7 @@
 
 var should = require('should')
-var Query = require('../../lib/query')
 var Purest = require('../../')
+  , Query = require('../../lib/query')
 var query = require('../../config/query')
 
 
