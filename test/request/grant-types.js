@@ -8,7 +8,7 @@ var Purest = require('../../')
 function error (err, done) {
   return (err instanceof Error)
     ? done(err)
-    : (console.log(err) || done(new Error('Network error!')))
+    : (console.log(err) || done(new Error('Error response!')))
 }
 
 require('../utils/credentials')

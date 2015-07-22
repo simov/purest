@@ -9,7 +9,7 @@ var config = require('../config/refresh-token')
 function error (err, done) {
   return (err instanceof Error)
     ? done(err)
-    : (console.log(err) || done(new Error('Network error!')))
+    : (console.log(err) || done(new Error('Error response!')))
 }
 
 require('../utils/credentials')

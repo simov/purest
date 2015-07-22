@@ -12,7 +12,7 @@ var image = path.resolve(__dirname, '../fixtures/cat.png')
 function error (err, done) {
   return (err instanceof Error)
     ? done(err)
-    : (console.log(err) || done(new Error('Network error!')))
+    : (console.log(err) || done(new Error('Error response!')))
 }
 
 require('../utils/credentials')
