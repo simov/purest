@@ -4,6 +4,7 @@ var qs = require('qs')
 var Purest = require('../../')
   , providers = require('../../config/providers')
 var config = require('../config/refresh-token')
+  , store = require('../utils/store')
 
 
 function error (err, done) {
@@ -15,7 +16,6 @@ function error (err, done) {
 require('../utils/credentials')
 var app = require('../../config/app')
   , user = require('../../config/user')
-var store = require('../utils/store')
 
 var p = {}
 for (var name in providers) {
@@ -31,8 +31,7 @@ for (var name in providers) {
 }
 
 
-describe('refresh', function () {
-  // OAuth2
+describe('oauth2', function () {
   Object.keys(config).forEach(function (provider) {
     var options = {}
     var params = {
@@ -72,7 +71,9 @@ describe('refresh', function () {
         })
     })
   })
+})
 
+describe('custom', function () {
   // http://about.me/developer/api/docs/#login
   it('aboutme', function (done) {
     p.aboutme.query('user')
@@ -92,7 +93,9 @@ describe('refresh', function () {
         done()
       })
   })
+})
 
+describe('oauth1', function () {
   // https://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
   it('yahoo', function (done) {
     p.yahoo.query('oauth')
