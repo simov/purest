@@ -33,7 +33,7 @@ exports = module.exports = {
   },
   getpocket: function () {
     this.before.all = function (endpoint, options) {
-      if ('object'===typeof options.body) {
+      if (typeof options.body == 'object') {
         options.body = JSON.stringify(options.body)
       }
       options.json = false
@@ -63,16 +63,20 @@ exports = module.exports = {
         consumer_key: options.oauth.consumer_key||this.provider.key,
         consumer_secret: options.oauth.consumer_secret||this.provider.secret
       }
-      if (!options.oauth.consumer_key || !options.oauth.consumer_secret)
+      if (!options.oauth.consumer_key || !options.oauth.consumer_secret) {
         throw new Error('Missing OAuth credentials!')
+      }
     }
   },
   imgur: function () {
     this.before.all = function (endpoint, options) {
-      if (options.auth && options.auth.bearer.length < 20) {
-        options.headers = options.headers || {}
-        options.headers['authorization'] = 'Client-ID '+options.auth.bearer
-        delete options.auth
+      if (options.auth && options.auth.bearer) {
+        // app key
+        if (options.auth.bearer.length < 35) {
+          options.headers = options.headers || {}
+          options.headers.authorization = 'Client-ID '+options.auth.bearer
+          delete options.auth
+        }
       }
     }
   },
@@ -111,12 +115,15 @@ exports = module.exports = {
   },
   openstreetmap: function () {
     this.before.all = function (endpoint, options) {
-      if (options.oauth.token.length < 30) {
-        options.auth = {
-          user: options.oauth.token,
-          pass: options.oauth.token_secret
+      if (options.oauth && options.oauth.token) {
+        // basic
+        if (options.oauth.token.length < 35) {
+          options.auth = {
+            user: options.oauth.token,
+            pass: options.oauth.token_secret
+          }
+          delete options.oauth
         }
-        delete options.oauth
       }
     }
   },

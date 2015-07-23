@@ -128,13 +128,13 @@ describe('override', function () {
     })
     it('use oauth', function () {
       var provider = new Purest({provider:'openstreetmap', key:'key', secret:'secret'})
-      var query = provider.query().auth('0123456789012345678901234567890','pass')
+      var query = provider.query().auth('012345678901234567890123456789012345','pass')
       provider.options.oauth(query._options)
       provider.before.all('endpoint', query._options)
       should.deepEqual(query._options,
         {api:'__default', oauth:{
           consumer_key:'key', consumer_secret:'secret',
-          token:'0123456789012345678901234567890', token_secret:'pass'}})
+          token:'012345678901234567890123456789012345', token_secret:'pass'}})
     })
   })
 

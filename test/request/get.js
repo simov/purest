@@ -747,21 +747,10 @@ describe('flowdock', function () {
       done()
     })
   })
-  it('query oauth2', function (done) {
+  it('query oauth', function (done) {
     p.flowdock.query()
       .get('users')
       .auth(user.flowdock.token)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body[0].id.should.be.type('number')
-        done()
-      })
-  })
-  it('query basic', function (done) {
-    p.flowdock.query()
-      .get('users')
-      .auth(user.flowdock.user, user.flowdock.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -773,6 +762,17 @@ describe('flowdock', function () {
     p.flowdock.query()
       .get('users')
       .auth(user.flowdock.apikey)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body[0].id.should.be.type('number')
+        done()
+      })
+  })
+  it('query basic', function (done) {
+    p.flowdock.query()
+      .get('users')
+      .auth(user.flowdock.user, user.flowdock.pass)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
