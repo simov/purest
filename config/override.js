@@ -1,5 +1,26 @@
 
 exports = module.exports = {
+  aboutme: function () {
+    this.before.all = function (endpoint, options) {
+      if (options.headers && options.headers.authorization) {
+        var parts = options.headers.authorization.split(' ')
+        // token
+        if (parts[0] == 'Basic' && parts[1].length > 40) {
+          options.headers.authorization = 'OAuth '+parts[1]
+        }
+      }
+    }
+  },
+  asana: function () {
+    this.before.all = function (endpoint, options) {
+      if (options.auth && options.auth.user) {
+        // token
+        if (options.auth.user.length > 35) {
+          options.auth = {bearer:options.auth.user}
+        }
+      }
+    }
+  },
   flowdock: function () {
     this.before.all = function (endpoint, options) {
       if (options.auth && options.auth.bearer) {

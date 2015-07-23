@@ -35,7 +35,7 @@ describe('500px', function () {
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.user.should.be.type('object')
+      body.user.id.should.be.type('number')
       done()
     })
   })
@@ -46,7 +46,7 @@ describe('500px', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.user.should.be.type('object')
+        body.user.id.should.be.type('number')
         done()
       })
   })
@@ -65,10 +65,7 @@ describe('aboutme', function () {
   })
   it('options token', function (done) {
     p.aboutme.get('user/directory/simeonv', {
-      qs: {
-        client_id:user.aboutme.apikey,
-        token:user.aboutme.token
-      }
+      headers:{Authorization:'OAuth '+user.aboutme.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -90,7 +87,7 @@ describe('aboutme', function () {
   it('query token', function (done) {
     p.aboutme.query('user')
       .get('directory/simeonv')
-      .auth(user.aboutme.apikey, user.aboutme.token)
+      .auth(user.aboutme.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -98,6 +95,10 @@ describe('aboutme', function () {
         done()
       })
   })
+})
+
+describe('acton', function () {
+
 })
 
 describe('angellist', function () {
@@ -131,31 +132,28 @@ describe('asana', function () {
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      should.deepEqual(Object.keys(body.data),
-        ['id','name','email','photo','workspaces'])
+      body.data.id.should.be.type('number')
       done()
     })
   })
   it('options oauth', function (done) {
     p.asana.get('users/me', {
-      auth: {bearer:user.asana.token}
+      auth:{bearer:user.asana.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      should.deepEqual(Object.keys(body.data),
-        ['id','name','email','photo','workspaces'])
+      body.data.id.should.be.type('number')
       done()
     })
   })
   it('query basic', function (done) {
     p.asana.config()
       .get('users/me')
-      .auth(user.asana.apikey,'')
+      .auth(user.asana.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        should.deepEqual(Object.keys(body.data),
-          ['id','name','email','photo','workspaces'])
+        body.data.id.should.be.type('number')
         done()
       })
   })
@@ -166,8 +164,7 @@ describe('asana', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        should.deepEqual(Object.keys(body.data),
-          ['id','name','email','photo','workspaces'])
+        body.data.id.should.be.type('number')
         done()
       })
   })
@@ -787,7 +784,7 @@ describe('flowdock', function () {
 
 describe('foursquare', function () {
   it('options', function (done) {
-    p.foursquare.get('users/81257627', {
+    p.foursquare.get('users/self', {
       qs:{oauth_token:user.foursquare.token, v:'20140503'}
     }, function (err, res, body) {
       debugger
@@ -798,7 +795,7 @@ describe('foursquare', function () {
   })
   it('query', function (done) {
     p.foursquare.query()
-      .get('users/81257627')
+      .get('users/self')
       .where({v:'20140503'})
       .auth(user.foursquare.token)
       .request(function (err, res, body) {
@@ -1427,6 +1424,10 @@ describe('openstreetmap', function () {
   })
 })
 
+describe('organisedminds', function () {
+
+})
+
 describe('paypal', function () {
   it('options', function (done) {
     p.paypal.get('userinfo', {
@@ -1452,6 +1453,10 @@ describe('paypal', function () {
         done()
       })
   })
+})
+
+describe('pipelinedeals', function () {
+
 })
 
 describe('podio', function () {
