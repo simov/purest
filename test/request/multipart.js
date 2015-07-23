@@ -300,10 +300,8 @@ describe('google', function () {
     it('drive', function (done) {
       p.google.post('files', {
         api:'upload-drive',
-        qs:{
-          access_token:user.google.token,
-          uploadType:'multipart'
-        },
+        auth:{bearer:user.google.token},
+        qs:{uploadType:'multipart'},
         multipart: [
           {
             'Content-Type':'application/json',
@@ -355,9 +353,7 @@ describe('google', function () {
         .upload([
           {
             'Content-Type':'application/json',
-            body:JSON.stringify({
-              title:'cat.png'
-            })
+            body:JSON.stringify({title:'cat.png'})
           },
           {
             'Content-Type':'image/png',
