@@ -1191,7 +1191,7 @@
     "https://login.mailchimp.com": {
       "__domain": {
         "auth": {
-          "headers": {"Authorization": "OAuth [0]"}
+          "auth": {"bearer": "[0]"}
         }
       },
       "oauth2/{endpoint}": {
@@ -1397,7 +1397,7 @@
     "https://api.podio.com": {
       "__domain": {
         "auth": {
-          "headers":{"Authorization": "OAuth2 [0]"}
+          "auth":{"bearer": "[0]"}
         }
       },
       "{endpoint}": {
@@ -1476,6 +1476,19 @@
         }
       }
     },
+    "https://oauth.reddit.com": {
+      "__domain": {
+        "auth": {
+          "auth":{"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "auth",
+          "version": "v1"
+        }
+      }
+    },
     "https://ssl.reddit.com": {
       "api/[version]/access_{endpoint}": {
         "__path": {
@@ -1539,15 +1552,14 @@
           "auth": {"bearer": "[0]"}
         }
       },
-      "services/data/[version]/{endpoint}": {
+      "{endpoint}": {
         "__path": {
-          "alias": "__default",
-          "version": "v20.0"
+          "alias": "__default"
         }
       },
-      "services/data/[version]/sobjects/{endpoint}": {
+      "services/data/[version]/{endpoint}": {
         "__path": {
-          "alias": ["sobjects"],
+          "alias": "services",
           "version": "v20.0"
         }
       }
@@ -1817,6 +1829,11 @@
         "__path": {
           "alias": "__default",
           "version": "v1"
+        },
+        "*": {
+          "all": {
+            "qs": {"format": "json"}
+          }
         }
       }
     }

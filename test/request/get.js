@@ -53,45 +53,45 @@ describe('500px', function () {
 })
 
 describe('aboutme', function () {
-  it('options apikey', function (done) {
-    p.aboutme.get('user/view/simeonv', {
-      headers:{Authorization:'Basic '+user.aboutme.apikey}
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.user_name.should.equal('simeonv')
-      done()
-    })
-  })
   it('options token', function (done) {
-    p.aboutme.get('user/directory/simeonv', {
+    p.aboutme.get('user/view/'+user.aboutme.user, {
       headers:{Authorization:'OAuth '+user.aboutme.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.status.should.equal(200)
+      body.user_name.should.be.type('string')
       done()
     })
   })
-  it('query apikey', function (done) {
-    p.aboutme.query('user')
-      .select('view/simeonv')
-      .auth(user.aboutme.apikey)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.user_name.should.equal('simeonv')
-        done()
-      })
-  })
   it('query token', function (done) {
-    p.aboutme.query('user')
-      .get('directory/simeonv')
+    p.aboutme.query()
+      .get('user/view/'+user.aboutme.user)
       .auth(user.aboutme.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.status.should.equal(200)
+        body.user_name.should.be.type('string')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
+    p.aboutme.get('user/view/'+user.aboutme.user, {
+      headers:{Authorization:'Basic '+user.aboutme.apikey}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user_name.should.be.type('string')
+      done()
+    })
+  })
+  it('query apikey', function (done) {
+    p.aboutme.query()
+      .select('user/view/'+user.aboutme.user)
+      .auth(user.aboutme.apikey)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user_name.should.be.type('string')
         done()
       })
   })
@@ -126,9 +126,9 @@ describe('angellist', function () {
 })
 
 describe('asana', function () {
-  it('options basic', function (done) {
+  it('options oauth', function (done) {
     p.asana.get('users/me', {
-      auth:{user:user.asana.apikey}
+      auth:{bearer:user.asana.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -136,9 +136,20 @@ describe('asana', function () {
       done()
     })
   })
-  it('options oauth', function (done) {
+  it('query oauth', function (done) {
+    p.asana.config()
+      .get('users/me')
+      .auth(user.asana.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data.id.should.be.type('number')
+        done()
+      })
+  })
+  it('options basic', function (done) {
     p.asana.get('users/me', {
-      auth:{bearer:user.asana.token}
+      auth:{user:user.asana.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -150,17 +161,6 @@ describe('asana', function () {
     p.asana.config()
       .get('users/me')
       .auth(user.asana.apikey)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.data.id.should.be.type('number')
-        done()
-      })
-  })
-  it('query oauth', function (done) {
-    p.asana.config()
-      .get('users/me')
-      .auth(user.asana.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -305,7 +305,7 @@ describe('box', function () {
 describe('buffer', function () {
   it('options', function (done) {
     p.buffer.get('user', {
-      qs:{access_token:user.buffer.token}
+      auth:{bearer:user.buffer.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -492,7 +492,7 @@ describe('deviantart', function () {
 })
 
 describe('digitalocean', function () {
-  it('options bearer', function (done) {
+  it('options oauth', function (done) {
     p.digitalocean.get('account', {
       auth:{bearer:user.digitalocean.token}
     }, function (err, res, body) {
@@ -501,6 +501,17 @@ describe('digitalocean', function () {
       body.account.uuid.should.be.type('string')
       done()
     })
+  })
+  it('query oauth', function (done) {
+    p.digitalocean.query()
+      .get('account')
+      .auth(user.digitalocean.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.account.uuid.should.be.type('string')
+        done()
+      })
   })
   it('options basic', function (done) {
     p.digitalocean.get('account', {
@@ -511,17 +522,6 @@ describe('digitalocean', function () {
       body.account.uuid.should.be.type('string')
       done()
     })
-  })
-  it('query bearer', function (done) {
-    p.digitalocean.query()
-      .get('account')
-      .auth(user.digitalocean.token)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.account.uuid.should.be.type('string')
-        done()
-      })
   })
   it('query basic', function (done) {
     p.digitalocean.query()
@@ -539,7 +539,8 @@ describe('digitalocean', function () {
 describe('disqus', function () {
   it('options', function (done) {
     p.disqus.get('users/details', {
-      qs:{api_key:app.disqus.key, access_token:user.disqus.token},
+      auth:{bearer:user.disqus.token},
+      qs:{api_key:app.disqus.key},
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -563,11 +564,11 @@ describe('disqus', function () {
 describe('dropbox', function () {
   it('options', function (done) {
     p.dropbox.get('account/info', {
-      auth: {bearer:user.dropbox.token}
+      auth:{bearer:user.dropbox.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.email.should.be.type('string')
+      body.uid.should.be.type('number')
       done()
     })
   })
@@ -578,7 +579,7 @@ describe('dropbox', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.email.should.be.type('string')
+        body.uid.should.be.type('number')
         done()
       })
   })
@@ -682,7 +683,7 @@ describe('fitbit', function () {
 
 describe('flattr', function () {
   it('options', function (done) {
-    p.flattr.get('users/me', {
+    p.flattr.get('user', {
       auth:{bearer:user.flattr.token}
     }, function (err, res, body) {
       debugger
@@ -693,7 +694,7 @@ describe('flattr', function () {
   })
   it('query', function (done) {
     p.flattr.query()
-      .select('users/me')
+      .select('user')
       .auth(user.flattr.token)
       .request(function (err, res, body) {
         debugger
@@ -737,7 +738,7 @@ describe('flickr', function () {
 })
 
 describe('flowdock', function () {
-  it('options', function (done) {
+  it('options oauth', function (done) {
     p.flowdock.get('users', {
       auth:{bearer:user.flowdock.token},
     }, function (err, res, body) {
@@ -837,7 +838,7 @@ describe('getpocket', function () {
 describe('github', function () {
   it('options', function (done) {
     p.github.get('users/simov', {
-      qs:{access_token:user.github.token}
+      auth:{bearer:user.github.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -886,7 +887,7 @@ describe('google', function () {
   it('options plus', function (done) {
     p.google.get('people/me', {
       api:'plus',
-      qs:{access_token:user.google.token}
+      auth:{bearer:user.google.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -894,46 +895,6 @@ describe('google', function () {
       done()
     })
   })
-  it('options gmail', function (done) {
-    p.google.get('users/me/profile', {
-      api:'gmail',
-      auth:{bearer:user.google.token}
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.emailAddress.should.be.type('string')
-      done()
-    })
-  })
-  it('options youtube', function (done) {
-    p.google.get('channels', {
-      api:'youtube',
-      qs:{
-        access_token:user.google.token,
-        part:'id, snippet, contentDetails, statistics, status, topicDetails',
-        forUsername:'RayWilliamJohnson'
-      }
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.items[0].id.should.be.type('string')
-      done()
-    })
-  })
-  it('options drive', function (done) {
-    p.google.get('about', {
-      api:'drive',
-      qs:{
-        access_token:user.google.token
-      }
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.user.displayName.should.be.type('string')
-      done()
-    })
-  })
-
   it('query plus', function (done) {
     p.google.query('plus')
       .select('people/me')
@@ -944,6 +905,18 @@ describe('google', function () {
         body.id.should.be.type('string')
         done()
       })
+  })
+
+  it('options gmail', function (done) {
+    p.google.get('users/me/profile', {
+      api:'gmail',
+      auth:{bearer:user.google.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.emailAddress.should.be.type('string')
+      done()
+    })
   })
   it('query gmail', function (done) {
     p.google.query('gmail')
@@ -956,12 +929,28 @@ describe('google', function () {
         done()
       })
   })
+
+  it('options youtube', function (done) {
+    p.google.get('channels', {
+      api:'youtube',
+      auth:{bearer:user.google.token},
+      qs:{
+        part:'id, snippet, contentDetails, statistics, status, topicDetails',
+        mine:true
+      }
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.items[0].id.should.be.type('string')
+      done()
+    })
+  })
   it('query youtube', function (done) {
     p.google.query('youtube')
       .select('channels')
       .where({
-        forUsername:'RayWilliamJohnson',
-        part:'id, snippet, contentDetails, statistics, status, topicDetails'
+        part:'id, snippet, contentDetails, statistics, status, topicDetails',
+        mine:true
       })
       .auth(user.google.token)
       .request(function (err, res, body) {
@@ -970,6 +959,18 @@ describe('google', function () {
         body.items[0].id.should.be.type('string')
         done()
       })
+  })
+
+  it('options drive', function (done) {
+    p.google.get('about', {
+      api:'drive',
+      auth:{bearer:user.google.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user.displayName.should.be.type('string')
+      done()
+    })
   })
   it('query drive', function (done) {
     p.google.query('drive')
@@ -987,7 +988,6 @@ describe('google', function () {
 describe('hackpad', function () {
   it('options', function (done) {
     p.hackpad.get('search', {
-      oauth:{},
       qs:{q:'hackpad'}
     }, function (err, res, body) {
       debugger
@@ -1000,7 +1000,6 @@ describe('hackpad', function () {
     p.hackpad.query()
       .select('search')
       .where({q:'hackpad'})
-      .oauth({})
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1011,7 +1010,7 @@ describe('hackpad', function () {
 })
 
 describe('harvest', function () {
-  it('options', function (done) {
+  it('options oauth', function (done) {
     p.harvest.get('account/who_am_i', {
       domain:user.harvest.domain,
       auth:{bearer:user.harvest.token}
@@ -1022,7 +1021,7 @@ describe('harvest', function () {
       done()
     })
   })
-  it('query bearer', function (done) {
+  it('query oauth', function (done) {
     p.harvest.query()
       .get('account/who_am_i')
       .options({domain:user.harvest.domain})
@@ -1075,45 +1074,45 @@ describe('heroku', function () {
 })
 
 describe('imgur', function () {
-  it('options apikey', function (done) {
-    p.imgur.get('account/simov', {
-      headers: {Authorization: 'Client-ID '+app.imgur.key}
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.data.url.should.equal('simov')
-      done()
-    })
-  })
-  it('options token', function (done) {
-    p.imgur.get('account/simov', {
+  it('options oauth', function (done) {
+    p.imgur.get('account/me', {
       auth:{bearer:user.imgur.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.data.url.should.equal('simov')
+      body.data.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query oauth', function (done) {
+    p.imgur.query()
+      .get('account/me')
+      .auth(user.imgur.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data.id.should.be.type('number')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
+    p.imgur.get('account/'+user.imgur.user, {
+      headers: {Authorization: 'Client-ID '+app.imgur.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data.id.should.be.type('number')
       done()
     })
   })
   it('query apikey', function (done) {
     p.imgur.query()
-      .get('account/simov')
+      .get('account/'+user.imgur.user)
       .auth(app.imgur.key)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.data.url.should.equal('simov')
-        done()
-      })
-  })
-  it('query token', function (done) {
-    p.imgur.query()
-      .get('account/simov')
-      .auth(user.imgur.token)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.data.url.should.equal('simov')
+        body.data.id.should.be.type('number')
         done()
       })
   })
@@ -1150,7 +1149,7 @@ describe('jawbone', function () {
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.meta.user_xid.should.be.type('string')
+      body.data.xid.should.be.type('string')
       done()
     })
   })
@@ -1161,16 +1160,16 @@ describe('jawbone', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.meta.user_xid.should.be.type('string')
+        body.data.xid.should.be.type('string')
         done()
       })
   })
 })
 
 describe('linkedin', function () {
-  it('options oauth1', function (done) {
+  it('options oauth2', function (done) {
     p.linkedin.get('people/~', {
-      oauth:{token:user.linkedin.token, secret:user.linkedin.secret}
+      auth:{bearer:user.linkedin.oauth2}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1178,9 +1177,20 @@ describe('linkedin', function () {
       done()
     })
   })
-  it('options oauth2', function (done) {
+  it('query oauth2', function (done) {
+    p.linkedin.query()
+      .select('people/~')
+      .auth(user.linkedin.oauth2)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+  it('options oauth1', function (done) {
     p.linkedin.get('people/~', {
-      qs:{oauth2_access_token:user.linkedin.oauth2}
+      oauth:{token:user.linkedin.token, secret:user.linkedin.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1199,23 +1209,12 @@ describe('linkedin', function () {
         done()
       })
   })
-  it('query oauth2', function (done) {
-    p.linkedin.query()
-      .select('people/~')
-      .auth(user.linkedin.oauth2)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.id.should.be.type('string')
-        done()
-      })
-  })
 })
 
 describe('live', function () {
   it('options', function (done) {
     p.live.get('me', {
-      qs:{access_token:user.live.token}
+      auth:{bearer:user.live.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1237,20 +1236,31 @@ describe('live', function () {
 })
 
 describe('mailchimp', function () {
-  it('options apikey', function (done) {
-    p.mailchimp.get('campaigns/list', {
-      qs:{apikey:user.mailchimp.apikey}
+  it('options oauth', function (done) {
+    p.mailchimp.get('metadata', {
+      api:'oauth',
+      auth:{bearer:user.mailchimp.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.data.should.be.instanceOf(Array)
+      body.user_id.should.be.type('number')
       done()
     })
   })
-  it('options oauth', function (done) {
+  it('query oauth', function (done) {
+    p.mailchimp.query('oauth')
+      .select('metadata')
+      .auth(user.mailchimp.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user_id.should.be.type('number')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
     p.mailchimp.get('campaigns/list', {
-      domain:user.mailchimp.domain,
-      qs:{apikey:user.mailchimp.token}
+      qs:{apikey:user.mailchimp.apikey}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1262,18 +1272,6 @@ describe('mailchimp', function () {
     p.mailchimp.query()
       .select('campaigns/list')
       .auth(user.mailchimp.apikey)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.data.should.be.instanceOf(Array)
-        done()
-      })
-  })
-  it('query oauth', function (done) {
-    p.mailchimp.query()
-      .select('campaigns/list')
-      .auth(user.mailchimp.token)
-      .options({domain:user.mailchimp.domain})
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1359,10 +1357,7 @@ describe('odesk', function () {
   it('options', function (done) {
     p.odesk.get('info', {
       api:'auth',
-      oauth:{
-        token:user.odesk.token,
-        secret:user.odesk.secret
-      }
+      oauth:{token:user.odesk.token, secret:user.odesk.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1387,16 +1382,14 @@ describe('openstreetmap', function () {
   it('options oauth', function (done) {
     p.openstreetmap.get('user/details', {
       // oauth for writing to the database
-      oauth:{
-        token:user.openstreetmap.token,
-        secret:user.openstreetmap.secret
-      }
+      oauth:{token:user.openstreetmap.token, secret:user.openstreetmap.secret}
       // or basic auth for reading user details
       // auth: {user:'email', pass:'password'}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/)
+      body.should.match(
+        /<user id="\d+" display_name="\w+" account_created=".*">/)
       done()
     })
   })
@@ -1407,7 +1400,8 @@ describe('openstreetmap', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/)
+        body.should.match(
+          /<user id="\d+" display_name="\w+" account_created=".*">/)
         done()
       })
   })
@@ -1418,7 +1412,8 @@ describe('openstreetmap', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.should.match(/<user id="\d+" display_name="\w+" account_created=".*">/)
+        body.should.match(
+          /<user id="\d+" display_name="\w+" account_created=".*">/)
         done()
       })
   })
@@ -1462,7 +1457,7 @@ describe('pipelinedeals', function () {
 describe('podio', function () {
   it('options', function (done) {
     p.podio.get('user', {
-      headers:{Authorization:'OAuth2 '+user.podio.token},
+      auth:{bearer:user.podio.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -1535,49 +1530,50 @@ describe('redbooth', function () {
 
 describe('reddit', function () {
   it('options', function (done) {
-    p.reddit.get('user/simov/about.json', {
-
+    p.reddit.get('me', {
+      api:'auth',
+      auth:{bearer:user.reddit.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.data.id.should.be.type('string')
+      body.id.should.be.type('string')
       done()
     })
   })
   it('query', function (done) {
-    p.reddit.query()
-      .get('user/simov/about.json')
+    p.reddit.query('auth')
+      .get('me')
+      .auth(user.reddit.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.data.id.should.be.type('string')
+        body.id.should.be.type('string')
         done()
       })
   })
 })
 
 describe('rubygems', function () {
-  it('options get', function (done) {
+  it('options', function (done) {
     p.rubygems.get('gems/rails', function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.name.should.equal('rails')
-      body.platform.should.equal('ruby')
+      body.name.should.be.type('string')
       done()
     })
   })
-  it('query headers auth', function (done) {
+  it('query apikey', function (done) {
     p.rubygems.query()
       .get('gems')
       .auth(user.rubygems.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        should.deepEqual(body, [])
+        body.should.be.instanceOf(Array)
         done()
       })
   })
-  it('query basic auth', function (done) {
+  it('query basic', function (done) {
     p.rubygems.query()
       .get('api_key')
       .auth(user.rubygems.user, user.rubygems.pass)
@@ -1593,7 +1589,6 @@ describe('rubygems', function () {
 describe('runkeeper', function () {
   it('options', function (done) {
     p.runkeeper.get('user', {
-      headers:{'accept':'application/vnd.com.runkeeper.User+json'},
       auth:{bearer:user.runkeeper.token},
     }, function (err, res, body) {
       debugger
@@ -1617,25 +1612,27 @@ describe('runkeeper', function () {
 
 describe('salesforce', function () {
   it('options', function (done) {
-    p.salesforce.get('sobjects/Account', {
+    p.salesforce.get(
+      'id/'+user.salesforce.organisation_id+'/'+user.salesforce.user_id,
+    {
       domain:user.salesforce.domain,
       auth:{bearer:user.salesforce.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      should.deepEqual(Object.keys(body), ['objectDescribe', 'recentItems'])
+      body.user_id.should.be.type('string')
       done()
     })
   })
   it('query', function (done) {
-    p.salesforce.query('sobjects')
-      .get('Account')
+    p.salesforce.query()
+      .get('id/'+user.salesforce.organisation_id+'/'+user.salesforce.user_id)
       .options({domain:user.salesforce.domain})
       .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        should.deepEqual(Object.keys(body), ['objectDescribe', 'recentItems'])
+        body.user_id.should.be.type('string')
         done()
       })
   })
@@ -1717,21 +1714,23 @@ describe('skyrock', function () {
 
 describe('slack', function () {
   it('options', function (done) {
-    p.slack.get('users.list', {
+    p.slack.get('auth.test', {
       qs:{token:user.slack.token}
     }, function (err, res, body) {
+      debugger
       if (err) return error(err, done)
-      body.members[0].id.should.be.type('string')
+      body.user_id.should.be.type('string')
       done()
     })
   })
   it('query', function (done) {
     p.slack.query()
-      .select('users.list')
+      .select('auth.test')
       .auth(user.slack.token)
       .request(function (err, res, body) {
+        debugger
         if (err) return error(err, done)
-        body.members[0].id.should.be.type('string')
+        body.user_id.should.be.type('string')
         done()
       })
   })
@@ -1739,24 +1738,23 @@ describe('slack', function () {
 
 describe('soundcloud', function () {
   it('options', function (done) {
-    p.soundcloud.get('users', {
-      qs:{oauth_token:user.soundcloud.token, q:'thriftworks'}
+    p.soundcloud.get('me', {
+      qs:{oauth_token:user.soundcloud.token}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body[0].username.should.equal('Thriftworks')
+      body.id.should.be.type('number')
       done()
     })
   })
   it('query', function (done) {
     p.soundcloud.query()
-      .select('users')
-      .where({q:'thriftworks'})
+      .select('me')
       .auth(user.soundcloud.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body[0].username.should.equal('Thriftworks')
+        body.id.should.be.type('number')
         done()
       })
   })
@@ -1788,34 +1786,28 @@ describe('spotify', function () {
 
 describe('stackexchange', function () {
   it('options', function (done) {
-    p.stackexchange.get('users', {
+    p.stackexchange.get('me', {
       qs:{
         key:user.stackexchange.apikey,
         access_token:user.stackexchange.token,
-        site:'stackoverflow',
-        sort:'reputation',
-        order:'desc'
+        site:'stackoverflow'
       }
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.items.length.should.equal(30)
+      body.items[0].account_id.should.be.type('number')
       done()
     })
   })
   it('query', function (done) {
     p.stackexchange.query()
-      .select('users')
-      .where({
-        site:'stackoverflow',
-        sort:'reputation',
-        order:'desc'
-      })
+      .select('me')
+      .where({site:'stackoverflow'})
       .auth(user.stackexchange.apikey, user.stackexchange.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.items.length.should.equal(30)
+        body.items[0].account_id.should.be.type('number')
         done()
       })
   })
@@ -1916,16 +1908,6 @@ describe('traxo', function () {
 })
 
 describe('trello', function () {
-  it('options apikey', function (done) {
-    p.trello.get('boards/4d5ea62fd76aa1136000000c', {
-      qs:{key:app.trello.key}
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.name.should.equal('Trello Development')
-      done()
-    })
-  })
   it('options oauth', function (done) {
     p.trello.get('members/me', {
       qs:{key:app.trello.key, token:user.trello.token}
@@ -1933,6 +1915,27 @@ describe('trello', function () {
       debugger
       if (err) return error(err, done)
       body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query oauth', function (done) {
+    p.trello.query()
+      .get('members/me')
+      .auth(app.trello.key, user.trello.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
+    p.trello.get('boards/4d5ea62fd76aa1136000000c', {
+      qs:{key:app.trello.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.name.should.equal('Trello Development')
       done()
     })
   })
@@ -1947,54 +1950,33 @@ describe('trello', function () {
         done()
       })
   })
-  it('query oauth', function (done) {
-    p.trello.query()
-      .get('members/me')
-      .auth(app.trello.key, user.trello.token)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.id.should.be.type('string')
-        done()
-      })
-  })
 })
 
 describe('tripit', function () {
   it('options', function (done) {
-    p.tripit.get('get/profile/id/simovelichkov/format/json', {
+    p.tripit.get('get/profile', {
       oauth:{token:user.tripit.token, secret:user.tripit.secret}
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.Profile.profile_url.should.be.type('string')
+      body.Profile.screen_name.should.be.type('string')
       done()
     })
   })
   it('query', function (done) {
     p.tripit.query()
-      .get('get/profile/id/simovelichkov/format/json')
+      .get('get/profile')
       .auth(user.tripit.token, user.tripit.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.Profile.profile_url.should.be.type('string')
+        body.Profile.screen_name.should.be.type('string')
         done()
       })
   })
 })
 
 describe('tumblr', function () {
-  it('options apikey', function (done) {
-    p.tumblr.get('blog/nodejsreactions.tumblr.com/info', {
-      qs:{api_key:app.tumblr.key}
-    }, function (err, res, body) {
-      debugger
-      if (err) return error(err, done)
-      body.response.blog.name.should.be.type('string')
-      done()
-    })
-  })
   it('options oauth', function (done) {
     p.tumblr.get('user/info', {
       oauth:{token:user.tumblr.token, secret:user.tumblr.secret}
@@ -2002,6 +1984,27 @@ describe('tumblr', function () {
       debugger
       if (err) return error(err, done)
       body.response.user.name.should.be.type('string')
+      done()
+    })
+  })
+  it('query oauth', function (done) {
+    p.tumblr.query()
+      .get('user/info')
+      .auth(user.tumblr.token, user.tumblr.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.response.user.name.should.be.type('string')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
+    p.tumblr.get('blog/nodejsreactions.tumblr.com/info', {
+      qs:{api_key:app.tumblr.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.response.blog.name.should.be.type('string')
       done()
     })
   })
@@ -2013,17 +2016,6 @@ describe('tumblr', function () {
         debugger
         if (err) return error(err, done)
         body.response.blog.name.should.be.type('string')
-        done()
-      })
-  })
-  it('query oauth', function (done) {
-    p.tumblr.query()
-      .get('user/info')
-      .auth(user.tumblr.token, user.tumblr.secret)
-      .request(function (err, res, body) {
-        debugger
-        if (err) return error(err, done)
-        body.response.user.name.should.be.type('string')
         done()
       })
   })
@@ -2057,7 +2049,7 @@ describe('twitter', function () {
   it('options', function (done) {
     p.twitter.get('users/show', {
       oauth:{token:user.twitter.token, secret:user.twitter.secret},
-      qs:{screen_name:'nodejs'}
+      qs:{user_id:user.twitter.user_id} // or screen_name
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
@@ -2068,7 +2060,7 @@ describe('twitter', function () {
   it('query', function (done) {
     p.twitter.query()
       .select('users/show')
-      .where({screen_name:'nodejs'})
+      .where({user_id:user.twitter.user_id}) // or screen_name
       .auth(user.twitter.token, user.twitter.secret)
       .request(function (err, res, body) {
         debugger
@@ -2086,7 +2078,7 @@ describe('vimeo', function () {
     }, function (err, res, body) {
       debugger
       if (err) return error(err, done)
-      body.name.should.be.type('string')
+      body.link.should.be.type('string')
       done()
     })
   })
@@ -2097,7 +2089,7 @@ describe('vimeo', function () {
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
-        body.name.should.be.type('string')
+        body.link.should.be.type('string')
         done()
       })
   })
