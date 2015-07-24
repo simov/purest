@@ -57,14 +57,19 @@ exports = module.exports = {
   },
   hackpad: function () {
     this.options.oauth = function (options) {
-      options.oauth = options.oauth||{}
+      var oa = options.oauth = options.oauth||{}
       // 0-legged OAuth
       options.oauth = {
-        consumer_key: options.oauth.consumer_key||this.provider.key,
-        consumer_secret: options.oauth.consumer_secret||this.provider.secret
+        consumer_key: oa.consumer_key||this.provider.key,
+        consumer_secret: oa.consumer_secret||this.provider.secret
       }
       if (!options.oauth.consumer_key || !options.oauth.consumer_secret) {
         throw new Error('Missing OAuth credentials!')
+      }
+    }
+    this.before.all = function (endpoint, options) {
+      if (!options.oauth) {
+        this.provider.options.oauth(options)
       }
     }
   },
