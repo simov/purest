@@ -94,12 +94,12 @@ describe('url', function () {
     it('set in ctor', function () {
       var provider = new Purest({provider:'salesforce', domain:'eu3'})
       provider.url.get('endpoint', {})
-        .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
+        .should.equal('https://eu3.salesforce.com/endpoint')
     })
     it('set in request', function () {
       var provider = new Purest({provider:'salesforce'})
       provider.url.get('endpoint', {domain:'eu3'})
-        .should.equal('https://eu3.salesforce.com/services/data/v20.0/endpoint')
+        .should.equal('https://eu3.salesforce.com/endpoint')
     })
     it('throw error on missing domain option', function () {
       var provider = new Purest({provider:'salesforce'})
