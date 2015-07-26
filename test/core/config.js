@@ -9,9 +9,7 @@ var fixture = {
   provider: {
     custom1: {
       __provider: {
-        oauth: true,
-        refresh: '',
-        docs: ''
+        oauth: true
       },
       'https://domain.com': {
         __domain: {
@@ -83,40 +81,7 @@ var fixture = {
   }
 }
 
-
 describe('config', function () {
-  it('extend with new provider', function () {
-    var provider = new Purest({provider:'custom1', config:fixture.provider})
-    provider.name.should.equal('custom1')
-    should.deepEqual(providers.custom1, fixture.provider.custom1)
-  })
-
-  it('extend existing provider', function () {
-    var extend = {
-      custom1: {
-        'https://domain.com': {
-          'api/[version]/{endpoint}.[type]': {
-            'documents': {
-              get: {
-                encoding: null
-              }
-            }
-          }
-        }
-      }
-    }
-    var provider = new Purest({provider:'custom1', config:extend})
-    fixture.provider.custom1
-      ['https://domain.com']
-      ['api/[version]/{endpoint}.[type]']
-      ['documents'] = {get: {encoding: null}}
-    should.deepEqual(providers.custom1, fixture.provider.custom1)
-  })
-
-  it('aliases', function () {
-    should.deepEqual(config.aliases(fixture.provider.custom1), fixture.alias)
-  })
-
   it('options', function () {
     var endpoints = fixture.alias.__default.endpoints
 
