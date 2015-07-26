@@ -707,7 +707,7 @@ describe('flattr', function () {
 
 describe('flickr', function () {
   it('options', function (done) {
-    p.flickr.get('', {
+    p.flickr.get({
       oauth:{token:user.flickr.token, secret:user.flickr.secret},
       qs:{
         method: 'flickr.urls.getUserProfile',
@@ -722,7 +722,7 @@ describe('flickr', function () {
   })
   it('query', function (done) {
     p.flickr.query()
-      .select('')
+      .select()
       .where({
         method: 'flickr.urls.getUserProfile',
         api_key:app.flickr.key
@@ -1480,7 +1480,7 @@ describe('podio', function () {
 
 describe('rdio', function () {
   it('options', function (done) {
-    p.rdio.post('', {
+    p.rdio.post({
       auth:{bearer:user.rdio.token},
       form:{method:'currentUser'}
     }, function (err, res, body) {
@@ -1492,7 +1492,7 @@ describe('rdio', function () {
   })
   it('query', function (done) {
     p.rdio.query()
-      .post('')
+      .post()
       .form({method:'currentUser'})
       .auth(user.rdio.token)
       .request(function (err, res, body) {
@@ -2121,7 +2121,7 @@ describe('vk', function () {
 
 describe('wikimapia', function () {
   it('options', function (done) {
-    p.wikimapia.get('', {
+    p.wikimapia.get({
       qs: {
         key:user.wikimapia.apikey,
         function:'place.search',
@@ -2139,7 +2139,7 @@ describe('wikimapia', function () {
   })
   it('query', function (done) {
     p.wikimapia.query()
-      .select('')
+      .select()
       .where({
         function:'place.search',
         q:'Central Park, New York, NY',
