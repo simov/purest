@@ -255,6 +255,31 @@ describe('basecamp', function () {
   })
 })
 
+describe('beatport', function () {
+  it('options', function (done) {
+    p.beatport.get('person', {
+      api:'oauth',
+      oauth:{token:user.beatport.token, secret:user.beatport.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.beatport.query('oauth')
+      .get('person')
+      .auth(user.beatport.token, user.beatport.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('bitly', function () {
   it('options', function (done) {
     p.bitly.get('user/info', {

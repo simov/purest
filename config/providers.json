@@ -199,6 +199,30 @@
       }
     }
   },
+  "beatport": {
+    "__provider": {
+      "oauth": true
+    },
+    "https://oauth-api.beatport.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "catalog/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "3"
+        }
+      },
+      "identity/[version]/{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "1"
+        }
+      }
+    }
+  },
   "bitly": {
     "__provider": {
       "oauth2": true
