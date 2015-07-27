@@ -1,4 +1,9 @@
 {
+  "23andme": {
+    "docs": "https://api.23andme.com/docs/authentication/",
+    "fields": ["access_token", "token_type", "expires_in", "refresh_token"],
+    "update": ["access", "refresh"]
+  },
   "acton": {
     "docs": "https://developer.act-on.com/documentation/oauth/",
     "fields": ["token_type", "expires_in", "refresh_token", "access_token"],

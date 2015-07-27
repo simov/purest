@@ -1,4 +1,27 @@
 {
+  "23andme": {
+    "__provider": {
+      "oauth2": true
+    },
+    "https://api.23andme.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1"
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": ["oauth"]
+        }
+      }
+    }
+  },
   "500px": {
     "__provider": {
       "oauth": true

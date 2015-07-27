@@ -28,6 +28,30 @@ for (var name in providers) {
 }
 
 
+describe('23andme', function () {
+  it('options', function (done) {
+    p['23andme'].get('user', {
+      auth:{bearer:user['23andme'].token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p['23andme'].query()
+      .get('user')
+      .auth(user['23andme'].token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('500px', function () {
   it('options', function (done) {
     p['500px'].get('users', {
