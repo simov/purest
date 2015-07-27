@@ -46,8 +46,8 @@ describe('add custom provider', function () {
       __default: {
         domain: 'http://site.com',
         path: '{endpoint}',
-        version: undefined,
-        auth: undefined,
+        version: null,
+        auth: null,
         endpoints: {all:null, str:null, regex:null}
       }
     })
