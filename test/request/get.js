@@ -280,6 +280,30 @@ describe('beatport', function () {
   })
 })
 
+describe('beatsmusic', function () {
+  it('options', function (done) {
+    p.beatsmusic.get('me', {
+      auth:{bearer:user.beatsmusic.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.result.user_context.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.beatsmusic.query()
+      .select('me')
+      .auth(user.beatsmusic.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.result.user_context.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('bitly', function () {
   it('options', function (done) {
     p.bitly.get('user/info', {

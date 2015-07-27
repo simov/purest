@@ -24,6 +24,11 @@
     "fields": ["expires_in", "access_token"],
     "update": ["access"]
   },
+  "beatsmusic": {
+    "docs": "https://developer.beatsmusic.com/docs/tutorials/How_to_Refresh_your_Access_Token",
+    "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope"],
+    "update": ["access", "refresh"]
+  },
   "box": {
     "docs": "https://developers.box.com/docs/#oauth-2-token",
     "fields": ["access_token", "expires_in", "restricted_to", "refresh_token", "token_type"],

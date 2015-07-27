@@ -223,6 +223,30 @@
       }
     }
   },
+  "beatsmusic": {
+    "__provider": {
+      "oauth2": true
+    },
+    "https://partner.api.beatsmusic.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/api/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      },
+      "[version]/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "bitly": {
     "__provider": {
       "oauth2": true
