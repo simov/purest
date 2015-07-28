@@ -1,8 +1,5 @@
 {
   "23andme": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.23andme.com": {
       "__domain": {
         "auth": {
@@ -23,9 +20,6 @@
     }
   },
   "500px": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.500px.com": {
       "__domain": {
         "auth": {
@@ -75,9 +69,6 @@
     }
   },
   "acton": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://restapi.actonsoftware.com": {
       "__domain": {
         "auth": {
@@ -99,9 +90,6 @@
     }
   },
   "angellist": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.angel.co": {
       "__domain": {
         "auth": {
@@ -117,9 +105,6 @@
     }
   },
   "asana": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://app.asana.com": {
       "__domain": {
         "auth": [
@@ -141,9 +126,6 @@
     }
   },
   "assembla": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.assembla.com": {
       "__domain": {
         "auth": {
@@ -164,9 +146,6 @@
     }
   },
   "basecamp": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://basecamp.com": {
       "__domain": {
         "auth": [
@@ -200,9 +179,6 @@
     }
   },
   "beatport": {
-    "__provider": {
-      "oauth": true
-    },
     "https://oauth-api.beatport.com": {
       "__domain": {
         "auth": {
@@ -224,9 +200,6 @@
     }
   },
   "beatsmusic": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://partner.api.beatsmusic.com": {
       "__domain": {
         "auth": {
@@ -248,9 +221,6 @@
     }
   },
   "bitly": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api-ssl.bitly.com": {
       "__domain": {
         "auth": {
@@ -266,9 +236,6 @@
     }
   },
   "bitbucket": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.bitbucket.org": {
       "__domain": {
         "auth": {
@@ -284,9 +251,6 @@
     }
   },
   "box": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.box.com": {
       "__domain": {
         "auth": {
@@ -379,9 +343,6 @@
     }
   },
   "buffer": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.bufferapp.com": {
       "__domain": {
         "auth": {
@@ -397,9 +358,6 @@
     }
   },
   "cheddar": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.cheddarapp.com": {
       "__domain": {
         "auth": {
@@ -427,9 +385,6 @@
     }
   },
   "coinbase": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.coinbase.com": {
       "__domain": {
         "auth": {
@@ -452,9 +407,6 @@
     }
   },
   "dailymile": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.dailymile.com": {
       "__domain": {
         "auth": {
@@ -469,9 +421,6 @@
     }
   },
   "dailymotion": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.dailymotion.com": {
       "__domain": {
         "auth": {
@@ -491,9 +440,6 @@
     }
   },
   "deezer": {
-    "__provider": {
-      "oauth2": true
-    },
     "http://api.deezer.com": {
       "__domain": {
         "auth": {
@@ -508,9 +454,6 @@
     }
   },
   "deviantart": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://www.deviantart.com": {
       "__domain": {
         "auth": {
@@ -531,9 +474,6 @@
     }
   },
   "digitalocean": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.digitalocean.com": {
       "__domain": {
         "auth": [
@@ -558,9 +498,6 @@
     }
   },
   "disqus": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://disqus.com": {
       "__domain": {
         "auth": {
@@ -583,9 +520,6 @@
     }
   },
   "dropbox": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.dropbox.com": {
       "__domain": {
         "auth": {
@@ -619,9 +553,6 @@
     }
   },
   "edmodo": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.edmodo.com": {
       "__domain": {
         "auth": {
@@ -641,9 +572,6 @@
     }
   },
   "eventbrite": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://www.eventbriteapi.com": {
       "__domain": {
         "auth": {
@@ -659,9 +587,6 @@
     }
   },
   "facebook": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://graph.facebook.com": {
       "__domain": {
         "auth": {
@@ -681,9 +606,6 @@
     }
   },
   "fitbit": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.fitbit.com": {
       "__domain": {
         "auth": {
@@ -699,9 +621,6 @@
     }
   },
   "flattr": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.flattr.com": {
       "__domain": {
         "auth": {
@@ -717,9 +636,6 @@
     }
   },
   "flickr": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.flickr.com": {
       "__domain": {
         "auth": {
@@ -758,9 +674,6 @@
     }
   },
   "flowdock": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.flowdock.com": {
       "__domain": {
         "auth": [
@@ -795,9 +708,6 @@
     }
   },
   "foursquare": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.foursquare.com": {
       "__domain": {
         "auth": {
@@ -836,9 +746,6 @@
     }
   },
   "github": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.github.com": {
       "__domain": {
         "auth": {
@@ -853,9 +760,6 @@
     }
   },
   "gitter": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.gitter.im": {
       "__domain": {
         "auth": {
@@ -884,9 +788,6 @@
     }
   },
   "google": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://www.googleapis.com": {
       "__domain": {
         "auth": {
@@ -1030,9 +931,6 @@
     }
   },
   "hackpad": {
-    "__provider": {
-      "oauth": true
-    },
     "https://hackpad.com": {
       "__domain": {
         "auth": {
@@ -1048,9 +946,6 @@
     }
   },
   "harvest": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://[domain].harvestapp.com": {
       "__domain": {
         "auth": [
@@ -1073,9 +968,6 @@
     }
   },
   "heroku": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.heroku.com": {
       "__domain": {
         "auth": [
@@ -1098,9 +990,6 @@
     }
   },
   "imgur": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.imgur.com": {
       "__domain": {
         "auth": [
@@ -1122,9 +1011,6 @@
     }
   },
   "instagram": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.instagram.com": {
       "__domain": {
         "auth": {
@@ -1140,9 +1026,6 @@
     }
   },
   "jawbone": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://jawbone.com": {
       "__domain": {
         "auth": {
@@ -1163,9 +1046,6 @@
     }
   },
   "linkedin": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.linkedin.com": {
       "__domain": {
         "auth": [
@@ -1189,9 +1069,6 @@
     }
   },
   "live": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://apis.live.net": {
       "__domain": {
         "auth": {
@@ -1237,9 +1114,6 @@
     }
   },
   "mailchimp": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://[domain].api.mailchimp.com": {
       "__domain": {
         "auth": {
@@ -1317,9 +1191,6 @@
     }
   },
   "odesk": {
-    "__provider": {
-      "oauth": true
-    },
     "https://www.odesk.com": {
       "__domain": {
         "auth": {
@@ -1352,9 +1223,6 @@
     }
   },
   "openstreetmap": {
-    "__provider": {
-      "oauth": true
-    },
     "http://api.openstreetmap.org": {
       "__domain": {
         "auth": [
@@ -1371,9 +1239,6 @@
     }
   },
   "organisedminds": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://app.organisedminds.com": {
       "__domain": {
         "auth": {
@@ -1393,9 +1258,6 @@
     }
   },
   "paypal": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.paypal.com": {
       "__domain": {
         "auth": {
@@ -1462,9 +1324,6 @@
     }
   },
   "podio": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.podio.com": {
       "__domain": {
         "auth": {
@@ -1486,9 +1345,6 @@
     }
   },
   "rdio": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://services.rdio.com": {
       "__domain": {
         "auth": {
@@ -1509,9 +1365,6 @@
     }
   },
   "redbooth": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://redbooth.com": {
       "__domain": {
         "auth": {
@@ -1532,9 +1385,6 @@
     }
   },
   "reddit": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.reddit.com": {
       "__domain": {
         "auth": {
@@ -1592,9 +1442,6 @@
     }
   },
   "runkeeper": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.runkeeper.com": {
       "__domain": {
         "auth": {
@@ -1614,9 +1461,6 @@
     }
   },
   "salesforce": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://[domain].salesforce.com": {
       "__domain": {
         "auth": {
@@ -1658,9 +1502,6 @@
     }
   },
   "shopify": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://[domain].myshopify.com": {
       "__domain": {
         "auth": {
@@ -1675,9 +1516,6 @@
     }
   },
   "skyrock": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.skyrock.com": {
       "__domain": {
         "auth": {
@@ -1693,9 +1531,6 @@
     }
   },
   "slack": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://slack.com": {
       "__domain": {
         "auth": {
@@ -1710,9 +1545,6 @@
     }
   },
   "soundcloud": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.soundcloud.com": {
       "__domain": {
         "auth": {
@@ -1732,9 +1564,6 @@
     }
   },
   "spotify": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.spotify.com": {
       "__domain": {
         "auth": {
@@ -1757,9 +1586,6 @@
     }
   },
   "stackexchange": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.stackexchange.com": {
       "__domain": {
         "auth": [
@@ -1782,9 +1608,6 @@
     }
   },
   "stocktwits": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.stocktwits.com": {
       "__domain": {
         "auth": {
@@ -1800,9 +1623,6 @@
     }
   },
   "strava": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://www.strava.com": {
       "__domain": {
         "auth": {
@@ -1818,9 +1638,6 @@
     }
   },
   "stripe": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.stripe.com": {
       "__domain": {
         "auth": {
@@ -1843,9 +1660,6 @@
     }
   },
   "traxo": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.traxo.com": {
       "__domain": {
         "auth": {
@@ -1868,9 +1682,6 @@
     }
   },
   "trello": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.trello.com": {
       "__domain": {
         "auth": [
@@ -1887,9 +1698,6 @@
     }
   },
   "tripit": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.tripit.com": {
       "__domain": {
         "auth": {
@@ -1910,9 +1718,6 @@
     }
   },
   "tumblr": {
-    "__provider": {
-      "oauth": true
-    },
     "http://api.tumblr.com": {
       "__domain": {
         "auth": [
@@ -1929,9 +1734,6 @@
     }
   },
   "twitch": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.twitch.tv": {
       "__domain": {
         "auth": {
@@ -1958,9 +1760,6 @@
     }
   },
   "twitter": {
-    "__provider": {
-      "oauth": true
-    },
     "https://api.twitter.com": {
       "__domain": {
         "auth": {
@@ -1981,9 +1780,6 @@
     }
   },
   "vimeo": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.vimeo.com": {
       "__domain": {
         "auth": {
@@ -2005,9 +1801,6 @@
     }
   },
   "vk": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://api.vk.com": {
       "__domain": {
         "auth": {
@@ -2041,9 +1834,6 @@
     }
   },
   "withings": {
-    "__provider": {
-      "oauth": true
-    },
     "https://wbsapi.withings.net": {
       "__domain": {
         "auth": {
@@ -2064,9 +1854,6 @@
     }
   },
   "yahoo": {
-    "__provider": {
-      "oauth": true
-    },
     "https://social.yahooapis.com": {
       "__domain": {
         "auth": {
@@ -2116,9 +1903,6 @@
     }
   },
   "yammer": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://www.yammer.com": {
       "__domain": {
         "auth": {
@@ -2134,9 +1918,6 @@
     }
   },
   "zendesk": {
-    "__provider": {
-      "oauth2": true
-    },
     "https://[domain].zendesk.com": {
       "__domain": {
         "auth": {

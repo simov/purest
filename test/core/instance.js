@@ -118,14 +118,6 @@ describe('key & secret', function () {
     p.key.should.equal('app-key')
     p.secret.should.equal('app-secret')
   })
-  it('oauth flag', function () {
-    var p = new Purest({provider:'twitter'})
-    p.oauth.should.equal(true)
-  })
-  it('oauth2 flag', function () {
-    var p = new Purest({provider:'facebook'})
-    p.oauth2.should.equal(true)
-  })
 })
 
 describe('defaults', function () {
