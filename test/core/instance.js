@@ -46,7 +46,7 @@ describe('add custom provider', function () {
       __default: {
         domain: 'http://site.com',
         path: '{endpoint}',
-        version: null,
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
         auth: null,
         endpoints: {all:null, str:null, regex:null}
       }
@@ -62,7 +62,7 @@ describe('extend existing provider', function () {
       __default: {
         domain: 'https://api.500px.com',
         path: '[version]/{endpoint}',
-        version: 'v1',
+        subdomain:null, subpath:null, version:'v1', endpoint:null, type:null,
         auth: {oauth: {token:'[0]', secret:'[1]'}},
         endpoints: {all:null, str:null, regex:null}
       }
@@ -88,14 +88,14 @@ describe('extend existing provider', function () {
       __default: {
         domain: 'https://api.500px.com',
         path: '[version]/{endpoint}',
-        version: 'v1',
+        subdomain:null, subpath:null, version:'v1', endpoint:null, type:null,
         auth: {oauth: {token:'[0]', secret:'[1]'}},
         endpoints: {all:null, str:null, regex:null}
       },
       user: {
         domain: 'https://api.500px.com',
         path: '[version]/users',
-        version: 'v1',
+        subdomain:null, subpath:null, version:'v1', endpoint:null, type:null,
         auth: {oauth: {token:'[0]', secret:'[1]'}},
         endpoints: {all:null, str:null, regex:null}
       }
@@ -172,9 +172,9 @@ describe('url modifiers', function () {
   })
   it('set', function () {
     var p = new Purest({provider:'twitter',
-      subdomain:'subdomain', path:'path', version:'version', type:'xml'})
+      subdomain:'subdomain', subpath:'subpath', version:'version', type:'xml'})
     p.subdomain.should.equal('subdomain')
-    p.path.should.equal('path')
+    p.subpath.should.equal('subpath')
     p.version.should.equal('version')
     p.type.should.equal('xml')
   })

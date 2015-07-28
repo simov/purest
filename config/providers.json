@@ -153,7 +153,7 @@
           {"auth": {"user": "[0]", "pass": "[1]"}}
         ]
       },
-      "[path]/api/[version]/{endpoint}.[type]": {
+      "[subpath]/api/[version]/{endpoint}.[type]": {
         "__path": {
           "alias": "__default",
           "version": "v1"

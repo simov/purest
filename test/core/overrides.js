@@ -112,7 +112,7 @@ describe('override', function () {
         var provider = new Purest({provider:'mailchimp'})
         ;(function () {
           provider.url.get('endpoint', {qs:{apikey:'access_token'}})
-        }).should.throw('Purest: specify domain name to use through the domain option!')
+        }).should.throw('Purest: specify data center name to use through the subdomain option!')
       })
     })
   })

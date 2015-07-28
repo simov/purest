@@ -35,7 +35,9 @@ describe('aliases', function () {
     var aliases = config.aliases(provider)
     should.deepEqual(aliases, {
       name: {
-        domain:'domain', path:'path', version:null, auth:null,
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
+        auth:null,
         endpoints: {all:null, str:null, regex:null}
       }
     })
@@ -49,11 +51,15 @@ describe('aliases', function () {
     var aliases = config.aliases(provider)
     should.deepEqual(aliases, {
       name1: {
-        domain:'domain', path:'path', version:null, auth:null,
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
+        auth:null,
         endpoints: {all:null, str:null, regex:null}
       },
       name2: {
-        domain:'domain', path:'path', version:null, auth:null,
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
+        auth:null,
         endpoints: {all:null, str:null, regex:null}
       }
     })
@@ -67,7 +73,9 @@ describe('aliases', function () {
     var aliases = config.aliases(provider)
     should.deepEqual(aliases, {
       name: {
-        domain:'domain', path:'path', version:'v1', auth:null,
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:'v1', endpoint:null, type:null,
+        auth:null,
         endpoints: {all:null, str:null, regex:null}
       }
     })
@@ -82,7 +90,9 @@ describe('aliases', function () {
     var aliases = config.aliases(provider)
     should.deepEqual(aliases, {
       name: {
-        domain:'domain', path:'path', version:null, auth:{a:1},
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
+        auth:{a:1},
         endpoints: {all:null, str:null, regex:null}
       }
     })
@@ -97,7 +107,9 @@ describe('aliases', function () {
     var aliases = config.aliases(provider)
     should.deepEqual(aliases, {
       name: {
-        domain:'domain', path:'path', version:null, auth:{a:2},
+        domain:'domain', path:'path',
+        subdomain:null, subpath:null, version:null, endpoint:null, type:null,
+        auth:{a:2},
         endpoints: {all:null, str:null, regex:null}
       }
     })

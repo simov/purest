@@ -232,7 +232,7 @@ describe('basecamp', function () {
   })
   it('options', function (done) {
     p.basecamp.get('people/me', {
-      path:user.basecamp.id,
+      subpath:user.basecamp.id,
       auth:{bearer:user.basecamp.token}
     }, function (err, res, body) {
       debugger
@@ -244,7 +244,7 @@ describe('basecamp', function () {
   it('query', function (done) {
     p.basecamp.query()
       .select('people/me')
-      .options({path:user.basecamp.id})
+      .options({subpath:user.basecamp.id})
       .auth(user.basecamp.token)
       .request(function (err, res, body) {
         debugger

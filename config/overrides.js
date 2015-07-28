@@ -95,27 +95,28 @@ exports = module.exports = {
     }
   },
   mailchimp: function () {
-    this.url.domain = function (domain, options) {
+    this.url.domain = function (config, options) {
       // https://login.mailchimp.com
-      if (domain.indexOf('[subdomain]') == -1) {
-        return domain
+      if (config.domain.indexOf('[subdomain]') == -1) {
+        return config.domain
       }
-      // options
-      else if (options.subdomain) {
-        var _domain = options.subdomain
+
+      // data center name set through subdomain
+      var dc = options.subdomain||this.provider.subdomain||config.subdomain
+      if (dc) {
         delete options.subdomain
-        return domain.replace('[subdomain]', _domain)
+        return config.domain.replace('[subdomain]', dc)
       }
-      // extract the domain from the apikey
-      else if (options.qs && /.*-\w{2}\d+/.test(options.qs.apikey)) {
-        var _domain = options.qs.apikey.replace(/.*-(\w{2}\d+)/,'$1')
-        return domain.replace('[subdomain]', _domain)
+
+      // extract data center name from apikey
+      if (options.qs && /.*-\w{2}\d+/.test(options.qs.apikey)) {
+        var dc = options.qs.apikey.replace(/.*-(\w{2}\d+)/, '$1')
+        return config.domain.replace('[subdomain]', dc)
       }
-      // token
-      else {
-        throw new Error(
-          'Purest: specify domain name to use through the domain option!')
-      }
+
+      // missing data center name
+      throw new Error(
+        'Purest: specify data center name to use through the subdomain option!')
     }
   },
   openstreetmap: function () {
@@ -133,13 +134,15 @@ exports = module.exports = {
     }
   },
   paypal: function () {
-    this.url.domain = function (domain, options) {
-      if (options.subdomain == 'sandbox') {
+    this.url.domain = function (config, options) {
+      var sub = options.subdomain||this.provider.subdomain||config.subdomain
+
+      if (sub == 'sandbox') {
         delete options.subdomain
-        return domain.replace('api','api.sandbox')
+        return config.domain.replace('api', 'api.sandbox')
       }
       else {
-        return domain
+        return config.domain
       }
     }
   }
