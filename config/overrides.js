@@ -97,19 +97,19 @@ exports = module.exports = {
   mailchimp: function () {
     this.url.domain = function (domain, options) {
       // https://login.mailchimp.com
-      if (domain.indexOf('[domain]') == -1) {
+      if (domain.indexOf('[subdomain]') == -1) {
         return domain
       }
       // options
-      else if (options.domain) {
-        var _domain = options.domain
-        delete options.domain
-        return domain.replace('[domain]', _domain)
+      else if (options.subdomain) {
+        var _domain = options.subdomain
+        delete options.subdomain
+        return domain.replace('[subdomain]', _domain)
       }
       // extract the domain from the apikey
       else if (options.qs && /.*-\w{2}\d+/.test(options.qs.apikey)) {
         var _domain = options.qs.apikey.replace(/.*-(\w{2}\d+)/,'$1')
-        return domain.replace('[domain]', _domain)
+        return domain.replace('[subdomain]', _domain)
       }
       // token
       else {
@@ -134,8 +134,8 @@ exports = module.exports = {
   },
   paypal: function () {
     this.url.domain = function (domain, options) {
-      if (options.domain == 'sandbox') {
-        delete options.domain
+      if (options.subdomain == 'sandbox') {
+        delete options.subdomain
         return domain.replace('api','api.sandbox')
       }
       else {

@@ -1085,7 +1085,7 @@ describe('hackpad', function () {
 describe('harvest', function () {
   it('options oauth', function (done) {
     p.harvest.get('account/who_am_i', {
-      domain:user.harvest.domain,
+      subdomain:user.harvest.subdomain,
       auth:{bearer:user.harvest.token}
     }, function (err, res, body) {
       debugger
@@ -1097,7 +1097,7 @@ describe('harvest', function () {
   it('query oauth', function (done) {
     p.harvest.query()
       .get('account/who_am_i')
-      .options({domain:user.harvest.domain})
+      .options({subdomain:user.harvest.subdomain})
       .auth(user.harvest.token)
       .request(function (err, res, body) {
         debugger
@@ -1109,7 +1109,7 @@ describe('harvest', function () {
   it('query basic', function (done) {
     p.harvest.query()
       .get('account/who_am_i')
-      .options({domain:user.harvest.domain})
+      .options({subdomain:user.harvest.subdomain})
       .auth(user.harvest.user, user.harvest.pass)
       .request(function (err, res, body) {
         debugger
@@ -1356,7 +1356,7 @@ describe('mailchimp', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.get(user.mailgun.domain+'/stats', {
+    p.mailgun.get(user.mailgun.subdomain+'/stats', {
       auth:{user:'api',pass:user.mailgun.apikey}
     }, function (err, res, body) {
       debugger
@@ -1367,7 +1367,7 @@ describe('mailgun', function () {
   })
   it('query', function (done) {
     p.mailgun.query()
-      .select(user.mailgun.domain+'/stats')
+      .select(user.mailgun.subdomain+'/stats')
       .auth('api', user.mailgun.apikey)
       .request(function (err, res, body) {
         debugger
@@ -1688,7 +1688,7 @@ describe('salesforce', function () {
     p.salesforce.get(
       'id/'+user.salesforce.organisation_id+'/'+user.salesforce.user_id,
     {
-      domain:user.salesforce.domain,
+      subdomain:user.salesforce.subdomain,
       auth:{bearer:user.salesforce.token}
     }, function (err, res, body) {
       debugger
@@ -1700,7 +1700,7 @@ describe('salesforce', function () {
   it('query', function (done) {
     p.salesforce.query()
       .get('id/'+user.salesforce.organisation_id+'/'+user.salesforce.user_id)
-      .options({domain:user.salesforce.domain})
+      .options({subdomain:user.salesforce.subdomain})
       .auth(user.salesforce.token)
       .request(function (err, res, body) {
         debugger
@@ -1738,7 +1738,7 @@ describe('sendgrid', function () {
 describe('shopify', function () {
   it('options', function (done) {
     p.shopify.get('admin/shop', {
-      domain:user.shopify.domain,
+      subdomain:user.shopify.subdomain,
       headers:{'X-Shopify-Access-Token':user.shopify.token}
     }, function (err, res, body) {
       debugger
@@ -1750,7 +1750,7 @@ describe('shopify', function () {
   it('query', function (done) {
     p.shopify.query()
       .get('admin/shop')
-      .options({domain:user.shopify.domain})
+      .options({subdomain:user.shopify.subdomain})
       .auth(user.shopify.token)
       .request(function (err, res, body) {
         debugger
@@ -2307,7 +2307,7 @@ describe('yammer', function () {
 describe('zendesk', function () {
   it('options', function (done) {
     p.zendesk.get('users/me', {
-      domain:user.zendesk.domain,
+      subdomain:user.zendesk.subdomain,
       auth:{bearer:user.zendesk.token}
     }, function (err, res, body) {
       debugger
@@ -2319,7 +2319,7 @@ describe('zendesk', function () {
   it('query', function (done) {
     p.zendesk.query()
       .get('users/me')
-      .options({domain:user.zendesk.domain})
+      .options({subdomain:user.zendesk.subdomain})
       .auth(user.zendesk.token)
       .request(function (err, res, body) {
         debugger

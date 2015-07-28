@@ -946,7 +946,7 @@
     }
   },
   "harvest": {
-    "https://[domain].harvestapp.com": {
+    "https://[subdomain].harvestapp.com": {
       "__domain": {
         "auth": [
           {"auth": {"bearer": "[0]"}},
@@ -1114,7 +1114,7 @@
     }
   },
   "mailchimp": {
-    "https://[domain].api.mailchimp.com": {
+    "https://[subdomain].api.mailchimp.com": {
       "__domain": {
         "auth": {
           "qs": {"apikey": "[0]"}
@@ -1461,7 +1461,7 @@
     }
   },
   "salesforce": {
-    "https://[domain].salesforce.com": {
+    "https://[subdomain].salesforce.com": {
       "__domain": {
         "auth": {
           "auth": {"bearer": "[0]"}
@@ -1502,7 +1502,7 @@
     }
   },
   "shopify": {
-    "https://[domain].myshopify.com": {
+    "https://[subdomain].myshopify.com": {
       "__domain": {
         "auth": {
           "headers": {"X-Shopify-Access-Token": "[0]"}
@@ -1918,7 +1918,7 @@
     }
   },
   "zendesk": {
-    "https://[domain].zendesk.com": {
+    "https://[subdomain].zendesk.com": {
       "__domain": {
         "auth": {
           "auth": {"bearer": "[0]"}

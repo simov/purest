@@ -46,7 +46,7 @@ client.send({
     // mandrill, mailgun
     apikey:user.apikey,
     // mailgun
-    domain:user.domain
+    domain:user.subdomain
   },
   from:{name:'Purest', email:'purest@mailinator.com'},
   to:[

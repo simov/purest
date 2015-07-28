@@ -395,7 +395,7 @@ describe('google', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.post(user.mailgun.domain+'/messages', {
+    p.mailgun.post(user.mailgun.subdomain+'/messages', {
       auth:{user:'api',pass:user.mailgun.apikey},
       formData:{
         from:'purest@mailinator.com',
@@ -416,7 +416,7 @@ describe('mailgun', function () {
   })
   it('query', function (done) {
     p.mailgun.query()
-      .update(user.mailgun.domain+'/messages')
+      .update(user.mailgun.subdomain+'/messages')
       .upload({
         from:'purest@mailinator.com',
         to:'purest@mailinator.com,purest2@mailinator.com',

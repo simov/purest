@@ -118,7 +118,7 @@ describe('linkedin', function () {
 
 describe('mailgun', function () {
   it('options', function (done) {
-    p.mailgun.post(user.mailgun.domain+'/messages', {
+    p.mailgun.post(user.mailgun.subdomain+'/messages', {
       auth:{user:'api',pass:user.mailgun.apikey},
       form:{
         from:'purest@mailinator.com',

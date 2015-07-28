@@ -105,7 +105,7 @@ describe('override', function () {
       })
       it('get data center name from option', function () {
         var provider = new Purest({provider:'mailchimp'})
-        provider.url.get('endpoint', {domain:'us2'})
+        provider.url.get('endpoint', {subdomain:'us2'})
           .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json')
       })
       it('throw error on missing data center name', function () {
@@ -147,7 +147,7 @@ describe('override', function () {
       })
       it('use sandbox domain', function () {
         var provider = new Purest({provider:'paypal', api:'payments'})
-        provider.url.get('endpoint', {domain:'sandbox'})
+        provider.url.get('endpoint', {subdomain:'sandbox'})
           .should.equal('https://api.sandbox.paypal.com/v1/payments/endpoint')
       })
     })

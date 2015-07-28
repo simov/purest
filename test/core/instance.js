@@ -165,15 +165,15 @@ describe('debug', function () {
 describe('url modifiers', function () {
   it('defaults', function () {
     var p = new Purest({provider:'twitter'})
-    should.equal(p.domain, undefined)
+    should.equal(p.subdomain, undefined)
     should.equal(p.path, undefined)
     should.equal(p.version, undefined)
     should.equal(p.type, undefined)
   })
   it('set', function () {
     var p = new Purest({provider:'twitter',
-      domain:'domain', path:'path', version:'version', type:'xml'})
-    p.domain.should.equal('domain')
+      subdomain:'subdomain', path:'path', version:'version', type:'xml'})
+    p.subdomain.should.equal('subdomain')
     p.path.should.equal('path')
     p.version.should.equal('version')
     p.type.should.equal('xml')

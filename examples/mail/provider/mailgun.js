@@ -40,7 +40,7 @@ MailGun.prototype.send = function (args, done) {
   }
 
   this.client.query()
-    .post(args.auth.domain + '/messages')
+    .post(args.auth.subdomain + '/messages')
     .upload(email)
     .auth('api', args.auth.apikey)
     .request(done)
