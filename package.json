@@ -52,7 +52,7 @@
 
   "scripts": {
     "test"      : "npm run lint-lib && npm run test-ci",
-    "test-ci"   : "mocha test/core --require should --reporter spec --timeout 10000",
+    "test-ci"   : "mocha test/core",
     "test-cov"  : "istanbul cover _mocha test/core",
     "lint-lib"  : "eslint lib/ && echo Lint lib passed",
     "lint-test" : "eslint --config test/.eslintrc test/ && echo Lint test passed"
