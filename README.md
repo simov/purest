@@ -1,9 +1,9 @@
 
 # Purest
 
-[![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls]
+[![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls] [![codecov-status]][codecov]
 
-Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and [configuration data structure][provider-configuration] to ensure seamless communication with **any** REST API provider in a consistent and straightforward way
+Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and extensive [configuration data structure][provider-configuration] to ensure seamless communication with **any** REST API provider in a consistent and straightforward way:
 
 
 ```js
@@ -20,24 +20,27 @@ google.query('youtube')
 
 ## Table of Contents
 
-- API
-  - **[Basics][basics]**
-  - [Basic API][basic-api]
+- [**Quick Start**][quick-start]
+- **API**
   - [Constructor][constructor]
+  - [Basic API][basic-api]
   - [Query API][query-api]
-  - [Streaming][streaming]
-- Configuration
-  - [Provider Configuration][provider-configuration]
-  - [Create Custom Provider][create-custom-provider]
+- **Configuration**
+  - [Provider Configuration][provider-configuration] - *[Domain][domain] / [Auth][auth] / [Path][path] / [Alias][alias] / [Endpoint][endpoint] / [Match All][match-all]*
+  - [URL Modifiers][url-modifiers]
+  - [Create New Provider][create-new-provider]
   - [Extend Existing Provider][extend-existing-provider]
-- Misc
+  - [Override Application Logic][override-application-logic]
+  - [Query Method Aliases][query-method-aliases]
+- **Misc**
+  - [Streaming][streaming]
   - [OAuth][oauth]
   - [Multipart Uploads][multipart-uploads]
   - [Specific Purest Options][specific-purest-options]
   - [Providers][purest-providers]
 
 
-## Basics
+## Quick Start
 
 ```js
 var Purest = require('purest')
@@ -50,13 +53,10 @@ google.get('channels', {
 }, function (err, res, body) {})
 ```
 
-In this example we are requesting the [channels][youtube-channels] endpoint of the YouTube API. Here is how the related portion of the Google's configuration in [config/providers.json][purest-config] looks like:
+In this example we are requesting the [channels][youtube-channels] endpoint of the `YouTube` API. Here is how the related portion of the Google's configuration in [config/providers.json][purest-config] looks like:
 
 ```js
 "google": {
-  "__provider": {
-    "oauth2": true
-  },
   "https://www.googleapis.com": {
     "__domain": {
       "auth": {
@@ -78,20 +78,26 @@ In this example we are requesting the [channels][youtube-channels] endpoint of t
 }
 ```
 
-> Refer to the [provider configuration][provider-configuration] section for a full list of all available configuration options
-
 Using the above configuration Purest knows how to construct the absolute URL `https://www.googleapis.com/youtube/v3/channels` for the [channels][youtube-channels] endpoint.
 
 Given the above configuration you can use the so called `__default` path as well:
 
 ```js
-google.get('youtube/v3/channels', {...}, function (err, res, body) {})
+google.get('youtube/v3/channels', {
+  auth:{bearer:'[ACCESS_TOKEN]'},
+  qs:{forUsername:'RayWilliamJohnson'}
+}, function (err, res, body) {})
 ```
+
+> Notice that when using the `__default` path, specifying a path alias through the `api` key is no longer needed.
 
 Or even the absolute URL:
 
 ```js
-google.get('https://www.googleapis.com/youtube/v3/channels', {..}, function (..) {})
+google.get('https://www.googleapis.com/youtube/v3/channels', {
+  auth:{bearer:'[ACCESS_TOKEN]'},
+  qs:{forUsername:'RayWilliamJohnson'}
+}, function (err, res, body) {})
 ```
 
 > The underlying request module is accessible as well:
@@ -100,7 +106,7 @@ var Purest = require('purest')
 Purest.request(...)
 ```
 
-You can create a separate instance specifically for making requests to the YouTube API:
+You can create a separate instance specifically for making requests to the `YouTube` API:
 
 ```js
 var youtube = new Purest({provider:'google', api:'youtube'})
@@ -111,11 +117,19 @@ youtube.get('channels', {
 }, function (err, res, body) {})
 ```
 
-Notice that specifying the `api:'youtube'` for each request is no longer required.
+Notice that specifying `api:'youtube'` for each request is no longer required.
 
-You can use the more expressive [query API][query-api] as well:
+You can use a more expressive [query API][query-api] as well:
 
 ```js
+var google = new Purest({provider:'google'})
+google.query('youtube')
+  .select('channels')
+  .where({forUsername:'RayWilliamJohnson'})
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+// OR
+var youtube = new Purest({provider:'google', api:'youtube'})
 youtube.query()
   .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
@@ -123,17 +137,73 @@ youtube.query()
   .request(function (err, res, body) {})
 ```
 
-If you're going to make authenticated requests on behalf of a single user only, you can use the [request's defaults][request-defaults] to set the access token to use for each request made through that instance:
+If you're going to make authenticated requests on behalf of a single user, you can use the [request's defaults][request-defaults] to set the access token to use for each request made through that instance:
 
 ```js
-var youtube = new Purest({provider:'google', api:'youtube',
-  defaults:{auth:{bearer:'[ACCESS_TOKEN]'}}})
+var youtube = new Purest({
+  provider:'google', api:'youtube',
+  defaults:{auth:{bearer:'[ACCESS_TOKEN]'}}
+})
 // then just
 youtube.query()
   .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
   .request(function (err, res, body) {})
 ```
+
+
+## Constructor
+
+The Purest's constructor accepts a couple of options, with only the **provider** option being required:
+
+```js
+var provider = new Purest({provider:'google'})
+```
+
+###### Provider
+
+- **provider** - name of the provider from the [list of supported providers][purest-config] or any other name (in case of custom provider)
+
+###### OAuth 1.0
+
+- **key** - `consumer_key` to use for all requests
+- **secret** - `consumer_secret` to use for all requests
+
+> These keys are just convenience shortcuts, as it's often required to make all of the requests through a single OAuth app, and specifying these values for each request can be irritating.<br><br>
+Both `key` and `secret` can be overridden for each request. Alternatively these values can be set throught the `defaults` option as well:<br>
+`{oauth:{consumer_key:'..', consumer_secret:'..'}}`.
+
+###### Path Alias (API)
+
+- **api** - set specific *API/alias* path to use for all requests
+
+> The `api` key can be overridden for each request.
+
+###### URL Modifiers
+
+- **subdomain** - set default value to replace the `[subdomain]` URL token with
+- **subpath** - set default value to replace the `[subpath]` URL token with
+- **version** - set default value to replace the `[version]` URL token with
+- **type** - set default value to replace the `[type]` URL token with
+
+> All of these keys can be overridden per request as well. Take a look at the [URL Modifiers][url-modifiers] section for more details.
+
+###### Configuration
+
+- **defaults** - [request.defaults][request-defaults] object. Pass any valid [request option][request-options] here.
+- **config** - configuration object containing valid [provider configuration][provider-configuration]. Use this option to define custom providers or extend existing ones.
+
+> See the [Create New Provider][create-new-provider] and the [Extend Existing Provider][extend-existing-provider] sections.
+
+- **overrides** - a function containing [code to override][purest-overrides] the Purest's behavior.
+
+> See the [Overrides][] section for more details
+
+- **methods** - define your own method [aliases][] to use with the [Query API][].
+
+> See the [Method Aliases] section for more details
+
+- **debug** - set to `true` to enable the [request-debug][request-debug] module
 
 
 ## Basic API
@@ -161,42 +231,6 @@ The third argument is the [request's callback][request-simple] function. These a
 Purest sets `json:true` for all of your requests by default, so `body` is always a JSON object.
 
 
-## Constructor
-
-```js
-new Purest({
-  // REQUIRED:
-  provider:'name', // see the list of supported providers
-
-  // OPTIONAL: (OAuth 1.0 only)
-  // set consumer key and secret to be used by this instance
-  // (alternatively you can set them for each request
-  // or through the defaults option below)
-  key:'[CONSUMER_KEY]',
-  secret:'[CONSUMER_SECRET]',
-
-  // OPTIONAL:
-  // set specific API/alias to use by default for all requests from this instance
-  api:'youtube'
-
-  // OPTIONAL:
-  // set any request options to be added by default
-  // for each request made through this instance
-  // (this uses the request.defaults() method internally)
-  defaults:{...}
-
-  // OPTIONAL:
-  // extend the providers config with your own provider configuration
-  // or extend existing one (refer to the provider configuration section)
-  config:require('./path/to/custom/config.json'),
-
-  // OPTIONAL:
-  // enable the request-debug module
-  debug:true
-})
-```
-
-
 ## Query API
 
 Purest provides a nice API to make your application code more expressive:
@@ -212,94 +246,668 @@ google.query('youtube')
   .request(function (err, res, body) {})
 ```
 
-
-### Start
-
-```js
-// use the __default path configuration
-.query()
-// specify (API/alias) path configuration to use
-.query('youtube')
-```
-
-
-### HTTP verb
+There are a few method aliases pre-defined for you in [config/query.json][config-query]:
 
 ```js
-// GET request
-.get('endpoint')
-.select('endpoint')
-// POST request
-.post('endpoint')
-.update('endpoint')
-// PUT request
-.put('endpoint')
-.create('endpoint')
-.insert('endpoint')
-// DELETE request
-.del('endpoint')
-// PATCH request
-.patch('endpoint')
-// HEAD request
-.head('endpoint')
+{
+  "verbs": {
+    "get"      : ["select", "read"],
+    "post"     : ["update", "send", "submit"],
+    "put"      : ["create", "insert", "write"],
+    ...
+  },
+  "options": {
+    "qs"       : ["where"],
+    "form"     : ["set"],
+    "formData" : ["upload"],
+    "headers"  : [],
+    ...
+    "options"  : []
+  },
+  "custom": {
+    "auth"     : [],
+    "request"  : []
+  }
+}
 ```
 
+The actual methods are on the left and their aliases are to the right. You can [**define your own**][] method aliases and use them instead.
 
-### Request Options
+The `verbs` key contains all HTTP verbs. `options` contains methods used to pass any [valid option][request-options] to the underlying request.
+
+> The `.options()` method from this section can be used to pass any valid option to the underlying request, even if you don't have a query method for it.
+
+Lastly the `custom` section contains methods specific to Purest.
+
+
+### Query and Request
+
+Each query starts with the `.query()` method and ends with the `.request()` method:
 
 ```js
-// querystring
-.qs({options})
-.where({options})
-// application/x-www-form-urlencoded
-.form({options})
-.set({options})
-// multipart/form-data
-.formData({options})
-.upload({options})
-// multipart/related
-.multipart([options])
-.upload([options])
-// HTTP headers
-.headers({options})
-// json
-.json({options})
-// body
-.body({options})
-// any other request options
-.options({options})
+// var google = new Purest({provider:'google'})
+google
+  .query()
+  // ... other query methods
+  .request()
 ```
 
-Any other [request option][request-options] not listed here, can be set through the `.options({})` method.
+Using the `.query()` method without parameters results in using the `__default` path from that provider's configuration.
+
+To use a specific *API/alias* path from that provider, you can pass that alias name to the `.query()` method:
+
+```js
+// var google = new Purest({provider:'google'})
+google
+  .query('youtube')
+  // ... other query methods
+  .request()
+```
+
+Alternatively the *API/alias* name can be passed using the `api` key and the generic `.options()` method of the Query API:
+
+```js
+// var google = new Purest({provider:'google'})
+google
+  .query()
+  .options({api:'youtube'})
+  // ... other query methods
+  .request()
+```
+
+> The `.request([callback])` method returns the underlying [request][request-simple] object, so [streaming][streaming] works as usual. The callback is the same you'll find in request.
+
+Additionally Purest passes `json:true` by default to each request, so the response `body` is always a parsed JSON object:
+
+```js
+// var google = new Purest({provider:'google'})
+google
+  .query()
+  // ... other query methods
+  // .options({json:true}) // not needed
+  .request(function (err, res, body) {
+    // body is a parsed JSON object
+  })
+```
 
 
 ### Authentication
 
-If properly configured Purest knows exactly how to pass your credentials to the underlying request, therefore the `auth` method accepts just values:
+The `.auth()` method is used to abstract out some of the parameters that you have to pass to each request:
 
 ```js
-.auth('..')
+// var google = new Purest({provider:'google'})
+google.query()
+  .auth('[ACCESS_TOKEN]')
+  .request()
+```
+
+And this is how the related portion of the Google's configuration looks like:
+
+```js
+"google": {
+  "https://www.googleapis.com": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    }
+  }
+}
+```
+
+Alternatively you can use:
+
+```js
+// var google = new Purest({provider:'google'})
+google.query()
+  .auth({bearer:'[ACCESS_TOKEN]'})
+  .request()
+// OR
+google.query()
+  .options({auth:{bearer:'[ACCESS_TOKEN]'}})
+  .request()
+```
+
+> Notice that if you pass an object to the `.auth({})` method, Purest sets the regular `auth` option found in [request][request].
+
+Take a look at the [Auth][auth] section of the [Provider Configuration][provider-configuration] chapter on how to configure the `.auth()` method.
+
+Alternatively you can search for `"auth"` in [config/providers.json][purest-config] to see how various auth schemes are configured.
+
+
+## Provider Configuration
+
+This is how Facebook is configured in [config/providers.json][purest-config]:
+
+```js
+"facebook": {
+  "https://graph.facebook.com": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    },
+    "{endpoint}": {
+      "__path": {
+        "alias": "__default"
+      }
+    }
+  }
+}
+```
+
+That's about the bare minimum configuration you want to have for a provider.
+
+With this configuration you can request the user's profile like this:
+
+```js
+// var facebook = new Purest({provider:'facebook'})
+facebook.query()
+  .get('me')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+This will result in requesting the `https://graph.facebook.com/me` endpoint. Purest will also send the `Authorization: Bearer [ACCESS_TOKEN]` header for you.
+
+
+### Domain
+
+Each provider configuration should contain at least one domain in it:
+
+```js
+"google": {
+  "https://www.googleapis.com": {...},
+  "https://maps.googleapis.com": {...},
+  "https://www.google.com": {...},
+  "https://accounts.google.com": {...}
+}
+```
+
+Each domain can have a `__domain` meta key, containing specific options for that domain:
+
+```js
+"https://graph.facebook.com": {
+  "__domain": {
+    "auth": {
+      "auth": {"bearer": "[0]"}
+    }
+  }
+}
+```
+
+In this case we're specifying an authentication scheme to use with the `.auth()` method of the [Query API][query-api].
+
+
+### Auth
+
+The `auth` key can be placed inside `__domain`, `__path` or `__endpoint` meta key. Each inner `auth` config overrides the outer one.
+
+
+The `auth` key is designed to be used only with the `.auth()` method of the [Query API][query-api]. It can contain any [request option][request-options] used for authentication:
+
+```js
+// Example: (one of the following)
+"auth": {
+  // OAuth1.0
+  "oauth": {"token": "[0]", "secret": "[1]"}
+  // OAuth2 header
+  "auth": {"bearer": "[0]"}
+  // basic auth
+  "auth": {"user": "[0]", "pass": "[1]"}
+  // custom header
+  "headers": {"Authorize": "X-Shopify-Access-Token [0]"}
+  // querystring
+  "qs": {"access_token": "[0]"}
+  // querystring
+  "qs": {"api_key": "[0]", "api_secret": "[1]"}
+  // combination of querystring + header
+  "qs": {"client_id": "[0]"}, "headers": {"Authorization": "OAuth [1]"}
+}
+```
+
+Having such configuration you can pass just the string values to the `.auth()` method:
+
+```js
+// var facebook = new Purest({provider:'facebook'})
+facebook.query()
+  .get('me')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+Alternatively the `auth` key can be an array of authentication schemes to use:
+
+```js
+"auth": [
+  {"auth": {"bearer": "[0]"}},
+  {"auth": {"user": "[0]", "pass": "[1]"}}
+]
+```
+
+With this configuration Purest will pick the authentication scheme based on the count of the parameters you are passing to the `auth` method:
+
+```js
+// will use OAuth2 Bearer header
+facebook.query().auth('[ACCESS_TOKEN]')
+// will use Basic authentication
+facebook.query().auth('[USER]', '[PASS]')
+```
+
+
+### Path
+
+Each domain can have multiple paths in it:
+
+```js
+"google": {
+  "https://www.googleapis.com": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    },
+    "{endpoint}": {
+      "__path": {
+        "alias": "__default"
+      }
+    },
+    "plus/[version]/{endpoint}": {
+      "__path": {
+        "alias": "plus",
+        "version": "v1"
+      }
+    },
+    "youtube/[version]/{endpoint}": {
+      "__path": {
+        "alias": "youtube",
+        "version": "v3"
+      }
+    }
+  }
+}
+```
+
+With the above configuration you can use the path aliases defined for the `Google+` and the `YouTube` API to remove the clutter:
+
+```js
+// var google = new Purest({provider:'google'})
+google.query('youtube')
+  .get('channels')
+  .qs({mine:true})
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+This will result in requesting the `https://www.googleapis.com/youtube/v3/channels` endpoint from the `YouTube` API.
+
+In the same way you can request the `https://www.googleapis.com/plus/v1/people/me` endpoint from the `Google+` API:
+
+```js
+google.query('plus')
+  .select('people/me')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+> All available options for the `__path` key, can be found in the [Path Modifiers][path-modifiers] section.
+
+### Alias
+
+Each path should have a `__path` meta key in it containing an `alias` to use to access that path *(otherwise it won't be accessible)*:
+
+```js
+"google": {
+  "https://www.googleapis.com": {
+    "plus/[version]/{endpoint}": {
+      "__path": {
+        "alias": "plus",
+        "version": "v1"
+      }
+    }
+  }
+}
+```
+
+Using the above configuration you can access the `Google+` API in various ways:
+
+```js
+// Example: (one of the following)
+// Set it for the entire provider instance
+var google = new Purest({provider:'google', api:'plus'})
+// Use it with the Basic API
+google.get('people/me', {api:'plus'}, function (err, res, body) {})
+// Use it with the Query API
+google.query('plus').get('people/me').request(function (err, res, body) {})
 // or
-.auth('..', '..')
+google.query().get('people/me').options({api:'plus'}).request(function(err,res,body){})
 ```
 
-> Note that unlike most of the query methods this one is **not** an alias for the `auth` option in [request][request-options]
-
-For example that may be `.auth('user','pass')`, `.auth('bearerToken')`, `.auth('token','secret')`, `.auth('apikey')`, `.auth('anything', 'else')`.
-
-> Search for `"auth"` in [config/providers.json][purest-config] to see how various auth schemes are configured
-
-
-### Request
-
-Finally initiate the request:
+Alternatively the `alias` configuration can contain an array of names:
 
 ```js
-.request(function (err, res, body) {})
-
+"google": {
+  "https://www.googleapis.com": {
+    "drive/[version]/{endpoint}": {
+      "__path": {
+        "alias": ["drive", "storage"],
+        "version": "v2"
+      }
+    }
+  }
+}
 ```
 
-This method returns the underlying [request][request] object, so [streaming][streaming] works as usual. The callback is the same you'll find in [request][request-simple]. The only difference is that Purest passes `json:true` by default, so you don't need to, and therefore `body` is always a parsed JSON object.
+With this configuration you can use either one of the specified aliases:
+
+```js
+google.query('drive')
+  .get('about')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+// same as
+google.query('storage')
+  .get('about')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
+```
+
+
+### Endpoint
+
+Each path can have multiple endpoints defined in it. They are used to set specific options per endpoint:
+
+```js
+"live": {
+  "https://apis.live.net": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    },
+    "[version]/{endpoint}": {
+      "__path": {
+        "alias": "__default",
+        "version": "v5.0"
+      },
+      "me/picture": {
+        "get": {
+          "encoding": null
+        }
+      },
+      ".*\\/skydrive\\/files\\/.*": {
+        "__endpoint": {
+          "regex": true
+        },
+        "put": {
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+With the above configuration each `GET` request made to the `me/picture` endpoint will have the `encoding:null` [request option][request-options] set:
+
+```js
+// var live = new Purest({provider:'live'})
+live.query()
+  .get('me/picture')
+  // no longer needed to set this option explicitly
+  .options({encoding:null})
+  .request(function (err, res, body) {})
+```
+
+> The `encoding:null` option is required when you expect binary response body, such as image.
+
+Additionally, with the above configuration, each `PUT` request made to the `[USER_ID]/skydrive/files/[FILE_NAME]` endpoint will have its `Content-Type: application/json` header set.
+
+The difference here is that this a `regex` endpoint, that should be defined as such:
+
+```js
+".*\\/skydrive\\/files\\/.*": {
+  "__endpoint": {
+    "regex": true
+  }
+}
+```
+
+Omitting the `regex:true` key will result in a regular *string* endpoint.
+
+> Notice the double escape used in the regex string:<br>
+`.*\\/skydrive\\/files\\/.*`
+
+
+### Match All
+
+There is one special endpoint that can be used to match all endpoints:
+
+```js
+"*": {
+  "get": {
+    "headers": {"x-li-format": "json"}
+  }
+}
+```
+
+This will result in all `GET` requests made to any of the endpoints in that path having the `x-li-format: json` header set.
+
+There is one specific HTTP verb that can be used to match all request types as well:
+
+```js
+"*": {
+  "all": {
+    "headers": {"x-li-format": "json"}
+  }
+}
+```
+
+This will result in having the `x-li-format: json` header being set **always**.
+
+
+## URL Modifiers
+
+Purest supports a few tokens that you can embed into your provider's domains and paths.
+
+
+### Domain Modifiers
+
+There is only one domain modifier that you can use - `[subdomain]`:
+
+```js
+"mailchimp": {
+  "https://[subdomain].api.mailchimp.com": {...}
+},
+"salesforce": {
+  "https://[subdomain].salesforce.com": {...}
+}
+```
+
+The `subdomain` value is usually a user specific data that needs to be added to the domain dynamically.
+
+You have a couple of options to set this value:
+
+```js
+// Set it directly in the config
+"salesforce": {
+  "https://[subdomain].salesforce.com": {
+    "__domain": {
+      "subdomain": "us2"
+    }
+  }
+}
+
+// Set it in the constructor
+var salesforce = new Purest({provider:'salesforce', subdomain:'us2'})
+
+// Set it on each request
+salesforce.get('me', {subdomain:'us2'}, function (err, res, body) {})
+// or
+salesforce.query()
+  .get('me')
+  .options({subdomain:'us2'})
+  .request(function (err, res, body) {})
+```
+
+
+### Path Modifiers
+
+The path modifiers are tokens that you can embed into the path when defining it in the configuration:
+
+```js
+"basecamp": {
+  "https://basecamp.com": {
+    "[subpath]/api/[version]/{endpoint}.[type]": {
+      "__path": {
+        "alias": "__default",
+        "version": "v1"
+      }
+    }
+  }
+}
+```
+
+Having the above configuration we can request the `https://basecamp.com/123/api/v1/people/me.json` endpoint like this:
+
+```js
+// var basecamp = new Purest({provider:'basecamp'})
+basecamp.query()
+  .select('people/me')
+  .options({subpath:'[USER_ID]'})
+  .request(function (err, res, body) {})
+```
+
+- `[subpath]` arbitrary string replaced in your path
+- `[version]` contains the version string
+- `[type]` defaults to `json`
+- `{endpoint}` the endpoint you are requesting. *Notice the {}*
+
+You can set either one of this *path modifiers* in various ways *(except the `{endpoint}`)*:
+
+```js
+// Set it directly in the config
+"basecamp": {
+  "https://basecamp.com": {
+    "[subpath]/api/[version]/{endpoint}.[type]": {
+      "__path": {
+        "alias": "__default",
+        "subpath": "some default value",
+        "version": "v1",
+        "type": "xml"
+      }
+    }
+  }
+}
+
+// Set it in the constructor
+var basecamp = new Purest({provider:'basecamp',
+  subpath:'123', version:'v1.1', type:'xml'})
+
+// Set it on each request
+basecamp.get('me', {
+  subpath:'123', version:'v1.1', type:'xml'
+}, function (err, res, body) {})
+// or
+basecamp.query()
+  .get('me')
+  .options({subpath:'456', version:'v1.2', type:'xml'})
+  .request(function (err, res, body) {})
+```
+
+
+## Create New Provider
+
+You can create your own provider configuration and add it to the available providers through the `config` option of the Purest's constructor:
+
+```js
+var awesome = new Purest({
+  provider:'awesome',
+  config:{
+    "awesome":{
+      "https://api.awesome.com":{
+        "__domain":{
+          "auth":{
+            "auth":{"bearer": "[0]"}
+          }
+        },
+        "[version]/{endpoint}.[type]":{
+          "alias": "__default",
+          "version": "1"
+        }
+      }
+    }
+  }
+})
+```
+
+> All available provider configuration options can be found in the [Provider Configuration][provider-configuration] section.
+
+
+## Extend Existing Provider
+
+If you have the following configuration for Google in [config/providers.json][purest-config]:
+
+```js
+"google": {
+  "https://www.googleapis.com": {
+    "__domain": {
+      "auth": {
+        "auth": {"bearer": "[0]"}
+      }
+    },
+    "{endpoint}": {
+      "__path": {
+        "alias": "__default"
+      }
+    }
+  }
+}
+```
+
+You can extend it through the `config` options of the Purest's constructor:
+
+```js
+var google = new Purest({
+  provider:'google',
+  config:{
+    "google": {
+      "https://www.googleapis.com": {
+        "youtube/[version]/{endpoint}": {
+          "__path": {
+            "alias": "youtube",
+            "version": "v3"
+          }
+        },
+        "drive/[version]/{endpoint}": {
+          "__path": {
+            "alias": "drive",
+            "version": "v2"
+          }
+        }
+      },
+      "https://maps.googleapis.com":{...}
+    }
+  }
+})
+```
+
+This will add two additional path aliases for `https://www.googleapis.com` and one new domain - `https://maps.googleapis.com`.
+
+> All available provider configuration options can be found in the [Provider Configuration][provider-configuration] section.
+
+
+## Override Application Logic
+
+..
+
+
+## Query Method Aliases
+
+..
 
 
 ## Streaming
@@ -344,236 +952,12 @@ mailchimp.query('export')
 ```
 
 
-## Provider Configuration
-
-This is how Facebook is currently configured in [config/providers.json][purest-config]:
-
-```js
-"facebook": {
-  "__provider": {
-    "oauth2": true
-  },
-  "https://graph.facebook.com": {
-    "__domain": {
-      "auth": {
-        "auth": {"bearer": "[0]"}
-      }
-    },
-    "{endpoint}": {
-      "__path": {
-        "alias": "__default"
-      }
-    }
-  }
-}
-```
-
-That's about the bare minimum configuration you want to have for a provider. However some providers require different set of options, plus you may want to configure request options for a specific endpoint.
-
-
-```js
-{
-  // provider name
-  "facebook": {
-    // OPTIONAL: meta data about this provider
-    "__provider": {
-      // OPTIONAL: required if the provider is using OAuth1
-      "oauth": true,
-      // OPTIONAL: required if the provider is using OAuth2
-      "oauth2": true
-    },
-    // REQUIRED: at least one domain is required
-    "https://graph.facebook.com": {
-      // OPTIONAL: meta data about this domain
-      "__domain": {
-        // OPTIONAL:
-        // specify authentication scheme to use for this domain
-        // Example: facebook.query().auth('the-token')
-        "auth": {
-          // Example: (one of the following)
-          "auth": {"bearer": "[0]"} // OAuth2 header
-          "headers": {"Authorize": "[0]"} // custom header
-          "qs": {"access_token": "[0]"} // querystring
-          "qs": {"api_key": "[0]", "api_secret": "[1]"} // querystring
-          "auth": {"user": "[0]", "pass": "[1]"} // basic auth
-          "oauth": {"token": "[0]", "secret": "[1]"} // OAuth1.0
-          "qs": {"client_id": "[0]"}, "headers": {"Authorization": "OAuth [1]"}//combo
-        }
-        // alternatively you can specify up to 2 different auth schemes for a domain
-        // (index is argument count based)
-        // Example: facebook.query().auth('the-token') // will pick the first scheme
-        // Example: facebook.query().auth('user', 'pass') // will pick the second
-        "auth": [
-          {"auth": {"bearer": "[0]"}},
-          {"auth": {"user": "[0]", "pass": "[1]"}}
-        ]
-      },
-      // REQUIRED: at least one path is required
-      "api/[version]/{endpoint}.[type]": {
-        // REQUIRED: meta data about this path
-        "__path": {
-          // REQUIRED:
-          // each provider should have at least one path with a __default alias in it
-          // Example: facebook.get('some/endpoint') // no need for {api:'some-name'}
-          // Example: facebook.query().get('abc') // no need for api name in query()
-          "alias": "__default"
-          // any other path in this provider should specify alias name/s to use
-          // Example: google.get('channels', {api:'youtube'})
-          // Example: google.query('tube').get('channels')
-          "alias": ["youtube", "tube"],
-
-          // OPTIONAL: only required when the path have a [version] embedded in it
-          "version": "v3",
-
-          // OPTIONAL: specify auth scheme to use for this path only
-          // (overrides the one specified for the domain)
-          "auth": {"bearer": "[0]"}
-        },
-
-        // OPTIONAL: set request options per endpoint in this path
-
-        // match all endpoints in this path
-        // Example: any endpoint in this path, using any HTTP verb will have
-        // the "x-li-format": "json" header set (unless you override it in the request)
-        "*": {
-          // match all HTTP verbs
-          "all": {
-            // any valid request option
-            "headers": {"x-li-format": "json"}
-          }
-        },
-
-        // exact matching endpoint
-        // Example: given the path and domain set above, this will match
-        // https://graph.facebook.com/api/v3/documents.json
-        "documents": {
-          // OPTIONAL: meta data about this endpoint
-          "__endpoint": {
-            // OPTIONAL: specify auth scheme to use for this endpoint only
-            // (overrides the one specified for the path and for the domain)
-            "auth": {"bearer": "[0]"}
-          },
-          // match only GET requests
-          "get": {
-            // this option will be added for each request to this endpoint
-            "encoding": null
-          }
-        },
-
-        // match regex endpoint - notice the double \\ escape
-        // Example: given the path and domain set above, this will match
-        // https://graph.facebook.com/api/v3/files/[NUMBER-ID]/content.json
-        "files\\/\\d+\\/content": {
-          // REQUIRED: in case of a regex endpoint
-          "__endpoint": {
-            // REQUIRED: for regex endpoints
-            "regex": true
-          },
-          // match only POST requests
-          "post": {
-            // you can override these options when you are making the request
-            "form": {"json": true}
-          },
-          // more HTTP verbs
-        }
-        // more endpoints
-      },
-      // more paths
-    },
-    // more domains
-  },
-  // more providers
-}
-```
-
-Take a look at how various providers are configured in [config/providers.json][purest-config] and the [providers list][purest-providers].
-
-
-## Create Custom Provider
-
-Using the above configuration data structure you can create your own provider configuration:
-
-```js
-{
-  "my-private-provider": {
-    // ... use the above data structure
-  }
-}
-```
-
-And pass it to the Purest's constructor:
-
-```js
-var myapi = new Purest({
-  provider:'my-private-provider',
-  config:require('./my-config.json')
-})
-```
-
-
-## Extend Existing Provider
-
-You can even extend or override existing provider. For example if we have the following configuration for Google:
-
-```js
-"google": {
-  "__provider": {
-    "oauth2": true
-  },
-  "https://www.googleapis.com": {
-    "__domain": {
-      "auth": {
-        "auth": {"bearer": "[0]"}
-      }
-    },
-    "{endpoint}": {
-      "__path": {
-        "alias": "__default"
-      }
-    }
-  }
-}
-```
-
-This is how we can extend the `https://www.googleapis.com` domain with two more paths:
-
-```js
-"google": {
-  "https://www.googleapis.com": {
-    "youtube/[version]/{endpoint}": {
-      "__path": {
-        "alias": "youtube",
-        "version": "v3"
-      }
-    },
-    "drive/[version]/{endpoint}": {
-      "__path": {
-        "alias": "drive",
-        "version": "v2"
-      }
-    }
-  }
-}
-```
-
-Notice that some of the meta keys are missing. In case you don't want to change anything in these meta keys (and they are already defined) you can ommit them.
-
-Then pass your extend configuration to the Purest's constructor:
-
-```js
-var myapi = new Purest({provider:'google', config:require('./google-config.json')})
-```
-
-
 ## OAuth
 
 You can configure Purest to make your code more expressive using various OAuth grant types. For example this is how the configuration for [act-on][acton-oauth] looks like:
 
 ```js
 "acton": {
-  "__provider": {
-    "oauth2": true
-  },
   "https://restapi.actonsoftware.com": {
     "__domain": {
       "auth": {
@@ -761,12 +1145,12 @@ google.query('upload-drive')
 
 ## Specific Purest Options
 
-Additional to the [request's options][request-options], Purest adds a few more options on its own:
+Additional to the [request's options][request-options], Purest adds a few more options on its own.
 
 
 ### api
 
-Specific API path to use for providers with multiple paths configuration:
+Specific *API/alias* path to use for providers with multiple paths configuration:
 
 ```js
 google.get('channels', {
@@ -779,7 +1163,7 @@ google.get('channels', {
 
 ### version
 
-Override the API `[version]` embedded into the path configuration (if present).
+Replaces the API `[version]` token embedded into the path configuration (if present).
 
 For example here are the relevant bits of the Twitter's configuration in [config/providers.json][purest-config]:
 
@@ -808,12 +1192,12 @@ We can change that using the `version` option:
 twitter.get('users/show', {version:'1.0'}, function (err, res, body) {})
 ```
 
-Resulting in `https://api.twitter.com/1.0/users/show.json` absolute URL.
+Resulting in request to the `https://api.twitter.com/1.0/users/show.json` absolute URL.
 
 
 ### type
 
-Again, using the above configuration for Twitter, we can change the `[type]` variable embedded into the path. If present `[type]` always defaults to `json`.
+Again, using the above configuration for Twitter, we can change the `[type]` token embedded into the path. If present `[type]` always defaults to `json`.
 
 To override that pass the `type` option with the appropriate value:
 
@@ -821,41 +1205,62 @@ To override that pass the `type` option with the appropriate value:
 twitter.get('users/show', {type:'xml'}, function (err, res, body) {})
 ```
 
-Resulting in `https://api.twitter.com/1.1/users/show.xml` absolute URL.
+Resulting in request to the `https://api.twitter.com/1.1/users/show.xml` absolute URL.
 
 
-### domain
+### subdomain
 
-Some domain configurations have a `[domain]` variable embedded into them. For example see the configuration for Salesforce, Mailchimp, Paypal and Harvest in [config/providers.json][purest-config].
+Some domain configurations have a `[subdomain]` variable embedded into them:
 
 ```js
-// make request to https://us2.api.mailchimp.com
-mailchimp.query()
-  .select('campaigns/list')
-  .options({domain:'us2'})
-  .auth('[ACCESS_TOKEN]')
-  .request(function (err, res, body) {})
+"mailchimp": {
+  "https://[subdomain].api.mailchimp.com": {...}}
 ```
 
-> Mailchimp's data center name can be obtained like this
+Set your data center name like this:
 
 ```js
-mailchimp.query('oauth')
-  .get('metadata')
-  .auth('[ACCESS_TOKEN]')
-  .request(function (err, res, body) {
-    // body.dc - contains the data center name
-  })
+// var mailchimp = new Purest({provider:'mailchimp'})
+mailchimp.get('campaigns/list', {
+  subdomain:'us2',
+  qs:{apikey:'[API_KEY]'}
+}, function (err, res, body) {})
+```
+
+This will result in request to the `https://us2.api.mailchimp.com` domain.
+
+
+### subpath
+
+Some providers may have a `[subpath]` token embedded into them:
+
+```js
+"basecamp": {
+  "[subpath]/api/[version]/{endpoint}.[type]": {...}}
+```
+
+The `BaseCamp` API needs the user's ID embedded into their path configuration:
+
+```js
+// var basecamp = new Purest({provider:'basecamp'})
+basecamp.get('people/me', {
+  subpath:'[USER_ID]',
+  auth:{bearer:'[ACCESS_TOKEN]'}
+}, function (err, res, body) {})
 ```
 
 
 ### oauth:secret
 
-Shortcut for `oauth:token_secret`
+Shortcut for `oauth:token_secret` used to set the user's `[ACCESS_SECRET]`:
 
 ```js
+var twitter = new Purest({
+  provider:'twitter',
+  key:'[CONSUMER_KEY]', secret:'[CONSUMER_SECRET]'
+})
 twitter.get('users/show', {
-  oauth:{token:'..', secret:'..'},
+  oauth:{token:'[ACCESS_TOKEN]', secret:'[ACCESS_SECRET]'},
   qs:{screen_name:'nodejs'}
 }, function (err, res, body) {})
 ```
@@ -866,24 +1271,45 @@ twitter.get('users/show', {
 MIT
 
 
-  [npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Version)
-  [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status)
-  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage)
+  [npm-version]: http://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Package Version)
+  [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status - Travis CI)
+  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage - Coveralls)
+  [codecov-status]: https://img.shields.io/codecov/c/github/simov/purest.svg?style=flat-square (Test Coverage - Codecov)
   [npm]: https://www.npmjs.org/package/purest
   [travis]: https://travis-ci.org/simov/purest
   [coveralls]: https://coveralls.io/r/simov/purest?branch=master
+  [codecov]: https://codecov.io/github/simov/purest?branch=master
 
-  [basics]: #basics
-  [basic-api]: #basic-api
+
+  [quick-start]: #quick-start
   [constructor]: #constructor
+  [basic-api]: #basic-api
   [query-api]: #query-api
-  [streaming]: #streaming
+
   [provider-configuration]: #provider-configuration
-  [create-custom-provider]: #create-custom-provider
+  [domain]: #domain
+  [auth]: #auth
+  [path]: #path
+  [alias]: #alias
+  [endpoint]: #endpoint
+  [match-all]: #match-all
+
+  [url-modifiers]: #url-modifiers
+  [domain-modifiers]: #domain-modifiers
+  [path-modifiers]: #path-modifiers
+
+  [add-configuration]: #add-configuration
+  [create-new-provider]: #create-new-provider
   [extend-existing-provider]: #extend-existing-provider
+
+  [override-application-logic]: #override-application-logic
+  [query-method-aliases]: #query-method-aliases
+
+  [streaming]: #streaming
   [oauth]: #oauth
   [multipart-uploads]: #multipart-uploads
   [specific-purest-options]: #specific-purest-options
+
 
   [purest-config]: https://github.com/simov/purest/blob/master/config/providers.json
   [purest-providers]: https://github.com/simov/purest/wiki/Providers
@@ -897,6 +1323,8 @@ MIT
 
   [grant]: https://github.com/simov/grant
   [grant-oauth]: https://grant-oauth.herokuapp.com
+
+  [request-debug]: https://github.com/request/request-debug
 
   [youtube-channels]: https://developers.google.com/youtube/v3/docs/channels/list
   [event-stream]: https://github.com/dominictarr/event-stream
