@@ -1,22 +1,25 @@
 
 exports = module.exports = {
+
+  // auth
+
   aboutme: function () {
     this.before.all = function (endpoint, options) {
       if (options.headers && options.headers.authorization) {
         var parts = options.headers.authorization.split(' ')
-        // token
-        if (parts[0] == 'Basic' && parts[1].length > 40) {
-          options.headers.authorization = 'OAuth '+parts[1]
+        // apikey
+        if (parts[0] == 'OAuth' && parts[1].length < 45) {
+          options.headers.authorization = 'Basic '+parts[1]
         }
       }
     }
   },
   asana: function () {
     this.before.all = function (endpoint, options) {
-      if (options.auth && options.auth.user) {
-        // token
-        if (options.auth.user.length > 35) {
-          options.auth = {bearer:options.auth.user}
+      if (options.auth && options.auth.bearer) {
+        // apikey
+        if (options.auth.bearer.length < 35) {
+          options.auth = {user:options.auth.bearer}
         }
       }
     }
@@ -31,11 +34,49 @@ exports = module.exports = {
       }
     }
   },
+  imgur: function () {
+    this.before.all = function (endpoint, options) {
+      if (options.auth && options.auth.bearer) {
+        // app key
+        if (options.auth.bearer.length < 35) {
+          options.headers = options.headers || {}
+          options.headers.authorization = 'Client-ID '+options.auth.bearer
+          delete options.auth
+        }
+      }
+    }
+  },
+  openstreetmap: function () {
+    this.before.all = function (endpoint, options) {
+      if (options.oauth && options.oauth.token) {
+        // basic
+        if (options.oauth.token.length < 35) {
+          options.auth = {
+            user: options.oauth.token,
+            pass: options.oauth.token_secret
+          }
+          delete options.oauth
+        }
+      }
+    }
+  },
+
+  // other
+
   getpocket: function () {
     this.before.all = function (endpoint, options) {
-      if (typeof options.body == 'object') {
-        options.body = JSON.stringify(options.body)
+      // getpocket expects the data as JSON
+      if (options.qs) {
+        options.json = options.qs
+        delete options.qs
       }
+      else if (options.form) {
+        options.json = options.form
+        delete options.form
+      }
+      // getpocket returns error on
+      // Accept: application/json header
+      options.body = JSON.stringify(options.json)
       options.json = false
     }
   },
@@ -73,18 +114,6 @@ exports = module.exports = {
       }
     }
   },
-  imgur: function () {
-    this.before.all = function (endpoint, options) {
-      if (options.auth && options.auth.bearer) {
-        // app key
-        if (options.auth.bearer.length < 35) {
-          options.headers = options.headers || {}
-          options.headers.authorization = 'Client-ID '+options.auth.bearer
-          delete options.auth
-        }
-      }
-    }
-  },
   linkedin: function () {
     this.before.post = function (endpoint, options) {
       // linkedin expects the data as JSON
@@ -117,20 +146,6 @@ exports = module.exports = {
       // missing data center name
       throw new Error(
         'Purest: specify data center name to use through the subdomain option!')
-    }
-  },
-  openstreetmap: function () {
-    this.before.all = function (endpoint, options) {
-      if (options.oauth && options.oauth.token) {
-        // basic
-        if (options.oauth.token.length < 35) {
-          options.auth = {
-            user: options.oauth.token,
-            pass: options.oauth.token_secret
-          }
-          delete options.oauth
-        }
-      }
     }
   },
   paypal: function () {

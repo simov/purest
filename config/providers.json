@@ -38,8 +38,8 @@
     "https://api.about.me": {
       "__domain": {
         "auth": [
-          {"headers": {"authorization": "Basic [0]"}},
-          {"headers": {"authorization": "OAuth [0]"}}
+          {"headers": {"authorization": "OAuth [0]"}},
+          {"headers": {"authorization": "Basic [0]"}}
         ]
       },
       "api/[version]/json/{endpoint}": {
@@ -108,8 +108,8 @@
     "https://app.asana.com": {
       "__domain": {
         "auth": [
-          {"auth": {"user": "[0]"}},
-          {"auth": {"bearer": "[0]"}}
+          {"auth": {"bearer": "[0]"}},
+          {"auth": {"user": "[0]"}}
         ]
       },
       "api/[version]/{endpoint}": {
@@ -726,7 +726,7 @@
     "https://getpocket.com": {
       "__domain": {
         "auth": {
-          "body": {"consumer_key": "[0]", "access_token": "[1]"}
+          "json": {"consumer_key": "[0]", "access_token": "[1]"}
         }
       },
       "[version]/{endpoint}": {

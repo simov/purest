@@ -884,7 +884,7 @@ describe('foursquare', function () {
 describe('getpocket', function () {
   it('options', function (done) {
     p.getpocket.post('get', {
-      body: {
+      json: {
         consumer_key:app.getpocket.key,
         access_token:user.getpocket.token
       }
@@ -897,7 +897,7 @@ describe('getpocket', function () {
   })
   it('query', function (done) {
     p.getpocket.query()
-      .get('get')
+      .post('get')
       .auth(app.getpocket.key, user.getpocket.token)
       .request(function (err, res, body) {
         debugger
