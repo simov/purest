@@ -30,7 +30,7 @@ google.query('youtube')
   - [URL Modifiers][url-modifiers]
   - [Create New Provider][create-new-provider]
   - [Extend Existing Provider][extend-existing-provider]
-  - [Override Application Logic][override-application-logic]
+  - [Before Request Hooks][before-request-hooks]
   - [Query Method Aliases][query-method-aliases]
 - **Misc**
   - [Streaming][streaming]
@@ -195,15 +195,15 @@ Both `key` and `secret` can be overridden for each request. Alternatively these 
 
 > See the [Create New Provider][create-new-provider] and the [Extend Existing Provider][extend-existing-provider] sections.
 
-- **overrides** - a function containing [code to override][purest-overrides] the Purest's behavior.
+- **before** - object containing before request hooks
 
-> See the [Overrides][] section for more details
+> See the [Before Request Hooks][before-request-hooks] section for more details.
 
-- **methods** - define your own method [aliases][] to use with the [Query API][].
+- **methods** - define your own method [aliases][query-method-aliases] to use with the [Query API][query-api].
 
-> See the [Method Aliases] section for more details
+> See the [Query Method Aliases][query-method-aliases] section for more details
 
-- **debug** - set to `true` to enable the [request-debug][request-debug] module
+- **debug** - set to `true` to enable the [request-debug][request-debug] module.
 
 
 ## Basic API
@@ -271,7 +271,7 @@ There are a few method aliases pre-defined for you in [config/query.json][config
 }
 ```
 
-The actual methods are on the left and their aliases are to the right. You can [**define your own**][] method aliases and use them instead.
+The actual methods are on the left and their aliases are to the right. You can [**define your own**][query-method-aliases] method aliases and use them instead.
 
 The `verbs` key contains all HTTP verbs. `options` contains methods used to pass any [valid option][request-options] to the underlying request.
 
@@ -294,7 +294,7 @@ google
 
 Using the `.query()` method without parameters results in using the `__default` path from that provider's configuration.
 
-To use a specific *API/alias* path from that provider, you can pass that alias name to the `.query()` method:
+To use a specific *API/alias* path from that provider, you can pass the alias name to the `.query()` method:
 
 ```js
 // var google = new Purest({provider:'google'})
@@ -323,7 +323,6 @@ Additionally Purest passes `json:true` by default to each request, so the respon
 // var google = new Purest({provider:'google'})
 google
   .query()
-  // ... other query methods
   // .options({json:true}) // not needed
   .request(function (err, res, body) {
     // body is a parsed JSON object
@@ -900,9 +899,64 @@ This will add two additional path aliases for `https://www.googleapis.com` and o
 > All available provider configuration options can be found in the [Provider Configuration][provider-configuration] section.
 
 
-## Override Application Logic
+## Before Request Hooks
 
-..
+Purest's extensive configuration structure allows you to configure almost everything without the need to write a single line of code. However small bits of application logic may be required to get a fully compatible REST API client library for your provider.
+
+The only thing that you can modify in a `before` hook is the `options` argument. These hooks are executed right before the [request][request] is started, so that's the last chance to dynamically change some of the passed options to the request.
+
+Let's take a look at the MailChimp's `before.all` function:
+
+```js
+var mailchimp = new Purest({
+  provider:'mailchimp',
+  before:{
+    all: function (endpoint, options, config) {
+      var dc = options.subdomain||this.subdomain||config.subdomain
+      if (dc) return
+
+      // extract data center name from apikey
+      if (options.qs && /.*-\w{2}\d+/.test(options.qs.apikey)) {
+        var dc = options.qs.apikey.replace(/.*-(\w{2}\d+)/, '$1')
+        options.subdomain = dc
+      }
+    }
+  }
+})
+```
+
+This particular function is executed before every request, and it's sole purpose is to extract the user's *data center* name from its `apikey`.
+
+Mailchimp needs a correct *data center* name, that will be set as a subdomain in the API URL:
+
+```js
+"mailchimp": {
+  "https://[subdomain].api.mailchimp.com": {...}}
+```
+
+### Structure
+
+You can define HTTP hook for every valid HTTP verb + one special `all` hook which is executed always:
+
+```js
+var before = {
+  all: function (endpoint, options, config) {},
+  get: function (endpoint, options, config) {},
+  post: function (endpoint, options, config) {}
+}
+```
+
+Arguments:
+
+- **endpoint** - the endpoint that the request is called with
+- **options** - all options passed to the request
+- **config** - configuration of the matched *API/alias* path
+
+Inside `before` hook `this` points to the provider's instance.
+
+> Take a look at the [config/hooks.js][purest-hooks] as it contains a couple of `before` hooks bundled with Purest.
+
+**Note:** Always write tests for your hooks, and execute those tests each time after upgrade to a newer version of Purest!
 
 
 ## Query Method Aliases
@@ -1275,7 +1329,8 @@ MIT
   [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status - Travis CI)
   [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage - Coveralls)
   [codecov-status]: https://img.shields.io/codecov/c/github/simov/purest.svg?style=flat-square (Test Coverage - Codecov)
-  [npm]: https://www.npmjs.org/package/purest
+
+  [npm]: https://www.npmjs.com/package/purest
   [travis]: https://travis-ci.org/simov/purest
   [coveralls]: https://coveralls.io/r/simov/purest?branch=master
   [codecov]: https://codecov.io/github/simov/purest?branch=master
@@ -1298,11 +1353,10 @@ MIT
   [domain-modifiers]: #domain-modifiers
   [path-modifiers]: #path-modifiers
 
-  [add-configuration]: #add-configuration
   [create-new-provider]: #create-new-provider
   [extend-existing-provider]: #extend-existing-provider
 
-  [override-application-logic]: #override-application-logic
+  [before-request-hooks]: #before-request-hooks
   [query-method-aliases]: #query-method-aliases
 
   [streaming]: #streaming
@@ -1313,6 +1367,8 @@ MIT
 
   [purest-config]: https://github.com/simov/purest/blob/master/config/providers.json
   [purest-providers]: https://github.com/simov/purest/wiki/Providers
+  [purest-hooks]: https://github.com/simov/purest/blob/master/config/hooks.js
+  [purest-url]: https://github.com/simov/purest/blob/master/lib/url.js
 
   [request]: https://github.com/request/request
   [request-options]: https://github.com/request/request#requestoptions-callback

@@ -5,7 +5,7 @@ var Purest = require('../../')
   , utils = require('../../lib/utils')
 
 
-describe('overrides', function () {
+describe('hooks', function () {
   // improve this test
   it('ctor option', function () {
     var before = {
@@ -29,7 +29,7 @@ describe('overrides', function () {
   })
 })
 
-describe('overrides auth', function () {
+describe('hooks auth', function () {
   var token30 = '012345678901234567890123456789'
     , token40 = '0123456789012345678901234567890123456789'
     , token45 = '012345678901234567890123456789012345678901234'
@@ -109,7 +109,7 @@ describe('overrides auth', function () {
   })
 })
 
-describe('overrides other', function () {
+describe('hooks other', function () {
   it('getpocket', function () {
 
   })
