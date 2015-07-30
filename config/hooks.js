@@ -3,8 +3,8 @@ exports = module.exports = {
 
   // auth
 
-  aboutme: function () {
-    this.before.all = function (endpoint, options) {
+  aboutme: {
+    all: function (endpoint, options) {
       if (options.headers && options.headers.authorization) {
         var parts = options.headers.authorization.split(' ')
         // apikey
@@ -14,8 +14,8 @@ exports = module.exports = {
       }
     }
   },
-  asana: function () {
-    this.before.all = function (endpoint, options) {
+  asana: {
+    all: function (endpoint, options) {
       if (options.auth && options.auth.bearer) {
         // apikey
         if (options.auth.bearer.length < 35) {
@@ -24,8 +24,8 @@ exports = module.exports = {
       }
     }
   },
-  flowdock: function () {
-    this.before.all = function (endpoint, options) {
+  flowdock: {
+    all: function (endpoint, options) {
       if (options.auth && options.auth.bearer) {
         // apikey
         if (options.auth.bearer.length < 35) {
@@ -34,8 +34,8 @@ exports = module.exports = {
       }
     }
   },
-  imgur: function () {
-    this.before.all = function (endpoint, options) {
+  imgur: {
+    all: function (endpoint, options) {
       if (options.auth && options.auth.bearer) {
         // app key
         if (options.auth.bearer.length < 35) {
@@ -46,8 +46,8 @@ exports = module.exports = {
       }
     }
   },
-  openstreetmap: function () {
-    this.before.all = function (endpoint, options) {
+  openstreetmap: {
+    all: function (endpoint, options) {
       if (options.oauth && options.oauth.token) {
         // basic
         if (options.oauth.token.length < 35) {
@@ -63,8 +63,8 @@ exports = module.exports = {
 
   // other
 
-  getpocket: function () {
-    this.before.all = function (endpoint, options) {
+  getpocket: {
+    all: function (endpoint, options) {
       // getpocket expects the data as JSON
       if (options.qs) {
         options.json = options.qs
@@ -80,8 +80,8 @@ exports = module.exports = {
       options.json = false
     }
   },
-  linkedin: function () {
-    this.before.post = function (endpoint, options) {
+  linkedin: {
+    post: function (endpoint, options) {
       // linkedin expects the data as JSON
       if (options.form) {
         options.json = options.form
@@ -89,8 +89,8 @@ exports = module.exports = {
       }
     }
   },
-  mailchimp: function () {
-    this.before.all = function (endpoint, options, config) {
+  mailchimp: {
+    all: function (endpoint, options, config) {
       var dc = options.subdomain||this.subdomain||config.subdomain
       if (dc) return
 
