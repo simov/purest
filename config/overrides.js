@@ -80,40 +80,6 @@ exports = module.exports = {
       options.json = false
     }
   },
-  google: function () {
-    this.url.endpoint = function (endpoint, options) {
-      var api = options.api||this.provider.api
-      if (api == 'gmaps') {
-        // append /json to certain endpoints in the gmaps api
-        var match = endpoint.match(
-          /(?:geocode|directions|timezone|elevation|distancematrix)(?:\/(json|xml))?/)
-        return (match && !match[1])
-          ? endpoint + '/json'
-          : endpoint
-      }
-      else {
-        return endpoint
-      }
-    }
-  },
-  hackpad: function () {
-    this.options.oauth = function (options) {
-      var oa = options.oauth = options.oauth||{}
-      // 0-legged OAuth
-      options.oauth = {
-        consumer_key: oa.consumer_key||this.provider.key,
-        consumer_secret: oa.consumer_secret||this.provider.secret
-      }
-      if (!options.oauth.consumer_key || !options.oauth.consumer_secret) {
-        throw new Error('Missing OAuth credentials!')
-      }
-    }
-    this.before.all = function (endpoint, options) {
-      if (!options.oauth) {
-        this.provider.options.oauth(options)
-      }
-    }
-  },
   linkedin: function () {
     this.before.post = function (endpoint, options) {
       // linkedin expects the data as JSON
@@ -124,40 +90,14 @@ exports = module.exports = {
     }
   },
   mailchimp: function () {
-    this.url.domain = function (config, options) {
-      // https://login.mailchimp.com
-      if (config.domain.indexOf('[subdomain]') == -1) {
-        return config.domain
-      }
-
-      // data center name set through subdomain
-      var dc = options.subdomain||this.provider.subdomain||config.subdomain
-      if (dc) {
-        delete options.subdomain
-        return config.domain.replace('[subdomain]', dc)
-      }
+    this.before.all = function (endpoint, options, config) {
+      var dc = options.subdomain||this.subdomain||config.subdomain
+      if (dc) return
 
       // extract data center name from apikey
       if (options.qs && /.*-\w{2}\d+/.test(options.qs.apikey)) {
         var dc = options.qs.apikey.replace(/.*-(\w{2}\d+)/, '$1')
-        return config.domain.replace('[subdomain]', dc)
-      }
-
-      // missing data center name
-      throw new Error(
-        'Purest: specify data center name to use through the subdomain option!')
-    }
-  },
-  paypal: function () {
-    this.url.domain = function (config, options) {
-      var sub = options.subdomain||this.provider.subdomain||config.subdomain
-
-      if (sub == 'sandbox') {
-        delete options.subdomain
-        return config.domain.replace('api', 'api.sandbox')
-      }
-      else {
-        return config.domain
+        options.subdomain = dc
       }
     }
   }

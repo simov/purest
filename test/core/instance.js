@@ -217,12 +217,12 @@ describe('overrides', function () {
     should.deepEqual(options, {json:{key:'data'}})
   })
   it('user defined', function () {
-    function overrides () {
-      this.before.post = function (endpoint, options) {
+    var before = {
+      post: function (endpoint, options, config) {
         options.form.format = 'json'
       }
     }
-    var p = new Purest({provider:'facebook', overrides:overrides})
+    var p = new Purest({provider:'facebook', before:before})
     var options = {form:{key:'data'}}
     p.before.post('endpoint',options)
     should.deepEqual(options, {form:{key:'data', format:'json'}})

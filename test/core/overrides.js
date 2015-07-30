@@ -2,23 +2,30 @@
 var should = require('should')
 var Purest = require('../../')
   , config = require('../../lib/config')
+  , utils = require('../../lib/utils')
 
 
 describe('overrides', function () {
+  // improve this test
   it('ctor option', function () {
-    function overrides () {
-      this.url.domain = function (config, options) {
-        return config.domain.replace('api', 'sandbox')
+    var before = {
+      all: function (endpoint, options, config) {
+        options.a = 1
       }
     }
+
     var p1 = new Purest({provider:'twitter'})
-      , p2 = new Purest({provider:'twitter', overrides:overrides})
+      , p2 = new Purest({provider:'twitter', before:before})
 
-    var url = p1.url.get('endpoint', {})
-    url.should.equal('https://api.twitter.com/1.1/endpoint.json')
+    p1._request = function (url, options, callback) {
+      should.equal(options.a, undefined)
+    }
+    p2._request = function (url, options, callback) {
+      options.a.should.equal(1)
+    }
 
-    url = p2.url.get('endpoint', {})
-    url.should.equal('https://sandbox.twitter.com/1.1/endpoint.json')
+    p1.get('endpoint')
+    p2.get('endpoint')
   })
 })
 
@@ -84,7 +91,7 @@ describe('overrides auth', function () {
     var provider = new Purest({
       provider:'openstreetmap', key:'key', secret:'secret'})
     var query = provider.query().auth('user','pass')
-    provider.options.oauth(query._options)
+    utils.oauth.call(provider, query._options)
     provider.before.all('endpoint', query._options)
     should.deepEqual(query._options,
       {api:'__default', auth:{user:'user', pass:'pass'}})
@@ -93,7 +100,7 @@ describe('overrides auth', function () {
     var provider = new Purest({
       provider:'openstreetmap', key:'key', secret:'secret'})
     var query = provider.query().auth(token40,'pass')
-    provider.options.oauth(query._options)
+    utils.oauth.call(provider, query._options)
     provider.before.all('endpoint', query._options)
     should.deepEqual(query._options.oauth, {
       consumer_key:'key', consumer_secret:'secret',
@@ -106,40 +113,6 @@ describe('overrides other', function () {
   it('getpocket', function () {
 
   })
-  it('google url - set json as default return type', function () {
-    var provider = new Purest({provider:'google', api:'gmaps'})
-      , config = provider.apis.gmaps
-    ;['geocode', 'directions', 'timezone', 'elevation', 'distancematrix']
-    .forEach(function (endpoint) {
-      provider.url.get(endpoint,{})
-        .should.equal([
-          config.domain,
-          config.path.replace('{endpoint}', endpoint), 'json'
-        ].join('/'))
-    })
-  })
-  it('google url - specify return type', function () {
-    var provider = new Purest({provider:'google', api:'gmaps'})
-      , config = provider.apis.gmaps
-    provider.url.get('geocode/json',{})
-      .should.equal([
-        config.domain,
-        config.path.replace('{endpoint}','geocode'),
-      'json'].join('/'))
-    provider.url.get('geocode/xml',{})
-      .should.equal([
-        config.domain,
-        config.path.replace('{endpoint}','geocode'),
-        'xml'].join('/'))
-  })
-
-  it('hackpad oauth - 0-legged OAuth', function () {
-    var provider = new Purest({provider:'hackpad', key:'key', secret:'secret'})
-      , query = provider.query()
-    provider.options.oauth(query._options)
-    should.deepEqual(query._options,
-      {api:'__default', oauth:{consumer_key:'key', consumer_secret:'secret'}})
-  })
 
   it('linkedin options - send form data as entity body', function () {
     var p = new Purest({provider:'linkedin', key:'k', secret:'s'})
@@ -151,29 +124,20 @@ describe('overrides other', function () {
 
   it('mailchimp domain - get data center name from apikey', function () {
     var provider = new Purest({provider:'mailchimp'})
-    provider.url.get('endpoint', {qs:{apikey:'546ae091fd5ytr3a611d3hj527ad2940-us2'}})
+      , endpoint = 'endpoint'
+      , options = {qs:{apikey:'546ae091fd5ytr3a611d3hj527ad2940-us2'}}
+      , config = provider.apis.__default
+    provider.before.all.call(provider, endpoint, options, config)
+    provider.url.get('endpoint', options, config)
       .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json')
   })
   it('mailchimp domain - get data center name from option', function () {
     var provider = new Purest({provider:'mailchimp'})
-    provider.url.get('endpoint', {subdomain:'us2'})
+      , endpoint = 'endpoint'
+      , options = {subdomain:'us2'}
+      , config = provider.apis.__default
+    provider.before.all.call(provider, endpoint, options, config)
+    provider.url.get('endpoint', options, config)
       .should.equal('https://us2.api.mailchimp.com/2.0/endpoint.json')
-  })
-  it('mailchimp domain - throw error on missing data center name', function () {
-    var provider = new Purest({provider:'mailchimp'})
-    ;(function () {
-      provider.url.get('endpoint', {qs:{apikey:'access_token'}})
-    }).should.throw('Purest: specify data center name to use through the subdomain option!')
-  })
-
-  it('paypal domain - use default domain', function () {
-    var provider = new Purest({provider:'paypal', api:'payments'})
-    provider.url.get('endpoint', {})
-      .should.equal('https://api.paypal.com/v1/payments/endpoint')
-  })
-  it('paypal domain - use sandbox domain', function () {
-    var provider = new Purest({provider:'paypal', api:'payments'})
-    provider.url.get('endpoint', {subdomain:'sandbox'})
-      .should.equal('https://api.sandbox.paypal.com/v1/payments/endpoint')
   })
 })
