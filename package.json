@@ -47,7 +47,8 @@
     "config/",
     "lib/",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "index.js"
   ],
 
   "scripts": {
