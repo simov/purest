@@ -1814,6 +1814,21 @@
       }
     }
   },
+  "weibo": {
+    "https://api.weibo.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "2"
+        }
+      }
+    }
+  },
   "wikimapia": {
     "http://api.wikimapia.org": {
       "__domain": {
