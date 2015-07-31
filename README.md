@@ -961,7 +961,68 @@ Inside `before` hook `this` points to the provider's instance.
 
 ## Query Method Aliases
 
-..
+Purest comes with a bunch of pre-configured [method aliases][purest-query] to use with its [Query API][query-api]:
+
+```js
+{
+  "verbs": {
+    "get"      : ["select", "read"],
+    "post"     : ["update", "send", "submit"],
+    "put"      : ["create", "insert", "write"],
+    ...
+  },
+  "options": {
+    "qs"       : ["where"],
+    "form"     : ["set"],
+    "formData" : ["upload"],
+    ...
+    "options"  : []
+  },
+  "custom": {
+    "auth"     : [],
+    "request"  : []
+  }
+}
+```
+
+> The actual methods are to the left, and their aliases are to the right.
+
+Using the above configuration the following API calls are identical:
+
+```js
+// var facebook = new Purest({provider:'facebook'})
+facebook.query()
+  .get('me')
+  .request(function (err, res, body) {})
+// same as
+facebook.query()
+  .select('me')
+  .request(function (err, res, body) {})
+```
+
+However you may not be happy with the pre-defined aliases, luckily you can define your own:
+
+```js
+var facebook = new Purest({
+  provider:'facebook',
+  methods:{
+    verbs:{get:['loot']},
+    custom:{request:['submit']}
+  }
+})
+```
+
+Then the following code is valid:
+
+```js
+facebook.query()
+  .loot('me')
+  .submit(function (err, res, body) {})
+```
+
+**Note:** Keep in mind that you should not use the actual method names as alias names.
+
+**Note:** Your alias methods override any previously defined alias method with the same name.
 
 
 ## Streaming
@@ -1366,9 +1427,9 @@ MIT
 
 
   [purest-config]: https://github.com/simov/purest/blob/master/config/providers.json
-  [purest-providers]: https://github.com/simov/purest/wiki/Providers
+  [purest-query]: https://github.com/simov/purest/blob/master/config/query.json
   [purest-hooks]: https://github.com/simov/purest/blob/master/config/hooks.js
-  [purest-url]: https://github.com/simov/purest/blob/master/lib/url.js
+  [purest-providers]: https://github.com/simov/purest/wiki/Providers
 
   [request]: https://github.com/request/request
   [request-options]: https://github.com/request/request#requestoptions-callback
