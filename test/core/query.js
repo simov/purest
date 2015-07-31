@@ -5,7 +5,7 @@ var Purest = require('../../')
 var query = require('../../config/query')
 
 
-describe('aliases', function () {
+describe('query default aliases', function () {
   var provider = null
   before(function () {
     provider = new Purest({provider:'box'})
@@ -39,7 +39,43 @@ describe('aliases', function () {
   })
 })
 
-describe('query', function () {
+describe('query custom aliases', function () {
+  it('verbs only', function () {
+    var methods = {verbs:{get:['loot'], post:['write']}}
+      , provider = new Purest({provider:'box', methods:methods})
+
+    var q = provider.query().loot('endpoint')
+    q.method.should.equal('get')
+
+    q = provider.query().write('endpoint')
+    q.method.should.equal('post')
+  })
+  it('all', function () {
+    var methods = {
+      verbs:{get:['loot'], post:['write']},
+      options:{qs:['params']},
+      custom:{request:['submit']}
+    }
+    var provider = new Purest({provider:'box', methods:methods})
+
+    var q = provider.query().loot('endpoint')
+    q.method.should.equal('get')
+    q = provider.query().write('endpoint')
+    q.method.should.equal('post')
+
+    q = provider.query().params({key:'value'})
+    should.deepEqual(q._options.qs, {key:'value'})
+
+    provider._request = function (url, options, callback) {
+      callback(null, {headers:{}}, true)
+    }
+    q = provider.query().get('endpoint').submit(function (err, res, body) {
+      should.equal(body, true)
+    })
+  })
+})
+
+describe('query methods', function () {
   var provider = null
   before(function () {
     provider = new Purest({provider:'box'})
@@ -72,7 +108,7 @@ describe('query', function () {
   })
 })
 
-describe('auth', function () {
+describe('query auth', function () {
   var fixture = {
     custom: {
       __provider: {
