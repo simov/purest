@@ -1453,7 +1453,7 @@
           "alias": "__default"
         },
         "user": {
-          "get": {
+          "all": {
             "headers": {"accept": "application/vnd.com.runkeeper.User+json"}
           }
         }
