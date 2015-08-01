@@ -2192,6 +2192,30 @@ describe('vk', function () {
   })
 })
 
+describe('weibo', function () {
+  it('options', function (done) {
+    p.weibo.get('users/show', {
+      qs:{access_token:user.weibo.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.weibo.query()
+      .get('users/show')
+      .auth(user.weibo.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('wikimapia', function () {
   it('options', function (done) {
     p.wikimapia.get({
