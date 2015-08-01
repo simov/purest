@@ -67,10 +67,9 @@ var examples = {
       })
   },
   5: function () {
-    p.query('where')
+    p.query('geo')
       .select("places.q('Central Park, New York')")
-      .qs({appid:app.apikey})
-      .auth(user.token, user.secret)
+      .auth(user.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) console.log(err)
