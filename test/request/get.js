@@ -468,6 +468,56 @@ describe('coinbase', function () {
   })
 })
 
+describe('copy', function () {
+  it('options', function (done) {
+    p.copy.get('user', {
+      oauth:{token:user.copy.token, secret:user.copy.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.copy.query()
+      .select('user')
+      .auth(user.copy.token, user.copy.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('coursera', function () {
+  it('options', function (done) {
+    p.coursera.get('externalBasicProfiles', {
+      auth:{bearer:user.coursera.token},
+      qs:{q:'me'}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.elements[0].id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.coursera.query()
+      .get('externalBasicProfiles')
+      .where({q:'me'})
+      .auth(user.coursera.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.elements[0].id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('dailymile', function () {
   it('options', function (done) {
     p.dailymile.get('people/me', {
@@ -535,6 +585,30 @@ describe('deezer', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('delivery', function () {
+  it('options', function (done) {
+    p.delivery.get('customer/account', {
+      auth:{bearer:user.delivery.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user.customer_id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.delivery.query()
+      .get('customer/account')
+      .auth(user.delivery.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user.customer_id.should.be.type('number')
         done()
       })
   })
@@ -609,6 +683,31 @@ describe('digitalocean', function () {
   })
 })
 
+describe('discogs', function () {
+  it('options', function (done) {
+    p.discogs.get('identity', {
+      api:'oauth',
+      oauth:{token:user.discogs.token, secret:user.discogs.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.discogs.query('oauth')
+      .select('identity')
+      .auth(user.discogs.token, user.discogs.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('disqus', function () {
   it('options', function (done) {
     p.disqus.get('users/details', {
@@ -629,6 +728,30 @@ describe('disqus', function () {
         debugger
         if (err) return error(err, done)
         body.response.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('dribbble', function () {
+  it('options', function (done) {
+    p.dribbble.get('user', {
+      auth:{bearer:user.dribbble.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.dribbble.query()
+      .get('user')
+      .auth(user.dribbble.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
         done()
       })
   })
@@ -682,6 +805,54 @@ describe('edmodo', function () {
   })
 })
 
+describe('elance', function () {
+  it('options', function (done) {
+    p.elance.get('profiles/my', {
+      qs:{access_token:user.elance.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data.providerProfile.userId.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.elance.query()
+      .get('profiles/my')
+      .auth(user.elance.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data.providerProfile.userId.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('etsy', function () {
+  it('options', function (done) {
+    p.etsy.get('users/'+user.etsy.user, {
+      oauth:{token:user.etsy.token, secret:user.etsy.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.results[0].user_id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.etsy.query()
+      .get('users/'+user.etsy.user)
+      .auth(user.etsy.token, user.etsy.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.results[0].user_id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('eventbrite', function () {
   it('options', function (done) {
     p.eventbrite.get('users/me', {
@@ -701,6 +872,54 @@ describe('eventbrite', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('everyplay', function () {
+  it('options', function (done) {
+    p.everyplay.get('me', {
+      auth:{bearer:user.everyplay.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.everyplay.query()
+      .get('me')
+      .auth(user.everyplay.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('eyeem', function () {
+  it('options', function (done) {
+    p.eyeem.get('users/me', {
+      auth:{bearer:user.eyeem.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.eyeem.query()
+      .get('users/me')
+      .auth(user.eyeem.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user.id.should.be.type('string')
         done()
       })
   })
@@ -1905,6 +2124,30 @@ describe('stocktwits', function () {
         debugger
         if (err) return error(err, done)
         body.user.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('stormz', function () {
+  it('options', function (done) {
+    p.stormz.get('user/me', {
+      auth:{bearer:user.stormz.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.stormz.query()
+      .get('user/me')
+      .auth(user.stormz.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
         done()
       })
   })

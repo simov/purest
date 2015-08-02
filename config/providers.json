@@ -406,6 +406,35 @@
       }
     }
   },
+  "copy": {
+    "https://api.copy.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "rest/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "coursera": {
+    "https://api.coursera.org": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/{endpoint}.[version]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "dailymile": {
     "https://api.dailymile.com": {
       "__domain": {
@@ -449,6 +478,25 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      }
+    }
+  },
+  "delivery": {
+    "https://api.delivery.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "third_party/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }
@@ -497,6 +545,25 @@
       }
     }
   },
+  "discogs": {
+    "https://api.discogs.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "disqus": {
     "https://disqus.com": {
       "__domain": {
@@ -515,6 +582,21 @@
         "__path": {
           "alias": "oauth",
           "version": "2.0"
+        }
+      }
+    }
+  },
+  "dribbble": {
+    "https://api.dribbble.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
         }
       }
     }
@@ -571,6 +653,40 @@
       }
     }
   },
+  "elance": {
+    "https://api.elance.com": {
+      "__domain": {
+        "auth": {
+          "qs": {"access_token": "[0]"}
+        }
+      },
+      "api2/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "api2/oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
+  "etsy": {
+    "https://openapi.etsy.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    }
+  },
   "eventbrite": {
     "https://www.eventbriteapi.com": {
       "__domain": {
@@ -582,6 +698,40 @@
         "__path": {
           "alias": "__default",
           "version": "v3"
+        }
+      }
+    }
+  },
+  "everyplay": {
+    "https://api.everyplay.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "oauth2/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
+  "eyeem": {
+    "https://api.eyeem.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
         }
       }
     }
@@ -1618,6 +1768,21 @@
         "__path": {
           "alias": "__default",
           "version": "2"
+        }
+      }
+    }
+  },
+  "stormz": {
+    "https://api.stormz.me": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
         }
       }
     }

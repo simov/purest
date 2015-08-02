@@ -44,6 +44,11 @@
     "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope", "uid"],
     "update": ["access"]
   },
+  "delivery": {
+    "docs": "https://developers.delivery.com/authentication",
+    "fields": ["access_token", "token_type", "expires", "expires_in", "refresh_token"],
+    "update": ["access"]
+  },
   "deviantart": {
     "docs": "https://www.deviantart.com/developers/authentication",
     "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope", "status"],
@@ -64,6 +69,16 @@
     "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope"],
     "update": ["access", "refresh"],
     "app": false
+  },
+  "elance": {
+    "docs": "https://www.elance.com/q/api2/getting-started#Refreshing_the_Access_Token",
+    "fields": ["access_token", "refresh_token", "token_type", "expires_in"],
+    "update": ["access", "refresh"]
+  },
+  "everyplay": {
+    "docs": "",
+    "fields": ["access_token", "token_type", "scope", "refresh_token"],
+    "update": ["access", "refresh"]
   },
   "flowdock": {
     "docs": "https://www.flowdock.com/api/authentication",
