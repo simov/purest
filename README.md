@@ -3,7 +3,7 @@
 
 [![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls] [![codecov-status]][codecov]
 
-Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and extensive [configuration data structure][provider-configuration] to ensure seamless communication with **any** REST API provider in a consistent and straightforward way:
+Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and extensive [configuration data structure][provider-configuration] to ensure seamless communication with [**any**][purest-providers] REST API provider in a consistent and straightforward way:
 
 
 ```js
