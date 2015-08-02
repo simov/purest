@@ -1,5 +1,6 @@
 
 npm-debug.log
+examples/promises/build.js
 
 node_modules/
 coverage/

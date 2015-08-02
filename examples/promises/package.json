@@ -1,0 +1,26 @@
+{
+  "name": "purest-promises-example",
+  "version": "0.0.0",
+  "description": "Promises Example",
+  "private": true,
+
+  "keywords": [],
+
+  "license": "MIT",
+  "homepage": "https://github.com/simov/purest",
+
+  "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (http://simov.github.io)",
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/simov/purest.git"
+  },
+
+  "dependencies": {
+    "bluebird"  : "2.9.34",
+    "co"        : "4.6.0",
+    "babel"     : "5.8.20"
+  },
+
+  "main": "promises.js"
+}
