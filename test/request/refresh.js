@@ -59,6 +59,8 @@ describe('oauth2', function () {
           debugger
           if (err) return error(err, done)
 
+          body = (/elance/.test(provider)) ? body.data : body
+
           should.deepEqual(Object.keys(body), config[provider].fields)
 
           if (config[provider].update.length == 2) {
