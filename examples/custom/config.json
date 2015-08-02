@@ -1,0 +1,16 @@
+{
+  "asana": {
+    "token": "[ACCESS_TOKEN]"
+  },
+  "slack": {
+    "token": "[ACCESS_TOKEN]"
+  },
+
+  "sendgrid": {
+    "user": "[USERNAME]",
+    "pass": "[PASSWORD]"
+  },
+  "dropbox": {
+    "token": "[ACCESS_TOKEN]"
+  }
+}
