@@ -24,7 +24,7 @@ var examples = {
     }
 
     task()
-      .then(function (result) {
+      .then((result) => {
         console.log(result[0].statusCode)
         console.log(result[1])
       })
