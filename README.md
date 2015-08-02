@@ -34,9 +34,11 @@ google.query('youtube')
   - [Query Method Aliases][query-method-aliases]
 - **Misc**
   - [Streaming][streaming]
+  - [Promises][promises]
   - [OAuth][oauth]
   - [Multipart Uploads][multipart-uploads]
   - [Purest Specific Options][purest-specific-options]
+  - [Examples][purest-examples]
   - [Providers][purest-providers]
 
 
@@ -210,7 +212,14 @@ Both `key` and `secret` can be overridden for each request. Alternatively these 
 
 > See the [Query Method Aliases][query-method-aliases] section for more details.
 
+- **promise** - set to `true` to *promisify* the underlying request module used by Purest.
+
+> The [bluebird][bluebird] module used internally by Purest should be installed first: `$ npm install bluebird`<br>
+Take a look at the [Promises][promises] documentation and the [Promises Examples][examples-promises].
+
 - **debug** - set to `true` to enable the [request-debug][request-debug] module.
+
+> The [request-debug][request-debug] module should be installed first: `$ npm install request-debug`
 
 
 ## Basic API
@@ -958,9 +967,9 @@ Arguments:
 
 **Note:** inside `before[verb/all]` hook `this` points to that provider's instance.
 
-> Take a look at the [config/hooks.js][purest-hooks] file as it contains a couple of hooks bundled with Purest.
+> Take a look at the [examples][examples-custom] and the [config/hooks.js][purest-hooks] file as it contains a couple of hooks bundled with Purest.
 
-The only thing that you want modify in a `before[verb/all]` hook is the `options` argument. These hooks are executed right before the [request][request] is started, so that's the last chance to dynamically modify some of the passed options to the request in Purest. *The [request's defaults][request-defaults] method (if present) is executed after the hook.*
+The only thing that you want modify in a `before[verb/all]` hook is the `options` argument. These hooks are executed right before the [request][request] is started, so that's the last chance to dynamically modify some of the passed options to that request in Purest. *The [request's defaults][request-defaults] method (if present) is executed after the hook.*
 
 **Note:** Always write tests for your hooks, and execute those tests each time after upgrade to a newer version of Purest!
 
@@ -1070,6 +1079,90 @@ mailchimp.query('export')
     done()
   }))
 ```
+
+
+## Promises
+
+Purest can be configured to use *Promises*:
+
+```js
+var facebook = new Purest({provider:'facebook', promise:true})
+
+facebook.query()
+  .get('me')
+  .auth('[ACCESS_TOKEN]')
+  .request()
+  .spread(function (res, body) {
+    console.log(res.statusCode)
+    console.log(body)
+  })
+// OR
+facebook
+  .get('me', {auth:{bearer:'[ACCESS_TOKEN]'}})
+  .spread(function (res, body) {})
+```
+
+You need the [bluebird][bluebird] module installed first:
+
+```bash
+$ npm install bluebird
+```
+
+
+### Generators
+
+Here is a short example on how you can use *Generators* with the *promisified* Purest instance:
+
+```js
+var co = require('co')
+var facebook = new Purest({provider:'facebook', promise:true})
+
+co(function* () {
+  return yield facebook.query()
+    .get('me')
+    .auth('[ACCESS_TOKEN]')
+    .request()
+})
+.then(function (results) {
+  console.log(results[0].statusCode)
+  console.log(results[1])
+})
+.catch(function (err) {
+  console.log(err)
+})
+```
+
+> For this example to work you need the [co][co] module installed first: `$ npm install co`
+
+
+## Async Await
+
+Here is how you can use `async/await` with the *promisified* Purest instance:
+
+```js
+import 'babel/polyfill'
+import Purest from 'purest'
+
+var facebook = new Purest({provider:'facebook', promise:true})
+
+async function task () {
+  return await facebook.query()
+    .get('me')
+    .auth('[ACCESS_TOKEN]')
+    .request()
+}
+
+task()
+  .then((result) => {
+    console.log(result[0].statusCode)
+    console.log(result[1])
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+```
+
+> Take a look at the [Promise Examples][examples-promises] on how you can run these examples.
 
 
 ## OAuth
@@ -1465,6 +1558,7 @@ MIT
   [query-method-aliases]: #query-method-aliases
 
   [streaming]: #streaming
+  [promises]: #promises
   [oauth]: #oauth
   [multipart-uploads]: #multipart-uploads
   [purest-specific-options]: #purest-specific-options
@@ -1473,7 +1567,11 @@ MIT
   [purest-config]: https://github.com/simov/purest/blob/master/config/providers.json
   [purest-query]: https://github.com/simov/purest/blob/master/config/query.json
   [purest-hooks]: https://github.com/simov/purest/blob/master/config/hooks.js
+  [purest-examples]: https://github.com/simov/purest/blob/master/examples
   [purest-providers]: https://github.com/simov/purest/wiki/Providers
+
+  [examples-custom]: https://github.com/simov/purest/blob/master/examples/custom
+  [examples-promises]: https://github.com/simov/purest/blob/master/examples/promises
 
   [request]: https://github.com/request/request
   [request-options]: https://github.com/request/request#requestoptions-callback
@@ -1486,6 +1584,8 @@ MIT
   [grant-oauth]: https://grant-oauth.herokuapp.com
 
   [request-debug]: https://github.com/request/request-debug
+  [bluebird]: https://github.com/petkaantonov/bluebird
+  [co]: https://github.com/tj/co
 
   [youtube-channels]: https://developers.google.com/youtube/v3/docs/channels/list
   [event-stream]: https://github.com/dominictarr/event-stream
