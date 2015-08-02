@@ -156,7 +156,7 @@ describe('debug', function () {
     var p = new Purest({provider:'twitter'})
     should.equal(p._request.stopDebugging, undefined)
   })
-  it('true', function () {
+  it.skip('true', function () {
     var p = new Purest({provider:'twitter', debug:true})
     p._request.stopDebugging.should.be.type('function')
   })
