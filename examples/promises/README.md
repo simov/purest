@@ -32,5 +32,5 @@ $ node --harmony generators.js [EXAMPLE INDEX]
 > Babel only
 
 ```bash
-babel --optional es7.asyncFunctions async-await.js > build.js && node build.js [EXAMPLE INDEX]
+$ babel --optional es7.asyncFunctions async-await.js > build.js && node build.js [EXAMPLE INDEX]
 ```
