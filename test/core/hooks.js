@@ -111,7 +111,15 @@ describe('hooks auth', function () {
 
 describe('hooks other', function () {
   it('getpocket', function () {
+    var p = new Purest({provider:'getpocket'})
 
+    var options = {qs:{a:1}}
+    p.before.all('endpoint', options)
+    should.deepEqual(options, {json:false, body:'{"a":1}'})
+
+    options = {form:{a:1}}
+    p.before.all('endpoint', options)
+    should.deepEqual(options, {json:false, body:'{"a":1}'})
   })
 
   it('linkedin options - send form data as entity body', function () {
