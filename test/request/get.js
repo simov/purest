@@ -125,6 +125,30 @@ describe('acton', function () {
 
 })
 
+describe('amazon', function () {
+  it('options', function (done) {
+    p.amazon.get('user/profile', {
+      auth:{bearer:user.amazon.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user_id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.amazon.query()
+      .select('user/profile')
+      .auth(user.amazon.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user_id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('angellist', function () {
   it('options', function (done) {
     p.angellist.get('me', {
@@ -144,6 +168,30 @@ describe('angellist', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('appnet', function () {
+  it('options', function (done) {
+    p.appnet.get('users/me', {
+      auth:{bearer:user.appnet.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.appnet.query()
+      .select('users/me')
+      .auth(user.appnet.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data.id.should.be.type('string')
         done()
       })
   })
@@ -399,6 +447,30 @@ describe('buffer', function () {
   })
 })
 
+describe('campaignmonitor', function () {
+  it('options', function (done) {
+    p.campaignmonitor.get('clients', {
+      auth:{bearer:user.campaignmonitor.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body[0].ClientID.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.campaignmonitor.query()
+      .select('clients')
+      .auth(user.campaignmonitor.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body[0].ClientID.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('cheddar', function () {
   it('options', function (done) {
     p.cheddar.get('me', {
@@ -463,6 +535,31 @@ describe('coinbase', function () {
         debugger
         if (err) return error(err, done)
         body.user.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('constantcontact', function () {
+  it('options', function (done) {
+    p.constantcontact.get('account/info', {
+      auth:{bearer:user.constantcontact.token},
+      qs:{api_key:app.constantcontact.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.email.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.constantcontact.query()
+      .select('account/info')
+      .auth(user.constantcontact.token, app.constantcontact.key)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.email.should.be.type('string')
         done()
       })
   })
@@ -781,6 +878,30 @@ describe('dropbox', function () {
   })
 })
 
+describe('echosign', function () {
+  it('options', function (done) {
+    p.echosign.get('users', {
+      headers:{'Access-Token':user.echosign.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.userInfoList[0].userId.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.echosign.query()
+      .select('users')
+      .auth(user.echosign.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.userInfoList[0].userId.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('edmodo', function () {
   it('options', function (done) {
     p.edmodo.get('users/me', {
@@ -940,6 +1061,62 @@ describe('facebook', function () {
     p.facebook.query()
       .get('me')
       .auth(user.facebook.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('familysearch', function () {
+  it('options', function (done) {
+    p.familysearch.get('users/current', {
+      auth:{bearer:user.familysearch.token},
+      // needed only for sandbox
+      subdomain:'sandbox.'
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.users[0].id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.familysearch.query()
+      .select('users/current')
+      // needed only for sandbox
+      .options({subdomain:'sandbox.'})
+      .auth(user.familysearch.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.users[0].id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('feedly', function () {
+  it('options', function (done) {
+    p.feedly.get('profile', {
+      auth:{bearer:user.feedly.token},
+      // needed only for sandbox
+      subdomain:'sandbox'
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.feedly.query()
+      .select('profile')
+      // needed only for sandbox
+      .options({subdomain:'sandbox'})
+      .auth(user.feedly.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)

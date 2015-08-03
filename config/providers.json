@@ -89,6 +89,25 @@
       }
     }
   },
+  "amazon": {
+    "https://api.amazon.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "auth/o2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "angellist": {
     "https://api.angel.co": {
       "__domain": {
@@ -100,6 +119,20 @@
         "__path": {
           "alias": "__default",
           "version": "1"
+        }
+      }
+    }
+  },
+  "appnet": {
+    "https://api.app.net": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
         }
       }
     }
@@ -357,6 +390,26 @@
       }
     }
   },
+  "campaignmonitor": {
+    "https://api.createsend.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3.1"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "cheddar": {
     "https://api.cheddarapp.com": {
       "__domain": {
@@ -402,6 +455,22 @@
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
+        }
+      }
+    }
+  },
+  "constantcontact": {
+    "https://api.constantcontact.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"},
+          "qs": {"api_key": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
         }
       }
     }
@@ -634,6 +703,28 @@
       }
     }
   },
+  "echosign": {
+    "https://api.echosign.com": {
+      "__domain": {
+        "auth": {
+          "headers": {"Access-Token": "[0]"}
+        }
+      },
+      "api/rest/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      }
+    },
+    "https://secure.echosign.com": {
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "edmodo": {
     "https://api.edmodo.com": {
       "__domain": {
@@ -751,6 +842,42 @@
       "oauth/access_{endpoint}": {
         "__path": {
           "alias": "oauth"
+        }
+      }
+    }
+  },
+  "familysearch": {
+    "https://[subdomain]familysearch.org": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "platform/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "feedly": {
+    "https://[subdomain].feedly.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        },
+        "subdomain": "cloud"
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      },
+      "[version]/auth/{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v3"
         }
       }
     }
