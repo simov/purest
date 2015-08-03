@@ -23,7 +23,7 @@ for (var name in providers) {
     provider:name,
     defaults:{headers:{'User-Agent':'Purest'}}
   }
-  if (providers[name].__provider && providers[name].__provider.oauth) {
+  if (app[name] && user[name] && user[name].token && user[name].secret) {
     options.key = app[name].key
     options.secret = app[name].secret
   }
