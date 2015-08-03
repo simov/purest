@@ -44,6 +44,9 @@ describe('oauth2', function () {
       params.type = 'refresh'
       delete params.grant_type
     }
+    if (/feedly/.test(provider)) {
+      options.subdomain = 'sandbox'
+    }
     if (/reddit/.test(provider)) {
       options.auth = {user:params.client_id, pass:params.client_secret}
       delete params.client_id
