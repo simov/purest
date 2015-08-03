@@ -999,6 +999,27 @@
       }
     }
   },
+  "freshbooks": {
+    "https://[subdomain].freshbooks.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "api/[version]/xml-in": {
+        "__path": {
+          "alias": "__default",
+          "version": "2.1"
+        },
+        "*": {
+          "all": {
+            "oauth": {"signature_method": "PLAINTEXT"},
+            "json": false
+          }
+        }
+      }
+    }
+  },
   "getpocket": {
     "https://getpocket.com": {
       "__domain": {

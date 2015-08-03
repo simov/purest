@@ -1277,6 +1277,34 @@ describe('foursquare', function () {
   })
 })
 
+describe('freshbooks', function () {
+  it('options', function (done) {
+    p.freshbooks.post('staff.current', {
+      oauth:{token:user.freshbooks.token, secret:user.freshbooks.secret},
+      subdomain:user.freshbooks.subdomain
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.should.match(
+        /<email>[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}<\/email>/i)
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.freshbooks.query()
+      .post('staff.current')
+      .auth(user.freshbooks.token, user.freshbooks.secret)
+      .options({subdomain:user.freshbooks.subdomain})
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.should.match(
+          /<email>[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}<\/email>/i)
+        done()
+      })
+  })
+})
+
 describe('getpocket', function () {
   it('options', function (done) {
     p.getpocket.post('get', {

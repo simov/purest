@@ -63,6 +63,14 @@ exports = module.exports = {
 
   // other
 
+  freshbooks: {
+    all: function (endpoint, options) {
+      // feel free to submit PR with the full implementation
+      options.body = '<!--?xml version="1.0" encoding="utf-8"?-->'+
+      '<request method="'+endpoint+'"></request>'
+    }
+  },
+
   getpocket: {
     all: function (endpoint, options) {
       // getpocket expects the data as JSON
