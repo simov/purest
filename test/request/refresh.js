@@ -49,10 +49,11 @@ describe('oauth2', function () {
       delete params.client_id
       delete params.client_secret
     }
+    var endpoint = /echosign/.test(provider) ? 'refresh' : 'token'
 
     it(provider, function (done) {
       p[provider].query('oauth')
-        .update('token')
+        .update(endpoint)
         .set(params)
         .options(options)
         .request(function (err, res, body) {
