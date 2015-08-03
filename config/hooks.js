@@ -34,6 +34,18 @@ exports = module.exports = {
       }
     }
   },
+  gitlab: {
+    all: function (endpoint, options) {
+      if (options.auth && options.auth.bearer) {
+        // apikey
+        if (options.auth.bearer.length < 35) {
+          options.headers = options.headers || {}
+          options.headers['PRIVATE-TOKEN'] = options.auth.bearer
+          delete options.auth
+        }
+      }
+    }
+  },
   imgur: {
     all: function (endpoint, options) {
       if (options.auth && options.auth.bearer) {

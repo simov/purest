@@ -1020,6 +1020,21 @@
       }
     }
   },
+  "geeklist": {
+    "http://api.geekli.st": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "getpocket": {
     "https://getpocket.com": {
       "__domain": {
@@ -1053,6 +1068,27 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      }
+    }
+  },
+  "gitlab": {
+    "https://gitlab.com": {
+      "__domain": {
+        "auth": [
+          {"auth": {"bearer": "[0]"}},
+          {"headers": {"PRIVATE-TOKEN": "[0]"}}
+        ]
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v3"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
         }
       }
     }

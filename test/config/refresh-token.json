@@ -105,6 +105,11 @@
     "fields": ["access_token", "token_type", "expires_in", "refresh_token", "scope", "created_at"],
     "update": ["access", "refresh"]
   },
+  "gitlab": {
+    "docs": "http://doc.gitlab.com/ce/api/oauth2.html",
+    "fields": ["access_token", "token_type", "refresh_token", "scope", "created_at"],
+    "update": ["access", "refresh"]
+  },
   "google": {
     "docs": "https://developers.google.com/accounts/docs/OAuth2WebServer?hl=fr#refresh",
     "fields": ["access_token", "token_type", "expires_in", "id_token"],

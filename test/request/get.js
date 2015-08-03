@@ -1305,6 +1305,30 @@ describe('freshbooks', function () {
   })
 })
 
+describe('geeklist', function () {
+  it('options', function (done) {
+    p.geeklist.get('user', {
+      oauth:{token:user.geeklist.token, secret:user.geeklist.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data._id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.geeklist.query()
+      .get('user')
+      .auth(user.geeklist.token, user.geeklist.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data._id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('getpocket', function () {
   it('options', function (done) {
     p.getpocket.post('get', {
@@ -1347,6 +1371,51 @@ describe('github', function () {
     p.github.query()
       .get('users/simov')
       .auth(user.github.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('gitlab', function () {
+  it('options token', function (done) {
+    p.gitlab.get('user', {
+      auth:{bearer:user.gitlab.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query token', function (done) {
+    p.gitlab.query()
+      .get('user')
+      .auth(user.gitlab.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+  it('options apikey', function (done) {
+    p.gitlab.get('user', {
+      headers:{'PRIVATE-TOKEN':user.gitlab.apikey}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query apikey', function (done) {
+    p.gitlab.query()
+      .get('user')
+      .auth(user.gitlab.apikey)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
