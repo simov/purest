@@ -718,7 +718,7 @@
       }
     },
     "https://secure.echosign.com": {
-      "oauth/{endpoint}": {
+      "oauth/refresh": {
         "__path": {
           "alias": "oauth"
         }
@@ -1121,6 +1121,25 @@
       }
     }
   },
+  "goodreads": {
+    "https://www.goodreads.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "json": false
+          }
+        }
+      }
+    }
+  },
   "google": {
     "https://www.googleapis.com": {
       "__domain": {
@@ -1379,6 +1398,28 @@
       }
     }
   },
+  "kakao": {
+    "https://kapi.kakao.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    },
+    "https://kauth.kakao.com": {
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "linkedin": {
     "https://api.linkedin.com": {
       "__domain": {
@@ -1510,6 +1551,28 @@
       }
     }
   },
+  "meetup": {
+    "https://api.meetup.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "2"
+        }
+      }
+    },
+    "https://secure.meetup.com": {
+      "oauth2/access": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "mixcloud": {
     "https://api.mixcloud.com": {
       "__domain": {
@@ -1520,6 +1583,27 @@
       "{endpoint}": {
         "__path": {
           "alias": "__default"
+        }
+      }
+    }
+  },
+  "moves": {
+    "https://api.moves-app.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "1.1"
+        }
+      },
+      "oauth/[version]/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v1"
         }
       }
     }
@@ -1653,6 +1737,20 @@
         "__path": {
           "alias": "__default",
           "version": "v3"
+        }
+      }
+    }
+  },
+  "plurk": {
+    "http://www.plurk.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "APP/{endpoint}": {
+        "__path": {
+          "alias": "__default"
         }
       }
     }
@@ -1835,6 +1933,28 @@
       }
     }
   },
+  "shoeboxed": {
+    "https://api.shoeboxed.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
+        }
+      }
+    },
+    "https://id.shoeboxed.com": {
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "shopify": {
     "https://[subdomain].myshopify.com": {
       "__domain": {
@@ -1878,6 +1998,40 @@
       }
     }
   },
+  "slice": {
+    "https://api.slice.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
+  "socrata": {
+    "https://[subdomain]": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "soundcloud": {
     "https://api.soundcloud.com": {
       "__domain": {
@@ -1915,6 +2069,21 @@
       "api/{endpoint}": {
         "__path": {
           "alias": "oauth"
+        }
+      }
+    }
+  },
+  "square": {
+    "https://connect.squareup.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
         }
       }
     }
@@ -2004,6 +2173,36 @@
       "oauth/{endpoint}": {
         "__path": {
           "alias": "oauth"
+        }
+      }
+    }
+  },
+  "surveygizmo": {
+    "https://restapi.surveygizmo.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v4"
+        }
+      }
+    }
+  },
+  "surveymonkey": {
+    "https://api.surveymonkey.net": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer":"[0]"}, "qs": {"api_key": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v2"
         }
       }
     }

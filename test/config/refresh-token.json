@@ -135,10 +135,20 @@
     "fields": ["access_token", "token_type", "expires_in", "refresh_token"],
     "update": ["access", "refresh"]
   },
+  "kakao": {
+    "docs": "",
+    "fields": ["access_token", "token_type", "expires_in"],
+    "update": ["access"]
+  },
   "live": {
     "docs": "http://msdn.microsoft.com/en-us/library/hh243647.aspx",
     "fields": ["token_type", "expires_in", "scope", "access_token", "refresh_token", "authentication_token", "user_id"],
     "update": ["access", "refresh"]
+  },
+  "meetup": {
+    "docs": "",
+    "fields": ["access_token", "refresh_token", "token_type", "expires_in"],
+    "update": ["access"]
   },
   "paypal": {
     "docs": "https://developer.paypal.com/docs/api/#grant-token-from-refresh-token",
@@ -168,6 +178,11 @@
   "salesforce": {
     "docs": "https://www.salesforce.com/us/developer/docs/api_rest/",
     "fields": ["id", "issued_at", "scope", "instance_url", "token_type", "signature", "access_token"],
+    "update": ["access"]
+  },
+  "shoeboxed": {
+    "docs": "",
+    "fields": ["access_token", "token_type", "expires_in", "scope"],
     "update": ["access"]
   },
   "soundcloud": {

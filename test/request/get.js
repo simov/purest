@@ -1449,6 +1449,30 @@ describe('gitter', function () {
   })
 })
 
+describe('goodreads', function () {
+  it('options', function (done) {
+    p.goodreads.get('api/auth_user', {
+      oauth:{token:user.goodreads.token, secret:user.goodreads.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.should.match(/<user id="\d+">/i)
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.goodreads.query()
+      .get('api/auth_user')
+      .auth(user.goodreads.token, user.goodreads.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.should.match(/<user id="\d+">/i)
+        done()
+      })
+  })
+})
+
 describe('google', function () {
   it('options plus', function (done) {
     p.google.get('people/me', {
@@ -1732,6 +1756,30 @@ describe('jawbone', function () {
   })
 })
 
+describe('kakao', function () {
+  it('options', function (done) {
+    p.kakao.get('user/me', {
+      auth:{bearer:user.kakao.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.kakao.query()
+      .select('user/me')
+      .auth(user.kakao.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('linkedin', function () {
   it('options oauth2', function (done) {
     p.linkedin.get('people/~', {
@@ -1895,6 +1943,30 @@ describe('mandrill', function () {
   })
 })
 
+describe('meetup', function () {
+  it('options', function (done) {
+    p.meetup.get('member/self', {
+      auth:{bearer:user.meetup.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.meetup.query()
+      .select('member/self')
+      .auth(user.meetup.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('mixcloud', function () {
   it('options', function (done) {
     p.mixcloud.get('me', {
@@ -1914,6 +1986,30 @@ describe('mixcloud', function () {
         debugger
         if (err) return error(err, done)
         body.username.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('moves', function () {
+  it('options', function (done) {
+    p.moves.get('user/profile', {
+      auth:{bearer:user.moves.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.userId.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.moves.query()
+      .select('user/profile')
+      .auth(user.moves.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.userId.should.be.type('number')
         done()
       })
   })
@@ -2018,6 +2114,30 @@ describe('paypal', function () {
 
 describe('pipelinedeals', function () {
 
+})
+
+describe('plurk', function () {
+  it('options', function (done) {
+    p.plurk.get('Users/me', {
+      oauth:{token:user.plurk.token, secret:user.plurk.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.plurk.query()
+      .get('Users/me')
+      .auth(user.plurk.token, user.plurk.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
 })
 
 describe('podio', function () {
@@ -2228,6 +2348,30 @@ describe('sendgrid', function () {
   })
 })
 
+describe('shoeboxed', function () {
+  it('options', function (done) {
+    p.shoeboxed.get('user', {
+      auth:{bearer:user.shoeboxed.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.shoeboxed.query()
+      .get('user')
+      .auth(user.shoeboxed.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('shopify', function () {
   it('options', function (done) {
     p.shopify.get('admin/shop', {
@@ -2302,6 +2446,56 @@ describe('slack', function () {
   })
 })
 
+describe('slice', function () {
+  it('options', function (done) {
+    p.slice.get('users/self', {
+      auth:{bearer:user.slice.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.userEmail.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.slice.query()
+      .get('users/self')
+      .auth(user.slice.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.userEmail.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('socrata', function () {
+  it('options', function (done) {
+    p.socrata.get('users/current', {
+      subdomain:'sandbox.demo.socrata.com',
+      auth:{bearer:user.socrata.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.socrata.query()
+      .get('users/current')
+      .options({subdomain:'sandbox.demo.socrata.com'})
+      .auth(user.socrata.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('soundcloud', function () {
   it('options', function (done) {
     p.soundcloud.get('me', {
@@ -2341,6 +2535,30 @@ describe('spotify', function () {
     p.spotify.query()
       .get('me')
       .auth(user.spotify.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('square', function () {
+  it('options', function (done) {
+    p.square.get('me', {
+      auth:{bearer:user.square.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.square.query()
+      .get('me')
+      .auth(user.square.token)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -2470,6 +2688,55 @@ describe('stripe', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('surveygizmo', function () {
+  it('options', function (done) {
+    p.surveygizmo.get('accountuser', {
+      oauth:{token:user.surveygizmo.token, secret:user.surveygizmo.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data[0].id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.surveygizmo.query()
+      .get('accountuser')
+      .auth(user.surveygizmo.token, user.surveygizmo.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data[0].id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('surveymonkey', function () {
+  it('options', function (done) {
+    p.surveymonkey.post('user/get_user_details', {
+      auth:{bearer:user.surveymonkey.token},
+      qs:{api_key:user.surveymonkey.apikey}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.data.user_details.user_id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.surveymonkey.query()
+      .post('user/get_user_details')
+      .auth(user.surveymonkey.token, user.surveymonkey.apikey)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.data.user_details.user_id.should.be.type('number')
         done()
       })
   })
