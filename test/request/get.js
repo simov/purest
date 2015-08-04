@@ -2742,6 +2742,55 @@ describe('surveymonkey', function () {
   })
 })
 
+describe('thingiverse', function () {
+  it('options', function (done) {
+    p.thingiverse.get('users/me', {
+      auth:{bearer:user.thingiverse.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.thingiverse.query()
+      .get('users/me')
+      .auth(user.thingiverse.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('trakt', function () {
+  it('options', function (done) {
+    p.trakt.get('users/me', {
+      auth:{bearer:user.trakt.token},
+      headers:{'trakt-api-key':app.trakt.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.username.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.trakt.query()
+      .get('users/me')
+      .auth(user.trakt.token, app.trakt.key)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.username.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('traxo', function () {
   it('options', function (done) {
     p.traxo.get('me', {
@@ -2923,6 +2972,82 @@ describe('twitter', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('uber', function () {
+  it('options', function (done) {
+    p.uber.get('me', {
+      auth:{bearer:user.uber.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.uuid.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.uber.query()
+      .get('me')
+      .auth(user.uber.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.uuid.should.be.type('string')
+        done()
+      })
+  })
+})
+
+describe('uservoice', function () {
+  it('options', function (done) {
+    p.uservoice.get('users/current', {
+      subdomain:user.uservoice.subdomain,
+      oauth:{token:user.uservoice.token, secret:user.uservoice.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.user.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.uservoice.query()
+      .get('users/current')
+      .options({subdomain:user.uservoice.subdomain})
+      .auth(user.uservoice.token, user.uservoice.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.user.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('vend', function () {
+  it('options', function (done) {
+    p.vend.get('users', {
+      subdomain:user.vend.subdomain,
+      auth:{bearer:user.vend.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.users[0].id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.vend.query()
+      .get('users')
+      .options({subdomain:user.vend.subdomain})
+      .auth(user.vend.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.users[0].id.should.be.type('string')
         done()
       })
   })

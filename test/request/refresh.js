@@ -52,6 +52,9 @@ describe('oauth2', function () {
       delete params.client_id
       delete params.client_secret
     }
+    if (/vend/.test(provider)) {
+      options.subdomain = user.vend.subdomain
+    }
 
     it(provider, function (done) {
       p[provider].query('oauth')

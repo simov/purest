@@ -2207,6 +2207,44 @@
       }
     }
   },
+  "thingiverse": {
+    "https://api.thingiverse.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
+  "trakt": {
+    "https://api-v2launch.trakt.tv": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}, "headers": {"trakt-api-key": "[1]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        },
+        "*": {
+          "all": {
+            "headers": {"trakt-api-version": 2}
+          }
+        }
+      },
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
   "traxo": {
     "https://api.traxo.com": {
       "__domain": {
@@ -2321,6 +2359,63 @@
         }
       },
       "oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
+  "uber": {
+    "https://[subdomain].uber.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"},
+          "subdomain": "api"
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    },
+    "https://login.uber.com": {
+      "oauth/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
+    }
+  },
+  "uservoice": {
+    "https://[subdomain].uservoice.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "api/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
+  "vend": {
+    "https://[subdomain].vendhq.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "api/{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "api/1.0/{endpoint}": {
         "__path": {
           "alias": "oauth"
         }
