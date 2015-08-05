@@ -1536,6 +1536,27 @@
       }
     }
   },
+  "mapmyfitness": {
+    "https://oauth2-api.mapmyapi.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}, "headers": {"Api-Key": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v7.1"
+        }
+      },
+      "[version]/oauth2/uacf/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v7.1"
+        }
+      }
+    }
+  },
   "mandrill": {
     "https://mandrillapp.com": {
       "__domain": {
@@ -2388,6 +2409,59 @@
       }
     }
   },
+  "underarmour": {
+    "https://api.ua.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}, "headers": {"Api-Key": "[1]"}
+        }
+      },
+      "[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v7.1"
+        }
+      },
+      "[version]/oauth2/uacf/access_{endpoint}": {
+        "__path": {
+          "alias": "oauth",
+          "version": "v7.1"
+        }
+      }
+    }
+  },
+  "upwork": {
+    "https://www.upwork.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "api/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default"
+        }
+      },
+      "api/auth/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["auth"],
+          "version": "v1"
+        }
+      },
+      "api/profiles/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["profiles"],
+          "version": "v2"
+        }
+      },
+      "api/hr/[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": ["hr"],
+          "version": "v2"
+        }
+      }
+    }
+  },
   "uservoice": {
     "https://[subdomain].uservoice.com": {
       "__domain": {
@@ -2511,6 +2585,36 @@
       }
     }
   },
+  "wordpress": {
+    "https://public-api.wordpress.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "rest/[version]/{endpoint}": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
+  "xing": {
+    "https://api.xing.com": {
+      "__domain": {
+        "auth": {
+          "oauth": {"token": "[0]", "secret": "[1]"}
+        }
+      },
+      "[version]/{endpoint}.[type]": {
+        "__path": {
+          "alias": "__default",
+          "version": "v1"
+        }
+      }
+    }
+  },
   "yahoo": {
     "https://social.yahooapis.com": {
       "__domain": {
@@ -2571,6 +2675,20 @@
         "__path": {
           "alias": "__default",
           "version": "v1"
+        }
+      }
+    }
+  },
+  "yandex": {
+    "https://login.yandex.ru": {
+      "__domain": {
+        "auth": {
+          "headers": {"authorization": "OAuth [0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "login"
         }
       }
     }

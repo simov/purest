@@ -14,7 +14,6 @@ function error (err, done) {
 require('../utils/credentials')
 var app = require('../../config/app')
   , user = require('../../config/user')
-var refresh = require('../utils/refresh')
 
 var p = {}
 for (var name in providers) {
@@ -87,7 +86,7 @@ describe('client_credentials', function () {
         grant_type:'client_credentials',
         client_id:app.organisedminds.key,
         client_secret:app.organisedminds.secret,
-        scope: 'write'
+        scope: 'read write'
       })
       .request(function (err, res, body) {
         debugger

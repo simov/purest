@@ -122,7 +122,27 @@ describe('aboutme', function () {
 })
 
 describe('acton', function () {
-
+  it('options', function (done) {
+    p.acton.get('account', {
+      auth:{bearer:user.acton.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.account_id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.acton.query()
+      .select('account')
+      .auth(user.acton.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.account_id.should.be.type('number')
+        done()
+      })
+  })
 })
 
 describe('amazon', function () {
@@ -1919,6 +1939,31 @@ describe('mailgun', function () {
   })
 })
 
+describe('mapmyfitness', function () {
+  it('options', function (done) {
+    p.mapmyfitness.get('user/self', {
+      auth:{bearer:user.mapmyfitness.token},
+      headers:{'Api-Key':app.mapmyfitness.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.mapmyfitness.query()
+      .get('user/self')
+      .auth(user.mapmyfitness.token, app.mapmyfitness.key)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
 describe('mandrill', function () {
   it('options', function (done) {
     p.mandrill.post('users/info', {
@@ -2082,7 +2127,27 @@ describe('openstreetmap', function () {
 })
 
 describe('organisedminds', function () {
-
+  it('options', function (done) {
+    p.organisedminds.get('me', {
+      auth:{bearer:user.organisedminds.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.organisedminds.query()
+      .select('me')
+      .auth(user.organisedminds.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
+        done()
+      })
+  })
 })
 
 describe('paypal', function () {
@@ -3001,6 +3066,56 @@ describe('uber', function () {
   })
 })
 
+describe('underarmour', function () {
+  it('options', function (done) {
+    p.underarmour.get('user/self', {
+      auth:{bearer:user.underarmour.token},
+      headers:{'Api-Key':app.underarmour.key}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.underarmour.query()
+      .get('user/self')
+      .auth(user.underarmour.token, app.underarmour.key)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('upwork', function () {
+  it('options', function (done) {
+    p.upwork.get('info', {
+      api:'auth',
+      oauth:{token:user.upwork.token, secret:user.upwork.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.info.ref.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.upwork.query('auth')
+      .select('info')
+      .auth(user.upwork.token, user.upwork.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.info.ref.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('uservoice', function () {
   it('options', function (done) {
     p.uservoice.get('users/current', {
@@ -3188,6 +3303,54 @@ describe('withings', function () {
   })
 })
 
+describe('wordpress', function () {
+  it('options', function (done) {
+    p.wordpress.get('me', {
+      auth:{bearer:user.wordpress.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.ID.should.be.type('number')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.wordpress.query()
+      .get('me')
+      .auth(user.wordpress.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.ID.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('xing', function () {
+  it('options', function (done) {
+    p.xing.get('users/me', {
+      oauth:{token:user.xing.token, secret:user.xing.secret}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.users[0].id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.xing.query()
+      .get('users/me')
+      .auth(user.xing.token, user.xing.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.users[0].id.should.be.type('string')
+        done()
+      })
+  })
+})
+
 describe('yahoo', function () {
   it('options', function (done) {
     p.yahoo.get('user/me/profile', {
@@ -3232,6 +3395,31 @@ describe('yammer', function () {
         debugger
         if (err) return error(err, done)
         body.id.should.be.type('number')
+        done()
+      })
+  })
+})
+
+describe('yandex', function () {
+  it('options', function (done) {
+    p.yandex.get('info', {
+      'api':'login',
+      headers:{authorization:'OAuth '+user.yandex.token}
+    }, function (err, res, body) {
+      debugger
+      if (err) return error(err, done)
+      body.id.should.be.type('string')
+      done()
+    })
+  })
+  it('query', function (done) {
+    p.yandex.query('login')
+      .get('info')
+      .auth(user.yandex.token)
+      .request(function (err, res, body) {
+        debugger
+        if (err) return error(err, done)
+        body.id.should.be.type('string')
         done()
       })
   })

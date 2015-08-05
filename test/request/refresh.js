@@ -47,6 +47,10 @@ describe('oauth2', function () {
     if (/feedly/.test(provider)) {
       options.subdomain = 'sandbox'
     }
+    if (/mapmyfitness|underarmour/.test(provider)) {
+      options.headers = options.headers || {}
+      options.headers['Api-Key'] = app.mapmyfitness.key
+    }
     if (/reddit/.test(provider)) {
       options.auth = {user:params.client_id, pass:params.client_secret}
       delete params.client_id
