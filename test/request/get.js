@@ -1598,6 +1598,7 @@ describe('google', function () {
 describe('hackpad', function () {
   it('options', function (done) {
     p.hackpad.get('search', {
+      oauth:{consumer_key:app.hackpad.key, consumer_secret:app.hackpad.secret},
       qs:{q:'hackpad'}
     }, function (err, res, body) {
       debugger
@@ -1610,6 +1611,7 @@ describe('hackpad', function () {
     p.hackpad.query()
       .select('search')
       .where({q:'hackpad'})
+      .auth(app.hackpad.key, app.hackpad.secret)
       .request(function (err, res, body) {
         debugger
         if (err) return error(err, done)
@@ -1801,8 +1803,9 @@ describe('kakao', function () {
 })
 
 describe('linkedin', function () {
+  var linkedin = new Purest({provider:'linkedin'})
   it('options oauth2', function (done) {
-    p.linkedin.get('people/~', {
+    linkedin.get('people/~', {
       auth:{bearer:user.linkedin.oauth2}
     }, function (err, res, body) {
       debugger
@@ -1812,7 +1815,7 @@ describe('linkedin', function () {
     })
   })
   it('query oauth2', function (done) {
-    p.linkedin.query()
+    linkedin.query()
       .select('people/~')
       .auth(user.linkedin.oauth2)
       .request(function (err, res, body) {
@@ -2538,7 +2541,7 @@ describe('slice', function () {
 describe('socrata', function () {
   it('options', function (done) {
     p.socrata.get('users/current', {
-      subdomain:'sandbox.demo.socrata.com',
+      subdomain:'soda.demo.socrata.com',
       auth:{bearer:user.socrata.token}
     }, function (err, res, body) {
       debugger
@@ -2550,7 +2553,7 @@ describe('socrata', function () {
   it('query', function (done) {
     p.socrata.query()
       .get('users/current')
-      .options({subdomain:'sandbox.demo.socrata.com'})
+      .options({subdomain:'soda.demo.socrata.com'})
       .auth(user.socrata.token)
       .request(function (err, res, body) {
         debugger
