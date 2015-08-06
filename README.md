@@ -3,7 +3,7 @@
 
 [![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls] [![codecov-status]][codecov]
 
-Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and extensive [configuration data structure][provider-configuration] to ensure seamless communication with [**any**][purest-providers] REST API provider in a consistent and straightforward way:
+Purest is a thin wrapper around the [request][request] module, adding [expressive API][query-api] and extensive [configuration][provider-configuration] data structure to ensure seamless communication with [**any**][purest-providers] REST API provider in a consistent and straightforward way:
 
 
 ```js
@@ -161,12 +161,12 @@ youtube.query()
 The Purest's constructor accepts a couple of options, with only the **provider** option being required:
 
 ```js
-var provider = new Purest({provider:'google'})
+var google = new Purest({provider:'google'})
 ```
 
 ###### Provider
 
-- **provider** - name of the provider to use from the [list of supported providers][purest-config].
+- **provider** - name of the provider to use from the [list of supported providers][purest-providers].
 
 > Alternatively this can be a any custom name, in case a custom provider is being defined through the `config` option (see below).
 
@@ -176,7 +176,7 @@ var provider = new Purest({provider:'google'})
 - **secret** - `consumer_secret` to use for all requests
 
 > These keys are just convenience shortcuts, as it's often required to make all of the requests through a single OAuth1.0 app, and specifying these values for each request can be irritating.<br><br>
-Both `key` and `secret` can be overridden for each request. Alternatively these values can be set throught the `defaults` option as well:<br>
+Both `key` and `secret` can be overridden for each request through the regular `oauth` option. Alternatively these values can be set throught the `defaults` option as well:<br>
 `{oauth:{consumer_key:'..', consumer_secret:'..'}}`.
 
 ###### Path Alias (API)
@@ -196,13 +196,13 @@ Both `key` and `secret` can be overridden for each request. Alternatively these 
 
 ###### Configuration
 
-- **defaults** - [request.defaults][request-defaults] object. Pass any valid [request option][request-options] here.
-
-> These values are appended to the request's options right before the request starts, meaning that they override any other previously defined options in Purest.
-
 - **config** - configuration object containing valid [provider configuration][provider-configuration].
 
 > See the [Create New Provider][create-new-provider] and the [Extend Existing Provider][extend-existing-provider] sections.
+
+- **defaults** - [request.defaults][request-defaults] object. Pass any valid [request option][request-options] here.
+
+> These values are appended to the request's options right before the request starts, meaning that they override any other previously defined options in Purest.
 
 - **before** - object containing functions to execute before all or certain HTTP verb requests.
 
@@ -215,7 +215,7 @@ Both `key` and `secret` can be overridden for each request. Alternatively these 
 - **promise** - set to `true` to *promisify* the underlying request module used by Purest.
 
 > The [bluebird][bluebird] module used internally by Purest should be installed first: `$ npm install bluebird`<br>
-Take a look at the [Promises][promises] documentation and the [Promises Examples][examples-promises].
+Take a look at the [Promises Documentation][promises] and the [Promises Examples][examples-promises].
 
 - **debug** - set to `true` to enable the [request-debug][request-debug] module.
 
@@ -236,7 +236,7 @@ The basic API resembles the one found in the [request][request-simple] module:
 
 The first argument is the `{endpoint}` you want to be replaced in the currently matched path of your [provider configuration][provider-configuration].
 
-The second argument are the [request's options][request-options] that you normally pass to the request module + a few more [specific to Purest][purest-specific-options].
+The second argument is the [request's options][request-options] that you normally pass to the request module + a few more [specific to Purest][purest-specific-options].
 
 The third argument is the regular [request's callback][request-simple] function. These are the callback arguments (pasted from the request's docs):
 
@@ -262,7 +262,7 @@ google.query('youtube')
   .request(function (err, res, body) {})
 ```
 
-There are a couple of method aliases pre-defined for you in the [config/query.json][purest-query] file:
+There are a couple of method aliases pre-defined for you in [config/query.json][purest-query]:
 
 ```js
 {
@@ -291,7 +291,7 @@ The actual methods are on the left and their aliases are to the right. You can [
 
 The `verbs` key contains all HTTP verbs. `options` contains methods used to pass any [valid option][request-options] to the underlying request module.
 
-> The `.options()` method from this section can be used to pass any valid option to the underlying request module, even if you don't have explicitly defined query method for it.
+> The `.options()` method from this section can be used to pass any valid option to the underlying request module, even if there isn't explicitly defined query method for it.
 
 Lastly the `custom` section contains methods specific to Purest.
 
@@ -393,7 +393,7 @@ Alternatively you can search for `"auth"` in [config/providers.json][purest-conf
 
 ## Provider Configuration
 
-This is how `Facebook` is configured in the [config/providers.json][purest-config] file:
+This is how `Facebook` is configured in [config/providers.json][purest-config]:
 
 ```js
 "facebook": {
@@ -457,7 +457,7 @@ In this case we're specifying authentication scheme to use with the `.auth()` me
 
 ### Auth
 
-The `auth` key can be placed inside `__domain`, `__path` or `__endpoint` meta key. The innermost `auth` config overrides the outer ones.
+The `auth` key can be placed inside `__domain`, `__path` or `__endpoint` meta key. The innermost `auth` configuration overrides the outer ones.
 
 
 The `auth` key is designed to be used only with the `.auth()` method of the [Query API][query-api]. It can contain any [request option][request-options] used for authentication:
@@ -504,9 +504,9 @@ Alternatively the `auth` key can be an array of authentication schemes:
 With this configuration Purest will pick the authentication scheme based on the count of the parameters you are passing to the `auth` method:
 
 ```js
-// will use OAuth2 Bearer header
+// use OAuth2 Bearer header
 facebook.query().auth('[ACCESS_TOKEN]')
-// will use Basic authentication
+// use Basic authentication
 facebook.query().auth('[USER]', '[PASS]')
 ```
 
@@ -585,7 +585,7 @@ Each path should have a `__path` meta key in it containing `alias` to use to acc
 }
 ```
 
-Using the above configuration you can access the `Google+` API in various ways:
+Having the above configuration you can access the `Google+` API in various ways:
 
 ```js
 // Example: (one of the following)
@@ -710,7 +710,7 @@ There is one special endpoint that can be used to match all endpoints:
 
 This will result in all `GET` requests made to any of the endpoints in that path having the `x-li-format: json` header set.
 
-There is one specific HTTP verb that can be used to match all request types as well:
+Finally one specific HTTP verb can be used to match all request types as well:
 
 ```js
 "*": {
@@ -725,7 +725,7 @@ This will result in having the `x-li-format: json` header being set **always** f
 
 ## URL Modifiers
 
-Purest supports a couple of tokens that you can embed into your provider's domain and path configurations.
+Purest supports a few tokens that you can embed into your provider's domain and path configurations.
 
 
 ### Domain Modifiers
@@ -802,7 +802,7 @@ Supported path modifiers:
 - `[type]` defaults to `json`
 - `{endpoint}` the endpoint you are requesting. *Notice the `{}`*
 
-You can set either one of this path modifiers in various ways *(except the `{endpoint}`)*:
+You can set either one of this path modifiers in various ways *(except the `{endpoint}` one)*:
 
 ```js
 // Set it directly in the config
@@ -858,6 +858,15 @@ var awesome = new Purest({
     }
   }
 })
+```
+
+Then you can use the `awesome` provider as usual:
+
+```js
+awesome.query()
+  .get('some/endpoint')
+  .auth('[ACCESS_TOKEN]')
+  .request(function (err, res, body) {})
 ```
 
 > All available provider configuration options can be found in the [Provider Configuration][provider-configuration] section.
@@ -918,7 +927,7 @@ This will add two additional path aliases for the `https://www.googleapis.com` d
 
 ## Before Request Hooks
 
-Purest's extensive configuration structure allows you to configure almost anything without the need to write a single line of code. However small bits of application logic may be required to get a fully compatible REST API client library for your provider:
+Purest's extensive configuration data structure allows you to configure almost anything without the need to write a single line of code. However small bits of application logic may be required to get a fully compatible REST API client library for your provider:
 
 ```js
 var mailchimp = new Purest({
@@ -938,9 +947,9 @@ var mailchimp = new Purest({
 })
 ```
 
-This particular function is executed before each request, and it's sole purpose is to extract the user's *data center* name from the `apikey` querystring parameter.
+The above function is executed before each request, and its sole purpose is to extract the user's *data center* name from the `apikey` querystring parameter passed to the request.
 
-Mailchimp needs a correct *data center* name to be embedded into the API URL through the `subdomain` modifier:
+`Mailchimp` needs a correct *data center* name to be embedded into the API domain through the `subdomain` modifier:
 
 ```js
 "mailchimp": {
@@ -949,7 +958,7 @@ Mailchimp needs a correct *data center* name to be embedded into the API URL thr
 
 ### Hook Structure
 
-You can define HTTP hook for each valid HTTP verb + one special `all` hook that will be executed always:
+You can define HTTP hook for every valid HTTP verb + one special `all` hook to match all HTTP verbs:
 
 ```js
 var before = {
@@ -971,7 +980,8 @@ Arguments:
 
 The only thing that you want modify in a `before[verb/all]` hook is the `options` argument. These hooks are executed right before the [request][request] is started, so that's the last chance to dynamically modify some of the passed options to that request in Purest. *The [request's defaults][request-defaults] method (if present) is executed after the hook.*
 
-**Note:** Always write tests for your hooks, and execute those tests each time after upgrade to a newer version of Purest!
+**Note:** Always write tests for your hooks, and execute those tests after each upgrade to a newer version of Purest!
+
 
 ## Query Method Aliases
 
@@ -1102,8 +1112,7 @@ facebook
   .spread(function (res, body) {})
 ```
 
-You need the [bluebird][bluebird] module installed first:
-
+> You need the [bluebird][bluebird] module installed first:
 ```bash
 $ npm install bluebird
 ```
@@ -1111,7 +1120,7 @@ $ npm install bluebird
 
 ### Generators
 
-Here is a short example on how you can use *Generators* with the *promisified* Purest instance:
+You can use *Generators* with the *promisified* Purest instance:
 
 ```js
 var co = require('co')
@@ -1137,7 +1146,7 @@ co(function* () {
 
 ## Async Await
 
-Here is how you can use `async/await` with the *promisified* Purest instance:
+You can use `async/await` with the *promisified* Purest instance as well:
 
 ```js
 import 'babel/polyfill'
@@ -1162,7 +1171,7 @@ task()
   })
 ```
 
-> Take a look at the [Promise Examples][examples-promises] on how you can run these examples.
+> Take a look at the [Promise Examples][examples-promises] on how you can run this example.
 
 
 ## OAuth
@@ -1171,7 +1180,7 @@ Most of the OAuth2 providers in the [config/provider.json][purest-config] file h
 
 > Search for `"alias": "oauth"` in that file.
 
-The `{endpoint}` token for each one of those `oauth` *API/alias* paths defined in the [config/provider.json][purest-config] file, resembles the *token* word, part of that path:
+The `{endpoint}` token for each one of those `oauth` *API/alias* paths resembles the *token* word, part of that path:
 
 ```js
 "asana": {
@@ -1194,7 +1203,7 @@ The `{endpoint}` token for each one of those `oauth` *API/alias* paths defined i
 }
 ```
 
-With the above configuration you can refresh the user's *access token* for `Asana`:
+With the above configuration you can refresh the user's *access token* for `Asana` like this:
 
 ```js
 // var asana = new Purest({provider:'asana'})
@@ -1244,7 +1253,7 @@ provider.query('oauth')
   .request(function (err, res, body) {})
 ```
 
-> Check the providers documentation to see whether the provider supports that grant type.
+> Check your provider's documentation to see whether it supports that grant type.
 
 
 ### [Resource Owner Password Credentials Grant][grant-password]
@@ -1262,7 +1271,7 @@ provider.query('oauth')
   .request(function (err, res, body) {})
 ```
 
-> Check the providers documentation to see whether the provider supports that grant type.
+> Check your provider's documentation to see whether it supports that grant type.
 
 
 ### [Refresh Token][grant-refresh]
@@ -1279,12 +1288,12 @@ provider.query('oauth')
   .request(function (err, res, body) {})
 ```
 
-> Check the providers documentation to see whether the provider supports that grant type.
+> Check your provider's documentation to see whether it supports that grant type.
 
 
 ### Basic Auth
 
-Some providers may accept the application's credentials to be sent through Basic Authorization header as well:
+Some providers allow the application's credentials to be sent as *Basic Authorization* header as well:
 
 ```js
 // var acton = new Purest({provider:'acton'})
@@ -1317,7 +1326,7 @@ yahoo.query('oauth')
   .request(function (err, res, body) {})
 ```
 
-> Search for `"alias": "oauth"` in the [config/providers.json][purest-config] file to see how various `oauth` path aliases are configured for different providers.
+> Search for `"alias": "oauth"` in [config/providers.json][purest-config] to see how various `oauth` path aliases are configured for different providers.
 
 
 ## Multipart Uploads
@@ -1340,7 +1349,6 @@ facebook.post('me/photos', {
 Same as:
 
 ```js
-// var facebook = new Purest({provider:'facebook'})
 facebook.query()
   .update('me/photos')
   .upload({
@@ -1376,7 +1384,6 @@ google.post('files', {
 Same as:
 
 ```js
-// var google = new Purest({provider:'google'})
 google.query('upload-drive')
   .update('files')
   .where({uploadType:'multipart'})
@@ -1397,7 +1404,7 @@ google.query('upload-drive')
 
 ## Purest Specific Options
 
-Additional to the [request's options][request-options], Purest adds a few more options on its own.
+Additionally to the [request's options][request-options], Purest adds a few more options on its own.
 
 
 ### api
@@ -1438,7 +1445,7 @@ twitter.get('users/show', function (err, res, body) {})
 
 Will result in request to the `https://api.twitter.com/1.1/users/show.json` endpoint using version `1.1` of the `Twitter` API.
 
-We can change that using the `version` option:
+You can change that using the `version` option:
 
 ```js
 twitter.get('users/show', {version:'1.0'}, function (err, res, body) {})
@@ -1449,7 +1456,7 @@ Will result in request to the `https://api.twitter.com/1.0/users/show.json` endp
 
 ### type
 
-Again, using the above configuration for Twitter, we can change the value for the `[type]` token embedded into the path. If present `[type]` always defaults to `json`.
+Again, using the above configuration for `Twitter`, we can change the value for the `[type]` token embedded into the path. If present `[type]` always defaults to `json`.
 
 To override that pass the `type` option with the appropriate value:
 
@@ -1457,7 +1464,7 @@ To override that pass the `type` option with the appropriate value:
 twitter.get('users/show', {type:'xml'}, function (err, res, body) {})
 ```
 
-Will result in request to the `https://api.twitter.com/1.1/users/show.xml` endpoint, expecting `xml` response type.
+Will result in request to the `https://api.twitter.com/1.1/users/show.xml` endpoint.
 
 
 ### subdomain
@@ -1469,7 +1476,7 @@ Some domain configurations have a `[subdomain]` token embedded into them:
   "https://[subdomain].api.mailchimp.com": {...}}
 ```
 
-Set your data center name like this:
+`Mailchimp` needs the user's *data center* name embedded into the domain:
 
 ```js
 // var mailchimp = new Purest({provider:'mailchimp'})
@@ -1496,10 +1503,12 @@ The `BaseCamp` API needs the user's ID embedded into the path:
 ```js
 // var basecamp = new Purest({provider:'basecamp'})
 basecamp.get('people/me', {
-  subpath:'[USER_ID]',
+  subpath:'123',
   auth:{bearer:'[ACCESS_TOKEN]'}
 }, function (err, res, body) {})
 ```
+
+Will result in request to the `https://basecamp.com/123/api/v1/people/me.json` endpoint.
 
 
 ### oauth:secret
