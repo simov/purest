@@ -97,7 +97,7 @@
   },
   "feedly": {
     "docs": "",
-    "fields": ["access_token", "plan", "provider", "id", "expires_in", "token_type"],
+    "fields": ["expires_in", "token_type", "access_token", "plan", "provider", "id"],
     "update": ["access"]
   },
   "flowdock": {

@@ -73,6 +73,8 @@ describe('oauth2', function () {
 
           should.deepEqual(Object.keys(body), config[provider].fields)
 
+          if (!body.access_token) return done()
+
           if (config[provider].update.length == 2) {
             store.oauth2(provider, body.access_token, body.refresh_token)
           } else {
