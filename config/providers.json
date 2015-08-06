@@ -1287,7 +1287,7 @@
     "https://hackpad.com": {
       "__domain": {
         "auth": {
-          "oauth": {}
+          "oauth": {"consumer_key": "[0]", "consumer_secret": "[1]"}
         }
       },
       "api/[version]/{endpoint}": {
@@ -2124,7 +2124,6 @@
         },
         "*": {
           "all": {
-            "encoding": null,
             "gzip": true
           }
         }
