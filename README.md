@@ -125,13 +125,19 @@ A more expressive [Query API][query-api] is available as well:
 
 ```js
 var google = new Purest({provider:'google'})
+
 google.query('youtube')
   .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
   .auth('[ACCESS_TOKEN]')
   .request(function (err, res, body) {})
-// OR
+```
+
+Same as:
+
+```js
 var youtube = new Purest({provider:'google', api:'youtube'})
+
 youtube.query()
   .select('channels')
   .where({forUsername:'RayWilliamJohnson'})
@@ -139,7 +145,7 @@ youtube.query()
   .request(function (err, res, body) {})
 ```
 
-> Using the `.query()` method without arguments means using the `__default` path defined for that provider.
+> Using the `.query()` method without arguments results in using the `__default` path defined for that provider. *(or the one specified through the `api` option in the constructor)*
 
 If you're going to make authenticated requests on behalf of a single user, you can use the [request's defaults][request-defaults] to set the access token to use for each request made through that instance:
 
