@@ -141,6 +141,17 @@ var examples = {
         if (err) console.log(err)
         console.log(body)
       })
+  },
+  //
+  11: function () {
+    p.query()
+      .select('account/verify_credentials')
+      .auth(user.token, user.secret)
+      .request(function (err, res, body) {
+        debugger
+        if (err) console.log(err)
+        console.log(body)
+      })
   }
 }
 
