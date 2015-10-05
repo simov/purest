@@ -785,7 +785,7 @@
           "auth": {"bearer": "[0]"}
         }
       },
-      "[version]/{endpoint}": {
+      "[version]/{endpoint}/": {
         "__path": {
           "alias": "__default",
           "version": "v3"
