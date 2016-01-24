@@ -2433,7 +2433,7 @@
     "https://www.upwork.com": {
       "__domain": {
         "auth": {
-          "oauth": {"token": "[0]", "secret": "[1]"}
+          "oauth": {"consumer_key": "[0]", "consumer_secret": "[1]", "token": "[2]", "token_secret": "[3]"}
         }
       },
       "api/{endpoint}.[type]": {
