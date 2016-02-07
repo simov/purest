@@ -1,0 +1,37 @@
+{
+  "name": "@purest/client",
+  "version": "0.1.0",
+  "description": "REST API Client Library",
+  "keywords": [
+    "rest",
+    "restful",
+    "api",
+    "http",
+    "https",
+    "client"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/purest-org/client",
+  "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (http://simov.github.io)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/purest-org/client.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^7.1.1"
+  },
+  "main": "index.js",
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "npm run test-ci",
+    "test-ci": "mocha",
+    "test-cov": "istanbul cover _mocha"
+  }
+}
