@@ -35,17 +35,12 @@ module.exports = ((client, api, config, extend) => {
     }
 
 
-    // url modifiers
     self.subdomain = options.subdomain
     self.subpath = options.subpath
     self.version = options.version
     self.type = options.type
 
-    var url = config.url(self)
-    var oauth = config.oauth(self)
 
-
-    // oauth
     if (options.key) {
       self.key = options.key
     }
@@ -54,12 +49,56 @@ module.exports = ((client, api, config, extend) => {
     }
 
 
-    var _config = {
-      method: {get: ['select']},
-      option: {qs: ['where'], parse: [], callback: []},
-      custom: {submit: [], api: ['query'], auth: []}
+    var url = config.url(self)
+    var oauth = config.oauth(self)
+
+
+    var methods = {
+      method: {
+        get      : ['select'],
+        post     : [],
+        put      : [],
+        patch    : [],
+        head     : [],
+        trace    : [],
+        options  : [],
+        delete   : []
+      },
+      option: {
+        qs       : ['where'],
+        form     : [],
+        json     : [],
+        body     : [],
+        multipart: [],
+        auth     : [],
+        oauth    : [],
+        headers  : [],
+        gzip     : [],
+        encoding : [],
+        cookie   : [],
+        length   : [],
+        redirect : [],
+        timeout  : [],
+        proxy    : [],
+        tunnel   : [],
+        parse    : [],
+        stringify: [],
+        callback : [],
+        end      : []
+      },
+      custom: {
+        api      : ['query'],
+        auth     : [],
+        submit   : []
+      }
     }
-    var _custom = {
+
+    if (options.methods) {
+      extend(true, methods, options.methods)
+    }
+
+
+    return api(methods, {
       api: function (options, name) {
         options.api = name
         return this
@@ -117,10 +156,7 @@ module.exports = ((client, api, config, extend) => {
 
         return client(options)
       }
-    }
-
-    var purest = api(_config, _custom)
-    return purest
+    })
   }
 })(
   require('@request/client'),
