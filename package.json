@@ -17,8 +17,13 @@
     "type": "git",
     "url": "https://github.com/purest-org/client.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "extend": "^3.0.0",
+    "@purest/config": "^0.1.0",
+    "@request/client": "^0.2.0"
+  },
   "devDependencies": {
+    "@request/client": "^0.1.0",
     "mocha": "^2.4.5",
     "should": "^7.1.1"
   },

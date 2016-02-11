@@ -1,7 +1,8 @@
 
 var http = require('http')
 var should = require('should')
-var purest = require('../')
+var client = require('@request/client')
+var purest = require('../')(client)
 
 
 describe('aliases', () => {
