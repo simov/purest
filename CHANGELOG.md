@@ -1,6 +1,10 @@
 
 ## Change Log
 
+### v2.0.1 (2016/03/02)
+
+- `Fixed` support for Bluebird 3
+
 ### v2.0.0 (2015/08/06)
 
 - `Added` before request hooks
