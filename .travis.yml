@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - node
+sudo: false
+after_script:
+  - npm run test-cov
+  - cat ./coverage/lcov.info | coveralls --verbose
