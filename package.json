@@ -11,21 +11,20 @@
     "client"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/purest-org/client",
+  "homepage": "https://github.com/purestjs/client",
   "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (http://simov.github.io)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/purest-org/client.git"
+    "url": "https://github.com/purestjs/client.git"
   },
   "dependencies": {
     "extend": "^3.0.0",
     "@purest/config": "^0.1.0",
-    "@request/client": "^0.2.0"
+    "@request/api": "^0.2.0"
   },
   "devDependencies": {
     "@request/client": "^0.1.0",
-    "mocha": "^2.4.5",
-    "should": "^7.1.1"
+    "mocha": "^2.4.5"
   },
   "main": "index.js",
   "files": [
