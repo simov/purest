@@ -1,6 +1,6 @@
 
+var t = require('assert')
 var http = require('http')
-var should = require('should')
 var client = require('@request/client')
 var purest = require('../')(client)
 
@@ -28,7 +28,7 @@ describe('aliases', () => {
       .select('http://localhost:6767')
       .where({a: 'b'})
       .callback((err, res, body) => {
-        should.equal(body, '/?a=b')
+        t.equal(body, '/?a=b')
         done()
       })
       .submit()
@@ -46,7 +46,7 @@ describe('aliases', () => {
       .select('user/profile')
       .where({a: 'b'})
       .callback((err, res, body) => {
-        should.equal(body, '/api/user/profile?a=b')
+        t.equal(body, '/api/user/profile?a=b')
         done()
       })
       .submit()
@@ -68,7 +68,7 @@ describe('aliases', () => {
       .select('uploads')
       .where({a: 'b'})
       .callback((err, res, body) => {
-        should.equal(body, '/api/1.0/uploads?a=b')
+        t.equal(body, '/api/1.0/uploads?a=b')
         done()
       })
       .submit()
@@ -90,7 +90,7 @@ describe('aliases', () => {
       .select('uploads')
       .where({a: 'b'})
       .callback((err, res, body) => {
-        should.equal(body, '/api/1.0/uploads?a=b')
+        t.equal(body, '/api/1.0/uploads?a=b')
         done()
       })
       .submit()
