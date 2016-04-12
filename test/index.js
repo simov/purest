@@ -27,11 +27,10 @@ describe('aliases', () => {
     provider
       .select('http://localhost:6767')
       .where({a: 'b'})
-      .callback((err, res, body) => {
+      .request((err, res, body) => {
         t.equal(body, '/?a=b')
         done()
       })
-      .submit()
   })
 
   it('__default', (done) => {
@@ -45,11 +44,10 @@ describe('aliases', () => {
     provider
       .select('user/profile')
       .where({a: 'b'})
-      .callback((err, res, body) => {
+      .request((err, res, body) => {
         t.equal(body, '/api/user/profile?a=b')
         done()
       })
-      .submit()
   })
 
   it('named', (done) => {
@@ -67,11 +65,10 @@ describe('aliases', () => {
       .query('picture')
       .select('uploads')
       .where({a: 'b'})
-      .callback((err, res, body) => {
+      .request((err, res, body) => {
         t.equal(body, '/api/1.0/uploads?a=b')
         done()
       })
-      .submit()
   })
 
   it('named - array', (done) => {
@@ -89,11 +86,10 @@ describe('aliases', () => {
       .query('thumb')
       .select('uploads')
       .where({a: 'b'})
-      .callback((err, res, body) => {
+      .request((err, res, body) => {
         t.equal(body, '/api/1.0/uploads?a=b')
         done()
       })
-      .submit()
   })
 
   after((done) => {
