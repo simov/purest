@@ -32,8 +32,8 @@
     "end"      : []
   },
   "custom": {
-    "api"      : ["query"],
+    "api"      : ["query", "config"],
     "auth"     : [],
-    "submit"   : []
+    "submit"   : ["request"]
   }
 }
