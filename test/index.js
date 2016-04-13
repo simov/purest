@@ -89,7 +89,7 @@ describe('ctor', () => {
       server.listen(6767, done)
     })
 
-    it('key, secret', (done) => {
+    it('set', (done) => {
       var provider = purest({provider: 'purest',
       defaults: {qs: {a: 1, b: 2}},
       config: {purest: {
@@ -104,6 +104,45 @@ describe('ctor', () => {
         .qs({b: 3, c: 4})
         .request((err, res, body) => {
           t.equal(body, '/api/me?a=1&b=3&c=4')
+          done()
+        })
+    })
+
+    after((done) => {
+      server.close(done)
+    })
+  })
+
+  describe('methods', () => {
+    var server
+
+    before((done) => {
+      server = http.createServer()
+      server.on('request', (req, res) => {
+        res.end(req.url)
+      })
+      server.listen(6767, done)
+    })
+
+    it('set', (done) => {
+      var provider = purest({provider: 'purest',
+      methods: {
+        method: {get: ['gimme']},
+        option: {qs: ['search']},
+        custom: {request: ['snatch']}
+      },
+      config: {purest: {
+        'http://localhost:6767': {
+          'api/{endpoint}': {
+            __path: {alias: '__default'}
+          }
+        }
+      }}})
+      provider
+        .gimme('me')
+        .search({a: 1})
+        .snatch((err, res, body) => {
+          t.equal(body, '/api/me?a=1')
           done()
         })
     })
