@@ -6,7 +6,7 @@ var _options = require('./lib/options')
 var _purest = require('./lib/client')
 
 
-module.exports = (client) => (options) => {
+module.exports = (client, promise) => (options) => {
   var provider = {
     api: options.api,
     subdomain: options.subdomain,
@@ -46,5 +46,5 @@ module.exports = (client) => (options) => {
 
   var transform = _options(provider)
 
-  return _purest(client, provider, methods, config, transform, options.defaults)
+  return _purest(client, provider, methods, config, transform, options.defaults, promise)
 }
