@@ -46,5 +46,5 @@ module.exports = (client) => (options) => {
 
   var transform = _options(provider)
 
-  return _purest(client, provider, methods, config, transform)
+  return _purest(client, provider, methods, config, transform, options.defaults)
 }

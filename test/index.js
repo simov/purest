@@ -77,6 +77,41 @@ describe('ctor', () => {
       server.close(done)
     })
   })
+
+  describe('defaults', () => {
+    var server
+
+    before((done) => {
+      server = http.createServer()
+      server.on('request', (req, res) => {
+        res.end(req.url)
+      })
+      server.listen(6767, done)
+    })
+
+    it('key, secret', (done) => {
+      var provider = purest({provider: 'purest',
+      defaults: {qs: {a: 1, b: 2}},
+      config: {purest: {
+        'http://localhost:6767': {
+          'api/{endpoint}': {
+            __path: {alias: '__default'}
+          }
+        }
+      }}})
+      provider
+        .select('me')
+        .qs({b: 3, c: 4})
+        .request((err, res, body) => {
+          t.equal(body, '/api/me?a=1&b=3&c=4')
+          done()
+        })
+    })
+
+    after((done) => {
+      server.close(done)
+    })
+  })
 })
 
 describe('alias', () => {
