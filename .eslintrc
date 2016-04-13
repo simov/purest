@@ -1,63 +1,39 @@
 {
-  'env': {
-    'node': true
+  env: {
+    node: true
   },
-  'ecmaFeatures': {
-    'generators': true
+  parserOptions: {
+    ecmaVersion: 6
   },
-  'rules': {
-    // Require Camelcase
-    'camelcase': false,
-
+  rules: {
     // Enforces spacing around commas
-    'comma-spacing': false,
+    comma-spacing: [2, {'before': false, 'after': true}],
 
     // Require Following Curly Brace Conventions
-    'curly': false,
+    curly: [2, 'all'],
 
     // Require === and !==
-    'eqeqeq': false,
+    eqeqeq: [2, 'smart'],
 
     // Validate Indentation
-    'indent': [2, 2],
+    indent: [2, 2],
 
     // Enforce Property Spacing
-    'key-spacing': false,
-
-    // Disallow Empty Block Statements
-    'no-empty': false,
-
-    // Disallow Functions in Loops
-    'no-loop-func': false,
-
-    // Disallow Redeclaring Variables
-    'no-redeclare': false,
-
-    // Disallow Shadowing
-    'no-shadow': false,
-
-    // Disallow Dangling Underscores in Identifiers (no-underscore-dangle)
-    'no-underscore-dangle': false,
-
-    // Disallow Unused Variables
-    'no-unused-vars': false,
-
-    // Disallow Early Use
-    'no-use-before-define': [2, 'nofunc'],
+    key-spacing: [2, {'beforeColon': false, 'afterColon': true}],
 
     // Enforce Quote Style
-    'quotes': [2, 'single'],
+    quotes: [2, 'single'],
 
-    // Enforce Semicolons
-    'semi': [2, 'never'],
+    // Enforce or Disallow Semicolons
+    semi: [2, 'never'],
 
-    // Enforce spacing before and after semicolons
-    'semi-spacing': [{'before': false, 'after': false}],
+    // Require Or Disallow Space Before Blocks
+    space-before-blocks: [2, 'always'],
+
+    // Require or disallow a space before function parenthesis
+    space-before-function-paren: [2, 'always'],
 
     // Require Spaces Around Infix Operators
-    'space-infix-ops': false,
-
-    // Strict Mode
-    'strict': [2, 'global']
+    space-infix-ops: [2, {'int32Hint': true}]
   }
 }

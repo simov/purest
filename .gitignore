@@ -1,11 +1,3 @@
-
 npm-debug.log
-examples/promises/build.js
-
 node_modules/
 coverage/
-
-config/credentials.json
-config/app.json
-config/user.json
-config/examples.json

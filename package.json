@@ -1,8 +1,7 @@
 {
   "name": "purest",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "REST API client library",
-
   "keywords": [
     "rest",
     "restful",
@@ -11,34 +10,27 @@
     "https",
     "client"
   ],
-
-  "license"  : "MIT",
-  "homepage" : "https://github.com/simov/purest",
-
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/simov/purest",
   "author": "Simeon Velichkov <simeonvelichkov@gmail.com> (http://simov.github.io)",
-
   "repository": {
-    "type" : "git",
-    "url"  : "https://github.com/simov/purest.git"
+    "type": "git",
+    "url": "https://github.com/simov/purest.git"
   },
-
   "dependencies": {
-    "request"       : "2.60.0",
-    "extend"        : "2.0.1"
+    "extend": "^3.0.0"
   },
-
   "devDependencies": {
-    "mocha"         : "2.2.5",
-    "should"        : "6.0.3",
-    "istanbul"      : "0.3.14",
-    "coveralls"     : "2.11.2",
-    "codecov.io"    : "0.1.5",
-    "eslint"        : "0.19.0",
-    "base64-url"    : "1.0.0"
+    "request": "^2.60.0",
+    "mocha": "^2.2.5",
+    "should": "^6.0.3",
+    "istanbul": "^0.3.14",
+    "coveralls": "^2.11.2",
+    "codecov.io": "^0.1.5",
+    "eslint": "^0.19.0",
+    "base64-url": "^1.0.0"
   },
-
   "main": "./index",
-
   "files": [
     "config/",
     "lib/",
@@ -47,12 +39,10 @@
     "README.md",
     "index.js"
   ],
-
   "scripts": {
-    "test"      : "npm run lint-lib && npm run test-ci",
-    "test-ci"   : "mocha test/core",
-    "test-cov"  : "istanbul cover _mocha test/core",
-    "lint-lib"  : "eslint lib/ && echo Lint lib passed",
-    "lint-test" : "eslint --config test/.eslintrc test/ && echo Lint test passed"
+    "test": "npm run lint-lib && npm run test-ci",
+    "test-ci": "mocha test/",
+    "test-cov": "istanbul cover _mocha test/",
+    "lint": "eslint && echo Lint Passed"
   }
 }
