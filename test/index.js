@@ -5,7 +5,7 @@ var client = require('@request/client')
 var purest = require('../')(client)
 
 
-describe('aliases', () => {
+describe('alias', () => {
   var server
 
   before((done) => {
@@ -26,9 +26,9 @@ describe('aliases', () => {
     }}})
     provider
       .select('http://localhost:6767')
-      .where({a: 'b'})
+      .where({a: 1})
       .request((err, res, body) => {
-        t.equal(body, '/?a=b')
+        t.equal(body, '/?a=1')
         done()
       })
   })
@@ -43,9 +43,9 @@ describe('aliases', () => {
     }}})
     provider
       .select('user/profile')
-      .where({a: 'b'})
+      .where({a: 1})
       .request((err, res, body) => {
-        t.equal(body, '/api/user/profile?a=b')
+        t.equal(body, '/api/user/profile?a=1')
         done()
       })
   })
@@ -56,17 +56,17 @@ describe('aliases', () => {
         'api/{endpoint}': {
           __path: {alias: '__default'}
         },
-        'api/[version]/{endpoint}': {
-          __path: {alias: 'picture', version: '1.0'}
+        'api/uploads/{endpoint}': {
+          __path: {alias: 'uploads'}
         }
       }
     }}})
     provider
-      .query('picture')
-      .select('uploads')
-      .where({a: 'b'})
+      .query('uploads')
+      .select('picture')
+      .where({a: 1})
       .request((err, res, body) => {
-        t.equal(body, '/api/1.0/uploads?a=b')
+        t.equal(body, '/api/uploads/picture?a=1')
         done()
       })
   })
@@ -77,17 +77,17 @@ describe('aliases', () => {
         'api/{endpoint}': {
           __path: {alias: '__default'}
         },
-        'api/[version]/{endpoint}': {
-          __path: {alias: ['picture', 'thumb'], version: '1.0'}
+        'api/uploads/{endpoint}': {
+          __path: {alias: ['uploads', 'images']}
         }
       }
     }}})
     provider
-      .query('thumb')
-      .select('uploads')
-      .where({a: 'b'})
+      .query('images')
+      .select('picture')
+      .where({a: 1})
       .request((err, res, body) => {
-        t.equal(body, '/api/1.0/uploads?a=b')
+        t.equal(body, '/api/uploads/picture?a=1')
         done()
       })
   })
