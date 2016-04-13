@@ -18,13 +18,13 @@ describe('ctor', () => {
       server.listen(6767, done)
     })
 
-    it('subdomain, subpath, version, type', (done) => {
-      var provider = purest({provider: 'purest',
+    it('api, subdomain, subpath, version, type', (done) => {
+      var provider = purest({provider: 'purest', api: 'test',
       subdomain: 'localhost', subpath: 'api', version: '1.0', type: 'xml',
       config: {purest: {
         'http://[subdomain]:6767': {
           '[subpath]/[version]/{endpoint}.[type]': {
-            __path: {alias: '__default'}
+            __path: {alias: 'test'}
           }
         }
       }}})
