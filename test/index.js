@@ -5,6 +5,80 @@ var client = require('@request/client')
 var purest = require('../')(client)
 
 
+describe('ctor', () => {
+
+  describe('path modifiers', () => {
+    var server
+
+    before((done) => {
+      server = http.createServer()
+      server.on('request', (req, res) => {
+        res.end(req.url)
+      })
+      server.listen(6767, done)
+    })
+
+    it('subdomain, subpath, version, type', (done) => {
+      var provider = purest({provider: 'purest',
+      subdomain: 'localhost', subpath: 'api', version: '1.0', type: 'xml',
+      config: {purest: {
+        'http://[subdomain]:6767': {
+          '[subpath]/[version]/{endpoint}.[type]': {
+            __path: {alias: '__default'}
+          }
+        }
+      }}})
+      provider
+        .select('me')
+        .where({a: 1})
+        .request((err, res, body) => {
+          t.equal(body, '/api/1.0/me.xml?a=1')
+          done()
+        })
+    })
+
+    after((done) => {
+      server.close(done)
+    })
+  })
+
+  describe('oauth', () => {
+    var server
+
+    before((done) => {
+      server = http.createServer()
+      server.on('request', (req, res) => {
+        res.end(req.headers.authorization)
+      })
+      server.listen(6767, done)
+    })
+
+    it('key, secret', (done) => {
+      var provider = purest({provider: 'purest',
+      key: 'key', secret: 'secret',
+      config: {purest: {
+        'http://localhost:6767': {
+          'api/{endpoint}': {
+            __path: {alias: '__default'}
+          }
+        }
+      }}})
+      provider
+        .select('me')
+        .oauth({token: 'token', secret: 'secret'})
+        .request((err, res, body) => {
+          t.ok(/oauth_consumer_key="key"/.test(body))
+          t.ok(/oauth_token="token"/.test(body))
+          done()
+        })
+    })
+
+    after((done) => {
+      server.close(done)
+    })
+  })
+})
+
 describe('alias', () => {
   var server
 
