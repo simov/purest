@@ -24,6 +24,10 @@
   },
   "devDependencies": {
     "@request/client": "^0.1.0",
+    "@request/oauth": "^0.1.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^2.7.0",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5"
   },
   "main": "index.js",
@@ -34,8 +38,9 @@
     "index.js"
   ],
   "scripts": {
-    "test": "npm run test-ci",
-    "test-ci": "mocha",
-    "test-cov": "istanbul cover _mocha"
+    "test": "npm run lint && npm run test-ci",
+    "test-ci": "mocha test/",
+    "test-cov": "istanbul cover _mocha",
+    "lint": "eslint lib/ test/ && echo Lint Passed"
   }
 }
