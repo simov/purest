@@ -1,0 +1,39 @@
+{
+  env: {
+    node: true
+  },
+  parserOptions: {
+    ecmaVersion: 6
+  },
+  rules: {
+    // Enforces spacing around commas
+    comma-spacing: [2, {'before': false, 'after': true}],
+
+    // Require Following Curly Brace Conventions
+    curly: [2, 'all'],
+
+    // Require === and !==
+    eqeqeq: [2, 'smart'],
+
+    // Validate Indentation
+    indent: [2, 2],
+
+    // Enforce Property Spacing
+    key-spacing: [2, {'beforeColon': false, 'afterColon': true}],
+
+    // Enforce Quote Style
+    quotes: [2, 'single'],
+
+    // Enforce or Disallow Semicolons
+    semi: [2, 'never'],
+
+    // Require Or Disallow Space Before Blocks
+    space-before-blocks: [2, 'always'],
+
+    // Require or disallow a space before function parenthesis
+    space-before-function-paren: [2, 'always'],
+
+    // Require Spaces Around Infix Operators
+    space-infix-ops: [2, {'int32Hint': true}]
+  }
+}
