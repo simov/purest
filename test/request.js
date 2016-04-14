@@ -1,41 +1,45 @@
 
 var t = require('assert')
-var app = require('../../../purest/config/app')
-var user = require('../../../purest/config/user')
-var config = require('../../../purest/config/providers')
-var purest = require('../')(require('@request/client'))
+var http = require('http')
+var client = require('@request/client')
+var purest = require('../')(client)
 
 
 describe('request', () => {
-  it('__default alias', (done) => {
-    var twitter = purest({
-      provider: 'twitter', config: config,
-      key: app.twitter.key, secret: app.twitter.secret
-    })
+  var server
 
-    twitter
-      .select('users/show')
-      .where({screen_name: '_simov'})
-      .auth(user.twitter.token, user.twitter.secret)
-      .callback((err, res, body) => {
-        t.equal(body.screen_name, '_simov')
-        done()
-      })
-      .submit()
+  before((done) => {
+    server = http.createServer()
+    server.on('request', (req, res) => {
+      res.writeHead(202)
+      res.end(req.url)
+    })
+    server.listen(6767, done)
   })
 
-  it.skip('specific alias', () => {
-    var yandex = purest({provider: 'yandex'})
-
-    yandex
-      .query('login')
-      .auth(app.yandex.token)
-      .callback((err, res, body) => {
-        debugger
-        if (err) {
-          console.log(err)
+  it('before.all', (done) => {
+    var provider = purest({provider: 'purest',
+    before: {
+      all: function (options) {
+        options.qs = {a: 1}
+      }
+    },
+    config: {purest: {
+      'http://localhost:6767': {
+        'api/{endpoint}': {
+          __path: {alias: '__default'}
         }
-        console.log(body)
+      }
+    }}})
+    provider
+      .select('me')
+      .request((err, res, body) => {
+        t.equal(body, '/api/me?a=1')
+        done()
       })
+  })
+
+  after((done) => {
+    server.close(done)
   })
 })
