@@ -1,21 +1,11 @@
 
-var extend = require('extend')
 var _config = require('@purest/config')
-var _methods = require('./config/methods')
-var _options = require('./lib/options')
-var _purest = require('./lib/client')
+var _basic = require('./lib/basic-api')
+var _query = require('./lib/query-api')
+var _request = require('./lib/request')
 
 
 module.exports = (client, promise) => (options) => {
-  var provider = {
-    api: options.api,
-    subdomain: options.subdomain,
-    subpath: options.subpath,
-    version: options.version,
-    type: options.type,
-    key: options.key,
-    secret: options.secret
-  }
 
   var config
 
@@ -25,7 +15,7 @@ module.exports = (client, promise) => (options) => {
 
   if (options.config) {
     if (options.config[options.provider]) {
-      config = _config(provider, options.config[options.provider])
+      config = _config(options, options.config[options.provider])
     }
     else {
       throw new Error('Purest: non existing provider!')
@@ -41,10 +31,12 @@ module.exports = (client, promise) => (options) => {
     }
   }
 
-  var methods = {}
-  extend(true, methods, _methods, options.methods)
+  var request = _request(client, promise, options, config)
 
-  var transform = _options(provider)
-
-  return _purest(client, provider, methods, config, transform, options.defaults, promise, options.basic)
+  if (options.basic) {
+    return _basic(request, options.defaults)
+  }
+  else {
+    return _query(options, config, request, options.defaults)
+  }
 }
