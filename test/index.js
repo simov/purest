@@ -245,65 +245,6 @@ describe('alias', () => {
   })
 })
 
-describe('promise', () => {
-  var purest2 = require('../')(client, Promise)
-
-  var server
-
-  before((done) => {
-    server = http.createServer()
-    server.on('request', (req, res) => {
-      res.writeHead(202)
-      res.end(req.url)
-    })
-    server.listen(6767, done)
-  })
-
-  it('resolve', (done) => {
-    var provider = purest2({provider: 'purest', config: {purest: {
-      'http://localhost:6767': {
-        'api/{endpoint}': {
-          __path: {alias: '__default'}
-        }
-      }
-    }}})
-    provider
-      .select('me')
-      .where({a: 1})
-      .request()
-      .then((result) => {
-        var res = result[0]
-        var body = result[1]
-        t.equal(res.statusCode, 202)
-        t.equal(body, '/api/me?a=1')
-        done()
-      })
-  })
-
-  it('reject', (done) => {
-    var provider = purest2({provider: 'purest', config: {purest: {
-      'http://lolhost:6767': {
-        'api/{endpoint}': {
-          __path: {alias: '__default'}
-        }
-      }
-    }}})
-    provider
-      .select('me')
-      .where({a: 1})
-      .request()
-      .catch((err) => {
-        t.equal(err.message, 'getaddrinfo ENOTFOUND lolhost lolhost:6767')
-
-        done()
-      })
-  })
-
-  after((done) => {
-    server.close(done)
-  })
-})
-
 describe('basic api', () => {
   var server, provider
 
