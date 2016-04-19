@@ -124,12 +124,23 @@ describe('ctor', () => {
       server.listen(6767, done)
     })
 
-    it('set', (done) => {
+    it('alias + define', (done) => {
       var provider = purest({provider: 'purest',
       methods: {
         method: {get: ['gimme']},
         option: {qs: ['search']},
-        custom: {request: ['snatch']}
+        custom: {request: ['snatch'], method: []},
+        define: {
+          method: function (arg) {
+            if (this._options.qs) {
+              this._options.qs.b = arg
+            }
+            else {
+              this._options.qs = {b: arg}
+            }
+            return this
+          }
+        }
       },
       config: {purest: {
         'http://localhost:6767': {
@@ -141,8 +152,9 @@ describe('ctor', () => {
       provider
         .gimme('me')
         .search({a: 1})
+        .method(2)
         .snatch((err, res, body) => {
-          t.equal(body, '/api/me?a=1')
+          t.equal(body, '/api/me?a=1&b=2')
           done()
         })
     })
