@@ -6,7 +6,7 @@ var request = require('request')
 var Purest = require('../')
 
 
-describe('before hook', () => {
+describe.skip('before hook', () => {
   var purest = Purest(client)
   var server
 
