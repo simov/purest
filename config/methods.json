@@ -34,7 +34,8 @@
   },
   "custom": {
     "api"      : ["query", "config"],
-    "auth"     : [],
+    "auth"     : ["token"],
+    "options"  : [],
     "request"  : []
   }
 }

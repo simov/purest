@@ -88,3 +88,34 @@ describe('basic', () => {
     })
   })
 })
+
+describe('query', () => {
+  var server, provider
+
+  before((done) => {
+    provider = purest({provider: 'purest', config: {purest: {
+      'http://localhost:6767': {
+        'api/{endpoint}': {
+          __path: {alias: '__default'}
+        }
+      }
+    }}})
+
+    server = http.createServer()
+    server.on('request', (req, res) => res.end(req.url))
+    server.listen(6767, done)
+  })
+
+  it('options', (done) => {
+    provider
+      .get('user/profile')
+      .qs({a: 1})
+      .options({qs: {b: 2}})
+      .request((err, res, body) => {
+        t.equal(body, '/api/user/profile?a=1&b=2')
+        done()
+      })
+  })
+
+  after((done) => server.close(done))
+})
