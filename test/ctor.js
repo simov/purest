@@ -12,9 +12,7 @@ describe('ctor', () => {
 
     before((done) => {
       server = http.createServer()
-      server.on('request', (req, res) => {
-        res.end(req.url)
-      })
+      server.on('request', (req, res) => res.end(req.url))
       server.listen(6767, done)
     })
 
@@ -47,9 +45,7 @@ describe('ctor', () => {
 
     before((done) => {
       server = http.createServer()
-      server.on('request', (req, res) => {
-        res.end(req.headers.authorization)
-      })
+      server.on('request', (req, res) => res.end(req.headers.authorization))
       server.listen(6767, done)
     })
 
@@ -83,9 +79,7 @@ describe('ctor', () => {
 
     before((done) => {
       server = http.createServer()
-      server.on('request', (req, res) => {
-        res.end(req.url)
-      })
+      server.on('request', (req, res) => res.end(req.url))
       server.listen(6767, done)
     })
 
@@ -118,9 +112,7 @@ describe('ctor', () => {
 
     before((done) => {
       server = http.createServer()
-      server.on('request', (req, res) => {
-        res.end(req.url)
-      })
+      server.on('request', (req, res) => res.end(req.url))
       server.listen(6767, done)
     })
 
@@ -161,6 +153,64 @@ describe('ctor', () => {
 
     after((done) => {
       server.close(done)
+    })
+  })
+
+  describe('throw', () => {
+
+    it('missing provider option', () => {
+      t.throws(() => {
+        var provider = purest()
+      }, 'Purest: provider option is required!')
+    })
+    it('missing config option', () => {
+      t.throws(() => {
+        var provider = purest({provider: 'purest'})
+      }, 'Purest: config option is required!')
+    })
+    it('missing config option', () => {
+      t.throws(() => {
+        var provider = purest({provider: 'purest', config: {}})
+      }, 'Purest: non existing provider!')
+    })
+
+    it('config: missing __path key', () => {
+      t.throws(() => {
+        var provider = purest({provider: 'purest',
+          config: {purest: {
+            'http://localhost:6767': {
+              'api/{endpoint}': {}
+            }
+          }
+        }})
+      }, 'Purest: __path key is required!')
+    })
+    it('config: missing __path.alias key', () => {
+      t.throws(() => {
+        var provider = purest({provider: 'purest',
+          config: {purest: {
+            'http://localhost:6767': {
+              'api/{endpoint}': {
+                __path: {}
+              }
+            }
+          }
+        }})
+      }, 'Purest: __path.alias key is required!')
+    })
+
+    it('non existing alias', () => {
+      t.throws(() => {
+        var provider = purest({provider: 'purest', api: 'test',
+          config: {purest: {
+            'http://localhost:6767': {
+              'api/{endpoint}': {
+                __path: {alias: 'name'}
+              }
+            }
+          }
+        }})
+      }, 'Purest: non existing alias!')
     })
   })
 })
