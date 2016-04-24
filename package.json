@@ -18,31 +18,31 @@
     "url": "https://github.com/simov/purest.git"
   },
   "dependencies": {
-    "extend": "^3.0.0"
+    "extend": "^3.0.0",
+    "@purest/config": "^0.1.0",
+    "@request/api": "^0.2.0"
   },
   "devDependencies": {
-    "request": "^2.60.0",
-    "mocha": "^2.2.5",
-    "should": "^6.0.3",
-    "istanbul": "^0.3.14",
-    "coveralls": "^2.11.2",
-    "codecov.io": "^0.1.5",
-    "eslint": "^0.19.0",
-    "base64-url": "^1.0.0"
+    "@request/client": "^0.1.0",
+    "@request/oauth": "^0.1.0",
+    "bluebird": "^3.3.5",
+    "coveralls": "^2.11.9",
+    "eslint": "^2.7.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "request": "^2.72.0"
   },
-  "main": "./index",
+  "main": "index.js",
   "files": [
-    "config/",
     "lib/",
-    "CHANGELOG.md",
     "LICENSE",
     "README.md",
     "index.js"
   ],
   "scripts": {
-    "test": "npm run lint-lib && npm run test-ci",
+    "test": "npm run lint && npm run test-ci",
     "test-ci": "mocha test/",
-    "test-cov": "istanbul cover _mocha test/",
-    "lint": "eslint && echo Lint Passed"
+    "test-cov": "istanbul cover _mocha",
+    "lint": "eslint lib/ test/ && echo Lint Passed"
   }
 }
