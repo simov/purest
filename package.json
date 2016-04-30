@@ -26,6 +26,7 @@
     "@request/client": "^0.1.0",
     "@request/oauth": "^0.1.0",
     "bluebird": "^3.3.5",
+    "codecov.io": "^0.1.6",
     "coveralls": "^2.11.9",
     "eslint": "^2.9.0",
     "eslint-config-standard": "^5.2.0",
