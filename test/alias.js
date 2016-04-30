@@ -27,7 +27,7 @@ describe('alias', () => {
     provider
       .select('http://localhost:6767')
       .where({a: 1})
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/?a=1')
         done()
       })
@@ -44,7 +44,7 @@ describe('alias', () => {
     provider
       .select('user/profile')
       .where({a: 1})
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1')
         done()
       })
@@ -65,7 +65,7 @@ describe('alias', () => {
       .query('uploads')
       .select('picture')
       .where({a: 1})
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/api/uploads/picture?a=1')
         done()
       })
@@ -86,7 +86,7 @@ describe('alias', () => {
       .query('images')
       .select('picture')
       .where({a: 1})
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/api/uploads/picture?a=1')
         done()
       })

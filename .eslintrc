@@ -1,39 +1,23 @@
 {
-  env: {
-    node: true
+  extends: 'standard',
+
+  // Mocha
+  globals: {
+    describe: true,
+    before: true,
+    it: true,
+    after: true
   },
-  parserOptions: {
-    ecmaVersion: 6
-  },
+
+  // Almost Standard
   rules: {
-    // Enforces spacing around commas
-    comma-spacing: [2, {'before': false, 'after': true}],
+    // Block must not be padded by blank lines - Why not?
+    'padded-blocks': 'off',
 
-    // Require Following Curly Brace Conventions
-    curly: [2, 'all'],
+    // More than 1 blank line not allowed - Why not?
+    'no-multiple-empty-lines': 'off',
 
-    // Require === and !==
-    eqeqeq: [2, 'smart'],
-
-    // Validate Indentation
-    indent: [2, 2],
-
-    // Enforce Property Spacing
-    key-spacing: [2, {'beforeColon': false, 'afterColon': true}],
-
-    // Enforce Quote Style
-    quotes: [2, 'single'],
-
-    // Enforce or Disallow Semicolons
-    semi: [2, 'never'],
-
-    // Require Or Disallow Space Before Blocks
-    space-before-blocks: [2, 'always'],
-
-    // Require or disallow a space before function parenthesis
-    space-before-function-paren: [2, 'always'],
-
-    // Require Spaces Around Infix Operators
-    space-infix-ops: [2, {'int32Hint': true}]
+    // Closing curly brace does not appear on the same line as the subsequent block - Not going to happen. Much more readable to have `else if (condition)` on new line.
+    'brace-style': [2, 'stroustrup']
   }
 }

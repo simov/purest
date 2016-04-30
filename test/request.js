@@ -69,7 +69,7 @@ describe('request', () => {
       }}})
       provider
         .select('me')
-        .request((err, res, body) => {
+        .request((_err, res, body) => {
           t.deepEqual(body, {a: 1})
           done()
         })
@@ -87,7 +87,7 @@ describe('request', () => {
       }}})
       provider
         .select('me')
-        .request((err, res, body) => {
+        .request((_err, res, body) => {
           t.deepEqual(body, {a: 1})
           done()
         })
@@ -128,7 +128,7 @@ describe.skip('before hook', () => {
     }}})
     provider
       .select('me')
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/api/me?a=1')
         done()
       })

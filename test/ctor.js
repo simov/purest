@@ -29,7 +29,7 @@ describe('ctor', () => {
       provider
         .select('me')
         .where({a: 1})
-        .request((err, res, body) => {
+        .request((_err, res, body) => {
           t.equal(body, '/api/1.0/me.xml?a=1')
           done()
         })
@@ -62,7 +62,7 @@ describe('ctor', () => {
       provider
         .select('me')
         .oauth({token: 'token', secret: 'secret'})
-        .request((err, res, body) => {
+        .request((_err, res, body) => {
           t.ok(/oauth_consumer_key="key"/.test(body))
           t.ok(/oauth_token="token"/.test(body))
           done()
@@ -96,7 +96,7 @@ describe('ctor', () => {
       provider
         .select('me')
         .qs({b: 3, c: 4})
-        .request((err, res, body) => {
+        .request((_err, res, body) => {
           t.equal(body, '/api/me?a=1&b=3&c=4')
           done()
         })
@@ -145,7 +145,7 @@ describe('ctor', () => {
         .gimme('me')
         .search({a: 1})
         .method(2)
-        .snatch((err, res, body) => {
+        .snatch((_err, res, body) => {
           t.equal(body, '/api/me?a=1&b=2')
           done()
         })
@@ -160,23 +160,23 @@ describe('ctor', () => {
 
     it('missing provider option', () => {
       t.throws(() => {
-        var provider = purest()
+        purest()
       }, 'Purest: provider option is required!')
     })
     it('missing config option', () => {
       t.throws(() => {
-        var provider = purest({provider: 'purest'})
+        purest({provider: 'purest'})
       }, 'Purest: config option is required!')
     })
     it('missing config option', () => {
       t.throws(() => {
-        var provider = purest({provider: 'purest', config: {}})
+        purest({provider: 'purest', config: {}})
       }, 'Purest: non existing provider!')
     })
 
     it('config: missing __path key', () => {
       t.throws(() => {
-        var provider = purest({provider: 'purest',
+        purest({provider: 'purest',
           config: {purest: {
             'http://localhost:6767': {
               'api/{endpoint}': {}
@@ -187,7 +187,7 @@ describe('ctor', () => {
     })
     it('config: missing __path.alias key', () => {
       t.throws(() => {
-        var provider = purest({provider: 'purest',
+        purest({provider: 'purest',
           config: {purest: {
             'http://localhost:6767': {
               'api/{endpoint}': {
@@ -201,7 +201,7 @@ describe('ctor', () => {
 
     it('non existing alias', () => {
       t.throws(() => {
-        var provider = purest({provider: 'purest', api: 'test',
+        purest({provider: 'purest', api: 'test',
           config: {purest: {
             'http://localhost:6767': {
               'api/{endpoint}': {

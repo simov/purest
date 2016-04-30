@@ -66,7 +66,7 @@ describe('response', () => {
 
   describe('JSONP', () => {
     it('content-encoding: application/json', () => {
-      transform.callback((err, res, body) => {
+      transform.callback((_err, res, body) => {
         t.deepEqual(body, {a: 1})
       })(
         null,
@@ -75,7 +75,7 @@ describe('response', () => {
       )
     })
     it('content-type: text/javascript', () => {
-      transform.callback((err, res, body) => {
+      transform.callback((_err, res, body) => {
         t.deepEqual(body, {a: 1})
       })(
         null,
@@ -84,7 +84,7 @@ describe('response', () => {
       )
     })
     it('content-type: application/json', () => {
-      transform.callback((err, res, body) => {
+      transform.callback((_err, res, body) => {
         t.deepEqual(body, {a: 1})
       })(
         null,

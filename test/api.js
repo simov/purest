@@ -26,35 +26,35 @@ describe('basic', () => {
     })
 
     it('url, options, callback', (done) => {
-      provider('user/profile', {qs: {a: 1}}, (err, res, body) => {
+      provider('user/profile', {qs: {a: 1}}, (_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1')
         done()
       })
     })
 
     it('url, options', (done) => {
-      provider('user/profile', {qs: {a: 1}, callback: (err, res, body) => {
+      provider('user/profile', {qs: {a: 1}, callback: (_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1')
         done()
       }})
     })
 
     it('url, callback', (done) => {
-      provider('user/profile', (err, res, body) => {
+      provider('user/profile', (_err, res, body) => {
         t.equal(body, '/api/user/profile')
         done()
       })
     })
 
     it('options, callback', (done) => {
-      provider({url: 'user/profile', qs: {a: 1}}, (err, res, body) => {
+      provider({url: 'user/profile', qs: {a: 1}}, (_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1')
         done()
       })
     })
 
     it('options', (done) => {
-      provider({url: 'user/profile', qs: {a: 1}, callback: (err, res, body) => {
+      provider({url: 'user/profile', qs: {a: 1}, callback: (_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1')
         done()
       }})
@@ -77,7 +77,7 @@ describe('basic', () => {
     })
 
     it('url, options, callback', (done) => {
-      provider.post('user/profile', {qs: {a: 1}}, (err, res, body) => {
+      provider.post('user/profile', {qs: {a: 1}}, (_err, res, body) => {
         t.equal(body, 'POST /api/user/profile?a=1')
         done()
       })
@@ -111,7 +111,7 @@ describe('query', () => {
       .get('user/profile')
       .qs({a: 1})
       .options({qs: {b: 2}})
-      .request((err, res, body) => {
+      .request((_err, res, body) => {
         t.equal(body, '/api/user/profile?a=1&b=2')
         done()
       })
