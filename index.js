@@ -1,8 +1,7 @@
 
 var Config = require('@purest/config')
-var basic = require('./lib/basic-api')
-var query = require('./lib/query-api')
 var Request = require('./lib/request')
+var api = require('./lib/api')
 
 
 module.exports = (deps) => (options) => {
@@ -32,11 +31,5 @@ module.exports = (deps) => (options) => {
   }
 
   var request = Request(deps, options, config)
-
-  if (options.api === 'basic') {
-    return basic(options, request)
-  }
-  else {
-    return query(options, config, request)
-  }
+  return api(options, config, request)
 }
