@@ -26,7 +26,7 @@ describe('request', () => {
         })
     })
     it('promise', (done) => {
-      var purest = Purest(client, Promise)
+      var purest = Purest({request: client, promise: Promise})
       var provider = purest({provider: 'purest',
       config: {purest: {
         'http://localhost:6767': {
@@ -58,7 +58,7 @@ describe('request', () => {
     })
 
     it('request next', (done) => {
-      var purest = Purest(client)
+      var purest = Purest({request: client})
       var provider = purest({provider: 'purest',
       config: {purest: {
         'http://localhost:6767': {
@@ -76,7 +76,7 @@ describe('request', () => {
     })
 
     it('request legacy', (done) => {
-      var purest = Purest(request)
+      var purest = Purest({request: request})
       var provider = purest({provider: 'purest',
       config: {purest: {
         'http://localhost:6767': {

@@ -3,6 +3,7 @@ var t = require('assert')
 var http = require('http')
 var client = require('@request/client')
 var bluebird = require('bluebird')
+var Purest = require('../')
 
 
 describe('promise', () => {
@@ -21,7 +22,7 @@ describe('promise', () => {
     var provider
 
     before(() => {
-      var purest = require('../')(client, Promise)
+      var purest = Purest({request: client, promise: Promise})
       provider = purest({provider: 'purest', config: {purest: {
         'http://localhost:6767': {
           'api/{endpoint}': {
@@ -67,7 +68,7 @@ describe('promise', () => {
     var provider
 
     before(() => {
-      var purest = require('../')(client, bluebird)
+      var purest = Purest({request: client, promise: bluebird})
       provider = purest({provider: 'purest', config: {purest: {
         'http://localhost:6767': {
           'api/{endpoint}': {

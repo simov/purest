@@ -18,9 +18,10 @@
     "url": "https://github.com/simov/purest.git"
   },
   "dependencies": {
-    "extend": "^3.0.0",
     "@purest/config": "^0.1.0",
-    "@request/api": "^0.4.0"
+    "@request/api": "^0.4.0",
+    "deep-copy": "^1.1.2",
+    "extend": "^3.0.0"
   },
   "devDependencies": {
     "@request/client": "^0.1.0",
@@ -39,6 +40,7 @@
   "main": "index.js",
   "files": [
     "lib/",
+    "CHANGELOG.md",
     "LICENSE",
     "README.md",
     "index.js"

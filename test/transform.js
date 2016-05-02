@@ -1,31 +1,31 @@
 
 var t = require('assert')
-var _transform = require('../lib/transform')
+var transform = require('../lib/transform')
 
 
 describe('oauth', () => {
   it('ctor key/secret only (hackpad)', () => {
-    var transform = _transform({key: 'key', secret: 'secret'})
+    var ctor = {key: 'key', secret: 'secret'}
     var options = {}
-    transform.oauth(options)
+    transform.oauth(ctor, options)
     t.deepEqual(options, {oauth: {
       consumer_key: 'key',
       consumer_secret: 'secret'
     }})
   })
   it('request consumer_key/consumer_secret overrides ctor key/secret', () => {
-    var transform = _transform({key: 'key', secret: 'secret'})
+    var ctor = {key: 'key', secret: 'secret'}
     var options = {oauth: {consumer_key: 'key2', consumer_secret: 'secret2'}}
-    transform.oauth(options)
+    transform.oauth(ctor, options)
     t.deepEqual(options, {oauth: {
       consumer_key: 'key2', consumer_secret: 'secret2'
     }})
   })
 
   it('access token_secret', () => {
-    var transform = _transform({key: 'key', secret: 'secret'})
+    var ctor = {key: 'key', secret: 'secret'}
     var options = {oauth: {token: 'token', token_secret: 'secret'}}
-    transform.oauth(options)
+    transform.oauth(ctor, options)
     t.deepEqual(options, {oauth: {
       consumer_key: 'key',
       consumer_secret: 'secret',
@@ -34,9 +34,9 @@ describe('oauth', () => {
     }})
   })
   it('access secret', () => {
-    var transform = _transform({key: 'key', secret: 'secret'})
+    var ctor = {key: 'key', secret: 'secret'}
     var options = {oauth: {token: 'token', secret: 'secret'}}
-    transform.oauth(options)
+    transform.oauth(ctor, options)
     t.deepEqual(options, {oauth: {
       consumer_key: 'key',
       consumer_secret: 'secret',
@@ -47,11 +47,6 @@ describe('oauth', () => {
 })
 
 describe('response', () => {
-  var transform
-
-  before(() => {
-    transform = _transform()
-  })
 
   it('return body as err on error status code', () => {
     transform.callback((err, res, body) => {

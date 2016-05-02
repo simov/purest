@@ -1,11 +1,11 @@
 
-var _config = require('@purest/config')
-var _basic = require('./lib/basic-api')
-var _query = require('./lib/query-api')
-var _request = require('./lib/request')
+var Config = require('@purest/config')
+var basic = require('./lib/basic-api')
+var query = require('./lib/query-api')
+var Request = require('./lib/request')
 
 
-module.exports = (client, promise) => (options) => {
+module.exports = (deps) => (options) => {
 
   var config
 
@@ -15,7 +15,7 @@ module.exports = (client, promise) => (options) => {
 
   if (options.config) {
     if (options.config[options.provider]) {
-      config = _config(options, options.config[options.provider])
+      config = Config(options, options.config[options.provider])
     }
     else {
       throw new Error('Purest: non existing provider!')
@@ -31,12 +31,12 @@ module.exports = (client, promise) => (options) => {
     }
   }
 
-  var request = _request(client, promise, options, config)
+  var request = Request(deps, options, config)
 
   if (options.basic) {
-    return _basic(request, options.defaults)
+    return basic(options, request)
   }
   else {
-    return _query(options, config, request, options.defaults)
+    return query(options, config, request)
   }
 }

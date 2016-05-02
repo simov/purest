@@ -1,8 +1,9 @@
 
 var t = require('assert')
 var http = require('http')
-var client = require('@request/client')
-var purest = require('../')(client)
+var purest = require('../')({
+  request: require('@request/client')
+})
 
 
 describe('alias', () => {
