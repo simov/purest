@@ -6,8 +6,8 @@ var purest = require('../')({
 })
 
 
-describe('basic', () => {
-  var provider = purest({basic: true, provider: 'purest', config: {purest: {
+describe.skip('basic', () => {
+  var provider = purest({api: 'basic', provider: 'purest', config: {purest: {
     'http://localhost:6767': {
       'api/{endpoint}': {
         __path: {alias: '__default'}

@@ -33,7 +33,7 @@ module.exports = (deps) => (options) => {
 
   var request = Request(deps, options, config)
 
-  if (options.basic) {
+  if (options.api === 'basic') {
     return basic(options, request)
   }
   else {
