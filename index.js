@@ -25,8 +25,8 @@ module.exports = (deps) => (options) => {
     throw new Error('Purest: config option is required!')
   }
 
-  if (options.api) {
-    if (!config.aliases || !config.aliases[options.api]) {
+  if (options.alias) {
+    if (!config.aliases || !config.aliases[options.alias]) {
       throw new Error('Purest: non existing alias!')
     }
   }

@@ -33,7 +33,7 @@
     "end"      : []
   },
   "custom": {
-    "api"      : ["query", "config"],
+    "alias"    : ["query", "config", "api"],
     "auth"     : ["token"],
     "options"  : [],
     "request"  : []

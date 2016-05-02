@@ -17,8 +17,8 @@ describe('ctor', () => {
       server.listen(6767, done)
     })
 
-    it('api, subdomain, subpath, version, type', (done) => {
-      var provider = purest({provider: 'purest', api: 'test',
+    it('alias, subdomain, subpath, version, type', (done) => {
+      var provider = purest({provider: 'purest', alias: 'test',
       subdomain: 'localhost', subpath: 'api', version: '1.0', type: 'xml',
       config: {purest: {
         'http://[subdomain]:6767': {
@@ -202,7 +202,7 @@ describe('ctor', () => {
 
     it('non existing alias', () => {
       t.throws(() => {
-        purest({provider: 'purest', api: 'test',
+        purest({provider: 'purest', alias: 'test',
           config: {purest: {
             'http://localhost:6767': {
               'api/{endpoint}': {
