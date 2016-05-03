@@ -9,7 +9,7 @@ var Purest = require('../')
 describe('request', () => {
   describe('throw', () => {
     it('callback', (done) => {
-      var purest = Purest(client)
+      var purest = Purest({request: client})
       var provider = purest({provider: 'purest',
       config: {purest: {
         'http://localhost:6767': {
