@@ -1,40 +1,14 @@
 {
   "method": {
-    "get"      : ["select"],
-    "post"     : [],
-    "put"      : [],
-    "patch"    : [],
-    "head"     : [],
-    "trace"    : [],
-    "options"  : [],
-    "delete"   : []
+    "get"      : ["select"]
   },
   "option": {
-    "qs"       : ["where"],
-    "form"     : [],
-    "json"     : [],
-    "body"     : [],
-    "formData" : [],
-    "multipart": [],
-    "auth"     : [],
-    "oauth"    : [],
-    "headers"  : [],
-    "gzip"     : [],
-    "encoding" : [],
-    "cookie"   : [],
-    "length"   : [],
-    "redirect" : [],
-    "timeout"  : [],
-    "proxy"    : [],
-    "tunnel"   : [],
-    "parse"    : [],
-    "stringify": [],
-    "callback" : [],
-    "end"      : []
+    "qs"       : ["where"]
   },
   "custom": {
-    "alias"    : ["query", "config", "api"],
+    "alias"    : ["query", "api"],
     "auth"     : ["token"],
+    "oauth"    : [],
     "options"  : [],
     "request"  : []
   }
