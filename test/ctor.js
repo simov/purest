@@ -124,14 +124,13 @@ describe('ctor', () => {
         option: {qs: ['search']},
         custom: {request: ['snatch'], method: []},
         define: {
-          method: function (arg) {
-            if (this._options.qs) {
-              this._options.qs.b = arg
+          method: (options, arg) => {
+            if (options.qs) {
+              options.qs.b = arg
             }
             else {
-              this._options.qs = {b: arg}
+              options.qs = {b: arg}
             }
-            return this
           }
         }
       },
