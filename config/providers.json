@@ -1594,6 +1594,20 @@
       }
     }
   },
+  "microsoft": {
+    "https://graph.microsoft.com": {
+      "__domain": {
+        "auth": {
+          "auth": {"bearer": "[0]"}
+        }
+      },
+      "{endpoint}": {
+        "__path": {
+          "alias": "__default"
+        }
+      }
+    }
+  },
   "mixcloud": {
     "https://api.mixcloud.com": {
       "__domain": {
