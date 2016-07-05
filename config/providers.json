@@ -1601,9 +1601,10 @@
           "auth": {"bearer": "[0]"}
         }
       },
-      "{endpoint}": {
+      "[version]/{endpoint}": {
         "__path": {
-          "alias": "__default"
+          "alias": "__default",
+          "version": "v1.0"
         }
       }
     }
