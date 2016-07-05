@@ -1607,6 +1607,13 @@
           "version": "v1.0"
         }
       }
+    },
+    "https://login.microsoftonline.com": {
+      "common/oauth2/{endpoint}": {
+        "__path": {
+          "alias": "oauth"
+        }
+      }
     }
   },
   "mixcloud": {
