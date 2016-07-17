@@ -34,7 +34,7 @@ req
   [npm-version]: https://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Package Version)
   [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status - Travis CI)
   [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage - Coveralls)
-  [codecov-status]: https://img.shields.io/codecov/c/github/simov/purest.svg?style=flat-square (Test Coverage - Codecov)
+  [codecov-status]: https://img.shields.io/codecov/c/github/simov/purest/master.svg?style=flat-square (Test Coverage - Codecov)
 
   [npm]: https://www.npmjs.com/package/purest
   [travis]: https://travis-ci.org/simov/purest
