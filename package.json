@@ -18,7 +18,7 @@
     "url": "https://github.com/simov/purest.git"
   },
   "dependencies": {
-    "@purest/config": "^0.1.0",
+    "@purest/config": "^1.0.0",
     "@request/api": "^0.6.0",
     "extend": "^3.0.0"
   },
