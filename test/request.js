@@ -97,4 +97,62 @@ describe('request', () => {
       server.close(done)
     })
   })
+
+  describe('defer', () => {
+    var server, provider
+
+    function init (promise) {
+      var purest = Purest({request: client, promise})
+      provider = purest({provider: 'purest', config: {purest: {
+        'http://localhost:6767': {
+          'api/{endpoint}': {
+            __path: {
+              alias: '__default',
+              auth: {auth: {bearer: '[0]'}}
+            }
+          }
+        }
+      }}, methods: {custom: {refresh: []}, define: {refresh: (options) => {
+        options.defer = (done) => {
+          process.nextTick(() => {
+            options.auth.bearer = 't2'
+            done()
+          })
+        }
+      }}}})
+    }
+
+    before((done) => {
+      server = http.createServer()
+      server.on('request', (req, res) => res.end(req.headers.authorization))
+      server.listen(6767, done)
+    })
+
+    it('request with callback', (done) => {
+      init()
+      provider
+        .get('user/profile')
+        .auth('t1')
+        .refresh()
+        .request((_err, res, body) => {
+          t.equal(body, 'Bearer t2')
+          done()
+        })
+    })
+    it('promise', (done) => {
+      init(Promise)
+      provider
+        .get('user/profile')
+        .auth('t1')
+        .refresh()
+        .request()
+        .then((result) => {
+          t.equal(result[1], 'Bearer t2')
+          done()
+        })
+        .catch(done)
+    })
+
+    after((done) => server.close(done))
+  })
 })
