@@ -1,6 +1,12 @@
 
 # Change Log
 
+## v3.1.0 (2016/12/21)
+- defer option
+
+## v3.0.1 (2016/07/17)
+- fix absolute url detection
+
 ## v3.0.0 (2016/07/17)
 
 - [Breaking Changes](https://simov.gitbooks.io/purest/content/)
