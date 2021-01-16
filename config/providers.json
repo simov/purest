@@ -1,0 +1,607 @@
+{
+  "asana": {
+    "default": {
+      "domain": "https://app.asana.com",
+      "path": "api/{version}/{path}",
+      "version": "1.0",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://app.asana.com",
+      "path": "-/oauth_{path}"
+    }
+  },
+  "bitly": {
+    "default": {
+      "domain": "https://api-ssl.bitly.com",
+      "path": "{version}/{path}",
+      "version": "v3",
+      "qs": {
+        "access_token": "Bearer $auth"
+      }
+    }
+  },
+  "bitbucket": {
+    "default": {
+      "domain": "https://api.bitbucket.org",
+      "path": "{version}/{path}",
+      "version": "2.0",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      }
+    }
+  },
+  "box": {
+    "default": {
+      "domain": "https://api.box.com",
+      "path": "{version}/{path}",
+      "version": "2.0",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.box.com",
+      "path": "oauth2/{path}",
+    }
+  },
+  "buffer": {
+    "default": {
+      "domain": "https://api.bufferapp.com",
+      "path": "{version}/{path}.{type}",
+      "version": "1",
+      "type": "json",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  },
+  "coinbase": {
+    "default": {
+      "domain": "https://api.coinbase.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://www.coinbase.com",
+      "path": "oauth/{path}"
+    }
+  },
+  "digitalocean": {
+    "default": {
+      "domain": "https://api.digitalocean.com",
+      "path": "{version}/{path}",
+      "version": "v2",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://cloud.digitalocean.com",
+      "path": "{version}/oauth/{path}",
+      "version": "v1"
+    }
+  },
+  "disqus": {
+    "default": {
+      "domain": "https://disqus.com",
+      "path": "api/{version}/{path}.{type}",
+      "version": "3.0",
+      "type": "json",
+      "qs": {
+        "api_key": "$auth"
+      },
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://disqus.com",
+      "path": "api/oauth/{version}/access_{path}/",
+      "version": "2.0"
+    }
+  },
+  "dropbox": {
+    "default": {
+      "domain": "https://api.dropbox.com",
+      "path": "{version}/{path}",
+      "version": "1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  },
+  "eventbrite": {
+    "default": {
+      "domain": "https://www.eventbriteapi.com",
+      "path": "{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  },
+  "facebook": {
+    "default": {
+      "domain": "https://graph.facebook.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://graph.facebook.com",
+      "path": "oauth/access_{path}"
+    }
+  },
+  "flickr": {
+    "default": {
+      "domain": "https://api.flickr.com",
+      "path": "services/rest/{path}",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      },
+      "qs": {
+        "format": "json"
+      }
+    },
+    "upload": {
+      "domain": "https://up.flickr.com",
+      "path": "services/upload/{path}",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      }
+    }
+  },
+  "foursquare": {
+    "default": {
+      "domain": "https://api.foursquare.com",
+      "path": "{version}/{path}",
+      "version": "v2",
+      "qs": {
+        "oauth_token": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "",
+      "path": ""
+    }
+  },
+  "github": {
+    "default": {
+      "domain": "https://api.github.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth",
+        "user-agent": "purest"
+      }
+    },
+    "oauth": {
+      "domain": "https://github.com",
+      "path": "login/oauth/access_{path}"
+    }
+  },
+  "gitlab": {
+    "default": {
+      "domain": "https://gitlab.com",
+      "path": "api/{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://gitlab.com",
+      "path": "oauth/{path}"
+    }
+  },
+  "google": {
+    "default": {
+      "domain": "https://www.googleapis.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "drive": {
+      "domain": "https://www.googleapis.com",
+      "path": "drive/{version}/{path}",
+      "version": "v2",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "gmail": {
+      "domain": "https://www.googleapis.com",
+      "path": "gmail/{version}/{path}",
+      "version": "v1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "youtube": {
+      "domain": "https://www.googleapis.com",
+      "path": "youtube/{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "gmaps": {
+      "domain": "https://maps.googleapis.com",
+      "path": "maps/api/{path}",
+      "qs": {
+        "key": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://accounts.google.com",
+      "path": "o/oauth2/{path}"
+    },
+    "contacts": {
+      "domain": "https://www.google.com",
+      "path": "m8/feeds/{path",
+      "headers": {
+        "authorization": "Bearer $auth",
+        "GData-Version": "3.0"
+      },
+      "qs": {
+        "alt": "json"
+      }
+    }
+  },
+  "heroku": {
+    "default": {
+      "domain": "https://api.heroku.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://id.heroku.com",
+      "path": "oauth/{path}"
+    }
+  },
+  "imgur": {
+    "default": {
+      "domain": "https://api.imgur.com",
+      "path": "{version}/{path}.{type}",
+      "version": "3",
+      "type": "json",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.imgur.com",
+      "path": "oauth2/{path}"
+    }
+  },
+  "instagram": {
+    "default": {
+      "domain": "https://graph.instagram.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  },
+  "linkedin": {
+    "default": {
+      "domain": "https://api.linkedin.com",
+      "path": "{version}/{path}",
+      "version": "v2",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://www.linkedin.com",
+      "path": "oauth/{version}/accessToken",
+      "version": "v2"
+    }
+  },
+  "mailchimp": {
+    "default": {
+      "domain": "https://{subdomain}.api.mailchimp.com",
+      "path": "{version}/{path}.{type}",
+      "version": "2.0",
+      "type": "json",
+      "qs": {
+        "apikey": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://login.mailchimp.com",
+      "path": "oauth2/{path}"
+    }
+  },
+  "mailgun": {
+    "default": {
+      "domain": "https://api.mailgun.net",
+      "path": "{version}/{path}",
+      "version": "v2",
+      "auth": {
+        "user": "$auth",
+        "pass": "$auth"
+      }
+    }
+  },
+  "meetup": {
+    "default": {
+      "domain": "https://api.meetup.com",
+      "path": "{version}/{path}",
+      "version": "2",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://secure.meetup.com",
+      "path": "oauth2/access"
+    }
+  },
+  "microsoft": {
+    "default": {
+      "domain": "https://graph.microsoft.com",
+      "path": "{version}/{path}",
+      "version": "v1.0",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://login.microsoftonline.com",
+      "path": "common/oauth2/{path}"
+    }
+  },
+  "paypal": {
+    "default": {
+      "domain": "https://api.paypal.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.paypal.com",
+      "path": "{version}/identity/openidconnect/{path}service",
+      "version": "v1"
+    }
+  },
+  "reddit": {
+    "default": {
+      "domain": "https://api.reddit.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://ssl.reddit.com",
+      "path": "api/{version}/access_{path}",
+      "version": "v1"
+    }
+  },
+  "rubygems": {
+    "default": {
+      "domain": "https://rubygems.org",
+      "path": "api/{version}/{path}.{type}",
+      "version": "v1",
+      "headers": {
+        "Authorization": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "",
+      "path": ""
+    }
+  },
+  "salesforce": {
+    "default": {
+      "domain": "https://{subdomain}.salesforce.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://login.salesforce.com",
+      "path": "services/oauth2/{path}"
+    }
+  },
+  "sendgrid": {
+    "default": {
+      "domain": "https://api.sendgrid.com",
+      "path": "api/{path}.{type}",
+      "type": "json",
+      "qs": {
+        "api_user": "$auth",
+        "api_key": "$auth"
+      }
+    }
+  },
+  "slack": {
+    "default": {
+      "domain": "https://slack.com",
+      "path": "api/{path}",
+      "version": "",
+      "qs": {
+        "token": "$auth"
+      }
+    }
+  },
+  "soundcloud": {
+    "default": {
+      "domain": "https://api.soundcloud.com",
+      "path": "{path}.{type}",
+      "type": "json",
+      "qs": {
+        "oauth_token": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.soundcloud.com",
+      "path": "oauth2/{path}"
+    }
+  },
+  "spotify": {
+    "default": {
+      "domain": "https://api.spotify.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://accounts.spotify.com",
+      "path": "api/{path}"
+    }
+  },
+  "stackexchange": {
+    "default": {
+      "domain": "https://api.stackexchange.com",
+      "path": "{version}/{path}",
+      "version": "2.2",
+      "qs": {
+        "key": "$auth",
+        "access_token": "$auth"
+      }
+    }
+  },
+  "stripe": {
+    "default": {
+      "domain": "https://api.stripe.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "auth": {
+        "user": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://connect.stripe.com",
+      "path": "oauth/{path}"
+    }
+  },
+  "trello": {
+    "default": {
+      "domain": "https://api.trello.com",
+      "path": "{version}/{path}",
+      "version": "1",
+      "qs": {
+        "key": "$auth",
+        "token": "$auth"
+      }
+    }
+  },
+  "twitch": {
+    "default": {
+      "domain": "https://api.twitch.tv",
+      "path": "kraken/{path}",
+      "version": "",
+      "headers": {
+        "Authorization": "OAuth $auth",
+        "Accept": "application/vnd.twitchtv.v2+json"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.twitch.tv",
+      "path": "kraken/oauth2/{path}"
+    }
+  },
+  "twitter": {
+    "default": {
+      "domain": "https://api.twitter.com",
+      "path": "{version}/{path}.{type}",
+      "version": "1.1",
+      "type": "json",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      }
+    }
+  },
+  "uber": {
+    "default": {
+      "domain": "https://{subdomain}.uber.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "subdomain": "api",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://login.uber.com",
+      "path": "oauth/{path}"
+    }
+  },
+  "upwork": {
+    "default": {
+      "domain": "https://www.upwork.com",
+      "path": "api/{path}.{type}",
+      "type": "json",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      }
+    }
+  },
+  "vimeo": {
+    "default": {
+      "domain": "https://api.vimeo.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth",
+        "Accepts": "application/vnd.vimeo.*+json;version=3.2"
+      }
+    }
+  },
+  "wordpress": {
+    "default": {
+      "domain": "https://public-api.wordpress.com",
+      "path": "rest/{version}/{path}",
+      "version": "v1",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  },
+  "yahoo": {
+    "default": {
+      "domain": "https://social.yahooapis.com",
+      "path": "{version}/{path}",
+      "version": "v1",
+      "oauth": {
+        "token": "$auth",
+        "token_secret": "$auth"
+      }
+    },
+    "oauth": {
+      "domain": "https://api.login.yahoo.com",
+      "path": "oauth/{version}/get_{path}",
+      "version": "v2"
+    }
+  },
+  "zoom": {
+    "default": {
+      "domain": "https://zoom.us",
+      "path": "{version}/{path}",
+      "version": "v2",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  }
+}

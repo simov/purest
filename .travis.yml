@@ -3,12 +3,17 @@ language: node_js
 
 node_js:
   - node
-  - 6
-  - 4
+  - 14
+  - 12
+  - 10
+  - 8
 
-after_script:
-  - npm run test-cov
-  - cat ./coverage/lcov.info | coveralls
-  - cat ./coverage/lcov.info | codecov
+jobs:
+  include:
+    - stage: coverage
+      node_js: 8
+      script:
+        - npm run test:cov
+        - cat ./coverage/lcov.info | coveralls
 
 sudo: false
