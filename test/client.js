@@ -83,6 +83,15 @@ describe('client', () => {
       })
       .request()
     t.equal(body, 'path')
+
+    var {res, body} = await client()
+      .get('path')
+      .headers({
+        authorization: 'Bearer token',
+        'user-agent': 'purest'
+      })
+      .request()
+    t.equal(body, 'path')
   })
 
   it('auth method', async () => {
@@ -141,6 +150,12 @@ describe('client', () => {
 
     var {res, body} = await client
       .endpoint('endpoint')
+      .get('path')
+      .auth('token')
+      .request()
+    t.equal(body, 'path')
+
+    var {res, body} = await client('endpoint')
       .get('path')
       .auth('token')
       .request()

@@ -14,17 +14,20 @@ var transform = {
 module.exports = function purest (ctor = {}) {
   ctor.config = ctor.config || require('./config/providers')
 
-  var client = compose(
-    (req) => transform.endpoint(ctor, req),
-    transform.alias,
-    transform.method,
-    transform.url,
-    transform.auth,
-    (req) =>
-      req.buffer ? compose.buffer(req) :
-      req.stream ? compose.stream(req) :
-      compose.client(req),
-  )
+  var client = (arg) =>
+    arg === undefined ? client :
+    typeof arg === 'string' ? client.endpoint(arg) :
+    compose(
+      (req) => transform.endpoint(ctor, req),
+      transform.alias,
+      transform.method,
+      transform.url,
+      transform.auth,
+      (req) =>
+        req.buffer ? compose.buffer(req) :
+        req.stream ? compose.stream(req) :
+        compose.client(req),
+    )(arg)
 
   // same in lib/endpoint.js - probably move it here ..
   var methods = Object.assign(
