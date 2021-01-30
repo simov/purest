@@ -12,6 +12,7 @@ var transform = {
 }
 
 module.exports = function purest (ctor = {}) {
+  ctor.config = ctor.config || require('./config/providers')
 
   var client = compose(
     (req) => transform.endpoint(ctor, req),
@@ -51,6 +52,10 @@ module.exports = function purest (ctor = {}) {
     }
     else if (['auth'].concat(methods.auth).includes(name)) {
       client._options.auth = [].concat(value).concat(rest)
+      return client
+    }
+    else if (Object.keys(def.methods).includes(name) && value === undefined) {
+      client._options[name] = true
       return client
     }
     else {
