@@ -1,5 +1,5 @@
 
-var extend = require('extend')
+var extend = require('./lib/extend')
 var compose = require('./lib/client')
 var def = require('./config/methods')
 
@@ -45,7 +45,7 @@ module.exports = function purest (ctor = {}) {
         client._options[main[index]] = true
       }
 
-      var options = extend(true, {}, client._options, value || {})
+      var options = extend({}, client._options, value || {})
       client._options = {}
       return client(options)
     }
