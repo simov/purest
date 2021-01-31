@@ -58,7 +58,7 @@ describe('client', () => {
       config: {
         purest: {
           default: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}'
           }
         }
@@ -99,7 +99,7 @@ describe('client', () => {
       config: {
         purest: {
           default: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
               authorization: 'Bearer $auth',
@@ -129,7 +129,7 @@ describe('client', () => {
       config: {
         purest: {
           endpoint: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
               authorization: 'Bearer $auth',
@@ -167,7 +167,7 @@ describe('client', () => {
       config: {
         purest: {
           endpoint: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
               authorization: 'Bearer $auth',
@@ -199,7 +199,7 @@ describe('client', () => {
       config: {
         purest: {
           endpoint: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
               authorization: 'Bearer $auth',
@@ -232,7 +232,7 @@ describe('client', () => {
       config: {
         purest: {
           endpoint: {
-            domain: 'http://localhost:3000',
+            origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
               authorization: 'Bearer $auth',
