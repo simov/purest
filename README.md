@@ -9,29 +9,144 @@
 var purest = require('purest')
 var google = purest({provider: 'google'})
 
-;(async () => {
-  var {res, body} = await google
-    .query('youtube')
-    .select('channels')
-    .where({forUsername: 'PewDiePie'})
-    .auth('[ACCESS_TOKEN]')
-    .request()
-})()
+await google
+  .query('youtube')
+  .select('channels')
+  .where({forUsername: 'PewDiePie'})
+  .auth('[ACCESS_TOKEN]')
+  .request()
 ```
 
 
 ## Table of Contents
 
-> _This is documentation for Purest **v4**, for older releases take a look at [v3] and [v2]_
+> _This is Purest **v4**, for older releases take a look at [v3] and [v2]_
 
-- **Configuration**
-  - [Constructor](#configuration-constructor) / [Options](#configuration-options) / [Methods](#configuration-methods) / [Providers](#configuration-providers)
-- **Examples**
-- **[Changelog][changelog]**
+- **[Introduction](#introduction)**
+- **[Purest Options](#purest-options)**
+- **[Request Options](#request-options)**
+- **[Examples](#examples)**
 
 ---
 
-## Configuration: Constructor
+## Introduction
+
+> _**Purest** is a tool for creating **expressive** REST API clients_
+
+### Default Endpoint
+
+Here is a basic configuration for Google:
+
+```json
+{
+  "google": {
+    "default": {
+      "origin": "https://www.googleapis.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  }
+}
+```
+
+With it we can instantiate that provider:
+
+```js
+var google = purest({provider: 'google', config})
+```
+
+Then we can request some data from YouTube:
+
+```js
+var {res, body} = await google
+  .get('youtube/v3/channels')
+  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .auth(token)
+  .request()
+```
+
+### Explicit Endpoint
+
+We can define explicit endpoint for accessing YouTube:
+
+```json
+{
+  "google": {
+    "default": {
+      "origin": "https://www.googleapis.com",
+      "path": "{path}",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "youtube": {
+      "origin": "https://www.googleapis.com",
+      "path": "youtube/{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    }
+  }
+}
+```
+
+Then request the same data from YouTube:
+
+```js
+var {res, body} = await google('youtube')
+  .get('channels')
+  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .auth(token)
+  .request()
+```
+
+### Defaults
+
+Every method in Purest can also be passed as an option:
+
+```js
+var google = purest({provider: 'google', config,
+  defaults: {auth: token}
+})
+```
+
+Then we no longer need to set the access token for every request:
+
+```js
+var {res, body} = await google('youtube')
+  .get('channels')
+  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .request()
+```
+
+### Method Aliases
+
+But what if we want to make our API more expressive? What if we want to make it our own:
+
+```js
+var google = purest({provider: 'google', config,
+  defaults: {auth: token},
+  methods: {get: ['select'], qs: ['where']}
+})
+```
+
+Yes we can:
+
+```js
+var {res, body} = await google('youtube')
+  .select('channels')
+  .where({forUsername: 'PewDiePie', part: 'snippet'})
+  .request()
+```
+
+---
+
+## Purest Options
+
+> _**Purest** is a flexible tool for **abstracting** out REST APIs_
 
 ```js
 var google = purest({config: {}, provider: 'google', defaults: {}, methods: {}})
@@ -39,112 +154,112 @@ var google = purest({config: {}, provider: 'google', defaults: {}, methods: {}})
 
 Key | Type | Description
 :-| :-: | :-
-**`config`** | `{}` | Provider configuration to use instead of the built-in one
-**`provider`** | `''` | Provider name to initialize from the list of providers inside the `config`
-**`defaults`** | `{}` | Any supported configuration option, see below
+**`config`** | `{}` | Provider configuration to use
+**`provider`** | `''` | Provider name to initialize from the list of providers found in `config`
+**`defaults`** | `{}` | Any supported configuration option set by default, see below
 **`methods`** | `{}` | List of methods and their aliases to use with this instance
 
 ---
 
-## Configuration: Options
+## Request Options
 
-Key | Type | Description
-:-| :-: | :-
-***HTTP Verbs*** |
-**`get`** |
-**`head`** |
-**`post`** |
-**`put`** |
-**`patch`** |
-**`options`** |
-**`delete`** |
-**`trace`** |
-**`connect`** |
-***Request Options*** |
-**`method`** |
-**`headers`** |
-**`timeout`** |
-**`agent`** |
-**`url`** |
-**`proxy`** |
-**`qs`** |
-**`form`** |
-**`json`** |
-**`body`** |
-**`multipart`** |
-**`auth`** |
-**`oauth`** |
-**`encoding`** |
-**`redirect`** |
-**`request`** |
-**`buffer`** |
-**`stream`** |
-***URL Options*** |
-**`domain`** |
-**`path`** |
-**`subdomain`** |
-**`version`** |
-**`type`** |
-***Config Options*** |
-**`endpoint`** |
-**`auth`** |
+> _**Purest** is built on top of a **[powerful HTTP Client][request-compose]**_
 
----
+### URL Options
 
-## Configuration: Methods
+Option | Description
+:- | :-
+`origin` | The protocol and domain part of the URL, can contain `{subdomain}` token
+`path` | The path part of the URL, can contain `{version}`, `{path}` and `{type}` tokens
+`subdomain` | Subdomain part of the URL to replace in `origin`
+`version` | Version string to replace in `path`
+`type` | Type string to replace in `path`, typically `json` or `xml`
 
-All of the above options are also available as methods attached to every Purest instance.
+### HTTP Methods
 
-You can define your own method aliases:
+All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `connect` accept a string to replace the `{path}` configuration token with.
 
-```js
-var google = purest({provider: 'google', methods: {
-  get: ['fetch'],
-  post: ['update', 'set']
-}})
-google.fetch('...').request()
-google.update('...').request()
-```
+### Request Options
 
-Take a look at the [methods.json][] file.
+Option     | Type                  | Description
+:--        | :--                   | :--
+`method` | `'string'` | Request method, implicitly set if one of the above HTTP Methods is used
+`url`      | `'string'` [`url object`][url-parse] | Absolute URL, automatically constructed if the URL Options above are being used
+`proxy`    | `'string'` [`url object`][url-parse] | Proxy URL; for HTTPS you have to use tunneling agent instead
+`qs`       | `{object}` `'string'` | URL querystring
+`headers` | `{object}` | Request headers
+`form`     | `{object}` `'string'` | `application/x-www-form-urlencoded` request body
+`json`     | `{object}` `'string'` | JSON encoded request body
+`multipart`| `{object}` `[array]`  | `multipart/form-data` as object or `multipart/related` as array request body using [request-multipart]
+`body`     | `'string'` [`Buffer`][buffer] [`Stream`][stream-readable] | Raw request body
+`auth`     | `'string'` `['string', 'string']` `{user, pass}`        | String or array of strings to replace the `$auth` configuration token with, or Basic authorization as object
+`oauth`    | `{object}` | OAuth 1.0a authorization using [request-oauth]
+`encoding` | [`'string'`][buffer-encoding] | Response body encoding
+`redirect` | `{object}` | HTTP redirect [configuration][redirect-config]
+`timeout` | `number` | Request timeout in milliseconds
+`agent` | [`Agent`][agent] | HTTP agent
 
----
+### Response Options
 
-## Configuration: Providers
+`request`
+  - buffers the response body
+  - decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
+  - converts the response body to string using `utf8` encoding by default
+  - tries to parse `JSON` and `querystring` encoded bodies with valid `content-type` header
 
-```json
-{
-  "github": {
-    "default": {
-      "domain": "https://api.github.com",
-      "path": "{path}",
-      "headers": {
-        "authorization": "Bearer $auth",
-        "user-agent": "purest"
-      }
-    },
-    "oauth": {
-      "domain": "https://github.com",
-      "path": "login/oauth/access_{path}"
-    }
-  }
-}
-```
+Returns either String or Object.
+
+`buffer`
+  - buffers the response body
+  - decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
+
+Returns [Buffer][buffer].
+
+`stream`
+
+Returns the response [Stream][stream-incoming-message].
+
+### Node Core Options
+
+Any other HTTP request option not explicitly exposed in Purest can be passed using any of the response methods:
 
 ```js
-var github = purest({provider: 'github'})
-// get user profile
-await github
-  .get('users/simov')
-  .request()
-// refresh token
-await github
-  .query('oauth')
-  .post('token')
-  .request()
+await google.request({socketPath: ''})
+await google.buffer({socketPath: ''})
+await google.stream({socketPath: ''})
+```
+
+### Endpoint
+
+Explicit `endpoint` configuration can be accessed in various ways:
+
+```js
+// as argument to the Purest instance
+await google('youtube')
+// using the option name
+await google.endpoint('youtube')
+// or the default method alias for it
+await google.query('youtube')
 ```
 
 ---
+
+## Examples
+
+> _**Purest** comes with a **[fancy logger][request-logs]**_
+
+```bash
+npm i --save-dev request-logs
+```
+
+```bash
+DEBUG=req,res,body,json node examples/file-name.js 'example name'
+```
+
+| Topic | Example
+| :-    | :-
+| _**Storage**_ | Box, DropBox and Drive
+
 
   [npm-version]: https://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Package Version)
   [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status - Travis CI)
@@ -159,4 +274,19 @@ await github
   [v3]: https://github.com/simov/purest/tree/3.x
   [v2]: https://github.com/simov/purest/tree/2.x
 
+  [request-compose]: https://github.com/simov/request-compose
+  [request-oauth]: https://github.com/simov/request-oauth
+  [request-multipart]: https://github.com/simov/request-multipart
+  [request-cookie]: https://github.com/simov/request-cookie
+  [request-logs]: https://github.com/simov/request-logs
+
+  [redirect-config]: https://github.com/simov/request-compose#redirect
+
   [methods.json]: https://github.com/simov/purest/blob/master/config/methods.json
+
+  [url-parse]: https://nodejs.org/dist/latest-v10.x/docs/api/url.html#url_url_parse_urlstring_parsequerystring_slashesdenotehost
+  [buffer]: https://nodejs.org/dist/latest-v10.x/docs/api/buffer.html
+  [buffer-encoding]: https://nodejs.org/dist/latest-v10.x/docs/api/buffer.html#buffer_buffers_and_character_encodings
+  [stream-readable]: https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_class_stream_readable
+  [stream-incoming-message]: https://nodejs.org/dist/latest-v10.x/docs/api/http.html#http_class_http_incomingmessage
+  [agent]: https://nodejs.org/docs/latest-v10.x/api/http.html#http_class_http_agent
