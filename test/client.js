@@ -9,17 +9,24 @@ describe('client', () => {
   before((done) => {
     server = http.createServer()
     server.on('request', (req, res) => {
-      t.deepEqual(req.headers, {
-        authorization: 'Bearer token',
-        'user-agent': 'purest',
-        host: 'localhost:3000',
-        connection: 'close'
-      })
-      if (req.url === '/') {
-        res.end('hi')
+      if (req.method === 'GET') {
+        t.deepEqual(req.headers, {
+          authorization: 'Bearer token',
+          'user-agent': 'purest',
+          host: 'localhost:3000',
+          connection: 'close'
+        })
+        if (req.url === '/') {
+          res.end('hi')
+        }
+        else if (req.url === '/path') {
+          res.end('path')
+        }
       }
-      else if (req.url === '/path') {
-        res.end('path')
+      else if (req.method === 'POST') {
+        if (req.url === '/post') {
+          res.end('post')
+        }
       }
     })
     server.listen(3000, done)
@@ -55,6 +62,7 @@ describe('client', () => {
 
   it('default endpoint', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           default: {
@@ -62,8 +70,7 @@ describe('client', () => {
             path: '{path}'
           }
         }
-      },
-      provider: 'purest'
+      }
     })
 
     var {res, body} = await client({
@@ -96,6 +103,7 @@ describe('client', () => {
 
   it('auth method', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           default: {
@@ -107,8 +115,7 @@ describe('client', () => {
             }
           }
         }
-      },
-      provider: 'purest'
+      }
     })
 
     var {res, body} = await client({
@@ -126,6 +133,7 @@ describe('client', () => {
 
   it('explicit endpoint', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           endpoint: {
@@ -137,8 +145,7 @@ describe('client', () => {
             }
           }
         }
-      },
-      provider: 'purest'
+      }
     })
 
     var {res, body} = await client({
@@ -162,8 +169,33 @@ describe('client', () => {
     t.equal(body, 'path')
   })
 
+  it('empty path', async () => {
+    var client = purest({
+      provider: 'purest',
+      config: {
+        purest: {
+          default: {
+            origin: 'http://localhost:3000',
+            path: 'post'
+          }
+        }
+      }
+    })
+
+    var {res, body} = await client
+      .post()
+      .request()
+    t.equal(body, 'post')
+
+    var {res, body} = await client
+      .post('')
+      .request()
+    t.equal(body, 'post')
+  })
+
   it('method alias', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           endpoint: {
@@ -175,8 +207,7 @@ describe('client', () => {
             }
           }
         }
-      },
-      provider: 'purest'
+      }
     })
 
     var {res, body} = await client({
@@ -196,6 +227,7 @@ describe('client', () => {
 
   it('ctor defaults', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           endpoint: {
@@ -208,7 +240,6 @@ describe('client', () => {
           }
         }
       },
-      provider: 'purest',
       defaults: {
         auth: 'token'
       }
@@ -229,6 +260,7 @@ describe('client', () => {
 
   it('custom method alias', async () => {
     var client = purest({
+      provider: 'purest',
       config: {
         purest: {
           endpoint: {
@@ -241,7 +273,6 @@ describe('client', () => {
           }
         }
       },
-      provider: 'purest',
       defaults: {
         auth: 'token'
       },

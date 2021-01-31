@@ -16,8 +16,8 @@ var header =
   '\r\n' +
   'value\r\n' +
   '--XXX\r\n' +
-  'Content-Disposition: form-data; name="file"\r\n' +
-  'Content-Type: application/octet-stream\r\n' +
+  'Content-Disposition: form-data; name="file"; filename="cat.png"\r\n' +
+  'Content-Type: image/png\r\n' +
   '\r\n'
 var footer =
   '\r\n--XXX--'
@@ -106,9 +106,34 @@ describe('middleware', () => {
       headers: {'content-type': 'multipart/form-data; boundary=XXX'},
       multipart: {
         string: 'value',
-        file: fs.readFileSync(file.binary),
+        file: {
+          body: fs.readFileSync(file.binary),
+          options: {name: 'cat.png', type: 'image/png'}
+        },
       }
     })
+
+    var {res, body} = await client({
+      method: 'POST',
+      url: 'http://localhost:3000/multipart',
+      headers: {'content-type': 'multipart/form-data; boundary=XXX'},
+      multipart: {
+        string: 'value',
+        file: fs.createReadStream(file.binary)
+      }
+    })
+
+    // will fail if the reviver and the replacer in auth.js are missing
+    var {res, body} = await client
+      .url('http://localhost:3000/multipart')
+      .post()
+      .auth('token')
+      .headers({'content-type': 'multipart/form-data; boundary=XXX'})
+      .multipart({
+        string: 'value',
+        file: fs.createReadStream(file.binary)
+      })
+      .request()
   })
 
   it('logs', async () => {
