@@ -18,7 +18,7 @@
     "url": "https://github.com/simov/purest.git"
   },
   "dependencies": {
-    "extend": "^3.0.0",
+    "deep-extend": "github:simov/node-deep-extend#purest",
     "qs": "^6.9.6",
     "request-compose": "^2.1.0",
     "request-multipart": "^1.0.0",

@@ -1,5 +1,5 @@
 
-var extend = require('./lib/extend')
+var extend = require('deep-extend')
 var compose = require('./lib/client')
 var def = require('./config/methods')
 
