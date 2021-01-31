@@ -1,7 +1,7 @@
 {
   "23andme": {
     "default": {
-      "domain": "https://api.23andme.com",
+      "origin": "https://api.23andme.com",
       "path": "{version}/{path}",
       "version": "3",
       "headers": {
@@ -9,13 +9,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.23andme.com",
+      "origin": "https://api.23andme.com",
       "path": "{path}"
     }
   },
   "500px": {
     "default": {
-      "domain": "https://api.500px.com",
+      "origin": "https://api.500px.com",
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
@@ -26,7 +26,7 @@
   },
   "acton": {
     "default": {
-      "domain": "https://restapi.actonsoftware.com",
+      "origin": "https://restapi.actonsoftware.com",
       "path": "api/{version}/{path}",
       "version": "1",
       "headers": {
@@ -34,13 +34,13 @@
       }
     },
     "oauth": {
-      "domain": "https://restapi.actonsoftware.com",
+      "origin": "https://restapi.actonsoftware.com",
       "path": "{path}"
     }
   },
   "acuityscheduling": {
     "default": {
-      "domain": "https://acuityscheduling.com",
+      "origin": "https://acuityscheduling.com",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -48,13 +48,13 @@
       }
     },
     "oauth": {
-      "domain": "https://acuityscheduling.com",
+      "origin": "https://acuityscheduling.com",
       "path": "oauth2/{path}"
     }
   },
   "aha": {
     "default": {
-      "domain": "https://{subdomain}.aha.io",
+      "origin": "https://{subdomain}.aha.io",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -62,26 +62,26 @@
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.aha.io",
+      "origin": "https://{subdomain}.aha.io",
       "path": "oauth/{path}"
     }
   },
   "amazon": {
     "default": {
-      "domain": "https://api.amazon.com",
+      "origin": "https://api.amazon.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.amazon.com",
+      "origin": "https://api.amazon.com",
       "path": "auth/o2/{path}"
     }
   },
   "angellist": {
     "default": {
-      "domain": "https://api.angel.co",
+      "origin": "https://api.angel.co",
       "path": "{version}/{path}",
       "version": "1",
       "headers": {
@@ -89,39 +89,39 @@
       }
     },
     "oauth": {
-      "domain": "https://angel.co",
+      "origin": "https://angel.co",
       "path": "api/oauth/{path}"
     }
   },
   "apple": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://appleid.apple.com",
+      "origin": "https://appleid.apple.com",
       "path": "auth/{path}"
     }
   },
   "arcgis": {
     "default": {
-      "domain": "https://www.arcgis.com",
+      "origin": "https://www.arcgis.com",
       "path": "sharing/rest/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.arcgis.com",
+      "origin": "https://www.arcgis.com",
       "path": "sharing/rest/oauth2/{path}"
     }
   },
   "asana": {
     "default": {
-      "domain": "https://app.asana.com",
+      "origin": "https://app.asana.com",
       "path": "api/{version}/{path}",
       "version": "1.0",
       "headers": {
@@ -129,13 +129,13 @@
       }
     },
     "oauth": {
-      "domain": "https://app.asana.com",
+      "origin": "https://app.asana.com",
       "path": "-/oauth_{path}"
     }
   },
   "assembla": {
     "default": {
-      "domain": "https://api.assembla.com",
+      "origin": "https://api.assembla.com",
       "path": "{version}/{path}.{type}",
       "version": "v1",
       "type": "json",
@@ -144,66 +144,66 @@
       }
     },
     "oauth": {
-      "domain": "https://api.assembla.com",
+      "origin": "https://api.assembla.com",
       "path": "{path}"
     }
   },
   "atlassian": {
     "default": {
-      "domain": "https://api.atlassian.com",
+      "origin": "https://api.atlassian.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://auth.atlassian.com",
+      "origin": "https://auth.atlassian.com",
       "path": "oauth/{path}"
     }
   },
   "auth0": {
     "default": {
-      "domain": "https://{subdomain}.auth0.com",
+      "origin": "https://{subdomain}.auth0.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.auth0.com",
+      "origin": "https://{subdomain}.auth0.com",
       "path": "oauth/{path}"
     }
   },
   "authentiq": {
     "default": {
-      "domain": "https://connect.authentiq.io",
+      "origin": "https://connect.authentiq.io",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://connect.authentiq.io",
+      "origin": "https://connect.authentiq.io",
       "path": "{path}"
     }
   },
   "autodesk": {
     "default": {
-      "domain": "https://developer.api.autodesk.com",
+      "origin": "https://developer.api.autodesk.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://developer.api.autodesk.com",
+      "origin": "https://developer.api.autodesk.com",
       "path": "authentication/{version}/get{path}",
       "version": "v1"
     }
   },
   "aweber": {
     "default": {
-      "domain": "https://api.aweber.com",
+      "origin": "https://api.aweber.com",
       "path": "{version}/{path}",
       "version": "1.0",
       "headers": {
@@ -211,13 +211,13 @@
       }
     },
     "oauth": {
-      "domain": "https://auth.aweber.com",
+      "origin": "https://auth.aweber.com",
       "path": "oauth2/{path}"
     }
   },
   "axosoft": {
     "default": {
-      "domain": "https://{subdomain}.axosoft.com",
+      "origin": "https://{subdomain}.axosoft.com",
       "path": "api/{version}/{path}",
       "version": "v5",
       "headers": {
@@ -225,13 +225,13 @@
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.axosoft.com",
+      "origin": "https://{subdomain}.axosoft.com",
       "path": "api/oauth2/{path}"
     }
   },
   "baidu": {
     "default": {
-      "domain": "https://openapi.baidu.com",
+      "origin": "https://openapi.baidu.com",
       "path": "rest/{version}/{path}",
       "version": "2.0",
       "headers": {
@@ -239,14 +239,14 @@
       }
     },
     "oauth": {
-      "domain": "https://openapi.baidu.com",
+      "origin": "https://openapi.baidu.com",
       "path": "oauth/{version}/{path}",
       "version": "2.0"
     }
   },
   "basecamp": {
     "default": {
-      "domain": "https://launchpad.37signals.com",
+      "origin": "https://launchpad.37signals.com",
       "path": "{path}.{type}",
       "type": "json",
       "headers": {
@@ -254,26 +254,26 @@
       }
     },
     "oauth": {
-      "domain": "https://launchpad.37signals.com",
+      "origin": "https://launchpad.37signals.com",
       "path": "authorization/{path}"
     }
   },
   "battlenet": {
     "default": {
-      "domain": "https://{subdomain}.battle.net",
+      "origin": "https://{subdomain}.battle.net",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.battle.net",
+      "origin": "https://{subdomain}.battle.net",
       "path": "oauth/{path}"
     }
   },
   "beatport": {
     "default": {
-      "domain": "https://oauth-api.beatport.com",
+      "origin": "https://oauth-api.beatport.com",
       "path": "catalog/{version}/{path}",
       "version": "1",
       "oauth": {
@@ -284,7 +284,7 @@
   },
   "bitbucket": {
     "default": {
-      "domain": "https://api.bitbucket.org",
+      "origin": "https://api.bitbucket.org",
       "path": "{version}/{path}",
       "version": "2.0",
       "oauth": {
@@ -295,7 +295,7 @@
   },
   "bitly": {
     "default": {
-      "domain": "https://api-ssl.bitly.com",
+      "origin": "https://api-ssl.bitly.com",
       "path": "{version}/{path}",
       "version": "v3",
       "qs": {
@@ -305,7 +305,7 @@
   },
   "box": {
     "default": {
-      "domain": "https://api.box.com",
+      "origin": "https://api.box.com",
       "path": "{version}/{path}",
       "version": "2.0",
       "headers": {
@@ -313,13 +313,22 @@
       }
     },
     "oauth": {
-      "domain": "https://api.box.com",
+      "origin": "https://api.box.com",
       "path": "oauth2/{path}"
+    },
+    "upload": {
+      "origin": "https://upload.box.com",
+      "path": "api/{version}/files/content",
+      "version": "2.0",
+      "method": "POST",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
     }
   },
   "buffer": {
     "default": {
-      "domain": "https://api.bufferapp.com",
+      "origin": "https://api.bufferapp.com",
       "path": "{version}/{path}.{type}",
       "version": "1",
       "type": "json",
@@ -330,7 +339,7 @@
   },
   "campaignmonitor": {
     "default": {
-      "domain": "https://api.createsend.com",
+      "origin": "https://api.createsend.com",
       "path": "api/{version}/{path}.{type}",
       "version": "v3.1",
       "type": "json",
@@ -339,26 +348,26 @@
       }
     },
     "oauth": {
-      "domain": "https://api.createsend.com",
+      "origin": "https://api.createsend.com",
       "path": "oauth/{path}"
     }
   },
   "cas": {
     "default": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "oidc/{path}"
     }
   },
   "cheddar": {
     "default": {
-      "domain": "https://api.cheddarapp.com",
+      "origin": "https://api.cheddarapp.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -366,13 +375,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.cheddarapp.com",
+      "origin": "https://api.cheddarapp.com",
       "path": "oauth/{path}"
     }
   },
   "clio": {
     "default": {
-      "domain": "https://app.clio.com",
+      "origin": "https://app.clio.com",
       "path": "api/{version}/{path}.{type}",
       "version": "v4",
       "type": "json",
@@ -381,26 +390,26 @@
       }
     },
     "oauth": {
-      "domain": "https://app.clio.com",
+      "origin": "https://app.clio.com",
       "path": "oauth/{path}"
     }
   },
   "cognito": {
     "default": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "oauth2/{path}"
     }
   },
   "coinbase": {
     "default": {
-      "domain": "https://api.coinbase.com",
+      "origin": "https://api.coinbase.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -408,27 +417,27 @@
       }
     },
     "oauth": {
-      "domain": "https://www.coinbase.com",
+      "origin": "https://www.coinbase.com",
       "path": "oauth/{path}"
     }
   },
   "concur": {
     "default": {
-      "domain": "https://{subdomain}.api.concursolutions.com",
+      "origin": "https://{subdomain}.api.concursolutions.com",
       "path": "api/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.api.concursolutions.com",
+      "origin": "https://{subdomain}.api.concursolutions.com",
       "path": "oauth2/{version}/{path}",
       "version": "v0"
     }
   },
   "constantcontact": {
     "default": {
-      "domain": "https://api.constantcontact.com",
+      "origin": "https://api.constantcontact.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -436,13 +445,13 @@
       }
     },
     "oauth": {
-      "domain": "https://oauth2.constantcontact.com",
+      "origin": "https://oauth2.constantcontact.com",
       "path": "oauth2/oauth/{path}"
     }
   },
   "coursera": {
     "default": {
-      "domain": "https://api.coursera.org",
+      "origin": "https://api.coursera.org",
       "path": "api/{path}.{version}",
       "version": "v1",
       "headers": {
@@ -450,53 +459,53 @@
       }
     },
     "oauth": {
-      "domain": "https://accounts.coursera.org",
+      "origin": "https://accounts.coursera.org",
       "path": "oauth2/{version}/{path}",
       "version": "v1"
     }
   },
   "dailymotion": {
     "default": {
-      "domain": "https://api.dailymotion.com",
+      "origin": "https://api.dailymotion.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.dailymotion.com",
+      "origin": "https://api.dailymotion.com",
       "path": "oauth/{path}"
     }
   },
   "deezer": {
     "default": {
-      "domain": "http://api.deezer.com",
+      "origin": "http://api.deezer.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://connect.deezer.com",
+      "origin": "https://connect.deezer.com",
       "path": "oauth/access_{path}.php"
     }
   },
   "delivery": {
     "default": {
-      "domain": "https://api.delivery.com",
+      "origin": "https://api.delivery.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.delivery.com",
+      "origin": "https://api.delivery.com",
       "path": "third_party/access_{path}"
     }
   },
   "deputy": {
     "default": {
-      "domain": "https://{subdomain}.deputy.com",
+      "origin": "https://{subdomain}.deputy.com",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -504,13 +513,13 @@
       }
     },
     "oauth": {
-      "domain": "https://once.deputy.com",
+      "origin": "https://once.deputy.com",
       "path": "my/oauth/access_{path}"
     }
   },
   "deviantart": {
     "default": {
-      "domain": "https://www.deviantart.com",
+      "origin": "https://www.deviantart.com",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -518,13 +527,13 @@
       }
     },
     "oauth": {
-      "domain": "https://www.deviantart.com",
+      "origin": "https://www.deviantart.com",
       "path": "oauth2/{path}"
     }
   },
   "digitalocean": {
     "default": {
-      "domain": "https://api.digitalocean.com",
+      "origin": "https://api.digitalocean.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -532,14 +541,14 @@
       }
     },
     "oauth": {
-      "domain": "https://cloud.digitalocean.com",
+      "origin": "https://cloud.digitalocean.com",
       "path": "{version}/oauth/{path}",
       "version": "v1"
     }
   },
   "discogs": {
     "default": {
-      "domain": "https://api.discogs.com",
+      "origin": "https://api.discogs.com",
       "path": "{path}",
       "oauth": {
         "token": "$auth",
@@ -549,20 +558,20 @@
   },
   "discord": {
     "default": {
-      "domain": "https://discord.com",
+      "origin": "https://discord.com",
       "path": "api/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://discord.com",
+      "origin": "https://discord.com",
       "path": "api/oauth2/{path}"
     }
   },
   "disqus": {
     "default": {
-      "domain": "https://disqus.com",
+      "origin": "https://disqus.com",
       "path": "api/{version}/{path}.{type}",
       "version": "3.0",
       "type": "json",
@@ -574,27 +583,27 @@
       }
     },
     "oauth": {
-      "domain": "https://disqus.com",
+      "origin": "https://disqus.com",
       "path": "api/oauth/{version}/access_{path}/",
       "version": "2.0"
     }
   },
   "docusign": {
     "default": {
-      "domain": "https://account.docusign.com",
+      "origin": "https://account.docusign.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://account.docusign.com",
+      "origin": "https://account.docusign.com",
       "path": "oauth/{path}"
     }
   },
   "dribbble": {
     "default": {
-      "domain": "https://api.dribbble.com",
+      "origin": "https://api.dribbble.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -602,37 +611,66 @@
       }
     },
     "oauth": {
-      "domain": "https://dribbble.com",
+      "origin": "https://dribbble.com",
       "path": "oauth/{path}"
+    }
+  },
+  "drive": {
+    "default": {
+      "origin": "https://www.googleapis.com",
+      "path": "drive/{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "upload": {
+      "origin": "https://www.googleapis.com",
+      "path": "upload/drive/{version}/{path}",
+      "version": "v3",
+      "method": "POST",
+      "headers": {
+        "authorization": "Bearer $auth"
+      }
     }
   },
   "dropbox": {
     "default": {
-      "domain": "https://api.dropbox.com",
+      "origin": "https://api.dropbox.com",
       "path": "{version}/{path}",
       "version": "1",
       "headers": {
+        "authorization": "Bearer $auth"
+      }
+    },
+    "upload": {
+      "origin": "https://content.dropboxapi.com",
+      "path": "{version}/files/upload",
+      "version": "2",
+      "method": "POST",
+      "headers": {
+        "content-type": "application/octet-stream",
         "authorization": "Bearer $auth"
       }
     }
   },
   "ebay": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.ebay.com",
+      "origin": "https://api.ebay.com",
       "path": "identity/{version}/oauth2/{path}",
       "version": "v1"
     }
   },
   "echosign": {
     "default": {
-      "domain": "https://api.echosign.com",
+      "origin": "https://api.echosign.com",
       "path": "api/rest/{version}/{path}",
       "version": "v6",
       "headers": {
@@ -640,52 +678,52 @@
       }
     },
     "oauth": {
-      "domain": "https://secure.echosign.com",
+      "origin": "https://secure.echosign.com",
       "path": "oauth/{path}"
     }
   },
   "ecwid": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://my.ecwid.com",
+      "origin": "https://my.ecwid.com",
       "path": "api/oauth/{path}"
     }
   },
   "edmodo": {
     "default": {
-      "domain": "https://api.edmodo.com",
+      "origin": "https://api.edmodo.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.edmodo.com",
+      "origin": "https://api.edmodo.com",
       "path": "oauth/{path}"
     }
   },
   "egnyte": {
     "default": {
-      "domain": "https://{subdomain}.egnyte.com",
+      "origin": "https://{subdomain}.egnyte.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.egnyte.com",
+      "origin": "https://{subdomain}.egnyte.com",
       "path": "puboauth/{path}"
     }
   },
   "etsy": {
     "default": {
-      "domain": "https://openapi.etsy.com",
+      "origin": "https://openapi.etsy.com",
       "path": "{version}/{path}",
       "version": "v2",
       "oauth": {
@@ -696,7 +734,7 @@
   },
   "eventbrite": {
     "default": {
-      "domain": "https://www.eventbriteapi.com",
+      "origin": "https://www.eventbriteapi.com",
       "path": "{version}/{path}",
       "version": "v3",
       "headers": {
@@ -706,7 +744,7 @@
   },
   "evernote": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -716,7 +754,7 @@
   },
   "eyeem": {
     "default": {
-      "domain": "https://api.eyeem.com",
+      "origin": "https://api.eyeem.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -724,41 +762,41 @@
       }
     },
     "oauth": {
-      "domain": "https://api.eyeem.com",
+      "origin": "https://api.eyeem.com",
       "path": "{version}/oauth/{path}",
       "version": "v2"
     }
   },
   "facebook": {
     "default": {
-      "domain": "https://graph.facebook.com",
+      "origin": "https://graph.facebook.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://graph.facebook.com",
+      "origin": "https://graph.facebook.com",
       "path": "oauth/access_{path}"
     }
   },
   "familysearch": {
     "default": {
-      "domain": "https://api.familysearch.org",
+      "origin": "https://api.familysearch.org",
       "path": "platform/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://ident.familysearch.org",
+      "origin": "https://ident.familysearch.org",
       "path": "cis-web/oauth2/{version}/{path}",
       "version": "v3"
     }
   },
   "feedly": {
     "default": {
-      "domain": "https://cloud.feedly.com",
+      "origin": "https://cloud.feedly.com",
       "path": "{version}/{path}",
       "version": "v3",
       "headers": {
@@ -766,14 +804,14 @@
       }
     },
     "oauth": {
-      "domain": "https://cloud.feedly.com",
+      "origin": "https://cloud.feedly.com",
       "path": "{version}/auth/{path}",
       "version": "v3"
     }
   },
   "figma": {
     "default": {
-      "domain": "https://api.figma.com",
+      "origin": "https://api.figma.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -781,13 +819,13 @@
       }
     },
     "oauth": {
-      "domain": "https://www.figma.com",
+      "origin": "https://www.figma.com",
       "path": "api/oauth/{path}"
     }
   },
   "fitbit": {
     "default": {
-      "domain": "https://api.fitbit.com",
+      "origin": "https://api.fitbit.com",
       "path": "{version}/{path}.{type}",
       "version": "1",
       "type": "json",
@@ -796,13 +834,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.fitbit.com",
+      "origin": "https://api.fitbit.com",
       "path": "oauth2/{path}"
     }
   },
   "flattr": {
     "default": {
-      "domain": "https://api.flattr.com",
+      "origin": "https://api.flattr.com",
       "path": "rest/{version}/{path}",
       "version": "v2",
       "headers": {
@@ -810,13 +848,13 @@
       }
     },
     "oauth": {
-      "domain": "https://flattr.com",
+      "origin": "https://flattr.com",
       "path": "oauth/{path}"
     }
   },
   "flickr": {
     "default": {
-      "domain": "https://api.flickr.com",
+      "origin": "https://api.flickr.com",
       "path": "services/rest/{path}",
       "oauth": {
         "token": "$auth",
@@ -827,7 +865,7 @@
       }
     },
     "upload": {
-      "domain": "https://up.flickr.com",
+      "origin": "https://up.flickr.com",
       "path": "services/upload/{path}",
       "oauth": {
         "token": "$auth",
@@ -837,7 +875,7 @@
   },
   "flowdock": {
     "default": {
-      "domain": "https://api.flowdock.com",
+      "origin": "https://api.flowdock.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -845,27 +883,27 @@
       }
     },
     "oauth": {
-      "domain": "https://api.flowdock.com",
+      "origin": "https://api.flowdock.com",
       "path": "oauth/{path}"
     }
   },
   "formstack": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.formstack.com",
+      "origin": "https://www.formstack.com",
       "path": "api/{version}/oauth2/{path}",
       "version": "v2"
     }
   },
   "foursquare": {
     "default": {
-      "domain": "https://api.foursquare.com",
+      "origin": "https://api.foursquare.com",
       "path": "{version}/{path}",
       "version": "v2",
       "qs": {
@@ -873,40 +911,40 @@
       }
     },
     "oauth": {
-      "domain": "https://foursquare.com",
+      "origin": "https://foursquare.com",
       "path": "oauth2/access_{path}"
     }
   },
   "freeagent": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.freeagent.com",
+      "origin": "https://api.freeagent.com",
       "path": "{version}/{path}_endpoint",
       "version": "v2"
     }
   },
   "freelancer": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://accounts.freelancer.com",
+      "origin": "https://accounts.freelancer.com",
       "path": "oauth/{path}"
     }
   },
   "freshbooks": {
     "default": {
-      "domain": "https://{subdomain}.freshbooks.com",
+      "origin": "https://{subdomain}.freshbooks.com",
       "path": "api/{version}/{path}",
       "version": "2.1",
       "oauth": {
@@ -917,20 +955,20 @@
   },
   "fusionauth": {
     "default": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "oauth2/{path}"
     }
   },
   "garmin": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -940,7 +978,7 @@
   },
   "geeklist": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -950,34 +988,34 @@
   },
   "genius": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.genius.com",
+      "origin": "https://api.genius.com",
       "path": "oauth/{path}"
     }
   },
   "getbase": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.getbase.com",
+      "origin": "https://api.getbase.com",
       "path": "{version}/{path}",
       "version": "oauth2"
     }
   },
   "getpocket": {
     "default": {
-      "domain": "https://getpocket.com",
+      "origin": "https://getpocket.com",
       "path": "{version}/{path}",
       "version": "v3",
       "oauth": {
@@ -988,20 +1026,20 @@
   },
   "gitbook": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.gitbook.com",
+      "origin": "https://api.gitbook.com",
       "path": "oauth/access_{path}"
     }
   },
   "github": {
     "default": {
-      "domain": "https://api.github.com",
+      "origin": "https://api.github.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth",
@@ -1009,13 +1047,13 @@
       }
     },
     "oauth": {
-      "domain": "https://github.com",
+      "origin": "https://github.com",
       "path": "login/oauth/access_{path}"
     }
   },
   "gitlab": {
     "default": {
-      "domain": "https://gitlab.com",
+      "origin": "https://gitlab.com",
       "path": "api/{version}/{path}",
       "version": "v3",
       "headers": {
@@ -1023,13 +1061,13 @@
       }
     },
     "oauth": {
-      "domain": "https://gitlab.com",
+      "origin": "https://gitlab.com",
       "path": "oauth/{path}"
     }
   },
   "gitter": {
     "default": {
-      "domain": "https://api.gitter.im",
+      "origin": "https://api.gitter.im",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1037,13 +1075,13 @@
       }
     },
     "oauth": {
-      "domain": "https://gitter.im",
+      "origin": "https://gitter.im",
       "path": "login/oauth/{path}"
     }
   },
   "goodreads": {
     "default": {
-      "domain": "https://www.goodreads.com",
+      "origin": "https://www.goodreads.com",
       "path": "api/{path}",
       "oauth": {
         "token": "$auth",
@@ -1053,22 +1091,22 @@
   },
   "google": {
     "default": {
-      "domain": "https://www.googleapis.com",
+      "origin": "https://www.googleapis.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "drive": {
-      "domain": "https://www.googleapis.com",
+      "origin": "https://www.googleapis.com",
       "path": "drive/{version}/{path}",
-      "version": "v2",
+      "version": "v3",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "gmail": {
-      "domain": "https://www.googleapis.com",
+      "origin": "https://www.googleapis.com",
       "path": "gmail/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1076,7 +1114,7 @@
       }
     },
     "youtube": {
-      "domain": "https://www.googleapis.com",
+      "origin": "https://www.googleapis.com",
       "path": "youtube/{version}/{path}",
       "version": "v3",
       "headers": {
@@ -1084,18 +1122,18 @@
       }
     },
     "gmaps": {
-      "domain": "https://maps.googleapis.com",
+      "origin": "https://maps.googleapis.com",
       "path": "maps/api/{path}",
       "qs": {
         "key": "$auth"
       }
     },
     "oauth": {
-      "domain": "https://accounts.google.com",
+      "origin": "https://accounts.google.com",
       "path": "o/oauth2/{path}"
     },
     "contacts": {
-      "domain": "https://www.google.com",
+      "origin": "https://www.google.com",
       "path": "m8/feeds/{path",
       "headers": {
         "authorization": "Bearer $auth",
@@ -1108,151 +1146,151 @@
   },
   "groove": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.groovehq.com",
+      "origin": "https://api.groovehq.com",
       "path": "oauth/{path}"
     }
   },
   "gumroad": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://gumroad.com",
+      "origin": "https://gumroad.com",
       "path": "oauth/{path}"
     }
   },
   "harvest": {
     "default": {
-      "domain": "https://{subdomain}.harvestapp.com",
+      "origin": "https://{subdomain}.harvestapp.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.harvestapp.com",
+      "origin": "https://api.harvestapp.com",
       "path": "oauth2/{path}"
     }
   },
   "hellosign": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.hellosign.com",
+      "origin": "https://www.hellosign.com",
       "path": "oauth/{path}"
     }
   },
   "heroku": {
     "default": {
-      "domain": "https://api.heroku.com",
+      "origin": "https://api.heroku.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://id.heroku.com",
+      "origin": "https://id.heroku.com",
       "path": "oauth/{path}"
     }
   },
   "homeaway": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://ws.homeaway.com",
+      "origin": "https://ws.homeaway.com",
       "path": "oauth/{path}"
     }
   },
   "hootsuite": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://platform.hootsuite.com",
+      "origin": "https://platform.hootsuite.com",
       "path": "oauth2/{path}"
     }
   },
   "ibm": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://login.ibm.com",
+      "origin": "https://login.ibm.com",
       "path": "oidc/endpoint/default/{path}"
     }
   },
   "iconfinder": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.iconfinder.com",
+      "origin": "https://www.iconfinder.com",
       "path": "api/{version}/oauth2/{path}",
       "version": "v2"
     }
   },
   "idme": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.id.me",
+      "origin": "https://api.id.me",
       "path": "oauth/{path}"
     }
   },
   "idonethis": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://idonethis.com",
+      "origin": "https://idonethis.com",
       "path": "api/oauth2/{path}/"
     }
   },
   "imgur": {
     "default": {
-      "domain": "https://api.imgur.com",
+      "origin": "https://api.imgur.com",
       "path": "{version}/{path}.{type}",
       "version": "3",
       "type": "json",
@@ -1261,26 +1299,26 @@
       }
     },
     "oauth": {
-      "domain": "https://api.imgur.com",
+      "origin": "https://api.imgur.com",
       "path": "oauth2/{path}"
     }
   },
   "infusionsoft": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.infusionsoft.com",
+      "origin": "https://api.infusionsoft.com",
       "path": "{path}"
     }
   },
   "instagram": {
     "default": {
-      "domain": "https://graph.instagram.com",
+      "origin": "https://graph.instagram.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
@@ -1289,48 +1327,48 @@
   },
   "intuit": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://oauth.platform.intuit.com",
+      "origin": "https://oauth.platform.intuit.com",
       "path": "oauth2/{version}/{path}s/bearer",
       "version": "v1"
     }
   },
   "jamendo": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.jamendo.com",
+      "origin": "https://api.jamendo.com",
       "path": "{version}/oauth/grant",
       "version": "v3.0"
     }
   },
   "jumplead": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://account.mooloop.com",
+      "origin": "https://account.mooloop.com",
       "path": "oauth/access_{path}"
     }
   },
   "kakao": {
     "default": {
-      "domain": "https://kapi.kakao.com",
+      "origin": "https://kapi.kakao.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1338,26 +1376,26 @@
       }
     },
     "oauth": {
-      "domain": "https://kauth.kakao.com",
+      "origin": "https://kauth.kakao.com",
       "path": "oauth/{path}"
     }
   },
   "keycloak": {
     "default": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "protocol/openid-connect/{path}"
     }
   },
   "line": {
     "default": {
-      "domain": "https://api.line.me",
+      "origin": "https://api.line.me",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -1365,14 +1403,14 @@
       }
     },
     "oauth": {
-      "domain": "https://api.line.me",
+      "origin": "https://api.line.me",
       "path": "oauth2/{version}/{path}",
       "version": "v2.1"
     }
   },
   "linkedin": {
     "default": {
-      "domain": "https://api.linkedin.com",
+      "origin": "https://api.linkedin.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -1380,14 +1418,14 @@
       }
     },
     "oauth": {
-      "domain": "https://www.linkedin.com",
+      "origin": "https://www.linkedin.com",
       "path": "oauth/{version}/accessToken",
       "version": "v2"
     }
   },
   "live": {
     "default": {
-      "domain": "https://apis.live.net",
+      "origin": "https://apis.live.net",
       "path": "{version}/{path}",
       "version": "v5.0",
       "headers": {
@@ -1395,52 +1433,52 @@
       }
     },
     "oauth": {
-      "domain": "https://login.live.com",
+      "origin": "https://login.live.com",
       "path": "oauth20_{path}.srf"
     }
   },
   "livechat": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://accounts.livechatinc.com",
+      "origin": "https://accounts.livechatinc.com",
       "path": "{path}"
     }
   },
   "logingov": {
     "default": {
-      "domain": "https://idp.int.identitysandbox.gov",
+      "origin": "https://idp.int.identitysandbox.gov",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://idp.int.identitysandbox.gov",
+      "origin": "https://idp.int.identitysandbox.gov",
       "path": "api/openid_connect/{path}"
     }
   },
   "lyft": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.lyft.com",
+      "origin": "https://api.lyft.com",
       "path": "oauth/{path}"
     }
   },
   "mailchimp": {
     "default": {
-      "domain": "https://{subdomain}.api.mailchimp.com",
+      "origin": "https://{subdomain}.api.mailchimp.com",
       "path": "{version}/{path}.{type}",
       "version": "2.0",
       "type": "json",
@@ -1449,13 +1487,13 @@
       }
     },
     "oauth": {
-      "domain": "https://login.mailchimp.com",
+      "origin": "https://login.mailchimp.com",
       "path": "oauth2/{path}"
     }
   },
   "mailgun": {
     "default": {
-      "domain": "https://api.mailgun.net",
+      "origin": "https://api.mailgun.net",
       "path": "{version}/{path}",
       "version": "v2",
       "auth": {
@@ -1466,34 +1504,34 @@
   },
   "mailup": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://services.mailup.com",
+      "origin": "https://services.mailup.com",
       "path": "Authorization/OAuth/Token"
     }
   },
   "mailxpert": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://app.mailxpert.ch",
+      "origin": "https://app.mailxpert.ch",
       "path": "oauth/{version}/{path}",
       "version": "v2"
     }
   },
   "mapmyfitness": {
     "default": {
-      "domain": "https://oauth2-api.mapmyapi.com",
+      "origin": "https://oauth2-api.mapmyapi.com",
       "path": "{version}/{path}",
       "version": "v7.1",
       "headers": {
@@ -1501,41 +1539,41 @@
       }
     },
     "oauth": {
-      "domain": "https://api.mapmyfitness.com",
+      "origin": "https://api.mapmyfitness.com",
       "path": "{version}/oauth2/access_{path}",
       "version": "v7.1"
     }
   },
   "mastodon": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "oauth/{path}"
     }
   },
   "medium": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.medium.com",
+      "origin": "https://api.medium.com",
       "path": "{version}/{path}s",
       "version": "v1"
     }
   },
   "meetup": {
     "default": {
-      "domain": "https://api.meetup.com",
+      "origin": "https://api.meetup.com",
       "path": "{version}/{path}",
       "version": "2",
       "headers": {
@@ -1543,40 +1581,40 @@
       }
     },
     "oauth": {
-      "domain": "https://secure.meetup.com",
+      "origin": "https://secure.meetup.com",
       "path": "oauth2/access"
     }
   },
   "mendeley": {
     "default": {
-      "domain": "https://api.mendeley.com",
+      "origin": "https://api.mendeley.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.mendeley.com",
+      "origin": "https://api.mendeley.com",
       "path": "oauth/{path}"
     }
   },
   "mention": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://web.mention.net",
+      "origin": "https://web.mention.net",
       "path": "oauth/{version}/{path}",
       "version": "v2"
     }
   },
   "microsoft": {
     "default": {
-      "domain": "https://graph.microsoft.com",
+      "origin": "https://graph.microsoft.com",
       "path": "{version}/{path}",
       "version": "v1.0",
       "headers": {
@@ -1584,67 +1622,67 @@
       }
     },
     "oauth": {
-      "domain": "https://login.microsoftonline.com",
+      "origin": "https://login.microsoftonline.com",
       "path": "common/oauth2/{path}"
     }
   },
   "mixcloud": {
     "default": {
-      "domain": "https://api.mixcloud.com",
+      "origin": "https://api.mixcloud.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.mixcloud.com",
+      "origin": "https://www.mixcloud.com",
       "path": "oauth/access_{path}"
     }
   },
   "mixer": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://mixer.com",
+      "origin": "https://mixer.com",
       "path": "api/{version}/oauth/{path}",
       "version": "v1"
     }
   },
   "moxtra": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.moxtra.com",
+      "origin": "https://api.moxtra.com",
       "path": "oauth/{path}"
     }
   },
   "myob": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://secure.myob.com",
+      "origin": "https://secure.myob.com",
       "path": "oauth2/{version}/authorize",
       "version": "v1"
     }
   },
   "naver": {
     "default": {
-      "domain": "https://openapi.naver.com",
+      "origin": "https://openapi.naver.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1652,26 +1690,26 @@
       }
     },
     "oauth": {
-      "domain": "https://nid.naver.com",
+      "origin": "https://nid.naver.com",
       "path": "oauth2.0/{path}"
     }
   },
   "nest": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.home.nest.com",
+      "origin": "https://api.home.nest.com",
       "path": "oauth2/access_{path}"
     }
   },
   "netlify": {
     "default": {
-      "domain": "https://api.netlify.com",
+      "origin": "https://api.netlify.com",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1679,67 +1717,67 @@
       }
     },
     "oauth": {
-      "domain": "https://api.netlify.com",
+      "origin": "https://api.netlify.com",
       "path": "oauth/{path}"
     }
   },
   "nokotime": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://secure.nokotime.com",
+      "origin": "https://secure.nokotime.com",
       "path": "oauth/{version}/access_{path}",
       "version": "2"
     }
   },
   "nylas": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.nylas.com",
+      "origin": "https://api.nylas.com",
       "path": "oauth/{path}"
     }
   },
   "okta": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.okta.com",
+      "origin": "https://{subdomain}.okta.com",
       "path": "oauth2/{version}/{path}",
       "version": "v1"
     }
   },
   "onelogin": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.onelogin.com",
+      "origin": "https://{subdomain}.onelogin.com",
       "path": "oidc/{path}"
     }
   },
   "openstreetmap": {
     "default": {
-      "domain": "http://api.openstreetmap.org",
+      "origin": "http://api.openstreetmap.org",
       "path": "api/{version}/{path}",
       "version": "0.6",
       "oauth": {
@@ -1750,33 +1788,33 @@
   },
   "optimizely": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://app.optimizely.com",
+      "origin": "https://app.optimizely.com",
       "path": "oauth2/{path}"
     }
   },
   "patreon": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.patreon.com",
+      "origin": "https://www.patreon.com",
       "path": "api/oauth2/{path}"
     }
   },
   "paypal": {
     "default": {
-      "domain": "https://api.paypal.com",
+      "origin": "https://api.paypal.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -1784,41 +1822,41 @@
       }
     },
     "oauth": {
-      "domain": "https://api.paypal.com",
+      "origin": "https://api.paypal.com",
       "path": "{version}/identity/openidconnect/{path}service",
       "version": "v1"
     }
   },
   "phantauth": {
     "default": {
-      "domain": "https://phantauth.net",
+      "origin": "https://phantauth.net",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://phantauth.net",
+      "origin": "https://phantauth.net",
       "path": "auth/{path}"
     }
   },
   "pinterest": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.pinterest.com",
+      "origin": "https://api.pinterest.com",
       "path": "{version}/oauth/{path}",
       "version": "v1"
     }
   },
   "plurk": {
     "default": {
-      "domain": "https://www.plurk.com",
+      "origin": "https://www.plurk.com",
       "path": "APP/{path}",
       "oauth": {
         "token": "$auth",
@@ -1828,34 +1866,34 @@
   },
   "podio": {
     "default": {
-      "domain": "https://api.podio.com",
+      "origin": "https://api.podio.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://podio.com",
+      "origin": "https://podio.com",
       "path": "oauth/{path}"
     }
   },
   "producthunt": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.producthunt.com",
+      "origin": "https://api.producthunt.com",
       "path": "{version}/oauth/{path}",
       "version": "v1"
     }
   },
   "projectplace": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -1865,47 +1903,47 @@
   },
   "projectplace2": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.projectplace.com",
+      "origin": "https://api.projectplace.com",
       "path": "{version}/access_{path}",
       "version": "oauth2"
     }
   },
   "pushbullet": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.pushbullet.com",
+      "origin": "https://api.pushbullet.com",
       "path": "oauth2/{path}"
     }
   },
   "qq": {
     "default": {
-      "domain": "https://graph.qq.com",
+      "origin": "https://graph.qq.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://graph.qq.com",
+      "origin": "https://graph.qq.com",
       "path": "oauth2.0/{path}"
     }
   },
   "ravelry": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -1915,7 +1953,7 @@
   },
   "redbooth": {
     "default": {
-      "domain": "https://redbooth.com",
+      "origin": "https://redbooth.com",
       "path": "api/{version}/{path}",
       "version": "3",
       "headers": {
@@ -1923,27 +1961,27 @@
       }
     },
     "oauth": {
-      "domain": "https://redbooth.com",
+      "origin": "https://redbooth.com",
       "path": "oauth2/{path}"
     }
   },
   "reddit": {
     "default": {
-      "domain": "https://api.reddit.com",
+      "origin": "https://api.reddit.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://ssl.reddit.com",
+      "origin": "https://ssl.reddit.com",
       "path": "api/{version}/access_{path}",
       "version": "v1"
     }
   },
   "rubygems": {
     "default": {
-      "domain": "https://rubygems.org",
+      "origin": "https://rubygems.org",
       "path": "api/{version}/{path}.{type}",
       "version": "v1",
       "headers": {
@@ -1951,50 +1989,49 @@
       }
     },
     "oauth": {
-      "domain": "",
+      "origin": "",
       "path": ""
     }
   },
   "runkeeper": {
     "default": {
-      "domain": "https://api.runkeeper.com",
+      "origin": "https://api.runkeeper.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://runkeeper.com",
+      "origin": "https://runkeeper.com",
       "path": "apps/{path}"
     }
   },
   "salesforce": {
     "default": {
-      "domain": "https://{subdomain}.salesforce.com",
+      "origin": "https://{subdomain}.salesforce.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://login.salesforce.com",
+      "origin": "https://login.salesforce.com",
       "path": "services/oauth2/{path}"
     }
   },
   "sendgrid": {
     "default": {
-      "domain": "https://api.sendgrid.com",
-      "path": "api/{path}.{type}",
-      "type": "json",
-      "qs": {
-        "api_user": "$auth",
-        "api_key": "$auth"
+      "origin": "https://api.sendgrid.com",
+      "path": "{version}/{path}",
+      "version": "v3",
+      "headers": {
+        "authorization": "Bearer $auth"
       }
     }
   },
   "shoeboxed": {
     "default": {
-      "domain": "https://api.shoeboxed.com",
+      "origin": "https://api.shoeboxed.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -2002,13 +2039,13 @@
       }
     },
     "oauth": {
-      "domain": "https://id.shoeboxed.com",
+      "origin": "https://id.shoeboxed.com",
       "path": "oauth/{path}"
     }
   },
   "shopify": {
     "default": {
-      "domain": "https://{subdomain}.myshopify.com",
+      "origin": "https://{subdomain}.myshopify.com",
       "path": "{path}.{type}",
       "type": "json",
       "headers": {
@@ -2016,13 +2053,13 @@
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.myshopify.com",
+      "origin": "https://{subdomain}.myshopify.com",
       "path": "admin/oauth/access_{path}"
     }
   },
   "skyrock": {
     "default": {
-      "domain": "https://api.skyrock.com",
+      "origin": "https://api.skyrock.com",
       "path": "{version}/{path}.{type}",
       "version": "v2",
       "type": "json",
@@ -2034,16 +2071,16 @@
   },
   "slack": {
     "default": {
-      "domain": "https://slack.com",
+      "origin": "https://slack.com",
       "path": "api/{path}",
-      "qs": {
-        "token": "$auth"
+      "headers": {
+        "authorization": "Bearer $auth"
       }
     }
   },
   "slice": {
     "default": {
-      "domain": "https://api.slice.com",
+      "origin": "https://api.slice.com",
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2051,27 +2088,27 @@
       }
     },
     "oauth": {
-      "domain": "https://api.slice.com",
+      "origin": "https://api.slice.com",
       "path": "oauth/{path}"
     }
   },
   "smartsheet": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.smartsheet.com",
+      "origin": "https://api.smartsheet.com",
       "path": "{version}/{path}",
       "version": "2.0"
     }
   },
   "smugmug": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -2081,7 +2118,7 @@
   },
   "snapchat": {
     "default": {
-      "domain": "https://kit.snapchat.com",
+      "origin": "https://kit.snapchat.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2089,27 +2126,27 @@
       }
     },
     "oauth": {
-      "domain": "https://accounts.snapchat.com",
+      "origin": "https://accounts.snapchat.com",
       "path": "accounts/{version}/{path}",
       "version": "oauth2"
     }
   },
   "socialpilot": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://panel.socialpilot.co",
+      "origin": "https://panel.socialpilot.co",
       "path": "oauth/access{path}"
     }
   },
   "socrata": {
     "default": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "api/{path}.{type}",
       "type": "json",
       "headers": {
@@ -2117,13 +2154,13 @@
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}",
+      "origin": "https://{subdomain}",
       "path": "oauth/access_{path}"
     }
   },
   "soundcloud": {
     "default": {
-      "domain": "https://api.soundcloud.com",
+      "origin": "https://api.soundcloud.com",
       "path": "{path}.{type}",
       "type": "json",
       "qs": {
@@ -2131,13 +2168,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.soundcloud.com",
+      "origin": "https://api.soundcloud.com",
       "path": "oauth2/{path}"
     }
   },
   "spotify": {
     "default": {
-      "domain": "https://api.spotify.com",
+      "origin": "https://api.spotify.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2145,13 +2182,13 @@
       }
     },
     "oauth": {
-      "domain": "https://accounts.spotify.com",
+      "origin": "https://accounts.spotify.com",
       "path": "api/{path}"
     }
   },
   "square": {
     "default": {
-      "domain": "https://connect.squareup.com",
+      "origin": "https://connect.squareup.com",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2159,13 +2196,13 @@
       }
     },
     "oauth": {
-      "domain": "https://connect.squareup.com",
+      "origin": "https://connect.squareup.com",
       "path": "oauth2/{path}"
     }
   },
   "stackexchange": {
     "default": {
-      "domain": "https://api.stackexchange.com",
+      "origin": "https://api.stackexchange.com",
       "path": "{version}/{path}",
       "version": "2.2",
       "qs": {
@@ -2176,7 +2213,7 @@
   },
   "stocktwits": {
     "default": {
-      "domain": "https://api.stocktwits.com",
+      "origin": "https://api.stocktwits.com",
       "path": "api/{version}/{path}.{type}",
       "version": "2",
       "type": "json",
@@ -2185,14 +2222,14 @@
       }
     },
     "oauth": {
-      "domain": "https://api.stocktwits.com",
+      "origin": "https://api.stocktwits.com",
       "path": "api/{version}/oauth/{path}",
       "version": "2"
     }
   },
   "stormz": {
     "default": {
-      "domain": "https://api.stormz.me",
+      "origin": "https://api.stormz.me",
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2200,26 +2237,26 @@
       }
     },
     "oauth": {
-      "domain": "https://stormz.me",
+      "origin": "https://stormz.me",
       "path": "oauth/{path}"
     }
   },
   "storyblok": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://app.storyblok.com",
+      "origin": "https://app.storyblok.com",
       "path": "oauth/{path}"
     }
   },
   "strava": {
     "default": {
-      "domain": "https://www.strava.com",
+      "origin": "https://www.strava.com",
       "path": "api/{version}/{path}",
       "version": "v3",
       "headers": {
@@ -2227,13 +2264,13 @@
       }
     },
     "oauth": {
-      "domain": "https://www.strava.com",
+      "origin": "https://www.strava.com",
       "path": "oauth/{path}"
     }
   },
   "stripe": {
     "default": {
-      "domain": "https://api.stripe.com",
+      "origin": "https://api.stripe.com",
       "path": "{version}/{path}",
       "version": "v1",
       "auth": {
@@ -2241,13 +2278,13 @@
       }
     },
     "oauth": {
-      "domain": "https://connect.stripe.com",
+      "origin": "https://connect.stripe.com",
       "path": "oauth/{path}"
     }
   },
   "surveygizmo": {
     "default": {
-      "domain": "https://restapi.surveygizmo.com",
+      "origin": "https://restapi.surveygizmo.com",
       "path": "{version}/{path}",
       "version": "v4",
       "oauth": {
@@ -2258,7 +2295,7 @@
   },
   "surveymonkey": {
     "default": {
-      "domain": "https://api.surveymonkey.net",
+      "origin": "https://api.surveymonkey.net",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -2266,79 +2303,79 @@
       }
     },
     "oauth": {
-      "domain": "https://api.surveymonkey.net",
+      "origin": "https://api.surveymonkey.net",
       "path": "oauth/{path}"
     }
   },
   "thingiverse": {
     "default": {
-      "domain": "https://api.thingiverse.com",
+      "origin": "https://api.thingiverse.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.thingiverse.com",
+      "origin": "https://www.thingiverse.com",
       "path": "login/oauth/access_{path}"
     }
   },
   "ticketbud": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.ticketbud.com",
+      "origin": "https://api.ticketbud.com",
       "path": "oauth/{path}"
     }
   },
   "timelyapp": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.timelyapp.com",
+      "origin": "https://api.timelyapp.com",
       "path": "{version}/oauth/{path}",
       "version": "1.1"
     }
   },
   "todoist": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://todoist.com",
+      "origin": "https://todoist.com",
       "path": "oauth/access_{path}"
     }
   },
   "trakt": {
     "default": {
-      "domain": "https://api-v2launch.trakt.tv",
+      "origin": "https://api-v2launch.trakt.tv",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api-v2launch.trakt.tv",
+      "origin": "https://api-v2launch.trakt.tv",
       "path": "oauth/{path}"
     }
   },
   "traxo": {
     "default": {
-      "domain": "https://api.traxo.com",
+      "origin": "https://api.traxo.com",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -2346,13 +2383,13 @@
       }
     },
     "oauth": {
-      "domain": "https://www.traxo.com",
+      "origin": "https://www.traxo.com",
       "path": "oauth/{path}"
     }
   },
   "trello": {
     "default": {
-      "domain": "https://api.trello.com",
+      "origin": "https://api.trello.com",
       "path": "{version}/{path}",
       "version": "1",
       "qs": {
@@ -2363,7 +2400,7 @@
   },
   "tripit": {
     "default": {
-      "domain": "https://api.tripit.com",
+      "origin": "https://api.tripit.com",
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
@@ -2374,7 +2411,7 @@
   },
   "tumblr": {
     "default": {
-      "domain": "http://api.tumblr.com",
+      "origin": "http://api.tumblr.com",
       "path": "{version}/{path}",
       "version": "v2",
       "oauth": {
@@ -2385,7 +2422,7 @@
   },
   "twitch": {
     "default": {
-      "domain": "https://api.twitch.tv",
+      "origin": "https://api.twitch.tv",
       "path": "kraken/{path}",
       "version": "",
       "headers": {
@@ -2394,13 +2431,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.twitch.tv",
+      "origin": "https://api.twitch.tv",
       "path": "kraken/oauth2/{path}"
     }
   },
   "twitter": {
     "default": {
-      "domain": "https://api.twitter.com",
+      "origin": "https://api.twitter.com",
       "path": "{version}/{path}.{type}",
       "version": "1.1",
       "type": "json",
@@ -2412,20 +2449,20 @@
   },
   "typeform": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.typeform.com",
+      "origin": "https://api.typeform.com",
       "path": "oauth/{path}"
     }
   },
   "uber": {
     "default": {
-      "domain": "https://{subdomain}.uber.com",
+      "origin": "https://{subdomain}.uber.com",
       "path": "{version}/{path}",
       "version": "v1",
       "subdomain": "api",
@@ -2434,13 +2471,13 @@
       }
     },
     "oauth": {
-      "domain": "https://login.uber.com",
+      "origin": "https://login.uber.com",
       "path": "oauth/{path}"
     }
   },
   "underarmour": {
     "default": {
-      "domain": "https://api.ua.com",
+      "origin": "https://api.ua.com",
       "path": "{version}/{path}",
       "version": "v7.1",
       "headers": {
@@ -2448,27 +2485,27 @@
       }
     },
     "oauth": {
-      "domain": "https://api.mapmyfitness.com",
+      "origin": "https://api.mapmyfitness.com",
       "path": "v7.1/{version}/access_{path}",
       "version": "oauth2"
     }
   },
   "unsplash": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://unsplash.com",
+      "origin": "https://unsplash.com",
       "path": "oauth/{path}"
     }
   },
   "upwork": {
     "default": {
-      "domain": "https://www.upwork.com",
+      "origin": "https://www.upwork.com",
       "path": "api/{path}.{type}",
       "type": "json",
       "oauth": {
@@ -2479,7 +2516,7 @@
   },
   "uservoice": {
     "default": {
-      "domain": "https://{subdomain}.uservoice.com",
+      "origin": "https://{subdomain}.uservoice.com",
       "path": "api/{version}/{path}.{type}",
       "version": "v1",
       "type": "json",
@@ -2491,76 +2528,76 @@
   },
   "vend": {
     "default": {
-      "domain": "https://{subdomain}.vendhq.com",
+      "origin": "https://{subdomain}.vendhq.com",
       "path": "api/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.vendhq.com",
+      "origin": "https://{subdomain}.vendhq.com",
       "path": "api/{version}/{path}",
       "version": "1.0"
     }
   },
   "venmo": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.venmo.com",
+      "origin": "https://api.venmo.com",
       "path": "{version}/oauth/access_{path}",
       "version": "v1"
     }
   },
   "vercel": {
     "default": {
-      "domain": "https://api.vercel.com",
+      "origin": "https://api.vercel.com",
       "path": "www/{path}",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.vercel.com",
+      "origin": "https://api.vercel.com",
       "path": "{version}/oauth/access_{path}",
       "version": "v2"
     }
   },
   "verticalresponse": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://vrapi.verticalresponse.com",
+      "origin": "https://vrapi.verticalresponse.com",
       "path": "api/{version}/oauth/access_{path}",
       "version": "v1"
     }
   },
   "viadeo": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://partners.viadeo.com",
+      "origin": "https://partners.viadeo.com",
       "path": "oauth/{path}"
     }
   },
   "vimeo": {
     "default": {
-      "domain": "https://api.vimeo.com",
+      "origin": "https://api.vimeo.com",
       "path": "{path}",
       "headers": {
         "authorization": "Bearer $auth",
@@ -2570,7 +2607,7 @@
   },
   "visualstudio": {
     "default": {
-      "domain": "https://app.vssps.visualstudio.com",
+      "origin": "https://app.vssps.visualstudio.com",
       "path": "_apis/{path}",
       "qs": {
         "api-version": "6.0"
@@ -2580,53 +2617,53 @@
       }
     },
     "oauth": {
-      "domain": "https://app.vssps.visualstudio.com",
+      "origin": "https://app.vssps.visualstudio.com",
       "path": "{version}/{path}",
       "version": "oauth2"
     }
   },
   "vk": {
     "default": {
-      "domain": "https://api.vk.com",
+      "origin": "https://api.vk.com",
       "path": "method/{path}.get",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://oauth.vk.com",
+      "origin": "https://oauth.vk.com",
       "path": "access_{path}"
     }
   },
   "wechat": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://api.weixin.qq.com",
+      "origin": "https://api.weixin.qq.com",
       "path": "sns/oauth2/access_{path}"
     }
   },
   "weekdone": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://weekdone.com",
+      "origin": "https://weekdone.com",
       "path": "oauth_{path}"
     }
   },
   "weibo": {
     "default": {
-      "domain": "https://api.weibo.com",
+      "origin": "https://api.weibo.com",
       "path": "{version}/{path}.{type}",
       "version": "2",
       "type": "json",
@@ -2635,13 +2672,13 @@
       }
     },
     "oauth": {
-      "domain": "https://api.weibo.com",
+      "origin": "https://api.weibo.com",
       "path": "oauth2/access_{path}"
     }
   },
   "withings": {
     "default": {
-      "domain": "https://wbsapi.withings.net",
+      "origin": "https://wbsapi.withings.net",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
@@ -2649,13 +2686,13 @@
       }
     },
     "oauth": {
-      "domain": "https://account.withings.com",
+      "origin": "https://account.withings.com",
       "path": "oauth2/{path}"
     }
   },
   "wordpress": {
     "default": {
-      "domain": "https://public-api.wordpress.com",
+      "origin": "https://public-api.wordpress.com",
       "path": "rest/{version}/{path}",
       "version": "v1",
       "headers": {
@@ -2665,20 +2702,20 @@
   },
   "wrike": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://www.wrike.com",
+      "origin": "https://www.wrike.com",
       "path": "oauth2/{path}"
     }
   },
   "xero": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "oauth": {
         "token": "$auth",
@@ -2688,7 +2725,7 @@
   },
   "xing": {
     "default": {
-      "domain": "https://api.xing.com",
+      "origin": "https://api.xing.com",
       "path": "{version}/{path}.{type}",
       "version": "v1",
       "type": "json",
@@ -2700,7 +2737,7 @@
   },
   "yahoo": {
     "default": {
-      "domain": "https://social.yahooapis.com",
+      "origin": "https://social.yahooapis.com",
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
@@ -2709,14 +2746,14 @@
       }
     },
     "oauth": {
-      "domain": "https://api.login.yahoo.com",
+      "origin": "https://api.login.yahoo.com",
       "path": "oauth/{version}/get_{path}",
       "version": "v2"
     }
   },
   "yammer": {
     "default": {
-      "domain": "https://www.yammer.com",
+      "origin": "https://www.yammer.com",
       "path": "api/{version}/{path}.{type}",
       "version": "v1",
       "type": "json",
@@ -2725,26 +2762,26 @@
       }
     },
     "oauth": {
-      "domain": "https://www.yammer.com",
+      "origin": "https://www.yammer.com",
       "path": "oauth2/access_{path}.json"
     }
   },
   "yandex": {
     "default": {
-      "domain": "",
+      "origin": "",
       "path": "",
       "headers": {
         "authorization": "Bearer $auth"
       }
     },
     "oauth": {
-      "domain": "https://oauth.yandex.com",
+      "origin": "https://oauth.yandex.com",
       "path": "{path}"
     }
   },
   "zendesk": {
     "default": {
-      "domain": "https://{subdomain}.zendesk.com",
+      "origin": "https://{subdomain}.zendesk.com",
       "path": "api/{version}/{path}.{type}",
       "version": "v2",
       "type": "json",
@@ -2753,13 +2790,13 @@
       }
     },
     "oauth": {
-      "domain": "https://{subdomain}.zendesk.com",
+      "origin": "https://{subdomain}.zendesk.com",
       "path": "oauth/{path}s"
     }
   },
   "zoom": {
     "default": {
-      "domain": "https://zoom.us",
+      "origin": "https://zoom.us",
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {

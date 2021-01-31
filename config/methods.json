@@ -34,7 +34,7 @@
     "stream"   : []
   },
   "url": {
-    "domain"   : [],
+    "origin"   : [],
     "path"     : [],
     "subdomain": [],
     "version"  : [],
