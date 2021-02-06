@@ -107,14 +107,14 @@ describe('priority', () => {
           default: {
             origin: 'http://localhost:3000',
             path: 'auth',
-            headers: {authorization: 'Bearer $auth'}
+            headers: {authorization: 'Bearer {auth}'}
           }
         }
       }
     })
 
     var {res, body} = await client({})
-    t.equal(body, 'Bearer $auth', 'no replacement')
+    t.equal(body, 'Bearer {auth}', 'no replacement')
 
     var {res, body} = await client({
       auth: 'token'
@@ -138,7 +138,7 @@ describe('priority', () => {
           default: {
             origin: 'http://localhost:3000',
             path: 'auth',
-            auth: {user: '$auth', pass: '$auth'}
+            auth: {user: '{auth}', pass: '{auth}'}
           }
         }
       },

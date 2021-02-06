@@ -110,7 +110,7 @@ describe('client', () => {
             origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
-              authorization: 'Bearer $auth',
+              authorization: 'Bearer {auth}',
               'user-agent': 'purest'
             }
           }
@@ -140,7 +140,7 @@ describe('client', () => {
             origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
-              authorization: 'Bearer $auth',
+              authorization: 'Bearer {auth}',
               'user-agent': 'purest'
             }
           }
@@ -202,7 +202,7 @@ describe('client', () => {
             origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
-              authorization: 'Bearer $auth',
+              authorization: 'Bearer {auth}',
               'user-agent': 'purest'
             }
           }
@@ -234,7 +234,7 @@ describe('client', () => {
             origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
-              authorization: 'Bearer $auth',
+              authorization: 'Bearer {auth}',
               'user-agent': 'purest'
             }
           }
@@ -267,7 +267,7 @@ describe('client', () => {
             origin: 'http://localhost:3000',
             path: '{path}',
             headers: {
-              authorization: 'Bearer $auth',
+              authorization: 'Bearer {auth}',
               'user-agent': 'purest'
             }
           }
