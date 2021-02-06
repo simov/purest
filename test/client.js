@@ -191,6 +191,11 @@ describe('client', () => {
       .post('')
       .request()
     t.equal(body, 'post')
+
+    var {res, body} = await client
+      .update()
+      .request()
+    t.equal(body, 'post')
   })
 
   it('method alias', async () => {

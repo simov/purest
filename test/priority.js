@@ -78,6 +78,11 @@ describe('priority', () => {
       get: 'path'
     })
     t.equal(body, 'root', 'url overrides all')
+
+    var {res, body} = await client
+      .get('http://localhost:3000')
+      .request()
+    t.equal(body, 'root', 'http methods accept absolute url')
   })
 
   it('alias', async () => {

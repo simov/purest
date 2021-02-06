@@ -5,10 +5,10 @@ var def = require('./config/methods')
 
 var transform = {
   endpoint: require('./lib/endpoint'),
+  alias: require('./lib/alias'),
   method: require('./lib/method'),
   url: require('./lib/url'),
   auth: require('./lib/auth'),
-  alias: require('./lib/alias'),
 }
 
 module.exports = function purest (ctor = {}) {
@@ -55,10 +55,6 @@ module.exports = function purest (ctor = {}) {
     }
     else if (['auth'].concat(methods.auth).includes(name)) {
       client._options.auth = [].concat(value).concat(rest)
-      return client
-    }
-    else if (Object.keys(def.methods).includes(name) && value === undefined) {
-      client._options[name] = true
       return client
     }
     else {
