@@ -1,7 +1,7 @@
 
 # Purest
 
-[![npm-version]][npm] [![travis-ci]][travis]
+[![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls]
 
 > _REST API Client Library_
 
@@ -12,11 +12,10 @@ var google = purest({provider: 'google'})
 await google
   .query('youtube')
   .select('channels')
-  .where({forUsername: 'PewDiePie'})
-  .auth('[ACCESS_TOKEN]')
+  .where({forUsername: 'GitHub'})
+  .auth(token)
   .request()
 ```
-
 
 ## Table of Contents
 
@@ -44,7 +43,7 @@ Here is a basic configuration for Google:
       "origin": "https://www.googleapis.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   }
@@ -62,7 +61,7 @@ Then we can request some data from YouTube:
 ```js
 var {res, body} = await google
   .get('youtube/v3/channels')
-  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .qs({forUsername: 'GitHub'})
   .auth(token)
   .request()
 ```
@@ -78,7 +77,7 @@ We can define explicit endpoint for accessing YouTube:
       "origin": "https://www.googleapis.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "youtube": {
@@ -86,7 +85,7 @@ We can define explicit endpoint for accessing YouTube:
       "path": "youtube/{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   }
@@ -98,7 +97,7 @@ Then request the same data from YouTube:
 ```js
 var {res, body} = await google('youtube')
   .get('channels')
-  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .qs({forUsername: 'GitHub'})
   .auth(token)
   .request()
 ```
@@ -118,7 +117,7 @@ Then we no longer need to set the access token for every request:
 ```js
 var {res, body} = await google('youtube')
   .get('channels')
-  .qs({forUsername: 'PewDiePie', part: 'snippet'})
+  .qs({forUsername: 'GitHub'})
   .request()
 ```
 
@@ -138,7 +137,7 @@ Yes we can:
 ```js
 var {res, body} = await google('youtube')
   .select('channels')
-  .where({forUsername: 'PewDiePie', part: 'snippet'})
+  .where({forUsername: 'GitHub'})
   .request()
 ```
 
@@ -177,22 +176,22 @@ Option | Description
 
 ### HTTP Methods
 
-All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `connect` accept a string to replace the `{path}` configuration token with.
+All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `connect` accept a string to replace the `{path}` configuration token with, or absolute URL to replace the entire `url`.
 
 ### Request Options
 
 Option     | Type                  | Description
 :--        | :--                   | :--
 `method` | `'string'` | Request method, implicitly set if one of the above HTTP Methods is used
-`url`      | `'string'` [`url object`][url-parse] | Absolute URL, automatically constructed if the URL Options above are being used
-`proxy`    | `'string'` [`url object`][url-parse] | Proxy URL; for HTTPS you have to use tunneling agent instead
+`url`      | `'string'` [`url object`][url-parse] | Absolute URL, automatically constructed if the URL Options above are being used, or absolute URL is passed to any of the HTTP Methods above
+`proxy`    | `'string'` [`url object`][url-parse] | Proxy URL; for HTTPS you have to use [tunneling][tunnel-agent] [agent][proxy-agent] instead
 `qs`       | `{object}` `'string'` | URL querystring
 `headers` | `{object}` | Request headers
 `form`     | `{object}` `'string'` | `application/x-www-form-urlencoded` request body
 `json`     | `{object}` `'string'` | JSON encoded request body
 `multipart`| `{object}` `[array]`  | `multipart/form-data` as object or `multipart/related` as array request body using [request-multipart]
 `body`     | `'string'` [`Buffer`][buffer] [`Stream`][stream-readable] | Raw request body
-`auth`     | `'string'` `['string', 'string']` `{user, pass}`        | String or array of strings to replace the `$auth` configuration token with, or Basic authorization as object
+`auth`     | `'string'` `['string', 'string']` `{user, pass}`        | String or array of strings to replace the `{auth}` configuration token with, or Basic authorization as object
 `oauth`    | `{object}` | OAuth 1.0a authorization using [request-oauth]
 `encoding` | [`'string'`][buffer-encoding] | Response body encoding
 `redirect` | `{object}` | HTTP redirect [configuration][redirect-config]
@@ -231,14 +230,14 @@ await google.stream({socketPath: ''})
 
 ### Endpoint
 
-Explicit `endpoint` configuration can be accessed in various ways:
+The explicit `endpoint` configuration can be accessed in various ways:
 
 ```js
 // as argument to the Purest instance
 await google('youtube')
 // using the option name
 await google.endpoint('youtube')
-// or the default method alias for it
+// or the default method alias defined for it
 await google.query('youtube')
 ```
 
@@ -256,9 +255,15 @@ npm i --save-dev request-logs
 DEBUG=req,res,body,json node examples/file-name.js 'example name'
 ```
 
-| Topic | Example
-| :-    | :-
-| _**Storage**_ | Box, DropBox and Drive
+| Category | Topics | Providers | Examples
+| :-       | :-     | :-        | :-
+| **OAuth 2.0** | _Refresh Access Tokens_ | `box` `google` `twitch` | [Refresh access tokens][refresh-token]
+| **OpenID Connect** | *Verify id_token* | `auth0` `google` `microsoft` | [Discover public keys and verify id_token signature][openid-connect]
+| **OAuth 1.0a** | _OAuth 1.0a_ | `flickr` `trello` `twitter` | [Get user profile][oauth-1]
+| **Storage** | _Multipart, Streams_ | `box` `dropbox` `drive` | [Upload files][file-stream]
+| **Storage** | _HTTP Streams_ | `box` `dropbox` | [Stream file from DropBox ot Box][http-stream]
+
+> _Get access tokens using **[Grant]**_
 
 
   [npm-version]: https://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Package Version)
@@ -280,9 +285,17 @@ DEBUG=req,res,body,json node examples/file-name.js 'example name'
   [request-cookie]: https://github.com/simov/request-cookie
   [request-logs]: https://github.com/simov/request-logs
 
+  [grant]: https://github.com/simov/grant
   [redirect-config]: https://github.com/simov/request-compose#redirect
-
+  [tunnel-agent]: https://github.com/simov/request-compose/blob/master/examples/misc-tunnel-agent.js
+  [proxy-agent]: https://github.com/simov/request-compose/blob/master/examples/misc-proxy-agent.js
   [methods.json]: https://github.com/simov/purest/blob/master/config/methods.json
+
+  [refresh-token]: https://github.com/simov/purest/blob/master/examples/refresh-token.js
+  [openid-connect]: https://github.com/simov/purest/blob/master/examples/openid-connect.js
+  [oauth-1]: https://github.com/simov/purest/blob/master/examples/oauth-1.js
+  [file-stream]: https://github.com/simov/purest/blob/master/examples/file-stream.js
+  [http-stream]: https://github.com/simov/purest/blob/master/examples/http-stream.js
 
   [url-parse]: https://nodejs.org/dist/latest-v10.x/docs/api/url.html#url_url_parse_urlstring_parsequerystring_slashesdenotehost
   [buffer]: https://nodejs.org/dist/latest-v10.x/docs/api/buffer.html
