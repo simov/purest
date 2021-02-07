@@ -5,7 +5,7 @@
       "path": "{version}/{path}",
       "version": "3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -19,8 +19,8 @@
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -30,7 +30,7 @@
       "path": "api/{version}/{path}",
       "version": "1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -44,7 +44,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -58,7 +58,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -71,7 +71,7 @@
       "origin": "https://api.amazon.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -85,7 +85,7 @@
       "path": "{version}/{path}",
       "version": "1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -98,7 +98,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -111,7 +111,7 @@
       "origin": "https://www.arcgis.com",
       "path": "sharing/rest/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -125,7 +125,7 @@
       "path": "api/{version}/{path}",
       "version": "1.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -140,7 +140,7 @@
       "version": "v1",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -153,7 +153,7 @@
       "origin": "https://api.atlassian.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -166,7 +166,7 @@
       "origin": "https://{subdomain}.auth0.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -179,7 +179,7 @@
       "origin": "https://connect.authentiq.io",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -192,7 +192,7 @@
       "origin": "https://developer.api.autodesk.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -207,7 +207,7 @@
       "path": "{version}/{path}",
       "version": "1.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -221,7 +221,7 @@
       "path": "api/{version}/{path}",
       "version": "v5",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -235,7 +235,7 @@
       "path": "rest/{version}/{path}",
       "version": "2.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -250,7 +250,7 @@
       "path": "{path}.{type}",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -263,7 +263,7 @@
       "origin": "https://{subdomain}.battle.net",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -277,8 +277,8 @@
       "path": "catalog/{version}/{path}",
       "version": "1",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -288,8 +288,8 @@
       "path": "{version}/{path}",
       "version": "2.0",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -299,7 +299,7 @@
       "path": "{version}/{path}",
       "version": "v3",
       "qs": {
-        "access_token": "Bearer $auth"
+        "access_token": "Bearer {auth}"
       }
     }
   },
@@ -309,7 +309,7 @@
       "path": "{version}/{path}",
       "version": "2.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -322,7 +322,7 @@
       "version": "2.0",
       "method": "POST",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -333,7 +333,7 @@
       "version": "1",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -344,7 +344,7 @@
       "version": "v3.1",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -357,7 +357,7 @@
       "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -371,7 +371,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -386,7 +386,7 @@
       "version": "v4",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -399,7 +399,7 @@
       "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -413,7 +413,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -426,7 +426,7 @@
       "origin": "https://{subdomain}.api.concursolutions.com",
       "path": "api/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -441,7 +441,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -455,7 +455,7 @@
       "path": "api/{path}.{version}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -469,7 +469,7 @@
       "origin": "https://api.dailymotion.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -482,7 +482,7 @@
       "origin": "http://api.deezer.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -495,7 +495,7 @@
       "origin": "https://api.delivery.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -509,7 +509,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -523,7 +523,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -537,7 +537,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -551,8 +551,8 @@
       "origin": "https://api.discogs.com",
       "path": "{path}",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -561,7 +561,7 @@
       "origin": "https://discord.com",
       "path": "api/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -576,10 +576,10 @@
       "version": "3.0",
       "type": "json",
       "qs": {
-        "api_key": "$auth"
+        "api_key": "{auth}"
       },
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -593,7 +593,7 @@
       "origin": "https://account.docusign.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -607,31 +607,12 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
       "origin": "https://dribbble.com",
       "path": "oauth/{path}"
-    }
-  },
-  "drive": {
-    "default": {
-      "origin": "https://www.googleapis.com",
-      "path": "drive/{version}/{path}",
-      "version": "v3",
-      "headers": {
-        "authorization": "Bearer $auth"
-      }
-    },
-    "upload": {
-      "origin": "https://www.googleapis.com",
-      "path": "upload/drive/{version}/{path}",
-      "version": "v3",
-      "method": "POST",
-      "headers": {
-        "authorization": "Bearer $auth"
-      }
     }
   },
   "dropbox": {
@@ -640,7 +621,7 @@
       "path": "{version}/{path}",
       "version": "1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "upload": {
@@ -650,7 +631,7 @@
       "method": "POST",
       "headers": {
         "content-type": "application/octet-stream",
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -659,7 +640,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -674,7 +655,7 @@
       "path": "api/rest/{version}/{path}",
       "version": "v6",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -687,7 +668,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -700,7 +681,7 @@
       "origin": "https://api.edmodo.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -713,7 +694,7 @@
       "origin": "https://{subdomain}.egnyte.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -727,8 +708,8 @@
       "path": "{version}/{path}",
       "version": "v2",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -738,7 +719,7 @@
       "path": "{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -747,8 +728,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -758,7 +739,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -772,7 +753,7 @@
       "origin": "https://graph.facebook.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -785,7 +766,7 @@
       "origin": "https://api.familysearch.org",
       "path": "platform/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -800,7 +781,7 @@
       "path": "{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -815,7 +796,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -830,7 +811,7 @@
       "version": "1",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -844,7 +825,7 @@
       "path": "rest/{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -855,10 +836,10 @@
   "flickr": {
     "default": {
       "origin": "https://api.flickr.com",
-      "path": "services/rest/{path}",
+      "path": "services/rest/",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       },
       "qs": {
         "format": "json"
@@ -868,8 +849,8 @@
       "origin": "https://up.flickr.com",
       "path": "services/upload/{path}",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -879,7 +860,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -892,7 +873,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -907,7 +888,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "qs": {
-        "oauth_token": "Bearer $auth"
+        "oauth_token": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -920,7 +901,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -934,7 +915,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -948,8 +929,8 @@
       "path": "api/{version}/{path}",
       "version": "2.1",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -958,7 +939,7 @@
       "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -971,8 +952,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -981,8 +962,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -991,7 +972,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1004,7 +985,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1019,8 +1000,8 @@
       "path": "{version}/{path}",
       "version": "v3",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1029,7 +1010,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1042,7 +1023,7 @@
       "origin": "https://api.github.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth",
+        "authorization": "Bearer {auth}",
         "user-agent": "purest"
       }
     },
@@ -1057,7 +1038,7 @@
       "path": "api/{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1071,7 +1052,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1084,8 +1065,8 @@
       "origin": "https://www.goodreads.com",
       "path": "api/{path}",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1094,7 +1075,7 @@
       "origin": "https://www.googleapis.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "drive": {
@@ -1102,7 +1083,7 @@
       "path": "drive/{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "gmail": {
@@ -1110,7 +1091,7 @@
       "path": "gmail/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "youtube": {
@@ -1118,14 +1099,14 @@
       "path": "youtube/{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "gmaps": {
       "origin": "https://maps.googleapis.com",
       "path": "maps/api/{path}",
       "qs": {
-        "key": "$auth"
+        "key": "{auth}"
       }
     },
     "oauth": {
@@ -1136,7 +1117,7 @@
       "origin": "https://www.google.com",
       "path": "m8/feeds/{path",
       "headers": {
-        "authorization": "Bearer $auth",
+        "authorization": "Bearer {auth}",
         "GData-Version": "3.0"
       },
       "qs": {
@@ -1149,7 +1130,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1162,7 +1143,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1175,7 +1156,7 @@
       "origin": "https://{subdomain}.harvestapp.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1188,7 +1169,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1201,7 +1182,7 @@
       "origin": "https://api.heroku.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1214,7 +1195,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1227,7 +1208,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1240,7 +1221,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1253,7 +1234,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1267,7 +1248,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1280,7 +1261,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1295,7 +1276,7 @@
       "version": "3",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1308,7 +1289,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1321,7 +1302,7 @@
       "origin": "https://graph.instagram.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -1330,7 +1311,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1344,7 +1325,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1358,7 +1339,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1372,7 +1353,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1385,7 +1366,7 @@
       "origin": "https://{subdomain}",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1399,7 +1380,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1414,7 +1395,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1429,7 +1410,7 @@
       "path": "{version}/{path}",
       "version": "v5.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1442,7 +1423,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1455,7 +1436,7 @@
       "origin": "https://idp.int.identitysandbox.gov",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1468,7 +1449,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1483,7 +1464,7 @@
       "version": "2.0",
       "type": "json",
       "qs": {
-        "apikey": "$auth"
+        "apikey": "{auth}"
       }
     },
     "oauth": {
@@ -1497,8 +1478,8 @@
       "path": "{version}/{path}",
       "version": "v2",
       "auth": {
-        "user": "$auth",
-        "pass": "$auth"
+        "user": "{auth}",
+        "pass": "{auth}"
       }
     }
   },
@@ -1507,7 +1488,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1520,7 +1501,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1535,7 +1516,7 @@
       "path": "{version}/{path}",
       "version": "v7.1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1549,7 +1530,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1562,7 +1543,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1577,7 +1558,7 @@
       "path": "{version}/{path}",
       "version": "2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1590,7 +1571,7 @@
       "origin": "https://api.mendeley.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1603,7 +1584,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1618,7 +1599,7 @@
       "path": "{version}/{path}",
       "version": "v1.0",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1631,7 +1612,7 @@
       "origin": "https://api.mixcloud.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1644,7 +1625,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1658,7 +1639,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1671,7 +1652,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1686,7 +1667,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1699,7 +1680,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1713,7 +1694,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1726,7 +1707,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1740,7 +1721,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1753,7 +1734,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1767,7 +1748,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1781,8 +1762,8 @@
       "path": "api/{version}/{path}",
       "version": "0.6",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1791,7 +1772,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1804,7 +1785,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1818,7 +1799,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1832,7 +1813,7 @@
       "origin": "https://phantauth.net",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1845,7 +1826,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1859,8 +1840,8 @@
       "origin": "https://www.plurk.com",
       "path": "APP/{path}",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1869,7 +1850,7 @@
       "origin": "https://api.podio.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1882,7 +1863,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1896,8 +1877,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1906,7 +1887,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1920,7 +1901,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1933,7 +1914,7 @@
       "origin": "https://graph.qq.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1946,8 +1927,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -1957,7 +1938,7 @@
       "path": "api/{version}/{path}",
       "version": "3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1970,7 +1951,7 @@
       "origin": "https://api.reddit.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -1985,7 +1966,7 @@
       "path": "api/{version}/{path}.{type}",
       "version": "v1",
       "headers": {
-        "Authorization": "$auth"
+        "Authorization": "{auth}"
       }
     },
     "oauth": {
@@ -1998,7 +1979,7 @@
       "origin": "https://api.runkeeper.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2011,7 +1992,7 @@
       "origin": "https://{subdomain}.salesforce.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2025,7 +2006,7 @@
       "path": "{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -2035,7 +2016,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2049,7 +2030,7 @@
       "path": "{path}.{type}",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2064,8 +2045,8 @@
       "version": "v2",
       "type": "json",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2074,7 +2055,7 @@
       "origin": "https://slack.com",
       "path": "api/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -2084,7 +2065,7 @@
       "path": "api/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2097,7 +2078,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2111,8 +2092,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2122,7 +2103,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2136,7 +2117,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2150,7 +2131,7 @@
       "path": "api/{path}.{type}",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2164,7 +2145,7 @@
       "path": "{path}.{type}",
       "type": "json",
       "qs": {
-        "oauth_token": "$auth"
+        "oauth_token": "{auth}"
       }
     },
     "oauth": {
@@ -2178,7 +2159,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2192,7 +2173,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2206,8 +2187,8 @@
       "path": "{version}/{path}",
       "version": "2.2",
       "qs": {
-        "key": "$auth",
-        "access_token": "$auth"
+        "key": "{auth}",
+        "access_token": "{auth}"
       }
     }
   },
@@ -2218,7 +2199,7 @@
       "version": "2",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2233,7 +2214,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2246,7 +2227,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2260,7 +2241,7 @@
       "path": "api/{version}/{path}",
       "version": "v3",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2274,7 +2255,7 @@
       "path": "{version}/{path}",
       "version": "v1",
       "auth": {
-        "user": "$auth"
+        "user": "{auth}"
       }
     },
     "oauth": {
@@ -2288,8 +2269,8 @@
       "path": "{version}/{path}",
       "version": "v4",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2299,7 +2280,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2312,7 +2293,7 @@
       "origin": "https://api.thingiverse.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2325,7 +2306,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2338,7 +2319,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2352,7 +2333,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2365,7 +2346,7 @@
       "origin": "https://api-v2launch.trakt.tv",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2379,7 +2360,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2392,9 +2373,9 @@
       "origin": "https://api.trello.com",
       "path": "{version}/{path}",
       "version": "1",
-      "qs": {
-        "key": "$auth",
-        "token": "$auth"
+      "oauth": {
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2404,8 +2385,8 @@
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2415,8 +2396,8 @@
       "path": "{version}/{path}",
       "version": "v2",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2426,7 +2407,7 @@
       "path": "kraken/{path}",
       "version": "",
       "headers": {
-        "Authorization": "OAuth $auth",
+        "Authorization": "OAuth {auth}",
         "Accept": "application/vnd.twitchtv.v2+json"
       }
     },
@@ -2442,8 +2423,8 @@
       "version": "1.1",
       "type": "json",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2452,7 +2433,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2467,7 +2448,7 @@
       "version": "v1",
       "subdomain": "api",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2481,7 +2462,7 @@
       "path": "{version}/{path}",
       "version": "v7.1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2495,7 +2476,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2509,8 +2490,8 @@
       "path": "api/{path}.{type}",
       "type": "json",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2521,8 +2502,8 @@
       "version": "v1",
       "type": "json",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2531,7 +2512,7 @@
       "origin": "https://{subdomain}.vendhq.com",
       "path": "api/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2545,7 +2526,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2559,7 +2540,7 @@
       "origin": "https://api.vercel.com",
       "path": "www/{path}",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2573,7 +2554,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2587,7 +2568,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2600,7 +2581,7 @@
       "origin": "https://api.vimeo.com",
       "path": "{path}",
       "headers": {
-        "authorization": "Bearer $auth",
+        "authorization": "Bearer {auth}",
         "Accepts": "application/vnd.vimeo.*+json;version=3.2"
       }
     }
@@ -2613,7 +2594,7 @@
         "api-version": "6.0"
       },
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2627,7 +2608,7 @@
       "origin": "https://api.vk.com",
       "path": "method/{path}.get",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2640,7 +2621,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2653,7 +2634,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2668,7 +2649,7 @@
       "version": "2",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2682,7 +2663,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2696,7 +2677,7 @@
       "path": "rest/{version}/{path}",
       "version": "v1",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   },
@@ -2705,7 +2686,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2718,8 +2699,8 @@
       "origin": "",
       "path": "",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2730,8 +2711,8 @@
       "version": "v1",
       "type": "json",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     }
   },
@@ -2741,8 +2722,8 @@
       "path": "{version}/{path}",
       "version": "v1",
       "oauth": {
-        "token": "$auth",
-        "token_secret": "$auth"
+        "token": "{auth}",
+        "token_secret": "{auth}"
       }
     },
     "oauth": {
@@ -2758,7 +2739,7 @@
       "version": "v1",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2771,7 +2752,7 @@
       "origin": "",
       "path": "",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2786,7 +2767,7 @@
       "version": "v2",
       "type": "json",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     },
     "oauth": {
@@ -2800,7 +2781,7 @@
       "path": "{version}/{path}",
       "version": "v2",
       "headers": {
-        "authorization": "Bearer $auth"
+        "authorization": "Bearer {auth}"
       }
     }
   }
