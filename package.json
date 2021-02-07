@@ -35,14 +35,19 @@
     "config/",
     "lib/",
     "purest.js",
+    "purest.d.ts",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
     "package.json"
   ],
+  "types": "purest.d.ts",
   "scripts": {
     "test": "npm run test:ci",
     "test:ci": "npx mocha --recursive",
     "test:cov": "npx nyc --reporter=lcov --reporter=text-summary mocha -- --recursive"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
