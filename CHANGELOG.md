@@ -1,7 +1,7 @@
 
 # Change Log
 
-## v4.0.0 (2020/xx/xx)
+## v4.0.0 (2020/02/08)
 - **New:** Complete rewrite of the module
 
 ## v3.1.0 (2016/12/21)
