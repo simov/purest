@@ -25,6 +25,7 @@ await google
 - **[Purest Options](#purest-options)**
 - **[Request Options](#request-options)**
 - **[Examples](#examples)**
+- **[Article]**
 
 ---
 
@@ -278,6 +279,7 @@ DEBUG=req,res,body,json node examples/file-name.js 'example name'
 
   [v3]: https://github.com/simov/purest/tree/3.x
   [v2]: https://github.com/simov/purest/tree/2.x
+  [article]: https://dev.to/simov/purest-53k0
 
   [request-compose]: https://github.com/simov/request-compose
   [request-oauth]: https://github.com/simov/request-oauth
