@@ -1,4 +1,14 @@
 
+import {
+  RequestOptions as RequestComposeOptions,
+  AuthOptions,
+  ClientResponse,
+  BufferResponse,
+  StreamResponse,
+} from 'request-compose'
+
+// ----------------------------------------------------------------------------
+
 /**
  * Purest instance config
  */
@@ -14,7 +24,7 @@ export interface PurestInstanceConfig {
   /**
    * Instance defaults
    */
-  defaults?: RequestOptions
+  defaults?: PurestOptions
   /**
    * Method aliases
    */
@@ -29,14 +39,14 @@ export interface PurestConfig {
    * Provider name
    */
   [provider: string]: {
-    [endpoint: string]: RequestOptions | undefined
+    [endpoint: string]: PurestOptions | undefined
   } | undefined
 }
 
 /**
  * Request options
  */
-export interface RequestOptions {
+export interface PurestOptions extends RequestComposeOptions {
   /**
    * Path part to replace the {path} with, or absolute URL
    */
@@ -74,67 +84,11 @@ export interface RequestOptions {
    */
   connect?: string
   /**
-   * HTTP method name
-   */
-  method?: string
-  /**
-   * HTTP headers
-   */
-  headers?: object
-  /**
-   * Request timeout in milliseconds, defaults to 3000
-   */
-  timeout?: number
-  /**
-   * HTTP agent
-   */
-  agent?: object
-  /**
-   * Absolute URL
-   */
-  url?: string
-  /**
-   * Proxy URL; for HTTP use Agent instead
-   */
-  proxy?: string
-  /**
-   * URL querystring
-   */
-  qs?: object | string
-  /**
-   * application/x-www-form-urlencoded request body
-   */
-  form?: object | string
-  /**
-   * JSON encoded request body
-   */
-  json?: object | string
-  /**
-   * Raw request body
-   */
-  body?: string | Buffer | object
-  /**
-   * multipart/form-data as object or multipart/related as array
-   */
-  multipart?: object | []
-  /**
-   * OAuth 1.0a authentication
-   */
-  oauth?: object
-  /**
-   * Response encoding
-   */
-  encoding?: string
-  /**
-   * Redirect options
-   */
-  redirect?: object
-  /**
-   * Response body as buffer
+   * Return the response body as buffer
    */
   buffer?: boolean
   /**
-   * Response stream
+   * Return the response stream
    */
   stream?: boolean
   /**
@@ -164,7 +118,7 @@ export interface RequestOptions {
   /**
    * List of values to replace {auth} with, or basic auth
    */
-  auth?: string | [] | object
+  auth?: string | [] | AuthOptions
 }
 
 /**
@@ -310,7 +264,7 @@ export interface PurestMethods {
 /**
  * Purest request instance
  */
-export type PurestRequest = (options: RequestOptions) => Promise<PurestResponse>
+export type PurestRequest = (options: PurestOptions) => Promise<PurestResponse>
 
 /**
  * Purest endpoint instance
@@ -321,7 +275,7 @@ export type PurestEndpoint = (endpoint?: string) => PurestAPI
  * Purest chain instance
  */
 export interface PurestAPI {
-   /**
+  /**
    * Path part to replace the {path} with, or absolute URL
    */
   get(path?: string): PurestAPI
@@ -416,15 +370,15 @@ export interface PurestAPI {
   /**
    * Parsed response body
    */
-  request(options?: RequestOptions): Promise<PurestResponse>
+  request(options?: PurestOptions): Promise<ClientResponse>
   /**
    * Response body as buffer
    */
-  buffer(options?: RequestOptions): Promise<PurestResponse>
+  buffer(options?: PurestOptions): Promise<BufferResponse>
   /**
    * Response stream
    */
-  stream(options?: RequestOptions): Promise<PurestResponse>
+  stream(options?: PurestOptions): Promise<StreamResponse>
   /**
    * Origin part of the URL
    */
@@ -468,23 +422,14 @@ export interface PurestAPI {
 /**
  * Purest response
  */
-export interface PurestResponse {
-  /**
-   * Response object
-   */
-  res: object
-  /**
-   * Response body
-   */
-  body?: string | Buffer
-}
+export type PurestResponse = ClientResponse & BufferResponse & StreamResponse
 
 // ----------------------------------------------------------------------------
 
 /**
  * Purest
  */
-declare function purest (config: PurestInstanceConfig): PurestRequest & PurestEndpoint & PurestAPI
+declare function purest (config?: PurestInstanceConfig): PurestRequest & PurestEndpoint & PurestAPI
 
 /**
  * Purest
