@@ -20,7 +20,7 @@
   "dependencies": {
     "deep-extend": "github:simov/node-deep-extend#purest",
     "qs": "^6.9.6",
-    "request-compose": "^2.1.0",
+    "request-compose": "^2.1.1",
     "request-multipart": "^1.0.0",
     "request-oauth": "^1.0.1"
   },
