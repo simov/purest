@@ -32,14 +32,6 @@ var config = {
       "headers": {
         "authorization": "Bearer {auth}"
       }
-    },
-    "upload": {
-      "method": "POST",
-      "url": "https://content.dropboxapi.com/2/files/upload",
-      "headers": {
-        "authorization": "Bearer {auth}",
-        "content-type": "application/octet-stream"
-      }
     }
   }
 }
