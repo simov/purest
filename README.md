@@ -262,7 +262,7 @@ DEBUG=req,res,body,json node examples/file-name.js 'example name'
 | **OpenID Connect** | *Verify id_token* | `auth0` `google` `microsoft` | [Discover public keys and verify id_token signature][openid-connect]
 | **OAuth 1.0a** | _OAuth 1.0a_ | `flickr` `trello` `twitter` | [Get user profile][oauth-1]
 | **Storage** | _Multipart, Streams_ | `box` `dropbox` `drive` | [Upload files][file-stream]
-| **Storage** | _HTTP Streams_ | `box` `dropbox` | [Stream file from DropBox ot Box][http-stream]
+| **Storage** | _HTTP Streams_ | `box` `dropbox` | [Stream file from DropBox to Box][http-stream]
 
 > _Get access tokens using **[Grant]**_
 
