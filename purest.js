@@ -1,5 +1,5 @@
 
-var extend = require('deep-extend')
+var extend = require('@simov/deep-extend')
 var compose = require('./lib/client')
 var def = require('./config/methods')
 
