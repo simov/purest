@@ -1,7 +1,13 @@
 
 # Change Log
 
-## v4.0.0 (2020/02/08)
+## v4.0.2 (2022/03/12)
+- **Fix:** Bump deps
+
+## v4.0.1 (2021/03/15)
+- **Change:** Update type definitions
+
+## v4.0.0 (2021/02/08)
 - **New:** Complete rewrite of the module
 
 ## v3.1.0 (2016/12/21)
