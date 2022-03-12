@@ -1,7 +1,7 @@
 
 # Purest
 
-[![npm-version]][npm] [![travis-ci]][travis] [![coveralls-status]][coveralls]
+[![npm-version]][npm] [![test-ci-img]][test-ci-url] [![test-cov-img]][test-cov-url] [![snyk-vulnerabilities]][snyk]
 
 > _REST API Client Library_
 
@@ -31,7 +31,7 @@ await google
 
 ## Introduction
 
-> _**Purest** is a tool for creating **expressive** REST API clients_
+> _**Purest** is a tool for building **expressive** REST API clients_
 
 ### Default Endpoint
 
@@ -51,13 +51,13 @@ Here is a basic configuration for Google:
 }
 ```
 
-With it we can instantiate that provider:
+Our configuration can be used to instantiate that provider:
 
 ```js
 var google = purest({provider: 'google', config})
 ```
 
-Then we can request some data from YouTube:
+Finally we can request some data from YouTube:
 
 ```js
 var {res, body} = await google
@@ -69,7 +69,7 @@ var {res, body} = await google
 
 ### Explicit Endpoint
 
-We can define explicit endpoint for accessing YouTube:
+We can define explicit endpoint for accessing the YouTube API:
 
 ```json
 {
@@ -93,7 +93,7 @@ We can define explicit endpoint for accessing YouTube:
 }
 ```
 
-Then request the same data from YouTube:
+And then request the same data:
 
 ```js
 var {res, body} = await google('youtube')
@@ -105,7 +105,7 @@ var {res, body} = await google('youtube')
 
 ### Defaults
 
-Every method in Purest can also be passed as an option:
+Every method in Purest can also be preconfigured with a static value:
 
 ```js
 var google = purest({provider: 'google', config,
@@ -113,7 +113,7 @@ var google = purest({provider: 'google', config,
 })
 ```
 
-Then we no longer need to set the access token for every request:
+Then we no longer need to set the access token on every request:
 
 ```js
 var {res, body} = await google('youtube')
@@ -152,12 +152,12 @@ var {res, body} = await google('youtube')
 var google = purest({config: {}, provider: 'google', defaults: {}, methods: {}})
 ```
 
-Key | Type | Description
-:-| :-: | :-
-**`config`** | `{}` | Provider configuration to use
-**`provider`** | `''` | Provider name to initialize from the list of providers found in `config`
-**`defaults`** | `{}` | Any supported configuration option set by default, see below
-**`methods`** | `{}` | List of methods and their aliases to use with this instance
+| Key            | Type | Description
+| :-             | :-:  | :-
+| **`provider`** | `''` | Provider name to initialize from the list of providers found in `config`
+| **`config`**   | `{}` | Providers configuration to use
+| **`defaults`** | `{}` | Any supported configuration option set by default, see below
+| **`methods`**  | `{}` | List of methods and their aliases to use with this instance
 
 ---
 
@@ -167,13 +167,13 @@ Key | Type | Description
 
 ### URL Options
 
-Option | Description
-:- | :-
-`origin` | The protocol and domain part of the URL, can contain `{subdomain}` token
-`path` | The path part of the URL, can contain `{version}`, `{path}` and `{type}` tokens
-`subdomain` | Subdomain part of the URL to replace in `origin`
-`version` | Version string to replace in `path`
-`type` | Type string to replace in `path`, typically `json` or `xml`
+| Option      | Description
+| :-          | :-
+| `origin`    | The protocol and domain part of the URL, can contain `{subdomain}` token
+| `path`      | The path part of the URL, can contain `{version}`, `{path}` and `{type}` tokens
+| `subdomain` | Subdomain part of the URL to replace in `origin`
+| `version`   | Version string to replace in `path`
+| `type`      | Type string to replace in `path`, typically `json` or `xml`
 
 ### HTTP Methods
 
@@ -181,23 +181,23 @@ All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `c
 
 ### Request Options
 
-Option     | Type                  | Description
-:--        | :--                   | :--
-`method` | `'string'` | Request method, implicitly set if one of the above HTTP Methods is used
-`url`      | `'string'` [`url object`][url-parse] | Absolute URL, automatically constructed if the URL Options above are being used, or absolute URL is passed to any of the HTTP Methods above
-`proxy`    | `'string'` [`url object`][url-parse] | Proxy URL; for HTTPS you have to use [tunneling][tunnel-agent] [agent][proxy-agent] instead
-`qs`       | `{object}` `'string'` | URL querystring
-`headers` | `{object}` | Request headers
-`form`     | `{object}` `'string'` | `application/x-www-form-urlencoded` request body
-`json`     | `{object}` `'string'` | JSON encoded request body
-`multipart`| `{object}` `[array]`  | `multipart/form-data` as object or `multipart/related` as array request body using [request-multipart]
-`body`     | `'string'` [`Buffer`][buffer] [`Stream`][stream-readable] | Raw request body
-`auth`     | `'string'` `['string', 'string']` `{user, pass}`        | String or array of strings to replace the `{auth}` configuration token with, or Basic authorization as object
-`oauth`    | `{object}` | OAuth 1.0a authorization using [request-oauth]
-`encoding` | [`'string'`][buffer-encoding] | Response body encoding
-`redirect` | `{object}` | HTTP redirect [configuration][redirect-config]
-`timeout` | `number` | Request timeout in milliseconds
-`agent` | [`Agent`][agent] | HTTP agent
+| Option     | Type                  | Description
+| :--        | :--                   | :--
+| `method`   | `'string'` | Request method, implicitly set if one of the above HTTP Methods is used
+| `url`      | `'string'` [`url object`][url-parse] | Absolute URL, automatically constructed if the URL Options above are being used, or absolute URL is passed to any of the HTTP Methods above
+| `proxy`    | `'string'` [`url object`][url-parse] | Proxy URL; for HTTPS you have to use [tunneling][tunnel-agent] [agent][proxy-agent] instead
+| `qs`       | `{object}` `'string'` | URL querystring
+| `headers`  | `{object}` | Request headers
+| `form`     | `{object}` `'string'` | `application/x-www-form-urlencoded` request body
+| `json`     | `{object}` `'string'` | JSON encoded request body
+| `multipart`| `{object}` `[array]`  | `multipart/form-data` as object or `multipart/related` as array request body using [request-multipart]
+| `body`     | `'string'` [`Buffer`][buffer] [`Stream`][stream-readable] | Raw request body
+| `auth`     | `'string'` `['string', 'string']` `{user, pass}`        | String or array of strings to replace the `{auth}` configuration token with, or Basic authorization as object
+| `oauth`    | `{object}` | OAuth 1.0a authorization using [request-oauth]
+| `encoding` | [`'string'`][buffer-encoding] | Response body encoding
+| `redirect` | `{object}` | HTTP redirect [configuration][redirect-config]
+| `timeout`  | `number` | Request timeout in milliseconds
+| `agent`    | [`Agent`][agent] | HTTP agent
 
 ### Response Options
 
@@ -221,7 +221,7 @@ Returns the response [Stream][stream-incoming-message].
 
 ### Node Core Options
 
-Any other HTTP request option not explicitly exposed in Purest can be passed using any of the response methods:
+Any other HTTP request option not explicitly exposed in Purest can be set using any of the response methods:
 
 ```js
 await google.request({socketPath: ''})
@@ -267,15 +267,15 @@ DEBUG=req,res,body,json node examples/file-name.js 'example name'
 > _Get access tokens using **[Grant]**_
 
 
-  [npm-version]: https://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Package Version)
-  [travis-ci]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status - Travis CI)
-  [coveralls-status]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage - Coveralls)
-  [codecov-status]: https://img.shields.io/codecov/c/github/simov/purest/master.svg?style=flat-square (Test Coverage - Codecov)
+  [npm-version]: https://img.shields.io/npm/v/purest.svg?style=flat-square (NPM Version)
+  [test-ci-img]: https://img.shields.io/travis/simov/purest/master.svg?style=flat-square (Build Status)
+  [test-cov-img]: https://img.shields.io/coveralls/simov/purest.svg?style=flat-square (Test Coverage)
+  [snyk-vulnerabilities]: https://img.shields.io/snyk/vulnerabilities/npm/purest.svg?style=flat-square (Vulnerabilities)
 
   [npm]: https://www.npmjs.com/package/purest
-  [travis]: https://travis-ci.org/simov/purest
-  [coveralls]: https://coveralls.io/r/simov/purest?branch=master
-  [codecov]: https://codecov.io/github/simov/purest?branch=master
+  [test-ci-url]: https://github.com/simov/purest/actions/workflows/test.yml
+  [test-cov-url]: https://coveralls.io/r/simov/purest?branch=master
+  [snyk]: https://snyk.io/test/npm/purest
 
   [v3]: https://github.com/simov/purest/tree/3.x
   [v2]: https://github.com/simov/purest/tree/2.x
