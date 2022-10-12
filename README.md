@@ -51,13 +51,13 @@ Here is a basic configuration for Google:
 }
 ```
 
-Our configuration can be used to instantiate that provider:
+The above configuration can be used to instantiate that provider:
 
 ```js
 var google = purest({provider: 'google', config})
 ```
 
-Finally we can request some data from YouTube:
+Then we can request some data from YouTube:
 
 ```js
 var {res, body} = await google
@@ -113,7 +113,7 @@ var google = purest({provider: 'google', config,
 })
 ```
 
-Then we no longer need to set the access token on every request:
+Then we no longer need to set the access token on each request:
 
 ```js
 var {res, body} = await google('youtube')
@@ -124,7 +124,7 @@ var {res, body} = await google('youtube')
 
 ### Method Aliases
 
-But what if we want to make our API more expressive? What if we want to make it our own:
+But what if we want to make our API a bit more expressive? What if we want to make it our own:
 
 ```js
 var google = purest({provider: 'google', config,
@@ -177,7 +177,7 @@ var google = purest({config: {}, provider: 'google', defaults: {}, methods: {}})
 
 ### HTTP Methods
 
-All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `connect` accept a string to replace the `{path}` configuration token with, or absolute URL to replace the entire `url`.
+All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `connect` accept a string to replace the `{path}` configuration token with, or absolute URL to set the entire `url`.
 
 ### Request Options
 
@@ -201,21 +201,23 @@ All HTTP methods `get` `head` `post` `put` `patch` `options` `delete` `trace` `c
 
 ### Response Options
 
-`request`
-  - buffers the response body
-  - decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
-  - converts the response body to string using `utf8` encoding by default
-  - tries to parse `JSON` and `querystring` encoded bodies with valid `content-type` header
+#### `request`
+
+- buffers the response body
+- decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
+- converts the response body to string using `utf8` encoding by default
+- tries to parse `JSON` and `querystring` encoded bodies with valid `content-type` header
 
 Returns either String or Object.
 
-`buffer`
-  - buffers the response body
-  - decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
+#### `buffer`
+
+- buffers the response body
+- decompresses `gzip` and `deflate` encoded bodies with valid `content-encoding` header
 
 Returns [Buffer][buffer].
 
-`stream`
+#### `stream`
 
 Returns the response [Stream][stream-incoming-message].
 
@@ -256,8 +258,8 @@ npm i --save-dev request-logs
 DEBUG=req,res,body,json node examples/file-name.js 'example name'
 ```
 
-| Category | Topics | Providers | Examples
-| :-       | :-     | :-        | :-
+| Category | Topic | Providers | Example
+| :-       | :-    | :-        | :-
 | **OAuth 2.0** | _Refresh Access Tokens_ | `box` `google` `twitch` | [Refresh access tokens][refresh-token]
 | **OpenID Connect** | *Verify id_token* | `auth0` `google` `microsoft` | [Discover public keys and verify id_token signature][openid-connect]
 | **OAuth 1.0a** | _OAuth 1.0a_ | `flickr` `trello` `twitter` | [Get user profile][oauth-1]
