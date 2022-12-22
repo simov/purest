@@ -1,6 +1,9 @@
 
 # Change Log
 
+## v4.0.3 (2022/12/22)
+- **Change:** Update deps and docs
+
 ## v4.0.2 (2022/03/12)
 - **Fix:** Bump deps
 
