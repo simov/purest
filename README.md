@@ -105,7 +105,7 @@ var {res, body} = await google('youtube')
 
 ### Defaults
 
-Every method in Purest can also be preconfigured with a static value:
+Every method in Purest can also be preconfigured with a value:
 
 ```js
 var google = purest({provider: 'google', config,
@@ -124,7 +124,7 @@ var {res, body} = await google('youtube')
 
 ### Method Aliases
 
-But what if we want to make our API a bit more expressive? What if we want to make it our own:
+Each method in Purest can have multiple aliases defined for it:
 
 ```js
 var google = purest({provider: 'google', config,
@@ -133,7 +133,7 @@ var google = purest({provider: 'google', config,
 })
 ```
 
-Yes we can:
+And then use it like this:
 
 ```js
 var {res, body} = await google('youtube')

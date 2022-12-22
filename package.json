@@ -19,15 +19,15 @@
   },
   "dependencies": {
     "@simov/deep-extend": "^1.0.0",
-    "qs": "^6.10.3",
-    "request-compose": "^2.1.4",
+    "qs": "^6.11.0",
+    "request-compose": "^2.1.6",
     "request-multipart": "^1.0.0",
     "request-oauth": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^9.2.2",
+    "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "request-logs": "^2.1.4"
+    "request-logs": "^2.1.5"
   },
   "main": "./purest.js",
   "files": [
