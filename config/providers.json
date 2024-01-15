@@ -1115,7 +1115,7 @@
     },
     "contacts": {
       "origin": "https://www.google.com",
-      "path": "m8/feeds/{path",
+      "path": "m8/feeds/{path}",
       "headers": {
         "authorization": "Bearer {auth}",
         "GData-Version": "3.0"
